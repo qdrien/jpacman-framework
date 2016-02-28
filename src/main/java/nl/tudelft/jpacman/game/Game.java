@@ -1,8 +1,13 @@
 package nl.tudelft.jpacman.game;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.Player;
@@ -30,7 +35,7 @@ public abstract class Game implements LevelObserver {
 	protected Game() {
 		inProgress = false;
 	}
-
+    private ScheduledExecutorService service;
 	/**
 	 * Starts or resumes the game.
 	 */
@@ -56,12 +61,17 @@ public abstract class Game implements LevelObserver {
 			if (!isInProgress()) {
 				return;
 			}
+            if(service != null)
+            {
+                service.shutdownNow();
+            }
 			inProgress = false;
 			getLevel().stop();
 		}
 	}
 
 	/**
+     *
 	 * @return <code>true</code> iff the game is started and in progress.
 	 */
 	public boolean isInProgress() {
@@ -86,12 +96,24 @@ public abstract class Game implements LevelObserver {
 	 * @param direction
 	 *            The direction to move in.
 	 */
-	public void move(Player player, Direction direction) {
-		if (isInProgress()) {
-			// execute player move.
-			getLevel().move(player, direction);
-		}
-	}
+	public void move(Player player, Direction direction)
+    {
+		if (isInProgress())
+        {
+            Square location = player.getSquare();
+            Square destination = location.getSquareAt(direction);
+            if(destination.isAccessibleTo(player))
+            {
+                if(service != null)
+                {
+                    service.shutdownNow();
+                }
+                this.service = Executors.newSingleThreadScheduledExecutor();
+                service.schedule(new PlayerMoveTask(service, player, direction), player.getInterval(), TimeUnit.MILLISECONDS);
+            }
+        }
+    }
+
 	
 	@Override
 	public void levelWon() {
@@ -102,4 +124,44 @@ public abstract class Game implements LevelObserver {
 	public void levelLost() {
 		stop();
 	}
+
+
+    private final class PlayerMoveTask implements Runnable
+    {
+
+        /**
+         * The service executing the task.
+         */
+        private final ScheduledExecutorService s;
+
+        /**
+         * The player to move.
+         */
+        private final Player player;
+        private final Direction dir;
+        /**
+         * Creates a new task.
+         *
+         * @param s
+         *            The service that executes the task.
+         * @param p
+         *            The player to move.
+         */
+        private PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction) {
+            this.s = s;
+            this.player = p;
+            this.dir = direction;
+        }
+
+        @Override
+        public void run()
+        {
+            long interval = player.getInterval();
+            s.schedule(this, interval, TimeUnit.MILLISECONDS);
+            getLevel().move(player, dir);
+
+
+        }
+    }
+
 }

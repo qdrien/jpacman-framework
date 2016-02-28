@@ -14,6 +14,11 @@ import nl.tudelft.jpacman.sprite.Sprite;
  */
 public class Player extends Unit {
 
+    /**
+     * The base movement interval.
+     */
+    private static final int MOVE_INTERVAL = 230;
+
 	/**
 	 * The amount of points accumulated by this player.
 	 */
@@ -102,4 +107,9 @@ public class Player extends Unit {
 	public void addPoints(int points) {
 		score += points;
 	}
+
+    public long getInterval()
+    {
+        return MOVE_INTERVAL;
+    }
 }

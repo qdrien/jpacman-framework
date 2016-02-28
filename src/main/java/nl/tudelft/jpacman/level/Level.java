@@ -169,7 +169,8 @@ public class Level {
 	 * @param direction
 	 *            The direction to move the unit in.
 	 */
-	public void move(Unit unit, Direction direction) {
+	public void move(Unit unit, Direction direction)
+    {
 		assert unit != null;
 		assert direction != null;
 
@@ -177,7 +178,8 @@ public class Level {
 			return;
 		}
 
-		synchronized (moveLock) {
+		synchronized (moveLock)
+        {
 			unit.setDirection(direction);
 			Square location = unit.getSquare();
 			Square destination = location.getSquareAt(direction);
@@ -244,6 +246,7 @@ public class Level {
 			e.getValue().shutdownNow();
 		}
 	}
+
 
 	/**
 	 * Returns whether this level is in progress, i.e. whether moves can be made
@@ -347,6 +350,9 @@ public class Level {
 			service.schedule(this, interval, TimeUnit.MILLISECONDS);
 		}
 	}
+
+
+
 
 	/**
 	 * An observer that will be notified when the level is won or lost.
