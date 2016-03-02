@@ -60,6 +60,7 @@ public class LauncherSmokeTest {
     public void smokeTest() throws InterruptedException {
         Game game = launcher.getGame();        
         Player player = game.getPlayers().get(0);
+        player.setLives(1);
  
         // start cleanly.
         assertFalse(game.isInProgress());

@@ -51,7 +51,7 @@ public class PlayerCollisions implements CollisionMap {
      * @param ghost The ghost involved in the collision.
 	 */
 	public void playerVersusGhost(Player player, Ghost ghost) {
-		player.setAlive(false);
+        player.loseLife();
 	}
 	
 	/**
