@@ -95,16 +95,16 @@ public class PacManUiBuilder {
 	 * @param game
 	 *            The game to start.
 	 */
-	private void addStartButton(final Game game) {
-		assert game != null;
+    private void addStartButton(final Game game) {
+        assert game != null;
 
-		buttons.put(START_CAPTION, new Action() {
-			@Override
-			public void doAction() {
-				game.start();
-			}
-		});
-	}
+        buttons.put(START_CAPTION, new Action() {
+            @Override
+            public void doAction() {
+                game.start();
+            }
+        });
+    }
 
 	/**
 	 * Adds a key listener to the UI.
