@@ -30,7 +30,7 @@ import org.junit.Test;
 public class LauncherSmokeTest {
 	
 	private Launcher launcher;
-	
+
 	/**
 	 * Launch the user interface.
 	 */
