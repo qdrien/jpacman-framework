@@ -17,7 +17,7 @@ public class Player extends Unit {
     /**
      * The base movement interval.
      */
-    private static final int MOVE_INTERVAL = 230;
+    private static final int MOVE_INTERVAL = 200;
 
 	/**
 	 * The amount of points accumulated by this player.

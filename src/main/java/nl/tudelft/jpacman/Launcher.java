@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman;
 
+
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,8 +8,7 @@ import java.util.List;
 
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
-import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.game.GameFactory;
+import nl.tudelft.jpacman.game.*;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.MapParser;
@@ -20,17 +20,20 @@ import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
+
+
 /**
  * Creates and launches the JPacMan UI.
  * 
  * @author Jeroen Roosen 
  */
-public class Launcher {
+public class Launcher   {
 
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
 	private PacManUI pacManUI;
 	private Game game;
+    private Context context;
 
 	/**
 	 * @return The game object this launcher will start when {@link #launch()}
@@ -45,10 +48,11 @@ public class Launcher {
 	 * 
 	 * @return a new Game.
 	 */
-	public Game makeGame() {
-		GameFactory gf = getGameFactory();
+	public Game makeGame()
+    {
+        GameFactory gf = getGameFactory();
 		Level level = makeLevel();
-		return gf.createSinglePlayerGame(level);
+        return gf.createSinglePlayerGame(level);
 	}
 
 	/**
@@ -112,6 +116,7 @@ public class Launcher {
 		return new GameFactory(getPlayerFactory());
 	}
 
+
 	/**
 	 * @return A new factory using the sprites from {@link #getSpriteStore()}.
 	 */
@@ -128,14 +133,17 @@ public class Launcher {
 	 *            The game that will process the events.
 	 */
 	protected void addSinglePlayerKeys(final PacManUiBuilder builder,
-			final Game game) {
+			final Game game)
+    {
 		final Player p1 = getSinglePlayer(game);
 
 		builder.addKey(KeyEvent.VK_UP, new Action() {
 
 			@Override
-			public void doAction() {
-				game.move(p1, Direction.NORTH);
+			public void doAction()
+            {
+                game.move(p1, Direction.NORTH);
+
 			}
 		}).addKey(KeyEvent.VK_DOWN, new Action() {
 
@@ -151,11 +159,11 @@ public class Launcher {
 			}
 		}).addKey(KeyEvent.VK_RIGHT, new Action() {
 
-			@Override
-			public void doAction() {
-				game.move(p1, Direction.EAST);
-			}
-		});
+            @Override
+            public void doAction() {
+                game.move(p1, Direction.EAST);
+            }
+        });
 
 	}
 
@@ -174,10 +182,12 @@ public class Launcher {
 	public void launch() {
 		game = makeGame();
 		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-		addSinglePlayerKeys(builder, game);
+		//addSinglePlayerKeys(builder, game);
 		pacManUI = builder.build(game);
 		pacManUI.start();
-	}
+        game.setBuilder(builder);
+        game.buildWindow();
+    }
 
 	/**
 	 * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
@@ -197,4 +207,8 @@ public class Launcher {
 	public static void main(String[] args) throws IOException {
 		new Launcher().launch();
 	}
+
+
+
+
 }
