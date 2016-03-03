@@ -1,24 +1,24 @@
 package nl.tudelft.jpacman.level;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.google.common.collect.Lists;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
+import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
-
+import nl.tudelft.jpacman.npc.ghost.Ghost;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests various aspects of level.
- * 
- * @author Jeroen Roosen 
+ *
+ * @author Jeroen Roosen
  */
 public class LevelTest {
 
@@ -46,7 +46,7 @@ public class LevelTest {
 	 * The board for this level.
 	 */
 	private final Board board = mock(Board.class);
-	
+
 	/**
 	 * The collision map.
 	 */
@@ -153,4 +153,78 @@ public class LevelTest {
 		level.registerPlayer(p3);
 		verify(p3).occupy(square1);
 	}
+
+    /**
+     * Tests manhattan distance computation
+     */
+    @Test
+    public void manhattanDistanceTest() {
+        assert (Level.manhattanDistance(0, 0, 0, 1) == 1);
+        assert (Level.manhattanDistance(0, 0, 1, 1) == 2);
+    }
+
+    /**
+     * Tests if a square is effectively considered safe when no ghosts are occupying "neighbouring squares"
+     */
+    @Test
+    public void isSafeTrue() {
+        Square[][] grid = new Square[2][2];
+        Square x0y0 = mock(Square.class);
+        Square x0y1 = mock(Square.class);
+        Square x1y0 = mock(Square.class);
+        Square x1y1 = mock(Square.class);
+
+        ArrayList<Unit> units = new ArrayList<>();
+        when(x0y0.getOccupants()).thenReturn(units);
+
+        when(board.squareAt(0, 0)).thenReturn(x0y0);
+        when(board.squareAt(0, 1)).thenReturn(x0y1);
+        when(board.squareAt(1, 0)).thenReturn(x1y0);
+        when(board.squareAt(1, 1)).thenReturn(x1y1);
+
+        when(board.getWidth()).thenReturn(2);
+        when(board.getHeight()).thenReturn(2);
+
+        grid[0][0] = x0y0;
+        grid[0][1] = x0y1;
+        grid[1][0] = x1y0;
+        grid[1][1] = x1y1;
+        Board board = new Board(grid);
+
+        assertTrue(level.isSafe(0, 0));
+    }
+
+    /**
+     * Tests if a square is effectively considered unsafe when a ghosts is occupying a "neighbouring square"
+     */
+    @Test
+    public void isSafeFalse() {
+        Square[][] grid = new Square[2][2];
+        Square x0y0 = mock(Square.class);
+        Square x0y1 = mock(Square.class);
+        Square x1y0 = mock(Square.class);
+        Square x1y1 = mock(Square.class);
+
+        Ghost ghost = mock(Ghost.class);
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(ghost);
+
+        when(x0y0.getOccupants()).thenReturn(units);
+
+        when(board.squareAt(0, 0)).thenReturn(x0y0);
+        when(board.squareAt(0, 1)).thenReturn(x0y1);
+        when(board.squareAt(1, 0)).thenReturn(x1y0);
+        when(board.squareAt(1, 1)).thenReturn(x1y1);
+
+        when(board.getWidth()).thenReturn(2);
+        when(board.getHeight()).thenReturn(2);
+
+        grid[0][0] = x0y0;
+        grid[0][1] = x0y1;
+        grid[1][0] = x1y0;
+        grid[1][1] = x1y1;
+        Board board = new Board(grid);
+
+        assertFalse(level.isSafe(0, 1));
+    }
 }

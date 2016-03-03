@@ -5,8 +5,7 @@ import nl.tudelft.jpacman.game.Game;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Tests methods that have been added or modified in the Player class since v6.3.0
@@ -32,7 +31,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void testAddPoints() throws Exception {
+    public void addPoints() throws Exception {
         int score = player.getScore();
         int lives = player.getLives();
         player.addPoints(10);
@@ -46,7 +45,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void testLoseLife() throws Exception {
+    public void loseLife() throws Exception {
         int lives = player.getLives();
         player.loseLife();
         assert (lives - 1 == player.getLives());
@@ -57,7 +56,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void testDies() throws Exception {
+    public void dies() throws Exception {
         player.setLives(1);
         assert player.isAlive();
         player.loseLife();
@@ -69,7 +68,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void testAddLife() throws Exception {
+    public void addLife() throws Exception {
         int lives = player.getLives();
         player.addLife();
         assert (lives + 1 == player.getLives());

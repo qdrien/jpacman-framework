@@ -1,11 +1,12 @@
 package nl.tudelft.jpacman.level;
 
-import java.util.Map;
-
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A player operated unit in our game.
@@ -44,6 +45,11 @@ public class Player extends Unit {
 	private int lives = 3;
 
 	/**
+	 * The ArrayList of listeners that will be called when a player-related event occurs
+	 */
+	private ArrayList<PlayerListener> listeners;
+
+	/**
 	 * Creates a new player with a score of 0 points.
 	 *
 	 * @param spriteMap
@@ -57,6 +63,7 @@ public class Player extends Unit {
 		this.sprites = spriteMap;
 		this.deathSprite = deathAnimation;
 		deathSprite.setAnimating(false);
+		listeners = new ArrayList<>();
 	}
 
 	/**
@@ -127,10 +134,11 @@ public class Player extends Unit {
 	 * Removes one life from the player and check if he has none left afterwards
 	 */
 	public void loseLife() {
-		lives--;
+        lives--;
 		if (lives == 0) setAlive(false);
         else {
-            //TODO: teleport the player
+            //call the associated listeners (can only be one Level?)
+            listeners.forEach(l -> l.onPlayerLoseLife(this));
         }
 	}
 
@@ -156,4 +164,20 @@ public class Player extends Unit {
     public void setLives(int lives) {
         this.lives = lives;
     }
+
+	/**
+	 * Registers the given Level to the player so that he can communicate with it when needed
+	 * @param level The given Level that the player is playing on
+     */
+	public void register(Level level) {
+		listeners.add(level);
+	}
+
+	/**
+	 * Unregisters the given Level (if he was registered) so that it is no longer called when an event occurs
+	 * @param level The given Level that has to be removed
+     */
+	public void unregister(Level level) {
+		listeners.remove(level);
+	}
 }

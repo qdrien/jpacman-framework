@@ -1,29 +1,30 @@
 package nl.tudelft.jpacman.level;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
+import nl.tudelft.jpacman.npc.ghost.Ghost;
+
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A level of Pac-Man. A level consists of the board with the players and the
  * AIs on it.
- * 
- * @author Jeroen Roosen 
+ *
+ * @author Jeroen Roosen
  */
-public class Level {
+public class Level implements PlayerListener {
 
-	/**
+    private static final int UNSAFE_RANGE = 4;
+
+    /**
 	 * The board of this level.
 	 */
 	private final Board board;
@@ -77,7 +78,7 @@ public class Level {
 
 	/**
 	 * Creates a new level for the board.
-	 * 
+	 *
 	 * @param b
 	 *            The board for the level.
 	 * @param ghosts
@@ -108,7 +109,7 @@ public class Level {
 
 	/**
 	 * Adds an observer that will be notified when the level is won or lost.
-	 * 
+	 *
 	 * @param observer
 	 *            The observer that will be notified.
 	 */
@@ -121,7 +122,7 @@ public class Level {
 
 	/**
 	 * Removes an observer if it was listed.
-	 * 
+	 *
 	 * @param observer
 	 *            The observer to be removed.
 	 */
@@ -133,7 +134,7 @@ public class Level {
 	 * Registers a player on this level, assigning him to a starting position. A
 	 * player can only be registered once, registering a player again will have
 	 * no effect.
-	 * 
+	 *
 	 * @param p
 	 *            The player to register.
 	 */
@@ -146,6 +147,7 @@ public class Level {
 		}
 		players.add(p);
 		Square square = startSquares.get(startSquareIndex);
+		p.register(this);
 		p.occupy(square);
 		startSquareIndex++;
 		startSquareIndex %= startSquares.size();
@@ -153,7 +155,7 @@ public class Level {
 
 	/**
 	 * Returns the board of this level.
-	 * 
+	 *
 	 * @return The board of this level.
 	 */
 	public Board getBoard() {
@@ -163,7 +165,7 @@ public class Level {
 	/**
 	 * Moves the unit into the given direction if possible and handles all
 	 * collisions.
-	 * 
+	 *
 	 * @param unit
 	 *            The unit to move.
 	 * @param direction
@@ -248,7 +250,7 @@ public class Level {
 	/**
 	 * Returns whether this level is in progress, i.e. whether moves can be made
 	 * on the board.
-	 * 
+	 *
 	 * @return <code>true</code> iff this level is in progress.
 	 */
 	public boolean isInProgress() {
@@ -274,7 +276,7 @@ public class Level {
 	/**
 	 * Returns <code>true</code> iff at least one of the players in this level
 	 * is alive.
-	 * 
+	 *
 	 * @return <code>true</code> if at least one of the registered players is
 	 *         alive.
 	 */
@@ -289,7 +291,7 @@ public class Level {
 
 	/**
 	 * Counts the pellets remaining on the board.
-	 * 
+	 *
 	 * @return The amount of pellets remaining on the board.
 	 */
 	public int remainingPellets() {
@@ -307,10 +309,99 @@ public class Level {
 		return pellets;
 	}
 
-	/**
+    /**
+     * Called when a player that has registered this Level loses one life.
+     * If he has some more lives, he is moved on the board (away from ghosts)
+     * so that he can keep on playing from a safer place.
+     *
+     * @param p The Player that just lost one life
+     */
+    @Override
+    public void onPlayerLoseLife(Player p) {
+        if (p.getLives() > 0) {
+            ArrayList<Square> possibleSquares = getPossibleSquares();
+			if(possibleSquares.size() > 0){
+				Random r = new Random();
+				int targetSquareIndex = r.nextInt(possibleSquares.size());
+				p.occupy(possibleSquares.get(targetSquareIndex));
+			} else {
+				throw new PacmanConfigurationException("There is no safe square.");
+				//todo: should probably create another kind of exception
+			}
+
+        }
+    }
+
+    /**
+     * Retrieves possible target squares for the player by looking at ghosts positions.
+     *
+     * @return An ArrayList of Squares the player can move on
+     */
+    private ArrayList<Square> getPossibleSquares() {
+        assert players.get(0) != null;
+
+        int boardWidth = board.getWidth();
+        int boardHeight = board.getHeight();
+        ArrayList<Square> possibleSquares = new ArrayList<>();
+        for (int x = 0; x < boardWidth; x++){
+            for (int y = 0; y < boardHeight; y++){
+                Square square = board.squareAt(x, y);
+                if (square.isAccessibleTo(players.get(0)) && isSafe(x, y)) possibleSquares.add(square);
+            }
+        }
+        return possibleSquares;
+    }
+
+    /**
+     * Determine whether a Square (given by its coordinates) is safe for the player (i.e. no ghosts are too close)
+     *
+     * @param x The given horizontal coordinate of the Square we want to check
+     * @param y The given vertical coordinate of the Square we want to check
+     * @return true if it is safe, false otherwise
+     */
+    boolean isSafe(int x, int y) {
+        int minX, minY, maxX, maxY;
+
+        //Clamp values so that we stay within borders
+        minX = x - UNSAFE_RANGE < 0 ? 0 : x - UNSAFE_RANGE;
+        minY = y - UNSAFE_RANGE < 0 ? 0 : y - UNSAFE_RANGE;
+        maxX = x + UNSAFE_RANGE >= board.getWidth() ? board.getWidth() - 1 : x + UNSAFE_RANGE;
+        maxY = y + UNSAFE_RANGE >= board.getHeight() ? board.getHeight() - 1 : y + UNSAFE_RANGE;
+
+        //For each position in the rectangle produced by (minX,minY) and (maxX,maxY)
+        for(int currentX = minX; currentX < maxX; currentX++){
+            for(int currentY = minY; currentY < maxY; currentY++){
+                //as we considered a rectangle around the target square that contains too much squares,
+                // we need to filter (ignore) "out of range" neighbors (using manhattan distance)
+                if(manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) continue;
+                //If is is in "Manhattan range", we need to check whether there is a ghost on it
+                long count = board.squareAt(currentX, currentY).getOccupants().stream()
+                        .filter(p -> p instanceof Ghost)
+                        .count();
+                //If there is at least one Ghost on that square, the original square at (x,y) is not safe
+                if(count != 0) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns the Manhattan distance between two points p0 and p1 given by their coordinates
+     *
+     * @param x0 The horizontal coordinate of p0
+     * @param y0 The vertical coordinate of p0
+     * @param x1 The horizontal coordinate of p1
+     * @param y1 The vertical coordinate of p1
+     * @return The int value of the Manhattan distance between the given points
+     */
+    public static int manhattanDistance(int x0, int y0, int x1, int y1) {
+        return Math.abs(x0 - x1) + Math.abs(y0 - y1);
+    }
+
+    /**
 	 * A task that moves an NPC and reschedules itself after it finished.
-	 * 
-	 * @author Jeroen Roosen 
+	 *
+	 * @author Jeroen Roosen
 	 */
 	private final class NpcMoveTask implements Runnable {
 
@@ -326,7 +417,7 @@ public class Level {
 
 		/**
 		 * Creates a new task.
-		 * 
+		 *
 		 * @param s
 		 *            The service that executes the task.
 		 * @param n
@@ -350,8 +441,8 @@ public class Level {
 
 	/**
 	 * An observer that will be notified when the level is won or lost.
-	 * 
-	 * @author Jeroen Roosen 
+	 *
+	 * @author Jeroen Roosen
 	 */
 	public interface LevelObserver {
 
