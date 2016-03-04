@@ -47,6 +47,11 @@ public class HallOfFame
         return DEFAULT_HOF_PATH;
     }
 
+    public int getNumberOfRecordsKept()
+    {
+        return NUMBER_OF_RECORDS_KEPT;
+    }
+
     public void handleHOF(int pointsScored)
     {
         int bestScores[] = new int[10];
@@ -86,8 +91,14 @@ public class HallOfFame
                     bestScores[j] = bestScores[j - 1];
                     bestPlayers[j] = bestPlayers[j - 1];
                 }
-                String tmp = JOptionPane.showInputDialog(null, "Enter name: ", "New High Score!", JOptionPane.PLAIN_MESSAGE);
-                if (tmp.length() > NAME_LENGTH) tmp = tmp.substring(0, NAME_LENGTH);
+                String options[] = {"Ok"};
+                JPanel panel = new JPanel();
+                JLabel label = new JLabel("Enter your name: ");
+                JTextField userInput = new JTextField(NAME_LENGTH);
+                panel.add(label);
+                panel.add(userInput);
+                JOptionPane.showOptionDialog(null, panel, "New High Score!", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                String tmp = userInput.getText();
                 bestPlayers[i] = tmp;
                 bestScores[i] = score;
                 //Saving new Hall of Fame to file.
@@ -128,7 +139,7 @@ public class HallOfFame
         }
     }
 
-    private void resetHOF()
+    public void resetHOF()
     {
         Object options[] = {"Yes", "No"};
         int buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
@@ -138,7 +149,7 @@ public class HallOfFame
             {
                 FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
                 dest.transferFrom(src, 0, src.size());
-                JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reeet", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset", JOptionPane.PLAIN_MESSAGE);
             }
             catch (IOException e)
             {

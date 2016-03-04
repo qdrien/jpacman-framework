@@ -40,19 +40,18 @@ public class HallOfFameTest
         assertTrue(hallOfFameFile.lastModified() / 10000 == System.currentTimeMillis() / 10000);
     }
 
-/* Commented because the Hall of Fame shouldn't be reset every time the tests are run.
+// Note: running tests resets the Hall of Fame
     @Test
     public void hallOfFameResetTest() throws IOException
     {
         HOF.resetHOF();
         BufferedReader defaultHOFFileReader = new BufferedReader(new FileReader(HOF.getDefaultHofPath()));
         String current = reader.readLine(), base = defaultHOFFileReader.readLine();
-        while(current != null && base != null)
+        for (int i = 0; i < HOF.getNumberOfRecordsKept(); i++)
         {
             current += reader.readLine();
             base += defaultHOFFileReader.readLine();
         }
         assertEquals(current, base);
     }
-*/
 }
