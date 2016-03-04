@@ -1,0 +1,10 @@
+Tom 1500
+Maelick 1200
+Sarge 600
+TestA 500
+TestB 400
+TestC 300
+TestD 200
+ijio 130
+TestE 100
+Barberousse 10

@@ -1,6 +1,7 @@
 package nl.tudelft.jpacman.game;
 
 import java.util.List;
+import java.io.*;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
@@ -13,8 +14,7 @@ import nl.tudelft.jpacman.level.Player;
  * @author Jeroen Roosen 
  */
 public abstract class Game implements LevelObserver {
-
-	/**
+    /**
 	 * <code>true</code> if the game is in progress.
 	 */
 	private boolean inProgress;
@@ -24,7 +24,7 @@ public abstract class Game implements LevelObserver {
 	 */
 	private final Object progressLock = new Object();
 
-	/**
+    /**
 	 * Creates a new game.
 	 */
 	protected Game() {
@@ -57,7 +57,9 @@ public abstract class Game implements LevelObserver {
 				return;
 			}
 			inProgress = false;
-			getLevel().stop();
+            final HallOfFame HOF = new HallOfFame();
+            HOF.handleHOF(getPlayers().get(0).getScore());
+            getLevel().stop();
 		}
 	}
 
