@@ -75,12 +75,12 @@ public class HallOfFame
         }
 
         //Inserting eventual better score into Hall of Fame.
-        updateHOF(score, bestScores, bestPlayers);
+        updateHOF(bestScores, bestPlayers);
         //Displaying the HOF, regardless of whether it has been updated or not.
         displayHOF(bestScores, bestPlayers);
     }
 
-    private void updateHOF(int score, int[] bestScores, String[] bestPlayers)
+    private void updateHOF(int[] bestScores, String[] bestPlayers)
     {
         for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++)
         {
@@ -112,13 +112,13 @@ public class HallOfFame
     {
         String text = "";
         Object options[] = {"Leave", "Reset"};
-        for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
+        for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++) text += formatDisplay(bestPlayers[i]);
         int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if (buttonPressed == 1) resetHOF();
     }
 
     //Trying to align the displays in 2 columns.
-    private String formatDisplay(int score, String player)
+    private String formatDisplay(String player)
     {
         String padding = "";
         for (int i = NAME_LENGTH; i > player.length(); i--) padding += " ";
