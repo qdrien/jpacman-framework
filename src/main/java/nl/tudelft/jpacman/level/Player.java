@@ -1,11 +1,15 @@
 package nl.tudelft.jpacman.level;
 
+import java.io.*;
+import java.util.Arrays;
 import java.util.Map;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
+
+import javax.swing.*;
 
 /**
  * A player operated unit in our game.
@@ -34,7 +38,14 @@ public class Player extends Unit {
 	 */
 	private boolean alive;
 
-	/**
+    private static final int MAX_LOGIN_LENGTH = 25;
+    private static final int MAX_PASS_LENGTH = 15;
+    private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
+
+    private String playerName;
+
+
+    /**
 	 * Creates a new player with a score of 0 points.
 	 * 
 	 * @param spriteMap
@@ -49,6 +60,154 @@ public class Player extends Unit {
 		this.deathSprite = deathAnimation;
 		deathSprite.setAnimating(false);
 	}
+
+    public String getLoginPath()
+    {
+        return LOGIN_PATH;
+    }
+
+    /**
+     * Authenticates existing player profile.
+     */
+    public void authenticate()
+    {
+        String options[] = {"Ok", "Cancel"};
+        JPanel panel = new JPanel();
+        JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
+        JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
+        JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
+        panel.add(loginLabel);
+        panel.add(loginEntered);
+        panel.add(passLabel);
+        panel.add(passEntered);
+        do
+        {
+            int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (choice != 0) return;
+            playerName = loginEntered.getText();
+        }while(!checkLoginInfo(passEntered.getPassword()));
+        JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
+        //Security precaution
+        Arrays.fill(passEntered.getPassword(), '0');
+    }
+
+    /**
+     * Creates new player profile.
+     */
+    public void createNewPlayer()
+    {
+        boolean alreadyExists;
+        String options[] = {"Ok", "Cancel"};
+        JPanel panel = new JPanel();
+        JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
+        JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
+        JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
+        panel.add(loginLabel);
+        panel.add(loginEntered);
+        panel.add(passLabel);
+        panel.add(passEntered);
+        try
+        {
+            do
+            {
+                int choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                if (choice != 0) return;
+                playerName = loginEntered.getText();
+                alreadyExists = checkUsername(playerName);
+            }while (alreadyExists);
+            char pass[] = passEntered.getPassword();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
+            writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
+            //Security precaution
+            Arrays.fill(pass, '0');
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkUsername(String name) throws IOException
+    {
+        String line;
+        BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+        while ((line = reader.readLine()) != null)
+        {
+            if (name.equals(line.split(" ")[0]))
+            {
+                JOptionPane.showMessageDialog(null, "Profile already exists", "Error", JOptionPane.PLAIN_MESSAGE);
+                return true;
+            }
+        }
+        reader.close();
+        return false;
+    }
+
+    private boolean checkLoginInfo(char passEntered[])
+    {
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+            String line = reader.readLine();
+            while (line != null)
+            {
+                String split[] = line.split(" ");
+                String login = split[0];
+                char pass[] = split[1].toCharArray();
+                final int a = Arrays.hashCode(passEntered), b = Integer.parseInt(split[1]);
+                if (login.equals(playerName) && a == b)
+                {
+                    return true;
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error whilst reading login.txt "+e.getMessage());
+        }
+        JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error", JOptionPane.PLAIN_MESSAGE);
+        return false;
+    }
+
+    private void newPassword()
+    {
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+            String line = reader.readLine(), toWrite = "";
+            while (line != null)
+            {
+                String login[] = line.split(" ");
+                if (playerName.equals(login[0]))
+                {
+                    String newPwd = JOptionPane.showInputDialog(null, "Enter new password", "Password change", JOptionPane.PLAIN_MESSAGE);
+                    toWrite += playerName + " " + Arrays.hashCode(newPwd.toCharArray()) + "\n";
+                }
+                else
+                {
+                    toWrite += line + "\n";
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH));
+            writer.write(toWrite);
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public String getPlayerName()
+    {
+        return playerName;
+    }
 
 	/**
 	 * Returns whether this player is alive or not.

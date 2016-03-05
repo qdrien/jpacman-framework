@@ -174,7 +174,23 @@ public class Launcher {
 	public void launch() {
 		game = makeGame();
 		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-		addSinglePlayerKeys(builder, game);
+		builder.addButton("Identification", new Action()
+        {
+            @Override
+            public void doAction()
+            {
+                game.getPlayers().get(0).authenticate();
+            }
+        });
+        builder.addButton("New player", new Action()
+        {
+            @Override
+            public void doAction()
+            {
+                game.getPlayers().get(0).createNewPlayer();
+            }
+        });
+        addSinglePlayerKeys(builder, game);
 		pacManUI = builder.build(game);
 		pacManUI.start();
 	}
