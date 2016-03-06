@@ -38,11 +38,10 @@ public class Player extends Unit {
 	 */
 	private boolean alive;
 
-    private static final int MAX_LOGIN_LENGTH = 25;
-    private static final int MAX_PASS_LENGTH = 15;
+    private static final int MAX_LOGIN_LENGTH = 25, MAX_PASS_LENGTH = 15;
     private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
 
-    private String playerName;
+    private String playerName, profilePath;
 
 
     /**
@@ -116,9 +115,7 @@ public class Player extends Unit {
                 alreadyExists = checkUsername(playerName);
             }while (alreadyExists);
             char pass[] = passEntered.getPassword();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
-            writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
-            writer.close();
+            createProfile(pass);
             JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             //Security precaution
             Arrays.fill(pass, '0');
@@ -127,6 +124,14 @@ public class Player extends Unit {
         {
             e.printStackTrace();
         }
+    }
+
+    private void createProfile(char pass[]) throws IOException
+    {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
+        writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
+        writer.close();
+//        writer = new BufferedWriter(new FileWriter(""));
     }
 
     private boolean checkUsername(String name) throws IOException

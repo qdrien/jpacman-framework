@@ -7,14 +7,9 @@ import java.nio.channels.FileChannel;
 public class HallOfFame
 {
     /**
-     * Number of best scores stored in the hall of fame.
+     * Number of best scores stored in the hall of fame and longest names allowed in hall of fame.
      */
-    private static final int NUMBER_OF_RECORDS_KEPT = 10;
-
-    /**
-     * Longest names allowed in hall of fame.
-     */
-    private static final int NAME_LENGTH = 25;
+    private static final int NUMBER_OF_RECORDS_KEPT = 10, NAME_LENGTH = 25;
 
     /**
      * Relative path of the default Hall of Fame.

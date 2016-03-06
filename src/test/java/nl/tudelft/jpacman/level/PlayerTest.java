@@ -1,5 +1,8 @@
 package nl.tudelft.jpacman.level;
 
+import nl.tudelft.jpacman.sprite.AnimatedSprite;
+import nl.tudelft.jpacman.sprite.Sprite;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -10,17 +13,26 @@ import static org.junit.Assert.assertTrue;
 
 public class PlayerTest
 {
+    private Player testPlayer;
+
+    @Before
+    public void init()
+    {
+        Sprite sprites[] = new Sprite[1];
+        testPlayer = new Player(null, new AnimatedSprite(sprites, 1, false));
+    }
+
     @Test
     public void testPlayerCreation()
     {
-        PlayerInfo testInfo = new PlayerInfo(true);
-        assertTrue(new File(testInfo.getLoginPath()).lastModified() / 10000 == System.currentTimeMillis() / 10000);
+        testPlayer.createNewPlayer();
+        assertTrue(new File(testPlayer.getLoginPath()).lastModified() / 10000 == System.currentTimeMillis() / 10000);
     }
 
     @Test
     public void testAuthentification()
     {
-        PlayerInfo testInfo = new PlayerInfo(false);
-        assertNotEquals(testInfo.getPlayerName(), "");
+        testPlayer.authenticate();
+        assertNotEquals(testPlayer.getPlayerName(), "");
     }
 }
