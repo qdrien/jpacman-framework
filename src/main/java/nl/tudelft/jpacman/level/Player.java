@@ -6,6 +6,7 @@ import java.util.Map;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
+import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
@@ -67,8 +68,9 @@ public class Player extends Unit {
 
     /**
      * Authenticates existing player profile.
+     * @return Whether the identification was carried through or cancelled.
      */
-    public void authenticate()
+    public boolean authenticate()
     {
         String options[] = {"Ok", "Cancel"};
         JPanel panel = new JPanel();
@@ -82,12 +84,95 @@ public class Player extends Unit {
         do
         {
             int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if (choice != 0) return;
+            if (choice != 0) return false;
             playerName = loginEntered.getText();
         }while(!checkLoginInfo(passEntered.getPassword()));
+        setProfilePath();
         JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
+        return true;
+    }
+
+    private void setProfilePath()
+    {
+        profilePath = new File("").getAbsolutePath()+"/src/main/resources/profiles/" + playerName + ".prf";
+    }
+
+    public void setProfilePath(String s)
+    {
+        profilePath = s;
+    }
+
+    public void getAchievements()
+    {
+        if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;
+        String toDisplay = "";
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+            String achievementName;
+            while ((achievementName = reader.readLine()) != null)
+            {
+                String achievementDescription;
+                achievementDescription = Achievement.parseAchievement(achievementName).getDescription();
+                toDisplay += achievementName + ": " + achievementDescription + "\n";
+            }
+            reader.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
+    }
+
+    private int displayChoiceBox(String[] options, String label, String title)
+    {
+        JPanel panel = new JPanel();
+        JLabel text = new JLabel(label);
+        panel.add(text);
+        return JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    }
+
+    public void addAchievement(Achievement achievement)
+    {
+        //If the achievement has already been obtained by this player, don't add it.
+        if (checkAchievement(achievement)) return;
+        try
+        {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
+            writer.write(achievement+"\n");
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        int bonus = achievement.getBonusScore();
+        score += bonus;
+        JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + "points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private boolean checkAchievement(Achievement achievement)
+    {
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                //Removing whitespace just in case the file has been manually edited.
+                line = line.replaceAll("\\s+", "");
+                if (line.equals(""+achievement)) return true;
+            }
+            reader.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -95,7 +180,6 @@ public class Player extends Unit {
      */
     public void createNewPlayer()
     {
-        boolean alreadyExists;
         String options[] = {"Ok", "Cancel"};
         JPanel panel = new JPanel();
         JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
@@ -112,8 +196,7 @@ public class Player extends Unit {
                 int choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
-                alreadyExists = checkUsername(playerName);
-            }while (alreadyExists);
+            }while (checkUsername(playerName));
             char pass[] = passEntered.getPassword();
             createProfile(pass);
             JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
@@ -131,7 +214,13 @@ public class Player extends Unit {
         BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
         writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
         writer.close();
-//        writer = new BufferedWriter(new FileWriter(""));
+        //Creating "profiles" subdirectory if necessary.
+        new File(new File("").getAbsolutePath()+"/src/main/resources/profiles").mkdir();
+        //Creating the profile file for the new user.
+        setProfilePath();
+        writer = new BufferedWriter(new FileWriter(profilePath));
+        writer.write("");
+        writer.close();
     }
 
     private boolean checkUsername(String name) throws IOException
@@ -172,7 +261,7 @@ public class Player extends Unit {
         }
         catch (IOException e)
         {
-            System.out.println("Error whilst reading login.txt "+e.getMessage());
+            System.out.println("Error whilst reading login.txt " + e.getMessage());
         }
         JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error", JOptionPane.PLAIN_MESSAGE);
         return false;
