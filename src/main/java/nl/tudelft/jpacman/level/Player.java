@@ -44,6 +44,7 @@ public class Player extends Unit {
 
     private String playerName, profilePath;
 
+    private boolean poweredUp = false;
 
     /**
 	 * Creates a new player with a score of 0 points.
@@ -355,4 +356,9 @@ public class Player extends Unit {
 	public void addPoints(int points) {
 		score += points;
 	}
+
+    public boolean isPoweredUp()
+    {//PoweredUp is always false for now, since the "superpellet" isn't implemented.
+        return poweredUp;
+    }
 }

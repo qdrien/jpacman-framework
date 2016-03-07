@@ -16,7 +16,9 @@ import nl.tudelft.jpacman.sprite.Sprite;
  * @author Jeroen Roosen 
  */
 public abstract class Ghost extends NPC {
-	
+
+    private final int value = 10;
+
 	/**
 	 * The sprite map, one sprite for each direction.
 	 */
@@ -57,4 +59,9 @@ public abstract class Ghost extends NPC {
 		int i = new Random().nextInt(directions.size());
 		return directions.get(i);
 	}
+
+    public int getValue()
+    {
+        return value;
+    }
 }
