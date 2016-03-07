@@ -47,7 +47,7 @@ public class HallOfFame
         return NUMBER_OF_RECORDS_KEPT;
     }
 
-    public void handleHOF(int pointsScored)
+    public void handleHOF(int pointsScored, String playerName)
     {
         int bestScores[] = new int[10];
         String bestPlayers[] = new String[10];
@@ -70,12 +70,12 @@ public class HallOfFame
         }
 
         //Inserting eventual better score into Hall of Fame.
-        updateHOF(bestScores, bestPlayers);
+        updateHOF(bestScores, bestPlayers, playerName);
         //Displaying the HOF, regardless of whether it has been updated or not.
         displayHOF(bestScores, bestPlayers);
     }
 
-    private void updateHOF(int[] bestScores, String[] bestPlayers)
+    private void updateHOF(int[] bestScores, String[] bestPlayers, String playerName)
     {
         for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++)
         {
@@ -86,21 +86,33 @@ public class HallOfFame
                     bestScores[j] = bestScores[j - 1];
                     bestPlayers[j] = bestPlayers[j - 1];
                 }
-                String options[] = {"Ok"};
-                JPanel panel = new JPanel();
-                JLabel label = new JLabel("Enter your name: ");
-                JTextField userInput = new JTextField(NAME_LENGTH);
-                panel.add(label);
-                panel.add(userInput);
-                JOptionPane.showOptionDialog(null, panel, "New High Score!", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-                String tmp = userInput.getText();
-                bestPlayers[i] = tmp;
+                //In case the player isn't logged in.
+                if (playerName == null)
+                {
+                    bestPlayers[i] = askName();
+                }
+                else
+                {
+                    bestPlayers[i] = playerName;
+                }
                 bestScores[i] = score;
                 //Saving new Hall of Fame to file.
                 saveUpdatedHOF(bestScores, bestPlayers);
                 break;
             }
         }
+    }
+
+    private String askName()
+    {
+        String options[] = {"Ok"};
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Enter your name: ");
+        JTextField userInput = new JTextField(NAME_LENGTH);
+        panel.add(label);
+        panel.add(userInput);
+        JOptionPane.showOptionDialog(null, panel, "New High Score!", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        return userInput.getText();
     }
 
     private void displayHOF(int bestScores[], String bestPlayers[])

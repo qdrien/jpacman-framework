@@ -35,7 +35,7 @@ public class HallOfFameTest
     public void hallOfFameUpdateTest()
     {
         File hallOfFameFile = new File(path);
-        HOF.handleHOF(Integer.MAX_VALUE);
+        HOF.handleHOF(Integer.MAX_VALUE, "TESTPLAYER");
         //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
         assertTrue(hallOfFameFile.lastModified() / 10000 == System.currentTimeMillis() / 10000);
     }
