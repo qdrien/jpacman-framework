@@ -11,8 +11,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -159,8 +158,8 @@ public class LevelTest {
      */
     @Test
     public void manhattanDistanceTest() {
-        assert (Level.manhattanDistance(0, 0, 0, 1) == 1);
-        assert (Level.manhattanDistance(0, 0, 1, 1) == 2);
+		assertEquals(1, Level.manhattanDistance(0, 0, 0, 1));
+		assertEquals(2, Level.manhattanDistance(0, 0, 1, 1));
     }
 
     /**

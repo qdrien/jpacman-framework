@@ -1,12 +1,11 @@
 package nl.tudelft.jpacman.game;
 
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Player;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
 
 /**
  * A game with one player and a single level.
@@ -23,9 +22,9 @@ public class SinglePlayerGame extends Game {
 	/**
 	 * The level of this game.
 	 */
-	private final Level level;
+	private Level level;
 
-	/**
+    /**
 	 * Create a new single player game for the provided level and player.
 	 * 
 	 * @param p
@@ -47,12 +46,28 @@ public class SinglePlayerGame extends Game {
 		return ImmutableList.of(player);
 	}
 
+    /**
+     * Simple getter for current Level
+     * @return
+     */
 	@Override
 	public Level getLevel() {
 		return level;
 	}
 
-	/**
+    /**
+     * This method deals with levelWon event by bringing the user to the next level
+     */
+    @Override
+    public void levelWon() {
+        super.levelWon();
+        player.unregister(level);
+        Level level = launcher.nextLevel();
+        setLevel(level);
+        level.registerPlayer(player);
+    }
+
+    /**
 	 * Moves the player one square to the north if possible.
 	 */
 	public void moveUp() {
@@ -80,4 +95,11 @@ public class SinglePlayerGame extends Game {
 		move(player, Direction.EAST);
 	}
 
+    /**
+     * Sets the current level to the given one
+     * @param level The Level that is to be played
+     */
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }

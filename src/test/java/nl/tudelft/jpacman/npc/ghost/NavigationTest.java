@@ -1,28 +1,19 @@
 package nl.tudelft.jpacman.npc.ghost;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-
-import java.io.IOException;
-import java.util.List;
-
-import nl.tudelft.jpacman.board.Board;
-import nl.tudelft.jpacman.board.BoardFactory;
-import nl.tudelft.jpacman.board.Direction;
-import nl.tudelft.jpacman.board.Square;
-import nl.tudelft.jpacman.board.Unit;
+import com.google.common.collect.Lists;
+import nl.tudelft.jpacman.board.*;
 import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.MapParser;
 import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.sprite.PacManSprites;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * Tests the various methods provided by the {@link Navigation} class.
@@ -154,7 +145,7 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testFullSizedLevel() throws IOException {
-		Board b = parser.parseMap(getClass().getResourceAsStream("/board.txt")).getBoard();
+		Board b = parser.parseMap(getClass().getResourceAsStream("/board1.txt")).getBoard();
 		Square s1 = b.squareAt(1, 1);
 		Unit unit = Navigation.findNearest(Ghost.class, s1);
 		assertNotNull(unit);

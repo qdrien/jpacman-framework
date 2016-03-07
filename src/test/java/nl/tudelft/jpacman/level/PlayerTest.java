@@ -5,6 +5,7 @@ import nl.tudelft.jpacman.game.Game;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 /**
@@ -35,9 +36,9 @@ public class PlayerTest {
         int score = player.getScore();
         int lives = player.getLives();
         player.addPoints(10);
-        assert(score + 10 == player.getScore());
+        assertEquals(score + 10, player.getScore());
         player.addPoints(10000); //TODO: check with inf
-        assert(lives + 1 == player.getLives());
+        assertEquals(lives + 1, player.getLives());
     }
 
     /**
@@ -48,7 +49,7 @@ public class PlayerTest {
     public void loseLife() throws Exception {
         int lives = player.getLives();
         player.loseLife();
-        assert (lives - 1 == player.getLives());
+        assertEquals(lives - 1, player.getLives());
     }
 
     /**
@@ -71,6 +72,6 @@ public class PlayerTest {
     public void addLife() throws Exception {
         int lives = player.getLives();
         player.addLife();
-        assert (lives + 1 == player.getLives());
+        assertEquals(lives + 1, player.getLives());
     }
 }

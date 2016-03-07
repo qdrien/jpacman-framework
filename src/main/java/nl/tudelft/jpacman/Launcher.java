@@ -1,24 +1,20 @@
 package nl.tudelft.jpacman;
 
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
-import nl.tudelft.jpacman.level.Level;
-import nl.tudelft.jpacman.level.LevelFactory;
-import nl.tudelft.jpacman.level.MapParser;
-import nl.tudelft.jpacman.level.Player;
-import nl.tudelft.jpacman.level.PlayerFactory;
+import nl.tudelft.jpacman.level.*;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
 import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
+
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * Creates and launches the JPacMan UI.
@@ -32,7 +28,12 @@ public class Launcher {
 	private PacManUI pacManUI;
 	private Game game;
 
-	/**
+    /**
+     * The current level id
+     */
+    private int currentLevel = 0;
+
+    /**
 	 * @return The game object this launcher will start when {@link #launch()}
 	 *         is called.
 	 */
@@ -53,14 +54,28 @@ public class Launcher {
 
 	/**
 	 * Creates a new level. By default this method will use the map parser to
-	 * parse the default board stored in the <code>board.txt</code> resource.
+	 * parse the default board stored in the <code>board1.txt</code> resource (=level 1).
 	 * 
-	 * @return A new level.
+	 * @return level 1.
 	 */
 	public Level makeLevel() {
+		return makeLevel(1);
+	}
+
+    /**
+     * Creates a new level. Uses the map parser to
+     * parse the desired board file.
+     *
+     * @return A new level.
+     */
+	public Level makeLevel(int id) {
 		MapParser parser = getMapParser();
-		try (InputStream boardStream = Launcher.class
-				.getResourceAsStream("/board.txt")) {
+		String file = "/board" + id + ".txt";
+        System.out.println("Loading " + file);
+        try (InputStream boardStream = Launcher.class
+				.getResourceAsStream(file)) {
+            if(boardStream == null) return null;
+            currentLevel = id;
 			return parser.parseMap(boardStream);
 		} catch (IOException e) {
 			throw new PacmanConfigurationException("Unable to create level.", e);
@@ -173,6 +188,7 @@ public class Launcher {
 	 */
 	public void launch() {
 		game = makeGame();
+		game.setLauncher(this);
 		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
 		addSinglePlayerKeys(builder, game);
 		pacManUI = builder.build(game);
@@ -197,4 +213,25 @@ public class Launcher {
 	public static void main(String[] args) throws IOException {
 		new Launcher().launch();
 	}
+
+    /**
+     * Returns the next level and increments the currentLevel field
+     * @return The new(and next) level
+     */
+    public Level nextLevel() {
+        Level level = makeLevel(++currentLevel);
+        if (level == null) {
+            //TODO: end game properly or make a nearly impossible level and restart it until the player dies?
+            level = makeLevel(--currentLevel);
+        }
+        return level;
+    }
+
+    /**
+     * Simple getter for currentLevel
+     * @return The id of the current level
+     */
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 }

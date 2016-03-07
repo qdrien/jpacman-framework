@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class Level implements PlayerListener {
 
     private static final int UNSAFE_RANGE = 4;
+    private static final boolean QUICK_WIN = true; //TODO: remove this "dev" field
 
     /**
 	 * The board of this level.
@@ -76,7 +77,12 @@ public class Level implements PlayerListener {
 	 */
 	private final List<LevelObserver> observers;
 
-	/**
+    /**
+     * The amount of pellets there were when the level started
+     */
+    private int originalPelletCount = -1;
+
+    /**
 	 * Creates a new level for the board.
 	 *
 	 * @param b
@@ -261,12 +267,13 @@ public class Level implements PlayerListener {
 	 * Updates the observers about the state of this level.
 	 */
 	private void updateObservers() {
+        if(originalPelletCount == -1) originalPelletCount = remainingPellets();
 		if (!isAnyPlayerAlive()) {
 			for (LevelObserver o : observers) {
 				o.levelLost();
 			}
 		}
-		if (remainingPellets() == 0) {
+		if (remainingPellets() == 0 || QUICK_WIN && originalPelletCount - remainingPellets() == 13) {
 			for (LevelObserver o : observers) {
 				o.levelWon();
 			}
@@ -398,7 +405,7 @@ public class Level implements PlayerListener {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
     }
 
-    /**
+	/**
 	 * A task that moves an NPC and reschedules itself after it finished.
 	 *
 	 * @author Jeroen Roosen
