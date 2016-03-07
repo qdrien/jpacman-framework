@@ -1,7 +1,6 @@
 package nl.tudelft.jpacman.game;
 
 import java.util.List;
-import java.io.*;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
@@ -57,8 +56,6 @@ public abstract class Game implements LevelObserver {
 				return;
 			}
 			inProgress = false;
-            final HallOfFame HOF = new HallOfFame();
-            HOF.handleHOF(getPlayers().get(0).getScore());
             getLevel().stop();
 		}
 	}
@@ -98,10 +95,18 @@ public abstract class Game implements LevelObserver {
 	@Override
 	public void levelWon() {
 		stop();
+        triggerHOF();
 	}
 	
 	@Override
 	public void levelLost() {
 		stop();
+        triggerHOF();
 	}
+
+    private void triggerHOF()
+    {
+        final HallOfFame HOF = new HallOfFame();
+        HOF.handleHOF(getPlayers().get(0).getScore());
+    }
 }
