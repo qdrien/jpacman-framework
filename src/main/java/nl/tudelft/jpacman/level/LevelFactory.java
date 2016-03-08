@@ -150,7 +150,7 @@ public class LevelFactory {
 		 *            The sprite for the ghost.
 		 */
 		private RandomGhost(Map<Direction, Sprite> ghostSprite) {
-			super(ghostSprite);
+			super(ghostSprite, GhostColor.RED);
 		}
 
 		@Override

@@ -57,6 +57,7 @@ public class PlayerCollisions implements CollisionMap {
         }
         else
         {
+            player.killedBy(ghost.getIdentity());
             player.setAlive(false);
         }
 	}

@@ -7,6 +7,7 @@ import java.util.Map;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.game.Achievement;
+import nl.tudelft.jpacman.npc.ghost.GhostColor;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
@@ -108,16 +109,14 @@ public class Player extends Unit {
     public void getAchievements()
     {
         if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;
-        String toDisplay = "";
+        String toDisplay = "<html>";
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            String achievementName;
+            String achievementName = reader.readLine(); //first line ignored, it contains other other information
             while ((achievementName = reader.readLine()) != null)
             {
-                String achievementDescription;
-                achievementDescription = Achievement.parseAchievement(achievementName).getDescription();
-                toDisplay += achievementName + ": " + achievementDescription + "\n";
+                toDisplay += achievementName + ": " + Achievement.parseAchievement(achievementName).getDescription() + "<br>";
             }
             reader.close();
         }
@@ -125,7 +124,10 @@ public class Player extends Unit {
         {
             e.printStackTrace();
         }
-        displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
+        toDisplay += "</html>";
+        if (toDisplay.equals("<html></html>")) JOptionPane.showMessageDialog(null, "No achievements obtained yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        else displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
+
     }
 
     private int displayChoiceBox(String[] options, String label, String title)
@@ -138,12 +140,12 @@ public class Player extends Unit {
 
     public void addAchievement(Achievement achievement)
     {
-        //If the achievement has already been obtained by this player, don't add it.
-        if (checkAchievement(achievement)) return;
+        //If the achievement has already been obtained by this player (or the player isn't logged in), don't add it.
+        if (playerName == null || checkAchievement(achievement)) return;
         try
         {
             BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
-            writer.write(achievement+"\n");
+            writer.write(achievement + System.getProperty("line.separator"));
             writer.close();
         }
         catch (IOException e)
@@ -152,20 +154,21 @@ public class Player extends Unit {
         }
         int bonus = achievement.getBonusScore();
         score += bonus;
-        JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + "points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
     private boolean checkAchievement(Achievement achievement)
     {
+        boolean found = false;
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            String line;
+            String line = reader.readLine(); //the first line is ignored, since it contains other information.
             while ((line = reader.readLine()) != null)
             {
                 //Removing whitespace just in case the file has been manually edited.
                 line = line.replaceAll("\\s+", "");
-                if (line.equals(""+achievement)) return true;
+                if (line.equals(achievement.toString())) found = true;
             }
             reader.close();
         }
@@ -173,7 +176,7 @@ public class Player extends Unit {
         {
             e.printStackTrace();
         }
-        return false;
+        return found;
     }
 
     /**
@@ -220,7 +223,8 @@ public class Player extends Unit {
         //Creating the profile file for the new user.
         setProfilePath();
         writer = new BufferedWriter(new FileWriter(profilePath));
-        writer.write("");
+        //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
+        writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
         writer.close();
     }
 
@@ -250,19 +254,14 @@ public class Player extends Unit {
             {
                 String split[] = line.split(" ");
                 String login = split[0];
-                char pass[] = split[1].toCharArray();
-                final int a = Arrays.hashCode(passEntered), b = Integer.parseInt(split[1]);
-                if (login.equals(playerName) && a == b)
-                {
-                    return true;
-                }
+                if (login.equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
                 line = reader.readLine();
             }
             reader.close();
         }
         catch (IOException e)
         {
-            System.out.println("Error whilst reading login.txt " + e.getMessage());
+            System.err.println("Error whilst reading login.txt " + e.getMessage());
         }
         JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error", JOptionPane.PLAIN_MESSAGE);
         return false;
@@ -297,6 +296,106 @@ public class Player extends Unit {
         {
             e.printStackTrace();
         }
+    }
+
+    public void levelCompleted()
+    {
+        if (playerName == null) return;
+        try
+        {
+            String split[] = readInfoLine();
+            int levelsCompleted = Integer.parseInt(split[0]) + 1;
+            updateInfoLine(levelsCompleted + Arrays.toString(Arrays.copyOfRange(split, 1, split.length)));
+            if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private String[] readInfoLine() throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        String split[] = reader.readLine().split(" ");
+        reader.close();
+        return split;
+    }
+
+    public void killedBy(GhostColor killer)
+    {
+        if (playerName == null) return;
+        int toAlter;
+        switch (killer)
+        {
+            case RED:
+                toAlter = 4;
+                addAchievement(Achievement.SPEEDY_DEATH);
+                break;
+            case PINK:
+                toAlter = 5;
+                addAchievement(Achievement.AMBUSHED);
+                break;
+            case CYAN:
+                toAlter = 6;
+                break;
+            case ORANGE:
+                toAlter = 7;
+                break;
+            default:
+                return;
+        }
+         try
+        {
+            String split[] = readInfoLine(), toWrite = "";
+            for (int i = 0; i < split.length; i++)
+            {
+                if (i == toAlter) toWrite += Integer.parseInt(split[i]) + 1 + " ";
+                else toWrite += split[i] + " ";
+            }
+            updateInfoLine(toWrite);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveScore()
+    {
+        if (playerName == null) return;
+        try
+        {
+            String split[] = readInfoLine(), toWrite = "";
+            int highScore = Integer.parseInt(split[1]);
+            if (score > 9000) addAchievement(Achievement.OVER_9000);
+            if (score > highScore) highScore = score;
+            for (int i = 0; i < split.length; i++)
+            {
+                if (i == 1) toWrite += highScore + " ";
+                else toWrite += split[i] + " ";
+            }
+            updateInfoLine(toWrite);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateInfoLine(String toWrite) throws IOException
+    {
+        toWrite += System.getProperty("line.separator");
+        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        String line = reader.readLine(); //ignore first line, it's already included.
+        while ((line = reader.readLine()) != null)
+        {
+            toWrite += line + System.getProperty("line.separator");
+        }
+        reader.close();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
+        writer.write(toWrite);
+        writer.close();
     }
 
     public String getPlayerName()
@@ -360,5 +459,10 @@ public class Player extends Unit {
     public boolean isPoweredUp()
     {//PoweredUp is always false for now, since the "superpellet" isn't implemented.
         return poweredUp;
+    }
+
+    public void setPlayerName(String s)
+    {
+        playerName = s;
     }
 }

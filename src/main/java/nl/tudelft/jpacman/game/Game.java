@@ -16,7 +16,7 @@ public abstract class Game implements LevelObserver {
     /**
 	 * <code>true</code> if the game is in progress.
 	 */
-	private boolean inProgress;
+	private boolean inProgress, firstPass = true;
 
 	/**
 	 * Object that locks the start and stop methods.
@@ -94,20 +94,32 @@ public abstract class Game implements LevelObserver {
 	
 	@Override
 	public void levelWon() {
-		stop();
-        triggerHOF();
-	}
+        if (firstPass)
+        {
+            stop();
+            Player player = getPlayers().get(0);
+            player.addAchievement(Achievement.VICTOR);
+            player.levelCompleted();
+            triggerHoF(player);
+        }
+        firstPass = false;
+    }
 	
 	@Override
 	public void levelLost() {
-		stop();
-        triggerHOF();
+        if (firstPass)
+        {
+            stop();
+            Player player = getPlayers().get(0);
+            triggerHoF(player);
+        }
+        firstPass = false;
 	}
 
-    private void triggerHOF()
+    private void triggerHoF(Player player)
     {
-        final HallOfFame HOF = new HallOfFame();
-        Player player = getPlayers().get(0);
-        HOF.handleHOF(player.getScore(), player.getPlayerName());
+        HallOfFame hallOfFame = new HallOfFame();
+        player.saveScore();
+        hallOfFame.handleHOF(player.getScore(), player.getPlayerName());
     }
 }

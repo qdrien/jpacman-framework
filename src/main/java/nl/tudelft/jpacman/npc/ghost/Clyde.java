@@ -76,7 +76,7 @@ public class Clyde extends Ghost {
 	 *            The sprites for this ghost.
 	 */
 	public Clyde(Map<Direction, Sprite> spriteMap) {
-		super(spriteMap);
+		super(spriteMap, GhostColor.ORANGE);
 	}
 
 	@Override

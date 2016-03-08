@@ -58,7 +58,7 @@ public class Blinky extends Ghost {
 	 *            The sprites for this ghost.
 	 */
 	public Blinky(Map<Direction, Sprite> spriteMap) {
-		super(spriteMap);
+		super(spriteMap, GhostColor.RED);
 	}
 
 	@Override

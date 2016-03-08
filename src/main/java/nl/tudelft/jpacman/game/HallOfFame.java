@@ -9,7 +9,7 @@ public class HallOfFame
     /**
      * Number of best scores stored in the hall of fame and longest names allowed in hall of fame.
      */
-    private static final int NUMBER_OF_RECORDS_KEPT = 10, NAME_LENGTH = 25;
+    private static final int NUMBER_OF_RECORDS = 10, NAME_LENGTH = 25;
 
     /**
      * Relative path of the default Hall of Fame.
@@ -44,7 +44,7 @@ public class HallOfFame
 
     public int getNumberOfRecordsKept()
     {
-        return NUMBER_OF_RECORDS_KEPT;
+        return NUMBER_OF_RECORDS;
     }
 
     public void handleHOF(int pointsScored, String playerName)
@@ -56,7 +56,7 @@ public class HallOfFame
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(HOF_PATH));
-            for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++)
+            for (int i = 0; i < NUMBER_OF_RECORDS; i++)
             {
                 String split[] = reader.readLine().split(" ");
                 bestPlayers[i] = split[0];
@@ -66,7 +66,7 @@ public class HallOfFame
         }
         catch (IOException e)
         {
-            System.out.println("Error whilst reading HoF.txt "+e.getMessage());
+            System.err.println("Error whilst reading HoF.txt "+e.getMessage());
         }
 
         //Inserting eventual better score into Hall of Fame.
@@ -77,11 +77,11 @@ public class HallOfFame
 
     private void updateHOF(int[] bestScores, String[] bestPlayers, String playerName)
     {
-        for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++)
+        for (int i = 0; i < NUMBER_OF_RECORDS; i++)
         {
             if(score > bestScores[i])
             {
-                for (int j = NUMBER_OF_RECORDS_KEPT - 1; j > i; j--)
+                for (int j = NUMBER_OF_RECORDS - 1; j > i; j--)
                 {
                     bestScores[j] = bestScores[j - 1];
                     bestPlayers[j] = bestPlayers[j - 1];
@@ -119,7 +119,7 @@ public class HallOfFame
     {
         String text = "";
         Object options[] = {"Leave", "Reset"};
-        for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
+        for (int i = 0; i < NUMBER_OF_RECORDS; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
         int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if (buttonPressed == 1) resetHOF();
     }
@@ -136,13 +136,13 @@ public class HallOfFame
     {
         try
         {
-            BufferedWriter w = new BufferedWriter(new FileWriter(HOF_PATH));
-            for (int i = 0; i < NUMBER_OF_RECORDS_KEPT; i++) w.write(bestPlayers[i] + " " + bestScores[i]+"\n");
-            w.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
+            for (int i = 0; i < NUMBER_OF_RECORDS; i++) writer.write(bestPlayers[i] + " " + bestScores[i]+"\n");
+            writer.close();
         }
         catch (IOException e)
         {
-            System.out.println("Error whilst writing to HoF.txt "+e.getMessage());
+            System.err.println("Error whilst writing to HoF.txt "+e.getMessage());
         }
     }
 
@@ -160,7 +160,7 @@ public class HallOfFame
             }
             catch (IOException e)
             {
-                System.out.println("Error whilst writing to HoF.txt "+e.getMessage());
+                System.err.println("Error whilst writing to HoF.txt " + e.getMessage());
             }
         }
     }
