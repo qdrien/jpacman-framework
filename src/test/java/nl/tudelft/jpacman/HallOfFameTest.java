@@ -16,12 +16,12 @@ public class HallOfFameTest
     private HallOfFame hallOfFame;
     private String path;
     private BufferedReader reader;
-/*
+
     @Before
     public void init() throws IOException
     {
         hallOfFame = new HallOfFame();
-        path = hallOfFame.getHOFPath();
+        path = hallOfFame.getHoFPath();
         reader = new BufferedReader(new FileReader(path));
     }
 
@@ -35,7 +35,7 @@ public class HallOfFameTest
     public void hallOfFameUpdateTest()
     {
         File hallOfFameFile = new File(path);
-        hallOfFame.handleHOF(Integer.MAX_VALUE, "TESTPLAYER");
+        hallOfFame.handleHoF(Integer.MAX_VALUE, "TESTPLAYER");
         //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
         assertTrue("The Hall of Fame hasn't been modified.", hallOfFameFile.lastModified() / 10000 == System.currentTimeMillis() / 10000);
     }
@@ -44,8 +44,8 @@ public class HallOfFameTest
     @Test
     public void hallOfFameResetTest() throws IOException
     {
-        hallOfFame.resetHOF();
-        BufferedReader defaultHOFFileReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHofPath()));
+        hallOfFame.resetHoF();
+        BufferedReader defaultHOFFileReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
         String current = reader.readLine(), base = defaultHOFFileReader.readLine();
         for (int i = 0; i < hallOfFame.getNumberOfRecordsKept(); i++)
         {
@@ -53,5 +53,5 @@ public class HallOfFameTest
             base += defaultHOFFileReader.readLine();
         }
         assertEquals("Hall of Fame hasn't been reset.", current, base);
-    }*/
+    }
 }

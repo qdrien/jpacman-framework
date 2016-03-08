@@ -29,7 +29,7 @@ public class HallOfFame
     /**
      * Get relative path of the running Hall of Fame.
      */
-    public String getHOFPath()
+    public String getHoFPath()
     {
         return HOF_PATH;
     }
@@ -37,7 +37,7 @@ public class HallOfFame
     /**
      * Get relative path of the running Hall of Fame.
      */
-    public String getDefaultHofPath()
+    public String getDefaultHoFPath()
     {
         return DEFAULT_HOF_PATH;
     }
@@ -47,7 +47,7 @@ public class HallOfFame
         return NUMBER_OF_RECORDS;
     }
 
-    public void handleHOF(int pointsScored, String playerName)
+    public void handleHoF(int pointsScored, String playerName)
     {
         int bestScores[] = new int[10];
         String bestPlayers[] = new String[10];
@@ -70,12 +70,12 @@ public class HallOfFame
         }
 
         //Inserting eventual better score into Hall of Fame.
-        updateHOF(bestScores, bestPlayers, playerName);
+        updateHoF(bestScores, bestPlayers, playerName);
         //Displaying the HOF, regardless of whether it has been updated or not.
-        displayHOF(bestScores, bestPlayers);
+        displayHoF(bestScores, bestPlayers);
     }
 
-    private void updateHOF(int[] bestScores, String[] bestPlayers, String playerName)
+    private void updateHoF(int[] bestScores, String[] bestPlayers, String playerName)
     {
         for (int i = 0; i < NUMBER_OF_RECORDS; i++)
         {
@@ -97,7 +97,7 @@ public class HallOfFame
                 }
                 bestScores[i] = score;
                 //Saving new Hall of Fame to file.
-                saveUpdatedHOF(bestScores, bestPlayers);
+                saveUpdatedHoF(bestScores, bestPlayers);
                 break;
             }
         }
@@ -115,13 +115,13 @@ public class HallOfFame
         return userInput.getText();
     }
 
-    private void displayHOF(int bestScores[], String bestPlayers[])
+    private void displayHoF(int bestScores[], String bestPlayers[])
     {
         String text = "";
         Object options[] = {"Leave", "Reset"};
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
         int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (buttonPressed == 1) resetHOF();
+        if (buttonPressed == 1) resetHoF();
     }
 
     //Trying to align the displays in 2 columns.
@@ -132,7 +132,7 @@ public class HallOfFame
         return player + padding + score + "\n\n";
     }
 
-    private void saveUpdatedHOF(int bestScores[], String bestPlayers[])
+    private void saveUpdatedHoF(int bestScores[], String bestPlayers[])
     {
         try
         {
@@ -146,7 +146,7 @@ public class HallOfFame
         }
     }
 
-    public void resetHOF()
+    public void resetHoF()
     {
         Object options[] = {"Yes", "No"};
         int buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);

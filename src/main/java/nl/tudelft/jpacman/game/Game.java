@@ -120,6 +120,6 @@ public abstract class Game implements LevelObserver {
     {
         HallOfFame hallOfFame = new HallOfFame();
         player.saveScore();
-        hallOfFame.handleHOF(player.getScore(), player.getPlayerName());
+        hallOfFame.handleHoF(player.getScore(), player.getPlayerName());
     }
 }
