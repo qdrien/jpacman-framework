@@ -349,7 +349,9 @@ public class Player extends Unit {
         {
             String split[] = readInfoLine();
             int levelsCompleted = Integer.parseInt(split[0]) + 1;
-            updateInfoLine(levelsCompleted + Arrays.toString(Arrays.copyOfRange(split, 1, split.length)));
+            String result = "";
+            for (int i = 1; i < split.length; i++) result += split[i] + " ";
+            updateInfoLine(levelsCompleted + result);
             if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
         }
         catch (IOException e)
