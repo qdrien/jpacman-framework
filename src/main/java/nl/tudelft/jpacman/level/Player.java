@@ -112,13 +112,7 @@ public class Player extends Unit {
         String toDisplay = "<html>";
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            String achievementName = reader.readLine(); //first line ignored, it contains other other information
-            while ((achievementName = reader.readLine()) != null)
-            {
-                toDisplay += achievementName + ": " + Achievement.parseAchievement(achievementName).getDescription() + "<br>";
-            }
-            reader.close();
+            toDisplay = parseAchievements(toDisplay);
         }
         catch (IOException e)
         {
@@ -128,6 +122,19 @@ public class Player extends Unit {
         if (toDisplay.equals("<html></html>")) JOptionPane.showMessageDialog(null, "No achievements obtained yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
 
+    }
+
+    private String parseAchievements(String achievements) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        String achievementName = reader.readLine(); //first line ignored, it contains other other information
+        achievements += "<br>Achievements: <br>";
+        while ((achievementName = reader.readLine()) != null)
+        {
+            achievements += achievementName + ": " + Achievement.parseAchievement(achievementName).getDescription() + "<br>";
+        }
+        reader.close();
+        return achievements;
     }
 
     private int displayChoiceBox(String[] options, String label, String title)
@@ -396,6 +403,38 @@ public class Player extends Unit {
         BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
         writer.close();
+    }
+
+    public void displayProfileStats()
+    {
+        if (playerName == null)
+        {
+            JOptionPane.showMessageDialog(null, "You are not logged in.", "Error", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        String toDisplay = "<html>";
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+            String split[] = reader.readLine().split(" ");
+            reader.close();
+            toDisplay += "Levels completed: " + split[0];
+            toDisplay += "<br>High score: " + split[1];
+            toDisplay += "<br>Ghosts killed: " + split[2];
+            toDisplay += "<br>Fruits eaten: " + split[3];
+            toDisplay += "<br>Times killed by Blinky: " + split[4];
+            toDisplay += "<br>Times killed by Pinky: " + split[5];
+            toDisplay += "<br>Times killed by Inky: " + split[6];
+            toDisplay += "<br>Times killed by Clyde: " + split[7];
+            toDisplay = parseAchievements(toDisplay);
+            toDisplay += "</html>";
+
+            JOptionPane.showMessageDialog(null, toDisplay, "Statistics", JOptionPane.PLAIN_MESSAGE);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public String getPlayerName()

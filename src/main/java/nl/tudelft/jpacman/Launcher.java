@@ -193,10 +193,19 @@ public class Launcher {
                 game.getPlayers().get(0).createNewPlayer();
             }
         });
+        builder.addButton("Stats", new Action()
+        {
+            @Override
+            public void doAction()
+            {
+                game.getPlayers().get(0).displayProfileStats();
+            }
+        });
         addSinglePlayerKeys(builder, game);
-		pacManUI = builder.build(game);
-		pacManUI.start();
+        pacManUI = builder.build(game);
+        pacManUI.start();
 	}
+
 
 	/**
 	 * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
