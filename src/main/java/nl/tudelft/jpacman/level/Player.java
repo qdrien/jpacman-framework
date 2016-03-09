@@ -339,37 +339,6 @@ public class Player extends Unit {
         return false;
     }
 
-    private void newPassword()
-    {
-        try
-        {
-            BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
-            String line = reader.readLine(), toWrite = "";
-            while (line != null)
-            {
-                String login[] = line.split(" ");
-                if (playerName.equals(login[0]))
-                {
-                    String newPwd = JOptionPane.showInputDialog(null, "Enter new password", "Password change", JOptionPane.PLAIN_MESSAGE);
-                    toWrite += playerName + " " + Arrays.hashCode(newPwd.toCharArray()) + "\n";
-                }
-                else
-                {
-                    toWrite += line + "\n";
-                }
-                line = reader.readLine();
-            }
-            reader.close();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH));
-            writer.write(toWrite);
-            writer.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Triggered whenever the player completes a game.
      */
