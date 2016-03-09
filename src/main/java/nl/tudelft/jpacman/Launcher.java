@@ -7,7 +7,6 @@ import java.util.List;
 
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
-import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.level.Level;
@@ -182,7 +181,7 @@ public class Launcher {
             {
                 Player player = game.getPlayers().get(0);
                 boolean loggedIn = player.authenticate();
-                if (loggedIn) player.getAchievements();
+                if (loggedIn) player.displayAchievements();
             }
         });
         builder.addButton("New player", new Action()

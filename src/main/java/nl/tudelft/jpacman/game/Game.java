@@ -116,6 +116,10 @@ public abstract class Game implements LevelObserver {
         firstPass = false;
 	}
 
+    /**
+     * Triggers the Hall of Fame handler and eventually updates of the player's score.
+     * @param player The player in question.
+     */
     private void triggerHoF(Player player)
     {
         HallOfFame hallOfFame = new HallOfFame();

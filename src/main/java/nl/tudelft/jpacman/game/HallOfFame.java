@@ -42,11 +42,20 @@ public class HallOfFame
         return DEFAULT_HOF_PATH;
     }
 
+    /**
+     * Returns the number of records kept in the Hall of Fame.
+     * @return The number of records kept in the Hall of Fame.
+     */
     public int getNumberOfRecordsKept()
     {
         return NUMBER_OF_RECORDS;
     }
 
+    /**
+     * Handles the Hall of Fame.
+     * @param pointsScored The points scored by the current player in the elapsed game.
+     * @param playerName The name of the current player.
+     */
     public void handleHoF(int pointsScored, String playerName)
     {
         int bestScores[] = new int[10];
@@ -75,6 +84,12 @@ public class HallOfFame
         displayHoF(bestScores, bestPlayers);
     }
 
+    /**
+     * Updates the Hall of Fame when needs be.
+     * @param bestScores The list of high scores to store.
+     * @param bestPlayers The list of players associated to the high scores to store.
+     * @param playerName The name of the current player.
+     */
     private void updateHoF(int[] bestScores, String[] bestPlayers, String playerName)
     {
         for (int i = 0; i < NUMBER_OF_RECORDS; i++)
@@ -103,6 +118,10 @@ public class HallOfFame
         }
     }
 
+    /**
+     * Asks the player's name to store in the Hall of Fame is the player is not logged in.
+     * @return The name.
+     */
     private String askName()
     {
         String options[] = {"Ok"};
@@ -115,6 +134,11 @@ public class HallOfFame
         return userInput.getText();
     }
 
+    /**
+     * Displays the Hall of Fame.
+     * @param bestScores The list of high scores to display.
+     * @param bestPlayers The list of players to display.
+     */
     private void displayHoF(int bestScores[], String bestPlayers[])
     {
         String text = "";
@@ -124,6 +148,12 @@ public class HallOfFame
         if (buttonPressed == 1) resetHoF();
     }
 
+    /**
+     * Formats the Hall of Fame's display.
+     * @param score A score.
+     * @param player A player name.
+     * @return A formatted display.
+     */
     //Trying to align the displays in 2 columns.
     private String formatDisplay(int score, String player)
     {
@@ -132,6 +162,11 @@ public class HallOfFame
         return player + padding + score + "\n\n";
     }
 
+    /**
+     * Saves the updated Hall of Fame to file.
+     * @param bestScores The list of high scores to store.
+     * @param bestPlayers The list of players associated to the high scores to store.
+     */
     private void saveUpdatedHoF(int bestScores[], String bestPlayers[])
     {
         try
@@ -146,6 +181,9 @@ public class HallOfFame
         }
     }
 
+    /**
+     * Resets the Hall of Fame to its default values.
+     */
     public void resetHoF()
     {
         Object options[] = {"Yes", "No"};

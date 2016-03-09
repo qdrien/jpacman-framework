@@ -4,7 +4,14 @@ public enum Achievement
 {
     VICTOR, WON_THRICE, SPEEDY_DEATH, AMBUSHED, OVER_9000;
 
+    /**
+     * A text description associated with the Achievement.
+     */
     private String description;
+
+    /**
+     * The amount of points the Achievement grants to the player when obtained.
+     */
     private int bonusScore;
 
     static
@@ -22,16 +29,29 @@ public enum Achievement
         OVER_9000.bonusScore = 999;
     }
 
+    /**
+     * Returns the Achievement corresponding to the given String,
+     * @param s The String.
+     * @return The Achievement.
+     */
     public static Achievement parseAchievement(String s)
     {
         return valueOf(s);
     }
 
+    /**
+     * Returns the textual description corresponding with the Achievement.
+     * @return The textual description corresponding with the Achievement.
+     */
     public String getDescription()
     {
         return description;
     }
 
+    /**
+     * Returns the amount of points the Achievement grants to the player when obtained.
+     * @return The amount of points the Achievement grants to the player when obtained.
+     */
     public int getBonusScore()
     {
         return bonusScore;

@@ -40,11 +40,24 @@ public class Player extends Unit {
 	 */
 	private boolean alive;
 
+    /**
+     * The maximum size of the player's username and password.
+     */
     private static final int MAX_LOGIN_LENGTH = 25, MAX_PASS_LENGTH = 15;
+
+    /**
+     * The path of the file containing usernames and passwords.
+     */
     private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
 
+    /**
+     * The name of the current player and the path to the file storing the player's stats.
+     */
     private String playerName, profilePath;
 
+    /**
+     * Whether the player has eaten a superpellet or not. (for future use, superpellet not implemented)
+     */
     private boolean poweredUp = false;
 
     /**
@@ -63,6 +76,10 @@ public class Player extends Unit {
 		deathSprite.setAnimating(false);
 	}
 
+    /**
+     * Returns the path of the file containing usernames and passwords.
+     * @return The path of the file containing usernames and passwords.
+     */
     public String getLoginPath()
     {
         return LOGIN_PATH;
@@ -96,17 +113,27 @@ public class Player extends Unit {
         return true;
     }
 
+    /**
+     * Sets the path to the file storing the player's stats. (default version)
+     */
     private void setProfilePath()
     {
         profilePath = new File("").getAbsolutePath()+"/src/main/resources/profiles/" + playerName + ".prf";
     }
 
+    /**
+     * Sets the path to the file storing the player's stats.
+     * @param s The path to set.
+     */
     public void setProfilePath(String s)
     {
         profilePath = s;
     }
 
-    public void getAchievements()
+    /**
+     * Displays the player's achievements, if any were obtained.
+     */
+    public void displayAchievements()
     {
         if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;
         String toDisplay = "<html>";
@@ -119,11 +146,17 @@ public class Player extends Unit {
             e.printStackTrace();
         }
         toDisplay += "</html>";
-        if (toDisplay.equals("<html></html>")) JOptionPane.showMessageDialog(null, "No achievements obtained yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        if (toDisplay.equals("<html></html>")) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
 
     }
 
+    /**
+     * Reads the player's achievements from file.
+     * @param achievements the list of achievements.
+     * @return  The updated list of achievements.
+     * @throws IOException If the file was not found or is not readable.
+     */
     private String parseAchievements(String achievements) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(profilePath));
@@ -137,6 +170,13 @@ public class Player extends Unit {
         return achievements;
     }
 
+    /**
+     * Displays an option dialog.
+     * @param options The buttons that can be clicked.
+     * @param label The text that will be displayed.
+     * @param title The title of the dialog.
+     * @return The index of the button that was clicked.
+     */
     private int displayChoiceBox(String[] options, String label, String title)
     {
         JPanel panel = new JPanel();
@@ -145,6 +185,10 @@ public class Player extends Unit {
         return JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }
 
+    /**
+     * Adds an achievement to the player's profile file.
+     * @param achievement The achievement to add.
+     */
     public void addAchievement(Achievement achievement)
     {
         //If the achievement has already been obtained by this player (or the player isn't logged in), don't add it.
@@ -164,6 +208,11 @@ public class Player extends Unit {
         JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Checks whether an achievement has already been earned by the player.
+     * @param achievement the achievement to check.
+     * @return Whether the achievement has already been earned or not.
+     */
     private boolean checkAchievement(Achievement achievement)
     {
         boolean found = false;
@@ -220,6 +269,11 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Creates the player's profile file, and initialises it. Also adds the player's identifying information to the login file.
+     * @param pass the player's desired password.
+     * @throws IOException If the login file cannot be written to or the player's profile file cannot be created.
+     */
     private void createProfile(char pass[]) throws IOException
     {
         BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
@@ -235,6 +289,12 @@ public class Player extends Unit {
         writer.close();
     }
 
+    /**
+     * Checks whether a user already exists with the username desired by the player.
+     * @param name the name to check.
+     * @return Whether the name is already in use or not.
+     * @throws IOException If the login file cannot be found or read.
+     */
     private boolean checkUsername(String name) throws IOException
     {
         String line;
@@ -251,6 +311,11 @@ public class Player extends Unit {
         return false;
     }
 
+    /**
+     * Checks whether the player correctly identified himself.
+     * @param passEntered the password entered by the player.
+     * @return Whether the identifying info is correct or not.
+     */
     private boolean checkLoginInfo(char passEntered[])
     {
         try
@@ -305,6 +370,9 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Triggered whenever the player completes a game.
+     */
     public void levelCompleted()
     {
         if (playerName == null) return;
@@ -321,6 +389,11 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Reads the first line of the player's profile file, which contains various information.
+     * @return The line, split into its components.
+     * @throws IOException If the file cannot be found or read.
+     */
     private String[] readInfoLine() throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(profilePath));
@@ -329,6 +402,10 @@ public class Player extends Unit {
         return split;
     }
 
+    /**
+     * Triggered whenever the player dies.
+     * @param killer The ghost that killed pacman.
+     */
     public void killedBy(GhostColor killer)
     {
         if (playerName == null) return;
@@ -368,6 +445,9 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Saves the player's highest scores and checks whether it's high enough to earn him an achievement.
+     */
     public void saveScore()
     {
         if (playerName == null) return;
@@ -390,6 +470,11 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Updates all the player's info.
+     * @param toWrite The info to write to the player's profile file.
+     * @throws IOException If the file cannot be written to.
+     */
     private void updateInfoLine(String toWrite) throws IOException
     {
         toWrite += System.getProperty("line.separator");
@@ -405,6 +490,9 @@ public class Player extends Unit {
         writer.close();
     }
 
+    /**
+     * Displays the player's stats.
+     */
     public void displayProfileStats()
     {
         if (playerName == null)
@@ -437,6 +525,10 @@ public class Player extends Unit {
         }
     }
 
+    /**
+     * Returns the current player's username.
+     * @return The current player's username.
+     */
     public String getPlayerName()
     {
         return playerName;
@@ -495,11 +587,19 @@ public class Player extends Unit {
 		score += points;
 	}
 
+    /**
+     * Returns whether pacman has eaten a superpellet or not.
+     * @return Whether pacman has eaten a superpellet or not.
+     */
     public boolean isPoweredUp()
     {//PoweredUp is always false for now, since the "superpellet" isn't implemented.
         return poweredUp;
     }
 
+    /**
+     * Sets the player's name.
+     * @param s The name to set.
+     */
     public void setPlayerName(String s)
     {
         playerName = s;
