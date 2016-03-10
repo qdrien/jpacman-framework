@@ -60,21 +60,7 @@ public class MoveContinuTest
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
         //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(10, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(20, player.getScore());
-        Thread.sleep(200);
-        assertEquals(30, player.getScore());
-        Thread.sleep(200);
-        assertEquals(40, player.getScore());
-        Thread.sleep(200);
-        assertEquals(50, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        //No pelet remaining, the score stay the same
-        Thread.sleep(200);
+        Thread.sleep(1500);
         assertEquals(60, player.getScore());
     }
 
@@ -94,21 +80,7 @@ public class MoveContinuTest
         //Test continu movement
         game.moveContinu(player, Direction.WEST);
         //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(10, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(20, player.getScore());
-        Thread.sleep(200);
-        assertEquals(30, player.getScore());
-        Thread.sleep(200);
-        assertEquals(40, player.getScore());
-        Thread.sleep(200);
-        assertEquals(50, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        //No pelet remaining, the score stay the same
-        Thread.sleep(200);
+        Thread.sleep(1500);
         assertEquals(60, player.getScore());
     }
 
@@ -127,30 +99,13 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.WEST);
-        //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(10, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(20, player.getScore());
-        Thread.sleep(200);
-        assertEquals(30, player.getScore());
-        Thread.sleep(200);
-        assertEquals(40, player.getScore());
-        Thread.sleep(200);
-        assertEquals(50, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        //No pelet remaining, the score stay the same
-        Thread.sleep(200);
+        //Wait 400 ms
+        Thread.sleep(1500);
         assertEquals(60, player.getScore());
 
         game.moveContinu(player, Direction.SOUTH);
-        //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(70, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
+        //wait 600 ms
+        Thread.sleep(600);
         assertEquals(80, player.getScore());
 
     }
@@ -170,35 +125,14 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
-        //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(10, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(20, player.getScore());
-        Thread.sleep(200);
-        assertEquals(30, player.getScore());
-        Thread.sleep(200);
-        assertEquals(40, player.getScore());
-        Thread.sleep(200);
-        assertEquals(50, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        //No pelet remaining, the score stay the same
-        Thread.sleep(200);
+        //wait 1500 ms
+        Thread.sleep(1500);
         assertEquals(60, player.getScore());
 
-        game.moveContinu(player, Direction.NORTH);
-        //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(70, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
+        game.moveContinu(player, Direction.SOUTH);
+        //wait 1000 ms
+        Thread.sleep(600);
         assertEquals(80, player.getScore());
-        Thread.sleep(200);
-        assertEquals(90, player.getScore());
-        Thread.sleep(200);
-        assertEquals(100, player.getScore());
 
     }
 
@@ -217,37 +151,19 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
-        //Attendre 400 ms
-        Thread.sleep(400);
-        assertEquals(10, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(20, player.getScore());
-        Thread.sleep(200);
-        assertEquals(30, player.getScore());
-        Thread.sleep(200);
-        assertEquals(40, player.getScore());
-        Thread.sleep(200);
-        assertEquals(50, player.getScore());
-        Thread.sleep(200);
+        //wait 1500 ms
+        Thread.sleep(1500);
         assertEquals(60, player.getScore());
-        //No pelet remaining, the score stay the same
+
+        //No pellet remaining, the score stay the same
         Thread.sleep(200);
         assertEquals(60, player.getScore());
 
-        //No pellet remaning
+        //Go back and no pellet remaining
         game.moveContinu(player, Direction.WEST);
-        //Attendre 400 ms
-        Thread.sleep(400);
+        //wait 1000 ms
+        Thread.sleep(1000);
         assertEquals(60, player.getScore());
-        //Attendre 200 ms
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-        Thread.sleep(200);
-        assertEquals(60, player.getScore());
-
     }
 
 }

@@ -23,18 +23,20 @@ import nl.tudelft.jpacman.strategy.HumanControllerStrategy;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
 import nl.tudelft.jpacman.strategy.PacManhattanAI;
 import nl.tudelft.jpacman.ui.Action;
+import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import javax.swing.*;
-//https://examples.javacodegeeks.com/desktop-java/swing/jdialog/java-jdialog-example/
+
 
 /**
  * Creates and launches the JPacMan UI.
  * 
  * @author Jeroen Roosen 
  */
-public class Launcher extends JFrame implements ActionListener {
+public class Launcher //extends JFrame implements ActionListener
+{
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
 	private PacManUI pacManUI;
@@ -190,7 +192,7 @@ public class Launcher extends JFrame implements ActionListener {
 		game = makeGame();
 		builder = new PacManUiBuilder().withDefaultButtons();
 		pacManUI = builder.build(game);
-		pacManUI.start();
+		//pacManUI.start();
 		buildWindow();
     }
 
@@ -212,48 +214,9 @@ public class Launcher extends JFrame implements ActionListener {
 	public static void main(String[] args) throws IOException {
 		new Launcher().launch();
 	}
-
-	private JButton HumanController, AIController;
-	private JLabel label;
-	private JPanel panel;
-
-
 	public void buildWindow()
 	{
-		setTitle("Strategy selection");
-		setSize(320, 120);
-		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel = new JPanel(new BorderLayout(40,50));
-		HumanController = new JButton("Control Pacman");
-		AIController = new JButton("Be spectator");
-		HumanController.addActionListener(this);
-		AIController.addActionListener(this);
-		label = new JLabel("Choose a game mode and then click to start");
-		panel.add(label,BorderLayout.NORTH);
-		panel.add(AIController,BorderLayout.EAST);
-		panel.add(HumanController, BorderLayout.WEST);
-		add(panel);
-		setVisible(true);
+		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), "Strategy selection", "Choose a game mode and then click to start", builder,game,strategy, pacManUI);
+		dialog.setSize(400, 200);
 	}
-
-
-	public void actionPerformed(ActionEvent e)
-	{
-		Object source = e.getSource();
-		if(source == HumanController)
-		{
-			strategy= new HumanControllerStrategy(game,builder);
-			System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
-		}
-		else if(source == AIController)
-		{
-			strategy = new PacManhattanAI(game);
-            System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
-        }
-		game.setStrategy(strategy);
-		setVisible(false);
-	}
-
-
 }

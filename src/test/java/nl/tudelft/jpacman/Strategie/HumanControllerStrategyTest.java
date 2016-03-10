@@ -64,14 +64,11 @@ public class HumanControllerStrategyTest
         assertEquals(0, player.getScore());
         Robot robot = new Robot();
         //Left Move
-
-
-        robot.keyPress(KeyEvent.VK_LEFT);
-        robot.keyRelease(KeyEvent.VK_LEFT);
-
-
+        /*robot.keyPress(KeyEvent.VK_RIGHT);
         Thread.sleep(5000);
-        //assertEquals(10, player.getScore());
+
+        robot.keyRelease(KeyEvent.VK_RIGHT);
+        robot.waitForIdle();*/
 
 
     }
