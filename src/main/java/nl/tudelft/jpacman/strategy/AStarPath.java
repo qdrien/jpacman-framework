@@ -85,7 +85,7 @@ public class AStarPath extends AStar<Square>
      * @param player the player
      * @return the neighbor's list
      */
-    private List<Square> getValidNeighbors(Square square, Player player)
+    public List<Square> getValidNeighbors(Square square, Player player)
     {
         List<Square> neighborsList = square.getNeighbours();
         List<Square> validNeighbors = new ArrayList<>(neighborsList);
@@ -126,7 +126,7 @@ public class AStarPath extends AStar<Square>
      * @return the cost of the square
      */
     @Override
-    protected Double g(Square originSquare, Square destinationSquare)
+    public Double g(Square originSquare, Square destinationSquare)
     {
 
         if(originSquare.getX() == destinationSquare.getX() && originSquare.getY() == destinationSquare.getY())
@@ -181,7 +181,7 @@ public class AStarPath extends AStar<Square>
      * @return the manhattan distance between two squares
      */
     @Override
-    protected Double h(Square originSquare, Square destinationSquare)
+    public Double h(Square originSquare, Square destinationSquare)
     {
         return ManhattanDistance(originSquare.getX(),originSquare.getY(),destinationSquare.getX(),destinationSquare.getY());
     }
@@ -192,7 +192,7 @@ public class AStarPath extends AStar<Square>
      * @param destinationSquare the square to check
      * @return true if the square is nearest to a square with a ghost
      */
-    private boolean nearestGhosts(Square destinationSquare)
+    public boolean nearestGhosts(Square destinationSquare)
     {
 
         for (Ghost ghost : ghosts)
@@ -215,29 +215,6 @@ public class AStarPath extends AStar<Square>
     @Override
     protected List<Square> generateSuccessors(Square square) {
         return getValidNeighbors(square,null);
-    }
-
-
-
-
-    /**
-     * Tests methods for the unit test
-     */
-    public List<Square> getValidNeighborsTest(Square square, Player player)
-    {
-        return getValidNeighbors(square, player);
-    }
-    public boolean nearestGhostsTest(Square destinatonSquare)
-    {
-        return nearestGhosts(destinatonSquare);
-    }
-    public double hTest(Square originSquare, Square destinationSquare)
-    {
-        return h(originSquare,destinationSquare);
-    }
-    public double gTest(Square originSquare, Square destinationSquare)
-    {
-        return g(originSquare,destinationSquare);
     }
 
 }

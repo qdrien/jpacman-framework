@@ -56,13 +56,13 @@ public class PacManhattanAITest
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
         PacManhattanAI AI = new PacManhattanAI(game);
-        assertFalse(AI.isSafetySquareTest(player.getSquare()));
-        assertFalse(AI.isSafetySquareTest(player.getSquare().getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquareTest(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquareTest(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
+        assertFalse(AI.isSafetySquare(player.getSquare()));
+        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
+        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
 
         //Safety Square more than 14 squares about the nearest ghost
-        assertTrue(AI.isSafetySquareTest(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
+        assertTrue(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
     }
 
     @SuppressWarnings("methodlength")
@@ -73,7 +73,7 @@ public class PacManhattanAITest
         Player player = game.getPlayers().get(0);
         PacManhattanAI AI = new PacManhattanAI(game);
 
-        List<Square> neighborsList = AI.getValidNeighborsTest(player.getSquare());
+        List<Square> neighborsList = AI.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
@@ -89,7 +89,7 @@ public class PacManhattanAITest
         game.move(player,Direction.EAST);
         game.move(player,Direction.EAST);
 
-        List<Square> neighborsList2 = AI.getValidNeighborsTest(player.getSquare());
+        List<Square> neighborsList2 = AI.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -106,7 +106,7 @@ public class PacManhattanAITest
         Player player = game.getPlayers().get(0);
         PacManhattanAI AI = new PacManhattanAI(game);
 
-        Square square = AI.BFSNearestSafetySquareTest();
+        Square square = AI.BFSNearestSafetySquare();
 
         assertNotNull(square);
         assertTrue(square.getX() == 19);

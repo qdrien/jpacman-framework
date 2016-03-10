@@ -121,7 +121,7 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighborsTest(square,player);
+        List<Square> neigborList = aStarPath.getValidNeighbors(square,player);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neigborList);
@@ -139,7 +139,7 @@ public class AStarPathTest
 
         assertFalse(square == square2);
 
-        List<Square> neigborList2 = aStarPath.getValidNeighborsTest(square2,player);
+        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -169,7 +169,7 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighborsTest(square,player);
+        List<Square> neigborList = aStarPath.getValidNeighbors(square,player);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neigborList);
@@ -187,7 +187,7 @@ public class AStarPathTest
 
         assertFalse(square == square2);
 
-        List<Square> neigborList2 = aStarPath.getValidNeighborsTest(square2,player);
+        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -212,7 +212,7 @@ public class AStarPathTest
         assertFalse(square2 == square3);
 
 
-        List<Square> neigborList3 = aStarPath.getValidNeighborsTest(square3,player);
+        List<Square> neigborList3 = aStarPath.getValidNeighbors(square3,player);
 
         assertNotNull(neigborList3);
         //All move is possible except to left (West)
@@ -240,21 +240,21 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare()));
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare()));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
 
 
         //The next north case is dangerous.
-        assertTrue(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
-        assertTrue(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
 
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.EAST)));
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.EAST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
 
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.WEST)));
-        assertFalse(aStarPath.nearestGhostsTest(player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST)));
 
     }
     @SuppressWarnings("methodlength")
@@ -282,15 +282,15 @@ public class AStarPathTest
         Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
         //There is only Pellet
-        assertEquals(aStarPath.gTest(origin,destination), 1.0);
-        assertEquals(aStarPath.gTest(origin,destination2), 1.0);
-        assertEquals(aStarPath.gTest(origin,destination3), 1.0);
-        assertEquals(aStarPath.gTest(origin,destination4), 1.0);
-        assertEquals(aStarPath.gTest(destination,destination4), 1.0);
-        assertEquals(aStarPath.gTest(destination3,destination4), 1.0);
+        assertEquals(aStarPath.g(origin,destination), 1.0);
+        assertEquals(aStarPath.g(origin,destination2), 1.0);
+        assertEquals(aStarPath.g(origin,destination3), 1.0);
+        assertEquals(aStarPath.g(origin,destination4), 1.0);
+        assertEquals(aStarPath.g(destination,destination4), 1.0);
+        assertEquals(aStarPath.g(destination3,destination4), 1.0);
 
         Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
-        assertEquals(aStarPath.gTest(origin,destinationNearestGhost), 500.0);
+        assertEquals(aStarPath.g(origin,destinationNearestGhost), 500.0);
 
     }
 
@@ -318,14 +318,14 @@ public class AStarPathTest
         Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
         Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
-        assertTrue(aStarPath.hTest(origin,destination) == 1);
-        assertTrue(aStarPath.hTest(origin,destination2) == 2);
+        assertTrue(aStarPath.h(origin,destination) == 1);
+        assertTrue(aStarPath.h(origin,destination2) == 2);
 
-        assertTrue(aStarPath.hTest(origin,destination3) == 1);
-        assertTrue(aStarPath.hTest(origin,destination4) == 2);
+        assertTrue(aStarPath.h(origin,destination3) == 1);
+        assertTrue(aStarPath.h(origin,destination4) == 2);
 
-        assertTrue(aStarPath.hTest(destination,destination4) == 3);
-        assertTrue(aStarPath.hTest(destination3,destination4) == 1);
+        assertTrue(aStarPath.h(destination,destination4) == 3);
+        assertTrue(aStarPath.h(destination3,destination4) == 1);
 
     }
 

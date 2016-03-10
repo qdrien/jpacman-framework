@@ -92,7 +92,7 @@ public class PacManhattanAI extends AIStrategy
      * Compute a path
      * @param square the goal square
      */
-    private void computePath(Square square)
+    public void computePath(Square square)
     {
         if (square == null)
         {
@@ -117,7 +117,7 @@ public class PacManhattanAI extends AIStrategy
      * The search used is the Breadth First Search
      * @return the nearest safe square where there is a pellet, null if no safe pellet found
      */
-    private Square BFSNearestSafetyPelletSquare()
+    public Square BFSNearestSafetyPelletSquare()
     {
         for (int i = 0; i < board.getHeight(); i++)
         {
@@ -164,7 +164,7 @@ public class PacManhattanAI extends AIStrategy
      * @param squaresList the square's list determining the path
      * @return a queue with each direction at each step
      */
-    private Deque<Direction> convertPathToDirection(List<Square> squaresList)
+    public Deque<Direction> convertPathToDirection(List<Square> squaresList)
     {
 
         Deque<Direction> directions = new ArrayDeque<>();
@@ -213,7 +213,7 @@ public class PacManhattanAI extends AIStrategy
      * Compute a BFS to know the nearest safety square
      * @return the nearest safety square, null if there is'nt
      */
-    private Square BFSNearestSafetySquare()
+    public Square BFSNearestSafetySquare()
     {
         for (int i = 0; i < board.getHeight(); ++i)
         {
@@ -252,7 +252,7 @@ public class PacManhattanAI extends AIStrategy
      * @param square A determined square
      * @return a new list with valid neighbor
      */
-    private List<Square> getValidNeighbors(Square square)
+    public List<Square> getValidNeighbors(Square square)
     {
         List<Square> neighbors = square.getNeighbours();
 
@@ -291,7 +291,7 @@ public class PacManhattanAI extends AIStrategy
      * @param square the current square
      * @return true if the square is safe
      */
-    private boolean isSafetySquare(Square square)
+    public boolean isSafetySquare(Square square)
     {
         for (Ghost ghost : ghosts)
         {
@@ -318,7 +318,7 @@ public class PacManhattanAI extends AIStrategy
     /**
      * Test Method for the unit test
      */
-    public boolean isSafetySquareTest(Square square)
+    /*public boolean isSafetySquareTest(Square square)
     {
         return isSafetySquare(square);
     }
@@ -337,7 +337,7 @@ public class PacManhattanAI extends AIStrategy
     public Deque<Direction> convertPathToDirectionTest(List<Square> squaresList)
     {
         return convertPathToDirection(squaresList);
-    }
+    }*/
 
 }
 
