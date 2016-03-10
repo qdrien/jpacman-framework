@@ -1,6 +1,9 @@
 package nl.tudelft.jpacman;
 
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,24 +19,28 @@ import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
+import nl.tudelft.jpacman.strategy.HumanControllerStrategy;
+import nl.tudelft.jpacman.strategy.PacmanStrategy;
+import nl.tudelft.jpacman.strategy.PacManhattanAI;
 import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
-
+import javax.swing.*;
+//https://examples.javacodegeeks.com/desktop-java/swing/jdialog/java-jdialog-example/
 
 /**
  * Creates and launches the JPacMan UI.
  * 
  * @author Jeroen Roosen 
  */
-public class Launcher   {
-
+public class Launcher extends JFrame implements ActionListener {
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
 	private PacManUI pacManUI;
 	private Game game;
-    private Context context;
+	private PacManUiBuilder builder;//The builder
+	private PacmanStrategy strategy;//The chosen strategy
 
 	/**
 	 * @return The game object this launcher will start when {@link #launch()}
@@ -181,12 +188,10 @@ public class Launcher   {
 	 */
 	public void launch() {
 		game = makeGame();
-		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-		//addSinglePlayerKeys(builder, game);
+		builder = new PacManUiBuilder().withDefaultButtons();
 		pacManUI = builder.build(game);
 		pacManUI.start();
-        game.setBuilder(builder);
-        game.buildWindow();
+		buildWindow();
     }
 
 	/**
@@ -208,7 +213,47 @@ public class Launcher   {
 		new Launcher().launch();
 	}
 
+	private JButton HumanController, AIController;
+	private JLabel label;
+	private JPanel panel;
 
+
+	public void buildWindow()
+	{
+		setTitle("Strategy selection");
+		setSize(320, 120);
+		setResizable(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new JPanel(new BorderLayout(40,50));
+		HumanController = new JButton("Control Pacman");
+		AIController = new JButton("Be spectator");
+		HumanController.addActionListener(this);
+		AIController.addActionListener(this);
+		label = new JLabel("Choose a game mode and then click to start");
+		panel.add(label,BorderLayout.NORTH);
+		panel.add(AIController,BorderLayout.EAST);
+		panel.add(HumanController, BorderLayout.WEST);
+		add(panel);
+		setVisible(true);
+	}
+
+
+	public void actionPerformed(ActionEvent e)
+	{
+		Object source = e.getSource();
+		if(source == HumanController)
+		{
+			strategy= new HumanControllerStrategy(game,builder);
+			System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
+		}
+		else if(source == AIController)
+		{
+			strategy = new PacManhattanAI(game);
+            System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
+        }
+		game.setStrategy(strategy);
+		setVisible(false);
+	}
 
 
 }

@@ -1,35 +1,32 @@
 package nl.tudelft.jpacman.game;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.strategy.PacmanStrategy;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
 /**
  * A basic implementation of a Pac-Man game.
  * 
  * @author Jeroen Roosen 
  */
-public abstract class Game extends JFrame implements LevelObserver, ActionListener {
+public abstract class Game implements LevelObserver {
 
 	/**
 	 * <code>true</code> if the game is in progress.
 	 */
-	private boolean inProgress;
-    private Square oldDestination;
-    private Context context= null;
+
+    private PacmanStrategy strategy;//The strategy chosen by the player
+
+    private boolean inProgress;
     private PacManUiBuilder builder;
 
 	/**
@@ -52,18 +49,18 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
     {
         synchronized (progressLock)
         {
-			if (isInProgress()) {
+            if (isInProgress()) {
 				return;
 			}
-			if (getLevel().isAnyPlayerAlive()
+            if(strategy != null)
+            {
+                getLevel().startStrategy(strategy);
+            }
+            if (getLevel().isAnyPlayerAlive()
 					&& getLevel().remainingPellets() > 0) {
 				inProgress = true;
 				getLevel().addObserver(this);
 				getLevel().start();
-			}
-            if(service != null)
-            {
-                this.service = Executors.newSingleThreadScheduledExecutor();
             }
 		}
 	}
@@ -79,8 +76,7 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
 			}
             if(service != null)
             {
-                this.currentMoveTask.setFinished(true);
-                service.shutdownNow();
+                currentMoveTask.setFinished(true);
             }
 			inProgress = false;
 			getLevel().stop();
@@ -106,7 +102,7 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
 	public abstract Level getLevel();
 
 	/**
-	 * Moves the specified player one square in the given direction.
+	 * Moves the specified player until the next cross in the given direction.
 	 * 
 	 * @param player
 	 *            The player to move.
@@ -119,9 +115,8 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
         {
             Square location = player.getSquare();
             Square destination = location.getSquareAt(direction);
-            if(destination.isAccessibleTo(player))// && destination != oldDestination)
+            if(destination.isAccessibleTo(player))
             {
-                //oldDestination = destination;
                 if(service == null)
                 {
                     this.service = Executors.newSingleThreadScheduledExecutor();
@@ -162,14 +157,39 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
 		stop();
 	}
 
+    /**
+     * Get the builder
+     * @return the builder
+     */
     public PacManUiBuilder getBuilder() {
         return builder;
     }
 
+    /**
+     * Set the builder
+     * @param builder the builder to set
+     */
     public void setBuilder(PacManUiBuilder builder) {
         this.builder = builder;
     }
 
+    /**
+     * Get the chosen strategy
+     * @return the chosen strategy
+     */
+    public PacmanStrategy getStrategy()
+    {
+        return strategy;
+    }
+
+    /**
+     * Set the Strategy
+     * @param strategy the strategy to set
+     */
+    public void setStrategy(PacmanStrategy strategy)
+    {
+        this.strategy = strategy;
+    }
 
     private final class PlayerMoveTask implements Runnable
     {
@@ -193,6 +213,8 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
          *            The service that executes the task.
          * @param p
          *            The player to move.
+         * @param direction
+         *             The direction to follow
          */
         private PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction)
         {
@@ -205,65 +227,29 @@ public abstract class Game extends JFrame implements LevelObserver, ActionListen
         public void run()
         {
             long interval = player.getInterval();
-            if(!finished)
+            if(finished == false)
             {
                 getLevel().move(player, dir);
                 s.schedule(this, interval, TimeUnit.MILLISECONDS);
             }
         }
 
+        /**
+         * Boolean to finish the task for the thread
+         * @param finished true if the task is finished, false otherwise
+         */
         public void setFinished(boolean finished)
         {
             this.finished = finished;
         }
+
+        /**
+         * Get the boolean to know if the task is finish or not
+         * @return true if the task is finished, false otherwise
+         */
         public boolean getFinished()
         {
             return finished;
         }
     }
-
-    private JButton HumanController, AIController;
-    private JLabel label;
-    private JPanel panel;
-
-
-    public void buildWindow()
-    {
-        setTitle("Strategy selection");
-        setSize(320, 120);
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panel = new JPanel(new BorderLayout(40,50));
-        HumanController = new JButton("Control Pacman");
-        AIController = new JButton("Be spectator");
-        HumanController.addActionListener(this);
-        AIController.addActionListener(this);
-        label = new JLabel("Choose a game mode and then click to start");
-        panel.add(label,BorderLayout.NORTH);
-        panel.add(AIController,BorderLayout.EAST);
-        panel.add(HumanController, BorderLayout.WEST);
-        add(panel);
-        setVisible(true);
-    }
-
-
-    public void actionPerformed(ActionEvent e)
-    {
-        Object source = e.getSource();
-        if(source == HumanController)
-        {
-            context = new Context(new StrategyHumanController());
-            System.out.println(context.getStrategy());
-
-        }
-        else if(source == AIController)
-        {
-            System.out.println("La stratégie adopté est le controle par une IA");
-            context = new Context(new StrategyAIController());
-            System.out.println(context.getStrategy());
-        }
-        context.executeStrategy(builder,this);
-        setVisible(false);
-    }
-
 }
