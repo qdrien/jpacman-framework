@@ -14,6 +14,9 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
+import nl.tudelft.jpacman.npc.ghost.Ghost;
+import nl.tudelft.jpacman.strategy.AIStrategy;
+import nl.tudelft.jpacman.strategy.PacmanStrategy;
 
 /**
  * A level of Pac-Man. A level consists of the board with the players and the
@@ -23,6 +26,7 @@ import nl.tudelft.jpacman.npc.NPC;
  */
 public class Level {
 
+    private ScheduledExecutorService serviceAI;
     /**
      * The board of this level.
      */
@@ -74,7 +78,8 @@ public class Level {
      * The objects observing this level.
      */
     private final List<LevelObserver> observers;
-
+    private PacmanStrategy strategy;
+    private final ArrayList<Ghost> ghostList;
     /**
      * Creates a new level for the board.
      *
@@ -95,9 +100,14 @@ public class Level {
 
         this.board = b;
         this.inProgress = false;
+        this.ghostList = new ArrayList<Ghost>();
         this.npcs = new HashMap<>();
         for (NPC g : ghosts) {
             npcs.put(g, null);
+            if(g instanceof Ghost)
+            {
+                ghostList.add((Ghost) g);
+            }
         }
         this.startSquares = startPositions;
         this.startSquareIndex = 0;
@@ -204,8 +214,13 @@ public class Level {
             if (isInProgress()) {
                 return;
             }
+
             startNPCs();
             inProgress = true;
+            if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+            {
+                startAIStrategy();
+            }
             updateObservers();
         }
     }
@@ -220,9 +235,28 @@ public class Level {
                 return;
             }
             stopNPCs();
+            if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+            {
+                stopAIStrategy();
+            }
             inProgress = false;
         }
     }
+
+
+
+    public void startStrategy(PacmanStrategy strategy)
+    {
+        this.strategy = strategy;
+        synchronized (startStopLock) {
+            if (isInProgress()) {
+                return;
+            }
+            strategy.executeStrategy();
+        }
+    }
+
+
 
     /**
      * Starts all NPC movement scheduling.
@@ -244,6 +278,25 @@ public class Level {
     private void stopNPCs() {
         for (Entry<NPC, ScheduledExecutorService> e : npcs.entrySet()) {
             e.getValue().shutdownNow();
+        }
+    }
+
+    private void startAIStrategy()
+    {
+        //Démarage du thread principal
+        serviceAI = Executors.newSingleThreadScheduledExecutor();
+        //Lancement de la première tâche
+        if(isInProgress())
+        {
+            serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)), players.get(0).getInterval(), TimeUnit.MILLISECONDS);
+        }
+    }
+
+    private void stopAIStrategy()
+    {
+        if(serviceAI != null)
+        {
+            serviceAI.shutdown();
         }
     }
 
@@ -310,6 +363,15 @@ public class Level {
         return pellets;
     }
 
+    public Player getPlayer()
+    {
+        return players.get(0);
+    }
+    public ArrayList<Ghost> getGhostList()
+    {
+        return ghostList;
+    }
+
     /**
      * A task that moves an NPC and reschedules itself after it finished.
      *
@@ -352,8 +414,6 @@ public class Level {
     }
 
 
-
-
     /**
      * An observer that will be notified when the level is won or lost.
      *
@@ -372,5 +432,118 @@ public class Level {
          * this event is received.
          */
         void levelLost();
+    }
+
+    private final class PlayerMoveTask implements Runnable
+    {
+
+        /**
+         * The service executing the task.
+         */
+        private final ScheduledExecutorService service;
+
+        /**
+         * The NPC to move.
+         */
+        private final AIStrategy strategy;
+        private final Player player;
+        private Direction nextMove;
+
+        /**
+         * Creates a new task.
+         *
+         * @param s
+         *            The service that executes the task.
+         */
+        private PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p)
+        {
+            this.service = s;
+            this.strategy = strategy;
+            this.player=p;
+        }
+
+        @Override
+        public void run() {
+            //Premier passage
+            if(nextMove== null)
+            {
+                nextMove = strategy.nextMove();
+                move(player, nextMove);
+            }
+            else
+            {
+                if(isIntersection(player, nextMove))
+                {
+
+                    nextMove = strategy.nextMove();
+                    if(nextMove != null)
+                    {
+                        if(player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
+                        {
+                            move(player, nextMove);
+                        }
+                    }
+                }
+                else
+                {
+                    move(player, nextMove);
+                }
+            }
+
+            long interval = player.getInterval();
+            service.schedule(this, interval, TimeUnit.MILLISECONDS);
+        }
+
+        public boolean isIntersection(Player player, Direction direction)
+        {
+            if(direction.equals(Direction.NORTH))
+            {
+                if( player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if(direction.equals(Direction.SOUTH))
+            {
+                if(player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(direction.equals(Direction.EAST))
+            {
+                if(player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
