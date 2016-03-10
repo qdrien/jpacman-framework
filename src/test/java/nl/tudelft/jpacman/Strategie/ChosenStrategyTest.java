@@ -46,6 +46,7 @@ public class ChosenStrategyTest
         Game game = launcher.getGame();
         PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
+
         assertFalse(game.isInProgress());
         assertNotNull(game);
         assertNotNull(builder);
