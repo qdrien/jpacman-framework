@@ -17,6 +17,8 @@ import nl.tudelft.jpacman.sprite.Sprite;
  */
 public abstract class Square {
 
+	private int x;
+	private int y;
 	/**
 	 * The units occupying this square, in order of appearance.
 	 */
@@ -129,5 +131,44 @@ public abstract class Square {
 	 * @return The sprite of this square.
 	 */
 	public abstract Sprite getSprite();
+
+	public int getX()
+	{
+		return this.x;
+	}
+	public int getY()
+	{
+		return this.y;
+	}
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	public void setY(int y)
+	{
+		this.y=y;
+	}
+
+	public  ArrayList<Square> getNeighbours()
+	{
+		ArrayList<Square> neighboursList = new ArrayList<Square>();
+		if(getSquareAt(Direction.NORTH) != null)
+		{
+			neighboursList.add(getSquareAt(Direction.NORTH));
+		}
+		if(getSquareAt(Direction.SOUTH) != null)
+		{
+			neighboursList.add(getSquareAt(Direction.SOUTH));
+		}
+		if(getSquareAt(Direction.EAST) != null)
+		{
+			neighboursList.add(getSquareAt(Direction.EAST));
+		}
+		if(getSquareAt(Direction.WEST) != null)
+		{
+			neighboursList.add(getSquareAt(Direction.WEST));
+		}
+		return neighboursList;
+	}
 
 }
