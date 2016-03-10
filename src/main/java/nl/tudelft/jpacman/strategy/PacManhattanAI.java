@@ -310,5 +310,34 @@ public class PacManhattanAI extends AIStrategy
     @Override
     public void executeStrategy() {}
 
+
+
+
+
+
+    /**
+     * Test Method for the unit test
+     */
+    public boolean isSafetySquareTest(Square square)
+    {
+        return isSafetySquare(square);
+    }
+    public List<Square> getValidNeighborsTest(Square square)
+    {
+        return getValidNeighbors(square);
+    }
+    public Square BFSNearestSafetySquareTest()
+    {
+        return BFSNearestSafetySquare();
+    }
+    public void computePathTest(Square square)
+    {
+         computePath(square);
+    }
+    public Deque<Direction> convertPathToDirectionTest(List<Square> squaresList)
+    {
+        return convertPathToDirection(squaresList);
+    }
+
 }
 

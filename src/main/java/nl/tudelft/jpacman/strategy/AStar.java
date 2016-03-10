@@ -26,7 +26,8 @@ import java.util.*;
  */
 public abstract class AStar<T>
 {
-    private class Path implements Comparable{
+    private class Path implements Comparable
+    {
         public T point;
         public Double f;
         public Double g;

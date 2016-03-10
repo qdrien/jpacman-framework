@@ -97,6 +97,7 @@ public class HumanControllerStrategy extends PacmanStrategy
         return null;
     }
 
+
     /**
      * Add keys to the player
      */

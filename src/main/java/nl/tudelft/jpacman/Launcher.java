@@ -192,7 +192,6 @@ public class Launcher //extends JFrame implements ActionListener
 		game = makeGame();
 		builder = new PacManUiBuilder().withDefaultButtons();
 		pacManUI = builder.build(game);
-		//pacManUI.start();
 		buildWindow();
     }
 

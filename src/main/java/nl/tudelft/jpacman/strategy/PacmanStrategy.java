@@ -8,7 +8,6 @@ import nl.tudelft.jpacman.game.Game;
  */
 public abstract class PacmanStrategy
 {
-
     /**
      * The current game
      */

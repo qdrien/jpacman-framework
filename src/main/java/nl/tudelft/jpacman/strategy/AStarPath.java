@@ -119,7 +119,6 @@ public class AStarPath extends AStar<Square>
         return validNeighbors;
     }
 
-
     /**
      * Determines the cost of the square (used to define the best square)
      * @param originSquare The square to leave.

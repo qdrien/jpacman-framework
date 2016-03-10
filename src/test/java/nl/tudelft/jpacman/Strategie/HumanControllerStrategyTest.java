@@ -69,7 +69,5 @@ public class HumanControllerStrategyTest
 
         robot.keyRelease(KeyEvent.VK_RIGHT);
         robot.waitForIdle();*/
-
-
     }
 }

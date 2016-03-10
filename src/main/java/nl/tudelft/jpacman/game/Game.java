@@ -233,7 +233,6 @@ public abstract class Game implements LevelObserver {
                 s.schedule(this, interval, TimeUnit.MILLISECONDS);
             }
         }
-
         /**
          * Boolean to finish the task for the thread
          * @param finished true if the task is finished, false otherwise

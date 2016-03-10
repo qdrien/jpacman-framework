@@ -170,5 +170,4 @@ public abstract class Square {
 		}
 		return neighboursList;
 	}
-
 }

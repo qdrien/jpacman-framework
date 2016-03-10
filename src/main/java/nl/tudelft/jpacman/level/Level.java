@@ -489,7 +489,6 @@ public class Level {
                     move(player, nextMove);
                 }
             }
-
             long interval = player.getInterval();
             service.schedule(this, interval, TimeUnit.MILLISECONDS);
         }

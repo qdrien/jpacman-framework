@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class MyJDialogStrategy extends JDialog
 {
 
-    private static final long serialVersionUID = 1L;
     private JButton HumanController, AIController;
     private PacmanStrategy strategy;
     private Game game;
