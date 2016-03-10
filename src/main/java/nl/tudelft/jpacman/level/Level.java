@@ -370,10 +370,10 @@ public class Level implements PlayerListener {
         int minX, minY, maxX, maxY;
 
         //Clamp values so that we stay within borders
-		minX = Utils.clamp(0, x - UNSAFE_RANGE, board.getWidth() - 1);
-		maxX = Utils.clamp(0, x + UNSAFE_RANGE, board.getWidth() - 1);
-		minY = Utils.clamp(0, y - UNSAFE_RANGE, board.getHeight() - 1);
-		maxY = Utils.clamp(0, y + UNSAFE_RANGE, board.getHeight() - 1);
+		minX = Math.max(0, Math.min(board.getWidth() - 1, x - UNSAFE_RANGE));
+		maxX = Math.max(0, Math.min(board.getWidth() - 1, x + UNSAFE_RANGE));
+		minY = Math.max(0, Math.min(board.getHeight() - 1, y - UNSAFE_RANGE));
+		maxY = Math.max(0, Math.min(board.getHeight() - 1, y + UNSAFE_RANGE));
 
         //For each position in the rectangle produced by (minX,minY) and (maxX,maxY)
         for(int currentX = minX; currentX < maxX; currentX++){
