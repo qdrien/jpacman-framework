@@ -20,6 +20,7 @@ public abstract class AIStrategy extends PacmanStrategy
         super(game);
     }
 
+
     /**
      * Get the type of the strategy
      * @return a AI type strategy
