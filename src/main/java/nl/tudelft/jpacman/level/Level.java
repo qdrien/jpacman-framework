@@ -1,6 +1,5 @@
 package nl.tudelft.jpacman.level;
 
-import com.sun.javafx.util.Utils;
 import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Direction;
