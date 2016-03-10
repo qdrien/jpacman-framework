@@ -61,6 +61,11 @@ public class Player extends Unit {
     private boolean poweredUp = false;
 
     /**
+     * Whether the application is running or whether it's being tested.
+     */
+    private static boolean isNotATest = true;
+
+    /**
 	 * Creates a new player with a score of 0 points.
 	 * 
 	 * @param spriteMap
@@ -205,7 +210,7 @@ public class Player extends Unit {
         }
         int bonus = achievement.getBonusScore();
         score += bonus;
-        JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -251,9 +256,10 @@ public class Player extends Unit {
         panel.add(passEntered);
         try
         {
+            int choice = 0;
             do
             {
-                int choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
             }while (checkUsername(playerName));
@@ -530,7 +536,16 @@ public class Player extends Unit {
 		this.alive = isAlive;
 	}
 
-	/**
+    /**
+     * Sets whether the application is running or being test.
+     * @param noTest Whether the application is running or being test.
+     */
+    public static void setIsNotATest(boolean noTest)
+    {
+        isNotATest = noTest;
+    }
+
+    /**
 	 * Returns the amount of points accumulated by this player.
 	 * 
 	 * @return The amount of points accumulated by this player.

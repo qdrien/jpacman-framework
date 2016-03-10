@@ -22,7 +22,7 @@ public class HallOfFame
     private static final String HOF_PATH = new File("").getAbsolutePath() + "/src/main/resources/HoF.txt";
 
     /**
-     * Whether the application is running or whether it's being tested.
+     * Whether the application is running or whether it's being tested. (ham for the launcherSmokeTest)
      */
     private static boolean isNotATest, ham = false;
 

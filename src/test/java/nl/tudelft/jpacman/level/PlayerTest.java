@@ -16,10 +16,11 @@ public class PlayerTest
 {
     private Player testPlayer;
     private static final String PATH = new File("").getAbsolutePath()+"/src/test/resources/Testy.prf";
-/*
+
     @Before
     public void init() throws IOException
     {
+        Player.setIsNotATest(false);
         Sprite sprites[] = new Sprite[1];
         testPlayer = new Player(null, new AnimatedSprite(sprites, 1, false));
         testPlayer.setProfilePath(PATH);
@@ -34,22 +35,6 @@ public class PlayerTest
     public static void cleanup()
     {
         new File(PATH).delete();
-    }
-
-    @Test
-    public void testPlayerCreation()
-    {
-        testPlayer.createNewPlayer();
-        String profilePath = new File("").getAbsolutePath()+"/src/main/resources/profiles/" + testPlayer.getPlayerName() + ".prf";
-        assertTrue("Profile file hasn't been created.", new File(profilePath).exists());
-        assertTrue("Login file hasn't been updated.", new File(testPlayer.getLoginPath()).lastModified() / 10000 == System.currentTimeMillis() / 10000);
-    }
-
-    @Test
-    public void testAuthentification()
-    {
-        testPlayer.authenticate();
-        assertNotEquals("The player name is  empty.", testPlayer.getPlayerName(), "");
     }
 
     @Test
@@ -84,5 +69,5 @@ public class PlayerTest
         before = System.currentTimeMillis();
         testPlayer.levelCompleted();
         assertTrue("Achievement not added to file.", new File(PATH).lastModified() > before);
-    }*/
+    }
 }
