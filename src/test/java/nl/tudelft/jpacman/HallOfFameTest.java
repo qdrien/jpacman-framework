@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.*;
@@ -20,6 +19,7 @@ public class HallOfFameTest
     @Before
     public void init() throws IOException
     {
+        HallOfFame.setIsNotATest(false);
         hallOfFame = new HallOfFame();
         path = hallOfFame.getHoFPath();
         reader = new BufferedReader(new FileReader(path));

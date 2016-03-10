@@ -122,6 +122,7 @@ public abstract class Game implements LevelObserver {
      */
     private void triggerHoF(Player player)
     {
+        HallOfFame.setIsNotATest(true);
         HallOfFame hallOfFame = new HallOfFame();
         player.saveScore();
         hallOfFame.handleHoF(player.getScore(), player.getPlayerName());

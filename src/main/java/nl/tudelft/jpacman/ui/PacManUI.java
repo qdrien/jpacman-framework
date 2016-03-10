@@ -82,7 +82,7 @@ public class PacManUI extends JFrame {
 		if (sf != null) {
 			scorePanel.setScoreFormatter(sf);
 		}
-		
+
 		boardPanel = new BoardPanel(game);
 		
 		Container contentPanel = getContentPane();

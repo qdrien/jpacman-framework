@@ -22,6 +22,11 @@ public class HallOfFame
     private static final String HOF_PATH = new File("").getAbsolutePath() + "/src/main/resources/HoF.txt";
 
     /**
+     * Whether the application is running or whether it's being tested.
+     */
+    private static boolean isNotATest, ham = false;
+
+    /**
      * The points scored in the game.
      */
     private int score;
@@ -49,6 +54,24 @@ public class HallOfFame
     public int getNumberOfRecordsKept()
     {
         return NUMBER_OF_RECORDS;
+    }
+
+    /**
+     * Sets whether the application is running or being test.
+     * @param noTest Whether the application is running or being test.
+     */
+    public static void setIsNotATest(boolean noTest)
+    {
+        isNotATest = noTest;
+    }
+
+    /**
+     * Determines if the Hall of Fame is a ham. (whether the smoke test is running or the application)
+     * @param isSmoked whether the Hall of Fame was born amidst salt and smoke.
+     */
+    public static void setHam(boolean isSmoked)
+    {
+        ham = isSmoked;
     }
 
     /**
@@ -81,7 +104,7 @@ public class HallOfFame
         //Inserting eventual better score into Hall of Fame.
         updateHoF(bestScores, bestPlayers, playerName);
         //Displaying the HOF, regardless of whether it has been updated or not.
-        displayHoF(bestScores, bestPlayers);
+        if (isNotATest && !ham) displayHoF(bestScores, bestPlayers);
     }
 
     /**
@@ -102,7 +125,7 @@ public class HallOfFame
                     bestPlayers[j] = bestPlayers[j - 1];
                 }
                 //In case the player isn't logged in.
-                if (playerName == null)
+                if (playerName == null && !ham)
                 {
                     bestPlayers[i] = askName();
                 }
@@ -186,15 +209,19 @@ public class HallOfFame
      */
     public void resetHoF()
     {
-        Object options[] = {"Yes", "No"};
-        int buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+        int buttonPressed = 0;
+        if(isNotATest)
+        {
+            Object options[] = {"Yes", "No"};
+            buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+        }
         if (buttonPressed == 0)
         {
             try
             {
                 FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
                 dest.transferFrom(src, 0, src.size());
-                JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset", JOptionPane.PLAIN_MESSAGE);
+                if(isNotATest) JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset", JOptionPane.PLAIN_MESSAGE);
             }
             catch (IOException e)
             {

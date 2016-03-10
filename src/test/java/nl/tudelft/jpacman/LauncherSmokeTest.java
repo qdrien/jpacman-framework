@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
+import nl.tudelft.jpacman.game.HallOfFame;
 import nl.tudelft.jpacman.level.Player;
 
 import org.junit.After;
@@ -30,7 +31,7 @@ import org.junit.Test;
 public class LauncherSmokeTest {
 	
 	private Launcher launcher;
-	
+
 	/**
 	 * Launch the user interface.
 	 */
@@ -58,7 +59,8 @@ public class LauncherSmokeTest {
     @SuppressWarnings("methodlength")
     @Test
     public void smokeTest() throws InterruptedException {
-        Game game = launcher.getGame();        
+        Game game = launcher.getGame();
+        HallOfFame.setHam(true);
         Player player = game.getPlayers().get(0);
  
         // start cleanly.
