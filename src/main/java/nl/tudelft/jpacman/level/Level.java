@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.level;
 
+import com.sun.javafx.util.Utils;
 import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Direction;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class Level implements PlayerListener {
 
     private static final int UNSAFE_RANGE = 4;
-    private static final boolean QUICK_WIN = true; //TODO: remove this "dev" field
+    private static final boolean QUICK_WIN = true; //todo
 
     /**
 	 * The board of this level.
@@ -80,7 +81,7 @@ public class Level implements PlayerListener {
     /**
      * The amount of pellets there were when the level started
      */
-    private int originalPelletCount = -1;
+    private int initialPelletCount = -1;
 
     /**
 	 * Creates a new level for the board.
@@ -267,13 +268,13 @@ public class Level implements PlayerListener {
 	 * Updates the observers about the state of this level.
 	 */
 	private void updateObservers() {
-        if(originalPelletCount == -1) originalPelletCount = remainingPellets();
+        if(initialPelletCount == -1) initialPelletCount = remainingPellets();
 		if (!isAnyPlayerAlive()) {
 			for (LevelObserver o : observers) {
 				o.levelLost();
 			}
 		}
-		if (remainingPellets() == 0 || QUICK_WIN && originalPelletCount - remainingPellets() == 13) {
+		if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == 13) {
 			for (LevelObserver o : observers) {
 				o.levelWon();
 			}
@@ -324,17 +325,16 @@ public class Level implements PlayerListener {
      * @param p The Player that just lost one life
      */
     @Override
-    public void onPlayerLoseLife(Player p) {
+    public void onPlayerLoseLife(final Player p) {
         if (p.getLives() > 0) {
-            ArrayList<Square> possibleSquares = getPossibleSquares();
-			if(possibleSquares.size() > 0){
-				Random r = new Random();
-				int targetSquareIndex = r.nextInt(possibleSquares.size());
-				p.occupy(possibleSquares.get(targetSquareIndex));
-			} else {
-				throw new PacmanConfigurationException("There is no safe square.");
-				//todo: should probably create another kind of exception
-			}
+            final ArrayList<Square> possibleSquares = getPossibleSquares();
+            if (possibleSquares.isEmpty()) {
+                throw new PacmanConfigurationException("There is no safe square.");
+            } else {
+                final Random r = new Random();
+                final int targetSquareIndex = r.nextInt(possibleSquares.size());
+                p.occupy(possibleSquares.get(targetSquareIndex));
+            }
 
         }
     }
@@ -347,12 +347,12 @@ public class Level implements PlayerListener {
     private ArrayList<Square> getPossibleSquares() {
         assert players.get(0) != null;
 
-        int boardWidth = board.getWidth();
-        int boardHeight = board.getHeight();
-        ArrayList<Square> possibleSquares = new ArrayList<>();
+        final int boardWidth = board.getWidth();
+        final int boardHeight = board.getHeight();
+        final ArrayList<Square> possibleSquares = new ArrayList<>();
         for (int x = 0; x < boardWidth; x++){
             for (int y = 0; y < boardHeight; y++){
-                Square square = board.squareAt(x, y);
+                final Square square = board.squareAt(x, y);
                 if (square.isAccessibleTo(players.get(0)) && isSafe(x, y)) possibleSquares.add(square);
             }
         }
@@ -366,14 +366,14 @@ public class Level implements PlayerListener {
      * @param y The given vertical coordinate of the Square we want to check
      * @return true if it is safe, false otherwise
      */
-    boolean isSafe(int x, int y) {
+    boolean isSafe(final int x, final int y) {
         int minX, minY, maxX, maxY;
 
         //Clamp values so that we stay within borders
-        minX = x - UNSAFE_RANGE < 0 ? 0 : x - UNSAFE_RANGE;
-        minY = y - UNSAFE_RANGE < 0 ? 0 : y - UNSAFE_RANGE;
-        maxX = x + UNSAFE_RANGE >= board.getWidth() ? board.getWidth() - 1 : x + UNSAFE_RANGE;
-        maxY = y + UNSAFE_RANGE >= board.getHeight() ? board.getHeight() - 1 : y + UNSAFE_RANGE;
+		minX = Utils.clamp(0, x - UNSAFE_RANGE, board.getWidth() - 1);
+		maxX = Utils.clamp(0, x + UNSAFE_RANGE, board.getWidth() - 1);
+		minY = Utils.clamp(0, y - UNSAFE_RANGE, board.getHeight() - 1);
+		maxY = Utils.clamp(0, y + UNSAFE_RANGE, board.getHeight() - 1);
 
         //For each position in the rectangle produced by (minX,minY) and (maxX,maxY)
         for(int currentX = minX; currentX < maxX; currentX++){
@@ -382,7 +382,7 @@ public class Level implements PlayerListener {
                 // we need to filter (ignore) "out of range" neighbors (using manhattan distance)
                 if(manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) continue;
                 //If is is in "Manhattan range", we need to check whether there is a ghost on it
-                long count = board.squareAt(currentX, currentY).getOccupants().stream()
+                final long count = board.squareAt(currentX, currentY).getOccupants().stream()
                         .filter(p -> p instanceof Ghost)
                         .count();
                 //If there is at least one Ghost on that square, the original square at (x,y) is not safe
@@ -401,7 +401,7 @@ public class Level implements PlayerListener {
      * @param y1 The vertical coordinate of p1
      * @return The int value of the Manhattan distance between the given points
      */
-    public static int manhattanDistance(int x0, int y0, int x1, int y1) {
+    public static int manhattanDistance(final int x0, final int y0, final int x1, final int y1) {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
     }
 

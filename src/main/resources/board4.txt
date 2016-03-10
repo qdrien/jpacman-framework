@@ -1,0 +1,14 @@
+(Re)bonjour,
+
+J'ai bien reçu vos remarques et celles des rapporteurs, j'en tiendrai compte et demanderai des précisions si nécessaire.
+
+Comme je vous le disais tout à l'heure, certains points du gameplay et la signification de "LEDs trop proches" dépendent de tests sur la précision des données utilisées (notamment la précision avec laquelle on détermine la direction vers laquelle pointe un utilisateur).
+
+A ce propos, je compte clôturer le processus de calibrage des LEDs dans les jours qui viennent (le code est fonctionnel mais en mode "hack", pour tester; je suis donc en train de le rendre plus générique/modifiable et d'ajouter un feedback visuel correct pour l'utilisateur).
+J'aurais aimé terminer cela avant pour attaquer au plus vite le jeu en lui-même et la reconnaissance de "gestures" mais j'ai du m'occuper du stage (update du CV, demande de stage, entretien et maintenant formation C#/Unity pour passer un "test" au plus vite).
+
+La démo que vous demandiez pourrait donc se faire à partir de la semaine prochaine et contiendrait donc connexion/interaction avec la Kinect et les LEDs, gesture "push" et calibrage des LEDs.
+Puisque le cours de "Software Evolution" a lieu le mardi 9 de 15h15 à 17h15, je propose de faire la démo avant ou après celui-ci, si cela vous convient (si pas, j'ai pas mal d'autres disponibilités dans le restant de la semaine).
+
+Cordialement,
+Adrien Coppens

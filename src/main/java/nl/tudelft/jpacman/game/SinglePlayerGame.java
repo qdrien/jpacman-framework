@@ -48,7 +48,7 @@ public class SinglePlayerGame extends Game {
 
     /**
      * Simple getter for current Level
-     * @return
+     * @return The current Level
      */
 	@Override
 	public Level getLevel() {

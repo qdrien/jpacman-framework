@@ -37,7 +37,8 @@ public class PlayerTest {
         int lives = player.getLives();
         player.addPoints(10);
         assertEquals(score + 10, player.getScore());
-        player.addPoints(10000); //TODO: check with inf
+        //using MAX_VALUE to ensure it is bigger than the "add life threshold"
+        player.addPoints(Integer.MAX_VALUE);
         assertEquals(lives + 1, player.getLives());
     }
 

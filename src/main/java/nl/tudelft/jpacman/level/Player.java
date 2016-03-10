@@ -47,7 +47,7 @@ public class Player extends Unit {
 	/**
 	 * The ArrayList of listeners that will be called when a player-related event occurs
 	 */
-	private ArrayList<PlayerListener> listeners;
+	private final ArrayList<PlayerListener> listeners;
 
 	/**
 	 * Creates a new player with a score of 0 points.

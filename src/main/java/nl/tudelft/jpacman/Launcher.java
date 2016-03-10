@@ -215,13 +215,16 @@ public class Launcher {
 	}
 
     /**
-     * Returns the next level and increments the currentLevel field
+     * Returns the next level and increments the currentLevel field.
+     * If this was already the last level, simply restart it.
      * @return The new(and next) level
      */
     public Level nextLevel() {
         Level level = makeLevel(++currentLevel);
         if (level == null) {
-            //TODO: end game properly or make a nearly impossible level and restart it until the player dies?
+            //the level could not be loaded, this means that the previous one was the final level
+			//restart this last level and loop until player dies
+            //(this level can't be finished without loosing at least one life so there will be an end)
             level = makeLevel(--currentLevel);
         }
         return level;
