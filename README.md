@@ -2,8 +2,8 @@
 
 JPacman-Framework
 =================
-This is a fork from https://github.com/SERG-Delft/jpacman-framework (see the original README.md [here](old_README_.md)) made for the Software Evolution course at UMONS.
-This version includes the "series of mazes" extension as well as a "board generator" (included in [BoardFactory](src/main/java/cl/tudelft/jpacman/board/BoardFactory)) that translates images to ready-to-use text files in the JPacMan format (more convenient to create levels than the default text version).
+This is a fork from https://github.com/SERG-Delft/jpacman-framework (see the original README.md [here](old_README.md)) made for the Software Evolution course at UMONS.
+This version includes the "series of mazes" extension as well as a "board generator" (included in [BoardFactory](src/main/java/nl/tudelft/jpacman/board/BoardFactory.java)) that translates images to ready-to-use text files in the JPacMan format (more convenient to create levels than the default text version).
 
 Getting Started
 ---------------
