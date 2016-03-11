@@ -1,5 +1,8 @@
 package nl.tudelft.jpacman.game;
 
+/**
+ * The list of possible achievements.
+ */
 public enum Achievement
 {
     VICTOR, WON_THRICE, SPEEDY_DEATH, AMBUSHED, OVER_9000;
@@ -34,7 +37,7 @@ public enum Achievement
      * @param s The String.
      * @return The Achievement.
      */
-    public static Achievement parseAchievement(String s)
+    public static Achievement parseAchievement(final String s)
     {
         return valueOf(s);
     }

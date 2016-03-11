@@ -1,9 +1,5 @@
 package nl.tudelft.jpacman.level;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.Map;
-
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.game.Achievement;
@@ -12,6 +8,9 @@ import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
 import javax.swing.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * A player operated unit in our game.
@@ -58,7 +57,7 @@ public class Player extends Unit {
     /**
      * Whether the player has eaten a superpellet or not. (for future use, superpellet not implemented)
      */
-    private boolean poweredUp = false;
+    private boolean poweredUp; //booleans are initialised to false by default.
 
     /**
      * Whether the application is running or whether it's being tested.

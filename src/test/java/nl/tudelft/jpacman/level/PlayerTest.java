@@ -12,11 +12,25 @@ import java.io.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for the Player class.
+ */
 public class PlayerTest
 {
+    /**
+     * A player with which to test methods.
+     */
     private Player testPlayer;
+
+    /**
+     * The path of the file that will be used to test the player's profile.
+     */
     private static final String PATH = new File("").getAbsolutePath()+"/src/test/resources/Testy.prf";
 
+    /**
+     * Operations to be executed prior to tests.
+     * @throws IOException If the file used to test profiles cannot be created or written to.
+     */
     @Before
     public void init() throws IOException
     {
@@ -31,12 +45,18 @@ public class PlayerTest
         writer.close();
     }
 
+    /**
+     * Deletes the file used to test profiles after all tests have run.
+     */
     @AfterClass
     public static void cleanup()
     {
         new File(PATH).delete();
     }
 
+    /**
+     * Tests whether adding achievements works correctly or not.
+     */
     @Test
     public void testAchievementAddition()
     {
@@ -59,6 +79,9 @@ public class PlayerTest
         }
     }
 
+    /**
+     * Tests whether some methods triggered by the obtention of specific achievements work correctly.
+     */
     @Test
     public void testAchievements()
     {

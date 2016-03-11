@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.channels.FileChannel;
 
+/**
+ * The Hall of Fame.
+ */
 public class HallOfFame
 {
     /**
@@ -24,7 +27,7 @@ public class HallOfFame
     /**
      * Whether the application is running or whether it's being tested. (ham for the launcherSmokeTest)
      */
-    private static boolean isNotATest, ham = false;
+    private static boolean isNotATest, ham; //booleans are initialised to false by default, so ham can stay uninit.
 
     /**
      * The points scored in the game.
