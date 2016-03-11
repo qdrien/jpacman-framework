@@ -63,7 +63,7 @@ public class HallOfFame
      * Sets whether the application is running or being test.
      * @param noTest Whether the application is running or being test.
      */
-    public static void setIsNotATest(boolean noTest)
+    public static void setIsNotATest(final boolean noTest)
     {
         isNotATest = noTest;
     }
@@ -72,7 +72,7 @@ public class HallOfFame
      * Determines if the Hall of Fame is a ham. (whether the smoke test is running or the application)
      * @param isSmoked whether the Hall of Fame was born amidst salt and smoke.
      */
-    public static void setHam(boolean isSmoked)
+    public static void setHam(final boolean isSmoked)
     {
         ham = isSmoked;
     }
@@ -83,7 +83,7 @@ public class HallOfFame
      * @param playerName The name of the current player.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void handleHoF(int pointsScored, String playerName)
+    public void handleHoF(final int pointsScored, final String playerName)
     {
         int bestScores[] = new int[NUMBER_OF_RECORDS];
         String bestPlayers[] = new String[NUMBER_OF_RECORDS];
@@ -117,7 +117,7 @@ public class HallOfFame
      * @param bestPlayers The list of players associated to the high scores to store.
      * @param playerName The name of the current player.
      */
-    private void updateHoF(int[] bestScores, String[] bestPlayers, String playerName)
+    private void updateHoF(int[] bestScores, String[] bestPlayers, final String playerName)
     {
         for (int i = 0; i < NUMBER_OF_RECORDS; i++)
         {
@@ -166,7 +166,7 @@ public class HallOfFame
      * @param bestScores The list of high scores to display.
      * @param bestPlayers The list of players to display.
      */
-    private void displayHoF(int bestScores[], String bestPlayers[])
+    private void displayHoF(final int bestScores[], final String bestPlayers[])
     {
         String text = "";
         final String options[] = {"Leave", "Reset"};
@@ -182,7 +182,7 @@ public class HallOfFame
      * @return A formatted display.
      */
     //Trying to align the displays in 2 columns.
-    private String formatDisplay(int score, String player)
+    private String formatDisplay(final int score, final String player)
     {
         String padding = "";
         for (int i = NAME_LENGTH; i > player.length(); i--) padding += " ";
@@ -194,7 +194,7 @@ public class HallOfFame
      * @param bestScores The list of high scores to store.
      * @param bestPlayers The list of players associated to the high scores to store.
      */
-    private void saveUpdatedHoF(int bestScores[], String bestPlayers[])
+    private void saveUpdatedHoF(final int bestScores[], final String bestPlayers[])
     {
         try
         {

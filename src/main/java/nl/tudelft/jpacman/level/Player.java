@@ -129,7 +129,7 @@ public class Player extends Unit {
      * Sets the path to the file storing the player's stats.
      * @param s The path to set.
      */
-    public void setProfilePath(String s)
+    public void setProfilePath(final String s)
     {
         profilePath = s;
     }
@@ -183,7 +183,7 @@ public class Player extends Unit {
      * @param title The title of the dialog.
      * @return The index of the button that was clicked.
      */
-    private int displayChoiceBox(String[] options, String label, String title)
+    private int displayChoiceBox(final String[] options, final String label, final String title)
     {
         final JPanel panel = new JPanel();
         final JLabel text = new JLabel(label);
@@ -195,7 +195,7 @@ public class Player extends Unit {
      * Adds an achievement to the player's profile file.
      * @param achievement The achievement to add.
      */
-    public void addAchievement(Achievement achievement)
+    public void addAchievement(final Achievement achievement)
     {
         //If the achievement has already been obtained by this player (or the player isn't logged in), don't add it.
         if (playerName == null || checkAchievement(achievement)) return;
@@ -220,7 +220,7 @@ public class Player extends Unit {
      * @return Whether the achievement has already been earned or not.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private boolean checkAchievement(Achievement achievement)
+    private boolean checkAchievement(final Achievement achievement)
     {
         boolean found = false;
         try
@@ -283,7 +283,7 @@ public class Player extends Unit {
      * @param pass the player's desired password.
      * @throws IOException If the login file cannot be written to or the player's profile file cannot be created.
      */
-    private void createProfile(char pass[]) throws IOException
+    private void createProfile(final char pass[]) throws IOException
     {
         BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
         writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
@@ -305,7 +305,7 @@ public class Player extends Unit {
      * @throws IOException If the login file cannot be found or read.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private boolean checkUsername(String name) throws IOException
+    private boolean checkUsername(final String name) throws IOException
     {
         String line;
         final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
@@ -326,7 +326,7 @@ public class Player extends Unit {
      * @param passEntered the password entered by the player.
      * @return Whether the identifying info is correct or not.
      */
-    private boolean checkLoginInfo(char passEntered[])
+    private boolean checkLoginInfo(final char passEntered[])
     {
         try
         {
@@ -388,7 +388,7 @@ public class Player extends Unit {
      * @param killer The ghost that killed pacman.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void killedBy(GhostColor killer)
+    public void killedBy(final GhostColor killer)
     {
         if (playerName == null) return;
         int toAlter;
@@ -547,7 +547,7 @@ public class Player extends Unit {
      * Sets whether the application is running or being test.
      * @param noTest Whether the application is running or being test.
      */
-    public static void setIsNotATest(boolean noTest)
+    public static void setIsNotATest(final boolean noTest)
     {
         isNotATest = noTest;
     }
@@ -593,7 +593,7 @@ public class Player extends Unit {
      * Sets the player's name.
      * @param s The name to set.
      */
-    public void setPlayerName(String s)
+    public void setPlayerName(final String s)
     {
         playerName = s;
     }
