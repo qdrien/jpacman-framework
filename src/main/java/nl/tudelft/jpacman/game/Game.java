@@ -97,7 +97,7 @@ public abstract class Game implements LevelObserver {
         if (firstPass)
         {
             stop();
-            Player player = getPlayers().get(0);
+            final Player player = getPlayers().get(0);
             player.addAchievement(Achievement.VICTOR);
             player.levelCompleted();
             triggerHoF(player);
@@ -110,7 +110,7 @@ public abstract class Game implements LevelObserver {
         if (firstPass)
         {
             stop();
-            Player player = getPlayers().get(0);
+            final Player player = getPlayers().get(0);
             triggerHoF(player);
         }
         firstPass = false;
@@ -123,7 +123,7 @@ public abstract class Game implements LevelObserver {
     private void triggerHoF(Player player)
     {
         HallOfFame.setIsNotATest(true);
-        HallOfFame hallOfFame = new HallOfFame();
+        final HallOfFame hallOfFame = new HallOfFame();
         player.saveScore();
         hallOfFame.handleHoF(player.getScore(), player.getPlayerName());
     }

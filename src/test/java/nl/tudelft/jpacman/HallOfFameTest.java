@@ -73,12 +73,12 @@ public class HallOfFameTest
     public void hallOfFameResetTest() throws IOException
     { // Note: running tests resets the Hall of Fame.
         hallOfFame.resetHoF();
-        BufferedReader defaultHOFFileReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
-        String current = reader.readLine(), base = defaultHOFFileReader.readLine();
+        BufferedReader defaultHOFReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
+        String current = reader.readLine(), base = defaultHOFReader.readLine();
         for (int i = 0; i < hallOfFame.getNumberOfRecordsKept(); i++)
         {
             current += reader.readLine();
-            base += defaultHOFFileReader.readLine();
+            base += defaultHOFReader.readLine();
         }
         assertEquals("Hall of Fame hasn't been reset.", current, base);
     }

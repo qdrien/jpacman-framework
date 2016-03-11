@@ -35,12 +35,12 @@ public class PlayerTest
     public void init() throws IOException
     {
         Player.setIsNotATest(false);
-        Sprite sprites[] = new Sprite[1];
+        final Sprite sprites[] = new Sprite[1];
         testPlayer = new Player(null, new AnimatedSprite(sprites, 1, false));
         testPlayer.setProfilePath(PATH);
         testPlayer.setPlayerName("Testy");
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
         writer.close();
     }
@@ -66,7 +66,7 @@ public class PlayerTest
         {
             String line;
             boolean found = false;
-            BufferedReader reader = new BufferedReader(new FileReader(PATH));
+            final BufferedReader reader = new BufferedReader(new FileReader(PATH));
             while((line = reader.readLine()) != null)
             {
                 if (line.equals(Achievement.WON_THRICE.toString())) found = true;

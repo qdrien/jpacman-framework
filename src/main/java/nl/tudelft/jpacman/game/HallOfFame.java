@@ -91,10 +91,10 @@ public class HallOfFame
 
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(HOF_PATH));
+            final BufferedReader reader = new BufferedReader(new FileReader(HOF_PATH));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++)
             {
-                String split[] = reader.readLine().split(" ");
+                final String split[] = reader.readLine().split(" ");
                 bestPlayers[i] = split[0];
                 bestScores[i] = Integer.parseInt(split[1]);
             }
@@ -151,10 +151,10 @@ public class HallOfFame
      */
     private String askName()
     {
-        String options[] = {"Ok"};
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Enter your name: ");
-        JTextField userInput = new JTextField(NAME_LENGTH);
+        final String options[] = {"Ok"};
+        final JPanel panel = new JPanel();
+        final JLabel label = new JLabel("Enter your name: ");
+        final JTextField userInput = new JTextField(NAME_LENGTH);
         panel.add(label);
         panel.add(userInput);
         JOptionPane.showOptionDialog(null, panel, "New High Score!", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -169,9 +169,9 @@ public class HallOfFame
     private void displayHoF(int bestScores[], String bestPlayers[])
     {
         String text = "";
-        Object options[] = {"Leave", "Reset"};
+        final String options[] = {"Leave", "Reset"};
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
-        int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        final int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if (buttonPressed == 1) resetHoF();
     }
 
@@ -198,7 +198,7 @@ public class HallOfFame
     {
         try
         {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
+            final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++) writer.write(bestPlayers[i] + " " + bestScores[i]+"\n");
             writer.close();
         }
@@ -217,14 +217,14 @@ public class HallOfFame
         int buttonPressed = 0;
         if(isNotATest)
         {
-            Object options[] = {"Yes", "No"};
+            final Object options[] = {"Yes", "No"};
             buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
         }
         if (buttonPressed == 0)
         {
             try
             {
-                FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
+                final FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
                 dest.transferFrom(src, 0, src.size());
                 if(isNotATest) JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset", JOptionPane.PLAIN_MESSAGE);
             }

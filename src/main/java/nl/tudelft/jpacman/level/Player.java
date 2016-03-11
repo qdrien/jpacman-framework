@@ -95,18 +95,18 @@ public class Player extends Unit {
      */
     public boolean authenticate()
     {
-        String options[] = {"Ok", "Cancel"};
-        JPanel panel = new JPanel();
-        JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
-        JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
-        JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
+        final String options[] = {"Ok", "Cancel"};
+        final JPanel panel = new JPanel();
+        final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
+        final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
+        final JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
         panel.add(loginLabel);
         panel.add(loginEntered);
         panel.add(passLabel);
         panel.add(passEntered);
         do
         {
-            int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            final int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if (choice != 0) return false;
             playerName = loginEntered.getText();
         }while(!checkLoginInfo(passEntered.getPassword()));
@@ -165,7 +165,7 @@ public class Player extends Unit {
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private String parseAchievements(String achievements) throws IOException
     {
-        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String achievementName = reader.readLine(); //first line ignored, it contains other other information
         achievements += "<br>Achievements: <br>";
         while ((achievementName = reader.readLine()) != null)
@@ -185,8 +185,8 @@ public class Player extends Unit {
      */
     private int displayChoiceBox(String[] options, String label, String title)
     {
-        JPanel panel = new JPanel();
-        JLabel text = new JLabel(label);
+        final JPanel panel = new JPanel();
+        final JLabel text = new JLabel(label);
         panel.add(text);
         return JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }
@@ -201,7 +201,7 @@ public class Player extends Unit {
         if (playerName == null || checkAchievement(achievement)) return;
         try
         {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
+            final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
             writer.write(achievement + System.getProperty("line.separator"));
             writer.close();
         }
@@ -209,7 +209,7 @@ public class Player extends Unit {
         {
             e.printStackTrace();
         }
-        int bonus = achievement.getBonusScore();
+        final int bonus = achievement.getBonusScore();
         score += bonus;
         if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
@@ -225,7 +225,7 @@ public class Player extends Unit {
         boolean found = false;
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+            final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
             String line = reader.readLine(); //the first line is ignored, since it contains other information.
             while ((line = reader.readLine()) != null)
             {
@@ -248,11 +248,11 @@ public class Player extends Unit {
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void createNewPlayer()
     {
-        String options[] = {"Ok", "Cancel"};
-        JPanel panel = new JPanel();
-        JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
-        JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
-        JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
+        final String options[] = {"Ok", "Cancel"};
+        final JPanel panel = new JPanel();
+        final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
+        final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
+        final JPasswordField passEntered = new JPasswordField(MAX_PASS_LENGTH);
         panel.add(loginLabel);
         panel.add(loginEntered);
         panel.add(passLabel);
@@ -266,7 +266,7 @@ public class Player extends Unit {
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
             }while (checkUsername(playerName));
-            char pass[] = passEntered.getPassword();
+            final char pass[] = passEntered.getPassword();
             createProfile(pass);
             JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             //Security precaution
@@ -308,7 +308,7 @@ public class Player extends Unit {
     private boolean checkUsername(String name) throws IOException
     {
         String line;
-        BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+        final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
         while ((line = reader.readLine()) != null)
         {
             if (name.equals(line.split(" ")[0]))
@@ -330,12 +330,12 @@ public class Player extends Unit {
     {
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+            final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
             String line = reader.readLine();
             while (line != null)
             {
-                String split[] = line.split(" ");
-                String login = split[0];
+                final String split[] = line.split(" ");
+                final String login = split[0];
                 if (login.equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
                 line = reader.readLine();
             }
@@ -357,8 +357,8 @@ public class Player extends Unit {
         if (playerName == null) return;
         try
         {
-            String split[] = readInfoLine();
-            int levelsCompleted = Integer.parseInt(split[0]) + 1;
+            final String split[] = readInfoLine();
+            final int levelsCompleted = Integer.parseInt(split[0]) + 1;
             String result = "";
             for (int i = 1; i < split.length; i++) result += split[i] + " ";
             updateInfoLine(levelsCompleted + result);
@@ -377,8 +377,8 @@ public class Player extends Unit {
      */
     private String[] readInfoLine() throws IOException
     {
-        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-        String split[] = reader.readLine().split(" ");
+        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final String split[] = reader.readLine().split(" ");
         reader.close();
         return split;
     }
@@ -462,14 +462,14 @@ public class Player extends Unit {
     private void updateInfoLine(String toWrite) throws IOException
     {
         toWrite += System.getProperty("line.separator");
-        BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
         while ((line = reader.readLine()) != null)
         {
             toWrite += line + System.getProperty("line.separator");
         }
         reader.close();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
         writer.close();
     }
@@ -487,8 +487,8 @@ public class Player extends Unit {
         String toDisplay = "<html>";
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            String split[] = reader.readLine().split(" ");
+            final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+            final String split[] = reader.readLine().split(" ");
             reader.close();
             toDisplay += "Levels completed: " + split[0];
             toDisplay += "<br>High score: " + split[1];
