@@ -82,10 +82,11 @@ public class HallOfFame
      * @param pointsScored The points scored by the current player in the elapsed game.
      * @param playerName The name of the current player.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void handleHoF(int pointsScored, String playerName)
     {
-        int bestScores[] = new int[10];
-        String bestPlayers[] = new String[10];
+        int bestScores[] = new int[NUMBER_OF_RECORDS];
+        String bestPlayers[] = new String[NUMBER_OF_RECORDS];
         score = pointsScored;
 
         try
@@ -210,6 +211,7 @@ public class HallOfFame
     /**
      * Resets the Hall of Fame to its default values.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void resetHoF()
     {
         int buttonPressed = 0;

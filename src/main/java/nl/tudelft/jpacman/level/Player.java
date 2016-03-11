@@ -137,6 +137,7 @@ public class Player extends Unit {
     /**
      * Displays the player's achievements, if any were obtained.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void displayAchievements()
     {
         if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;
@@ -161,6 +162,7 @@ public class Player extends Unit {
      * @return  The updated list of achievements.
      * @throws IOException If the file was not found or is not readable.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private String parseAchievements(String achievements) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(profilePath));
@@ -217,6 +219,7 @@ public class Player extends Unit {
      * @param achievement the achievement to check.
      * @return Whether the achievement has already been earned or not.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private boolean checkAchievement(Achievement achievement)
     {
         boolean found = false;
@@ -242,6 +245,7 @@ public class Player extends Unit {
     /**
      * Creates new player profile.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void createNewPlayer()
     {
         String options[] = {"Ok", "Cancel"};
@@ -300,6 +304,7 @@ public class Player extends Unit {
      * @return Whether the name is already in use or not.
      * @throws IOException If the login file cannot be found or read.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private boolean checkUsername(String name) throws IOException
     {
         String line;
@@ -382,6 +387,7 @@ public class Player extends Unit {
      * Triggered whenever the player dies.
      * @param killer The ghost that killed pacman.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void killedBy(GhostColor killer)
     {
         if (playerName == null) return;
@@ -424,6 +430,7 @@ public class Player extends Unit {
     /**
      * Saves the player's highest scores and checks whether it's high enough to earn him an achievement.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void saveScore()
     {
         if (playerName == null) return;
@@ -451,6 +458,7 @@ public class Player extends Unit {
      * @param toWrite The info to write to the player's profile file.
      * @throws IOException If the file cannot be written to.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private void updateInfoLine(String toWrite) throws IOException
     {
         toWrite += System.getProperty("line.separator");

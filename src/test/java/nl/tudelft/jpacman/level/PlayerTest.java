@@ -58,6 +58,7 @@ public class PlayerTest
      * Tests whether adding achievements works correctly or not.
      */
     @Test
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void testAchievementAddition()
     {
         testPlayer.addAchievement(Achievement.WON_THRICE);
