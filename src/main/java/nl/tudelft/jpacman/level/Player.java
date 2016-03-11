@@ -151,7 +151,7 @@ public class Player extends Unit {
             e.printStackTrace();
         }
         toDisplay += "</html>";
-        if (toDisplay.equals("<html></html>")) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        if ("<html></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
 
     }
