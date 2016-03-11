@@ -71,7 +71,7 @@ public class PlayerTest
             {
                 if (line.equals(Achievement.WON_THRICE.toString())) found = true;
             }
-            assertTrue(found);
+            assertTrue("WON_THRICE wasn't found in the test player's achievement file", found);
             reader.close();
         }
         catch (IOException e)
