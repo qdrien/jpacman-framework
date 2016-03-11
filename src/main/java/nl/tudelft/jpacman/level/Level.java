@@ -368,7 +368,7 @@ public class Level implements PlayerListener {
     boolean isSafe(final int x, final int y) {
         int minX, minY, maxX, maxY;
 
-        //Clamp values so that we stay within borders
+        //Clamp values so that we stay within borders (between 0 and "width or height")
 		minX = Math.max(0, Math.min(board.getWidth() - 1, x - UNSAFE_RANGE));
 		maxX = Math.max(0, Math.min(board.getWidth() - 1, x + UNSAFE_RANGE));
 		minY = Math.max(0, Math.min(board.getHeight() - 1, y - UNSAFE_RANGE));

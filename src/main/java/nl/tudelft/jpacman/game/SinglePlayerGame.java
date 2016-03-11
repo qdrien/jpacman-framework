@@ -61,10 +61,8 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
-        player.unregister(level);
         Level level = launcher.nextLevel();
         setLevel(level);
-        level.registerPlayer(player);
     }
 
     /**
@@ -99,7 +97,21 @@ public class SinglePlayerGame extends Game {
      * Sets the current level to the given one
      * @param level The Level that is to be played
      */
+    @Override
     public void setLevel(Level level) {
+        player.unregister(level);
+        level.registerPlayer(player);
         this.level = level;
+    }
+
+	/**
+	 * Resets the score (to 0) and the number of player lives (to 3)
+     * (should be called when a new level is set "manually" i.e. using "level choice" radio buttons)
+	 */
+    @Override
+    public void reset(){
+        stop();
+        player.resetScore();
+        player.setLives(3);
     }
 }

@@ -190,6 +190,19 @@ public class Launcher {
 		game = makeGame();
 		game.setLauncher(this);
 		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
+        builder.addButton("Identification", new Action()
+        {
+            @Override
+            public void doAction()
+            {
+                Player player = game.getPlayers().get(0);
+                boolean loggedIn = player.authenticate();
+                if (loggedIn) {
+                    pacManUI.refreshLevelChoices(4);
+//					pacManUI.refreshLevelChoices(player.getMaxLevelReached()); //TODO: add this after the merge and comment previous line
+                }
+            }
+        });
 		addSinglePlayerKeys(builder, game);
 		pacManUI = builder.build(game);
 		pacManUI.start();
@@ -236,5 +249,13 @@ public class Launcher {
      */
     public int getCurrentLevel() {
         return currentLevel;
+    }
+
+    /**
+     * Sets the level to the one that has the given id (calls #Game.setLevel)
+     * @param level The id of the level we want to switch to
+     */
+    public void setLevel(int level) {
+        game.setLevel(makeLevel(level));
     }
 }

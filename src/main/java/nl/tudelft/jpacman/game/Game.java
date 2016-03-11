@@ -98,7 +98,7 @@ public abstract class Game implements LevelObserver {
 			getLevel().move(player, direction);
 		}
 	}
-	
+
 	@Override
 	public void levelWon() {
 		stop();
@@ -109,7 +109,31 @@ public abstract class Game implements LevelObserver {
 		stop();
 	}
 
+    /**
+     * Simple setter for the launcher that created the Game instance
+     * @param launcher The launcher that created the Game instance
+     */
 	public void setLauncher(Launcher launcher) {
 		this.launcher = launcher;
 	}
+
+    /**
+     * Simple getter for the Launcher field
+     * @return The Launcher that created the Game instance
+     */
+	public Launcher getLauncher() {
+		return launcher;
+	}
+
+    /**
+     * Forces subclasses to provide a method to switch to the given Level
+     * @param level The Level we want to switch to
+     */
+	public abstract void setLevel(Level level);
+
+    /**
+     * Forces subclasses to provide a method to reset the score and the number of lives the player has
+     * (should be called when a new level is set "manually")
+     */
+    public abstract void reset();
 }

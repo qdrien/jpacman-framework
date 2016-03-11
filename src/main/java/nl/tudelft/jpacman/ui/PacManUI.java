@@ -1,17 +1,17 @@
 package nl.tudelft.jpacman.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
+import nl.tudelft.jpacman.game.Game;
+import nl.tudelft.jpacman.level.Level;
+import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
 /**
  * The default JPacMan UI frame. The PacManUI consists of the following
@@ -49,8 +49,11 @@ public class PacManUI extends JFrame {
 	 * The panel displaying the game.
 	 */
 	private final BoardPanel boardPanel;
+    private final ButtonPanel buttonPanel;
+    private ButtonGroup choiceLevelGroup;
+    private ArrayList<JRadioButton> buttonsList;
 
-	/**
+    /**
 	 * Creates a new UI for a JPac-Man game.
 	 * 
 	 * @param game
@@ -76,7 +79,8 @@ public class PacManUI extends JFrame {
 		PacKeyListener keys = new PacKeyListener(keyMappings);
 		addKeyListener(keys);
 
-		JPanel buttonPanel = new ButtonPanel(buttons, this);
+		buttonPanel = new ButtonPanel(buttons, this);
+        addLevelChoiceButtons(game);
 
 		scorePanel = new ScorePanel(game.getPlayers());
 		if (sf != null) {
@@ -94,7 +98,33 @@ public class PacManUI extends JFrame {
 		pack();
 	}
 
-	/**
+    /**
+     * Adds buttons that allows the user to choose the level he wants to play in
+     * @param game The Game instance we are playing on
+     */
+    private void addLevelChoiceButtons(Game game) {
+        buttonsList = new ArrayList<>();
+        JLabel choiceLevelLabel = new JLabel("Choose the level:");
+        choiceLevelGroup = new ButtonGroup();
+        refreshLevelChoices(1);
+        JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(e -> {
+            Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
+            while (elements.hasMoreElements()){
+                AbstractButton button = elements.nextElement();
+                if(button.isSelected()) {
+                    //TODO: refactor this after the merge (should move mapparser into Game)
+                    Level level = game.getLauncher().makeLevel(Integer.valueOf(button.getText()));
+                    game.setLevel(level);
+                    game.reset();
+                }
+            }
+        });
+        buttonPanel.add(choiceLevelLabel);
+        buttonPanel.add(loadButton);
+    }
+
+    /**
 	 * Starts the "engine", the thread that redraws the interface at set
 	 * intervals.
 	 */
@@ -121,4 +151,28 @@ public class PacManUI extends JFrame {
 		boardPanel.repaint();
 		scorePanel.refresh();
 	}
+
+    /**
+     * Removes all "level selection" radio buttons and adds those that are needed (up to @maxLevelReached)
+     * @param maxLevelReached The max level the player has reached
+     */
+    public void refreshLevelChoices(int maxLevelReached){
+        for (JRadioButton button : buttonsList) {
+            choiceLevelGroup.remove(button);
+            buttonPanel.remove(button);
+        }
+        buttonsList.clear();
+        System.out.println("Adding buttons up to level " + maxLevelReached);
+        JRadioButton level1 = new JRadioButton("1", true);
+        choiceLevelGroup.add(level1);
+        buttonPanel.add(level1);
+        buttonsList.add(level1);
+        for(int i = 1; i < maxLevelReached; i++){
+            JRadioButton button = new JRadioButton(String.valueOf(i + 1), false);
+            choiceLevelGroup.add(button);
+            buttonPanel.add(button);
+            buttonsList.add(button);
+        }
+        pack();
+    }
 }

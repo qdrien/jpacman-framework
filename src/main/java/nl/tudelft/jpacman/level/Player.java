@@ -5,6 +5,7 @@ import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class Player extends Unit {
 	 * @param deathAnimation
 	 *            The sprite to be shown when this player dies.
 	 */
-	Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
+	public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
 		this.score = 0;
 		this.alive = true;
 		this.sprites = spriteMap;
@@ -180,4 +181,24 @@ public class Player extends Unit {
 	public void unregister(Level level) {
 		listeners.remove(level);
 	}
+
+	/**
+	 * Resets the score (to 0)
+	 */
+	public void resetScore() {
+		score = 0;
+	}
+
+	/**
+	 * Placeholder method to simulate the authentication process before the merge
+	 * (this feature has to be implemented in another "sub-project")
+	 * @return A boolean indicating if the authentication was sucessful
+     */
+    public boolean authenticate() {
+        String options[] = {"Ok", "Cancel"};
+        JPanel panel = new JPanel();
+        int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        if (choice != 0) return false;
+        return true;
+    }
 }
