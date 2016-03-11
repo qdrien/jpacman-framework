@@ -25,7 +25,9 @@ import nl.tudelft.jpacman.strategy.PacmanStrategy;
  * @author Jeroen Roosen 
  */
 public class Level {
-
+    /**
+     * The service for the thread
+     */
     private ScheduledExecutorService serviceAI;
     /**
      * The board of this level.
@@ -78,7 +80,13 @@ public class Level {
      * The objects observing this level.
      */
     private final List<LevelObserver> observers;
+    /**
+     * The chosen strategy by the player
+     */
     private PacmanStrategy strategy;
+    /**
+     * The list of the ghosts in the game
+     */
     private final ArrayList<Ghost> ghostList;
     /**
      * Creates a new level for the board.
@@ -100,7 +108,7 @@ public class Level {
 
         this.board = b;
         this.inProgress = false;
-        this.ghostList = new ArrayList<Ghost>();
+        this.ghostList = new ArrayList<>();
         this.npcs = new HashMap<>();
         for (NPC g : ghosts) {
             npcs.put(g, null);
@@ -244,7 +252,10 @@ public class Level {
     }
 
 
-
+    /**
+     * Starts or resumes the AI
+     * @param strategy
+     */
     public void startStrategy(PacmanStrategy strategy)
     {
         this.strategy = strategy;
@@ -281,17 +292,22 @@ public class Level {
         }
     }
 
+    /**
+     * Start or create a thread for the AI
+     */
     private void startAIStrategy()
     {
-        //Démarage du thread principal
+        //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
-        //Lancement de la première tâche
         if(isInProgress())
         {
             serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)), players.get(0).getInterval(), TimeUnit.MILLISECONDS);
         }
     }
 
+    /**
+     * Shutdown the thread
+     */
     private void stopAIStrategy()
     {
         if(serviceAI != null)
@@ -363,10 +379,19 @@ public class Level {
         return pellets;
     }
 
+    /**
+     * Get the player of the game
+     * @return the player
+     */
     public Player getPlayer()
     {
         return players.get(0);
     }
+
+    /**
+     * Get the ghost's list
+     * @return the ghost's list
+     */
     public ArrayList<Ghost> getGhostList()
     {
         return ghostList;
@@ -433,7 +458,11 @@ public class Level {
          */
         void levelLost();
     }
-
+    /**
+     * A task that moves the player used by a AI
+     *
+     * @author Leemans Nicolas
+     */
     private final class PlayerMoveTask implements Runnable
     {
 
@@ -453,7 +482,11 @@ public class Level {
          * Creates a new task.
          *
          * @param s
-         *            The service that executes the task.
+         *          The service that executes the task.
+         * @param strategy
+         *          The chosen strategy by the player
+         * @param p
+         *          The player of the game
          */
         private PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p)
         {
@@ -462,12 +495,16 @@ public class Level {
             this.player=p;
         }
 
+        /**
+         * The run method called periodically
+         */
         @Override
-        public void run() {
-            //Premier passage
+        public void run()
+        {
+            //First called
             if(nextMove== null)
             {
-                nextMove = strategy.nextMove();
+                nextMove = strategy.nextMove();//compute a new move to apply
                 move(player, nextMove);
             }
             else
@@ -486,6 +523,7 @@ public class Level {
                 }
                 else
                 {
+                    //We can't chose a other move
                     move(player, nextMove);
                 }
             }
@@ -493,6 +531,12 @@ public class Level {
             service.schedule(this, interval, TimeUnit.MILLISECONDS);
         }
 
+        /**
+         * Test if the player is in a intersection in the game
+         * @param player the player of the game
+         * @param direction the current direction
+         * @return true if the player is in a intersection, false otherwise
+         */
         public boolean isIntersection(Player player, Direction direction)
         {
             if(direction.equals(Direction.NORTH))

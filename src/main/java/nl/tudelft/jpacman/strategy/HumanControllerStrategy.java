@@ -13,8 +13,7 @@ import java.awt.event.KeyEvent;
  */
 public class HumanControllerStrategy extends PacmanStrategy
 {
-    protected Game game;
-    protected PacManUiBuilder builder;
+    private PacManUiBuilder builder;
 
     /**
      * Default constructor

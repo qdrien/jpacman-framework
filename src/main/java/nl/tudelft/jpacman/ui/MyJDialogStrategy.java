@@ -15,19 +15,38 @@ import java.awt.event.ActionListener;
  */
 public class MyJDialogStrategy extends JDialog
 {
-
+    /**
+     * Button of the window
+     */
     private JButton HumanController, AIController;
+    /**
+     * The chose strategy by the player
+     */
     private PacmanStrategy strategy;
-    private Game game;
-    private PacManUiBuilder builder;
+    /**
+     * The game
+     */
+    private final Game game;
+    /**
+     * The builder
+     */
+    private final PacManUiBuilder builder;
     private PacManUI pacManUI;
 
-    public MyJDialogStrategy(JFrame parent, String title, String message, PacManUiBuilder builder, Game game, PacmanStrategy strategy, PacManUI pacManUI)
+    /**
+     * Create a new window to chose the game mode (strategy,...)
+     * @param parent a JFrame parent
+     * @param title a window title
+     * @param message a message to add for the window
+     * @param builder the builder
+     * @param game the game
+     * @param pacManUI the pacManUI
+     */
+    public MyJDialogStrategy(JFrame parent, String title, String message, PacManUiBuilder builder, Game game, PacManUI pacManUI)
     {
         super(parent, title);
         this.builder = builder;
         this.game = game;
-        this.strategy = strategy;
         this.pacManUI = pacManUI;
         // set the position of the window
         Point p = new Point(100, 100);
@@ -56,8 +75,11 @@ public class MyJDialogStrategy extends JDialog
         setVisible(true);
     }
 
-    // override the createRootPane inherited by the JDialog, to create the rootPane.
-    // create functionality to close the window when "Escape" button is pressed
+    /**
+     * override the createRootPane inherited by the JDialog, to create the rootPane.
+     * create functionality to close the window when "Escape" button is pressed
+     * @return
+     */
     public JRootPane createRootPane()
     {
         JRootPane rootPane = new JRootPane();
@@ -77,8 +99,10 @@ public class MyJDialogStrategy extends JDialog
         return rootPane;
     }
 
-    // an action listener to be used when an action is performed
-    // (e.g. button is pressed)
+    /**
+     *  An action listener to be used when an action is performed
+     *  (e.g. button is pressed)
+     */
     class MyActionListener implements ActionListener
     {
 
@@ -100,8 +124,6 @@ public class MyJDialogStrategy extends JDialog
             setVisible(false);
             dispose();
             pacManUI.start();
-
         }
     }
-
 }

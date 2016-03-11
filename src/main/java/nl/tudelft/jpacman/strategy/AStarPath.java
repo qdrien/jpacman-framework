@@ -20,8 +20,8 @@ public class AStarPath extends AStar<Square>
      * The game's data
      */
     private Square goalSquare;//The square goal
-    private Board board;//The board game
-    private ArrayList<Ghost> ghosts;// The list of the ghosts
+    private final Board board;//The board game
+    private final ArrayList<Ghost> ghosts;// The list of the ghosts
 
     /**
      *
@@ -39,7 +39,7 @@ public class AStarPath extends AStar<Square>
      * @param game
      *     The game
      */
-    public AStarPath(Game game)
+    public AStarPath(final Game game)
     {
         this.board = game.getLevel().getBoard();
         this.ghosts = game.getLevel().getGhostList();
@@ -89,11 +89,11 @@ public class AStarPath extends AStar<Square>
     {
         List<Square> neighborsList = square.getNeighbours();
         List<Square> validNeighbors = new ArrayList<>(neighborsList);
-        Iterator<Square> iter = validNeighbors.iterator();
+        Iterator<Square> iterator = validNeighbors.iterator();
 
-        while(iter.hasNext())
+        while(iterator.hasNext())
         {
-            Square neighborSquare = iter.next();
+            Square neighborSquare = iterator.next();
             boolean invalidNeighbor = false;
             if(neighborSquare.isAccessibleTo(player))
             {
@@ -113,7 +113,7 @@ public class AStarPath extends AStar<Square>
             }
             if(invalidNeighbor)
             {
-                iter.remove();
+                iterator.remove();
             }
         }
         return validNeighbors;
@@ -211,7 +211,6 @@ public class AStarPath extends AStar<Square>
      * @param square The current square.
      * @return the neighbor's list of the square
      */
-
     @Override
     protected List<Square> generateSuccessors(Square square) {
         return getValidNeighbors(square,null);

@@ -24,16 +24,18 @@ public abstract class Game implements LevelObserver {
 	 * <code>true</code> if the game is in progress.
 	 */
 
-    private PacmanStrategy strategy;//The strategy chosen by the player
+    /**
+     *  The chosen strategy by the player
+     */
+    private PacmanStrategy strategy;
 
     private boolean inProgress;
-    private PacManUiBuilder builder;
+    private PacManUiBuilder builder;//The builder
 
 	/**
 	 * Object that locks the start and stop methods.
 	 */
 	private final Object progressLock = new Object();
-    private PlayerMoveTask currentMoveTask;
 
     /**
 	 * Creates a new game.
@@ -41,6 +43,11 @@ public abstract class Game implements LevelObserver {
 	protected Game() {
 		inProgress = false;
 	}
+
+    /**
+     * For the execution of the thread for the moveContinu method
+     */
+    private PlayerMoveTask currentMoveTask;
     private ScheduledExecutorService service;
 	/**
 	 * Starts or resumes the game.
@@ -191,6 +198,9 @@ public abstract class Game implements LevelObserver {
         this.strategy = strategy;
     }
 
+    /**
+     * Class representing the timer and methods to apply during the timer
+     */
     private final class PlayerMoveTask implements Runnable
     {
 
@@ -203,7 +213,13 @@ public abstract class Game implements LevelObserver {
          * The player to move.
          */
         private final Player player;
+        /**
+         * The direction to follow by the player
+         */
         private final Direction dir;
+        /**
+         * A boolean to know if the current task is finished or not
+         */
         private boolean finished = false;
 
         /**
@@ -223,6 +239,9 @@ public abstract class Game implements LevelObserver {
             this.dir = direction;
         }
 
+        /**
+         * The run method to apply periodically
+         */
         @Override
         public void run()
         {

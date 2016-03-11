@@ -19,9 +19,6 @@ import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
-import nl.tudelft.jpacman.strategy.HumanControllerStrategy;
-import nl.tudelft.jpacman.strategy.PacmanStrategy;
-import nl.tudelft.jpacman.strategy.PacManhattanAI;
 import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 import nl.tudelft.jpacman.ui.PacManUI;
@@ -40,9 +37,8 @@ public class Launcher //extends JFrame implements ActionListener
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
 	private PacManUI pacManUI;
-	private Game game;
+	private Game game;//The game
 	private PacManUiBuilder builder;//The builder
-	private PacmanStrategy strategy;//The chosen strategy
 
 	/**
 	 * @return The game object this launcher will start when {@link #launch()}
@@ -215,7 +211,8 @@ public class Launcher //extends JFrame implements ActionListener
 	}
 	public void buildWindow()
 	{
-		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), "Strategy selection", "Choose a game mode and then click to start", builder,game,strategy, pacManUI);
+		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), "Strategy selection", "Choose a game mode and then click to start", builder,game, pacManUI);
 		dialog.setSize(400, 200);
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	}
 }

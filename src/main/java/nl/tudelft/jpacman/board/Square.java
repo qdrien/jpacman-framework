@@ -16,8 +16,13 @@ import nl.tudelft.jpacman.sprite.Sprite;
  * @author Jeroen Roosen 
  */
 public abstract class Square {
-
+	/**
+	 * x-coordinate of a square
+	 */
 	private int x;
+	/**
+	 * y-coordinate of a square
+	 */
 	private int y;
 	/**
 	 * The units occupying this square, in order of appearance.
@@ -132,26 +137,47 @@ public abstract class Square {
 	 */
 	public abstract Sprite getSprite();
 
+	/**
+	 * Get the x-coordinate of a square
+	 * @return the x-coordinate
+     */
 	public int getX()
 	{
 		return this.x;
 	}
+	/**
+	 * Get the y-coordinate of a square
+	 * @return the y-coordinate
+	 */
 	public int getY()
 	{
 		return this.y;
 	}
+
+	/**
+	 * Set the x-coordinate
+	 * @param x the x-coordinate to set
+     */
 	public void setX(int x)
 	{
 		this.x = x;
 	}
+	/**
+	 * Set the y-coordinate
+	 * @param y the x-coordinate to set
+	 */
 	public void setY(int y)
 	{
 		this.y=y;
 	}
 
+	/**
+	 * Get the neighbors list of a square
+	 * @return the neighbors list
+     */
 	public  ArrayList<Square> getNeighbours()
 	{
-		ArrayList<Square> neighboursList = new ArrayList<Square>();
+		ArrayList<Square> neighboursList = new ArrayList<>();
 		if(getSquareAt(Direction.NORTH) != null)
 		{
 			neighboursList.add(getSquareAt(Direction.NORTH));

@@ -1,11 +1,9 @@
 package nl.tudelft.jpacman.strategy;
 
-import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Pellet;
-import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.*;
@@ -16,10 +14,6 @@ import java.util.*;
  */
 public class PacManhattanAI extends AIStrategy
 {
-
-    private Player player;//The player of the game
-    private Board board; // The board game
-    private ArrayList<Ghost> ghosts; //The ghosts list
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
     private boolean[][] visitedCase;//List to know if the square is yet visited or not
@@ -29,7 +23,7 @@ public class PacManhattanAI extends AIStrategy
      *
      * @param game the current game
      */
-    public PacManhattanAI(Game game)
+    public PacManhattanAI(final Game game)
     {
         super(game);
         init(game);
@@ -42,10 +36,7 @@ public class PacManhattanAI extends AIStrategy
      */
     public void init(Game game)
     {
-        this.player = game.getLevel().getPlayer();
-        this.board = game.getLevel().getBoard();
-        this.ghosts = game.getLevel().getGhostList();
-        visitedCase = new boolean[board.getHeight()][board.getWidth()];
+        visitedCase = new boolean[getBoard().getHeight()][getBoard().getWidth()];
         pathAStar = new AStarPath(game);
         directionQueue = new ArrayDeque<>();
     }
@@ -58,9 +49,9 @@ public class PacManhattanAI extends AIStrategy
     public Direction nextMove()
     {
         Square square;
-        for(Ghost ghost : ghosts)
+        for(Ghost ghost : getGhostsList())
         {
-            double distance = AStarPath.ManhattanDistance(player.getSquare().getX(), player.getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            double distance = AStarPath.ManhattanDistance(getPlayer().getSquare().getX(), getPlayer().getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < GHOST_DST_THRESHOLD)
             {
                 square = BFSNearestSafetySquare();
@@ -79,7 +70,7 @@ public class PacManhattanAI extends AIStrategy
             }
             else
             {
-                return player.getDirection();
+                return getPlayer().getDirection();
             }
         }
         else
@@ -102,7 +93,7 @@ public class PacManhattanAI extends AIStrategy
         pathAStar = new AStarPath(game);
         pathAStar.setGoal(square);
 
-        List<Square> path = pathAStar.compute(player.getSquare());
+        List<Square> path = pathAStar.compute(getPlayer().getSquare());
 
         //Check if the path is safe
         if (pathAStar.getCost() > AStarPath.GHOST_COST)
@@ -119,19 +110,19 @@ public class PacManhattanAI extends AIStrategy
      */
     public Square BFSNearestSafetyPelletSquare()
     {
-        for (int i = 0; i < board.getHeight(); i++)
+        for (int i = 0; i < getBoard().getHeight(); i++)
         {
-            for(int j = 0; j < board.getWidth(); j++)
+            for(int j = 0; j < getBoard().getWidth(); j++)
             {
                 visitedCase[i][j] = false;
             }
         }
 
         Queue<Square> squareQueue = new ArrayDeque<>();
-        squareQueue.add(player.getSquare());
-        if(player.getSquare() != null)
+        squareQueue.add(getPlayer().getSquare());
+        if(getPlayer().getSquare() != null)
         {
-            visitedCase[player.getSquare().getY()][player.getSquare().getX()] = true;
+            visitedCase[getPlayer().getSquare().getY()][getPlayer().getSquare().getX()] = true;
         }
         while (squareQueue.isEmpty()==false)
         {
@@ -215,16 +206,16 @@ public class PacManhattanAI extends AIStrategy
      */
     public Square BFSNearestSafetySquare()
     {
-        for (int i = 0; i < board.getHeight(); ++i)
+        for (int i = 0; i < getBoard().getHeight(); ++i)
         {
-            for (int j = 0; j < board.getWidth(); ++j)
+            for (int j = 0; j < getBoard().getWidth(); ++j)
             {
                 visitedCase[i][j] = false;
             }
         }
 
         Queue<Square> squaresQueue = new ArrayDeque<>();
-        squaresQueue.add(player.getSquare());
+        squaresQueue.add(getPlayer().getSquare());
 
         while (!squaresQueue.isEmpty())
         {
@@ -257,13 +248,13 @@ public class PacManhattanAI extends AIStrategy
         List<Square> neighbors = square.getNeighbours();
 
         List<Square> validNeighbors = new ArrayList<>(neighbors);
-        Iterator<Square> iter = validNeighbors.iterator();
+        Iterator<Square> iterator = validNeighbors.iterator();
 
-        while(iter.hasNext())
+        while(iterator.hasNext())
         {
-            Square neighbor = iter.next();
+            Square neighbor = iterator.next();
             boolean invalidNeighbor = false;
-            if(neighbor.isAccessibleTo(player))
+            if(neighbor.isAccessibleTo(getPlayer()))
             {
                 if(neighbor.getOccupants().size()==2)
                 {
@@ -280,7 +271,7 @@ public class PacManhattanAI extends AIStrategy
             }
             if(invalidNeighbor)
             {
-                iter.remove();
+                iterator.remove();
             }
         }
         return validNeighbors;
@@ -293,7 +284,7 @@ public class PacManhattanAI extends AIStrategy
      */
     public boolean isSafetySquare(Square square)
     {
-        for (Ghost ghost : ghosts)
+        for (Ghost ghost : getGhostsList())
         {
             double distance = AStarPath.ManhattanDistance(square.getX(), square.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < GHOST_DST_THRESHOLD)
@@ -305,39 +296,10 @@ public class PacManhattanAI extends AIStrategy
     }
 
     /**
-     * No Strategy to exectue for the AI
+     * No Strategy to execute for the AI
      */
     @Override
     public void executeStrategy() {}
-
-
-
-
-
-
-    /**
-     * Test Method for the unit test
-     */
-    /*public boolean isSafetySquareTest(Square square)
-    {
-        return isSafetySquare(square);
-    }
-    public List<Square> getValidNeighborsTest(Square square)
-    {
-        return getValidNeighbors(square);
-    }
-    public Square BFSNearestSafetySquareTest()
-    {
-        return BFSNearestSafetySquare();
-    }
-    public void computePathTest(Square square)
-    {
-         computePath(square);
-    }
-    public Deque<Direction> convertPathToDirectionTest(List<Square> squaresList)
-    {
-        return convertPathToDirection(squaresList);
-    }*/
 
 }
 

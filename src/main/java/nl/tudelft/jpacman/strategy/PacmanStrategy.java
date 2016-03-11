@@ -17,7 +17,7 @@ public abstract class PacmanStrategy
      * Default constructor
      * @param game the current game
      */
-    public PacmanStrategy(Game game)
+    public PacmanStrategy(final Game game)
     {
         this.game = game;
     }
