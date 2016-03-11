@@ -113,7 +113,7 @@ public abstract class Game implements LevelObserver {
      * Simple setter for the launcher that created the Game instance
      * @param launcher The launcher that created the Game instance
      */
-	public void setLauncher(Launcher launcher) {
+	public void setLauncher(final Launcher launcher) {
 		this.launcher = launcher;
 	}
 

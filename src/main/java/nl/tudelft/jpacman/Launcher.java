@@ -31,7 +31,7 @@ public class Launcher {
     /**
      * The current level id
      */
-    private int currentLevel = 0;
+    private int currentLevel;
 
     /**
 	 * @return The game object this launcher will start when {@link #launch()}
@@ -68,7 +68,7 @@ public class Launcher {
      *
      * @return A new level.
      */
-	public Level makeLevel(int id) {
+	public Level makeLevel(final int id) {
 		MapParser parser = getMapParser();
 		String file = "/board" + id + ".txt";
         System.out.println("Loading " + file);
@@ -208,7 +208,7 @@ public class Launcher {
 		pacManUI.start();
 	}
 
-	/**
+    /**
 	 * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
 	 */
 	public void dispose() {
@@ -255,7 +255,7 @@ public class Launcher {
      * Sets the level to the one that has the given id (calls #Game.setLevel)
      * @param level The id of the level we want to switch to
      */
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
         game.setLevel(makeLevel(level));
     }
 }

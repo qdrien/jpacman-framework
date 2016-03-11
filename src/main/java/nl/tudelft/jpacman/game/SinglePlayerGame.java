@@ -61,7 +61,7 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
-        Level level = launcher.nextLevel();
+        final Level level = launcher.nextLevel();
         setLevel(level);
     }
 
@@ -98,7 +98,7 @@ public class SinglePlayerGame extends Game {
      * @param level The Level that is to be played
      */
     @Override
-    public void setLevel(Level level) {
+    public void setLevel(final Level level) {
         player.unregister(level);
         level.registerPlayer(player);
         this.level = level;

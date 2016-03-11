@@ -104,17 +104,17 @@ public class PacManUI extends JFrame {
      */
     private void addLevelChoiceButtons(Game game) {
         buttonsList = new ArrayList<>();
-        JLabel choiceLevelLabel = new JLabel("Choose the level:");
+        final JLabel choiceLevelLabel = new JLabel("Choose the level:");
         choiceLevelGroup = new ButtonGroup();
         refreshLevelChoices(1);
-        JButton loadButton = new JButton("Load");
+        final JButton loadButton = new JButton("Load");
         loadButton.addActionListener(e -> {
-            Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
+            final Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
             while (elements.hasMoreElements()){
-                AbstractButton button = elements.nextElement();
+                final AbstractButton button = elements.nextElement();
                 if(button.isSelected()) {
                     //TODO: refactor this after the merge (should move mapparser into Game)
-                    Level level = game.getLauncher().makeLevel(Integer.valueOf(button.getText()));
+                    final Level level = game.getLauncher().makeLevel(Integer.valueOf(button.getText()));
                     game.setLevel(level);
                     game.reset();
                 }
@@ -157,18 +157,18 @@ public class PacManUI extends JFrame {
      * @param maxLevelReached The max level the player has reached
      */
     public void refreshLevelChoices(int maxLevelReached){
-        for (JRadioButton button : buttonsList) {
+        for (final JRadioButton button : buttonsList) {
             choiceLevelGroup.remove(button);
             buttonPanel.remove(button);
         }
         buttonsList.clear();
         System.out.println("Adding buttons up to level " + maxLevelReached);
-        JRadioButton level1 = new JRadioButton("1", true);
+        final JRadioButton level1 = new JRadioButton("1", true);
         choiceLevelGroup.add(level1);
         buttonPanel.add(level1);
         buttonsList.add(level1);
         for(int i = 1; i < maxLevelReached; i++){
-            JRadioButton button = new JRadioButton(String.valueOf(i + 1), false);
+            final JRadioButton button = new JRadioButton(String.valueOf(i + 1), false);
             choiceLevelGroup.add(button);
             buttonPanel.add(button);
             buttonsList.add(button);

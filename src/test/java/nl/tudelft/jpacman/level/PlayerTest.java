@@ -48,7 +48,7 @@ public class PlayerTest {
      */
     @Test
     public void loseLife() throws Exception {
-        int lives = player.getLives();
+        final int lives = player.getLives();
         player.loseLife();
         assertEquals(lives - 1, player.getLives());
     }
@@ -71,7 +71,7 @@ public class PlayerTest {
      */
     @Test
     public void addLife() throws Exception {
-        int lives = player.getLives();
+        final int lives = player.getLives();
         player.addLife();
         assertEquals(lives + 1, player.getLives());
     }
