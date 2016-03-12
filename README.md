@@ -13,4 +13,6 @@ Getting Started
     1. Open a terminal/console/command prompt on the project's root folder/directory (where the `pom.xml` file is located)
     2. compile: `mvn compile`
     3. run: `mvn exec:java -Dexec.mainClass="nl.tudelft.jpacman.Launcher"`
+    4. Note that this version is by default in "quick win" mode (disable this by setting the `QUICK_WIN` field to `false` in [Level](src/main/java/nl/tudelft/jpacman/level/Level.java))
+        When enabled, this mode means that picking up 13 pellets is enough to complete a level (more convenient to test multiple levels).
 4. To run the test suite in maven: `mvn test` (you can alternatively check build states and logs on [Travis](https://travis-ci.org/qdrien/jpacman-framework))
