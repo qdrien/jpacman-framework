@@ -31,7 +31,7 @@ public class AStarPath extends AStar<Square>
     public static final double NEAREST_GHOST_COST = 500;//The cost when you go to a square nearest to a ghost
     public static final double PELLET_COST = 1;//The cost when you go to a square where there is a pellet
     public static final double EMPTY_COST = 5;//The cost when you go to empty square (no pellet)
-    public static final int DST_THRESHOLD = 3;
+    public static final int DST_THRESHOLD = 3; //Distance used to calculate a square cost near a ghost
 
 
     /**

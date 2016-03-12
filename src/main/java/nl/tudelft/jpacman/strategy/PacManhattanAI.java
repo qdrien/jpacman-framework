@@ -239,7 +239,7 @@ public class PacManhattanAI extends AIStrategy
     }
 
     /**
-     * Get the valid neighbor
+     * Get valid neighbors to visit
      * @param square A determined square
      * @return a new list with valid neighbor
      */

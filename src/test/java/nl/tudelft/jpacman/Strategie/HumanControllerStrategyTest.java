@@ -20,6 +20,10 @@ import static org.junit.Assert.*;
 /**
  * Created by Nicolas Leemans on 2/03/16.
  */
+
+/**
+ * Human strategy test in the game
+ */
 public class HumanControllerStrategyTest
 {
     private Launcher launcher;
@@ -40,7 +44,11 @@ public class HumanControllerStrategyTest
         launcher.dispose();
     }
 
-
+    /**
+     * Attribution of keys for the player to move the Pacman in the game
+     * @throws AWTException
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void StrategyTest() throws AWTException, InterruptedException {
@@ -62,12 +70,5 @@ public class HumanControllerStrategyTest
 
         //Score initial
         assertEquals(0, player.getScore());
-        Robot robot = new Robot();
-        //Left Move
-        /*robot.keyPress(KeyEvent.VK_RIGHT);
-        Thread.sleep(5000);
-
-        robot.keyRelease(KeyEvent.VK_RIGHT);
-        robot.waitForIdle();*/
     }
 }

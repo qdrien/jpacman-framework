@@ -19,6 +19,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Nicolas Leemans on 27/02/16.
  */
+
+/**
+ * Class to test the choice of the strategy for the game mode
+ */
 public class ChosenStrategyTest
 {
     private Launcher launcher;
@@ -38,7 +42,9 @@ public class ChosenStrategyTest
         launcher.dispose();
     }
 
-
+    /**
+     * Human strategy test
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void HuManStrategyTest1()
@@ -64,6 +70,9 @@ public class ChosenStrategyTest
 
     }
 
+    /**
+     * AI strategy test
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void AIStrategyTest1()
@@ -87,6 +96,10 @@ public class ChosenStrategyTest
 
     }
 
+    /**
+     * Other strategy test (for a new implementation of strategy)
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void OtherStrategyAITest1() throws InterruptedException {
@@ -124,11 +137,6 @@ public class ChosenStrategyTest
         game.start();
         assertTrue(game.isInProgress());
         assertEquals(0, game.getPlayers().get(0).getScore());
-
-        // get points
-        strategy3.nextMove();
-        assertEquals(0, game.getPlayers().get(0).getScore());
-        assertNotNull(strategy3.nextMove());
 
     }
 

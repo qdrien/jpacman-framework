@@ -15,6 +15,10 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Nicolas Leemans on 22/02/16.
  */
+
+/**
+ * Class to test the moveContinu method for the continu move of the player
+ */
 public class MoveContinuTest
 {
     private Launcher launcher;
@@ -64,6 +68,10 @@ public class MoveContinuTest
         assertEquals(60, player.getScore());
     }
 
+    /**
+     * A continu move test
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void moveContinuTest2() throws InterruptedException
@@ -84,6 +92,10 @@ public class MoveContinuTest
         assertEquals(60, player.getScore());
     }
 
+    /**
+     * A continu move test
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void moveContinuTest3() throws InterruptedException
@@ -110,6 +122,10 @@ public class MoveContinuTest
 
     }
 
+    /**
+     * A continu move test
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void moveContinuTest4() throws InterruptedException
@@ -136,6 +152,10 @@ public class MoveContinuTest
 
     }
 
+    /**
+     * A continu move test
+     * @throws InterruptedException
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void moveContinuTest5() throws InterruptedException
@@ -165,5 +185,4 @@ public class MoveContinuTest
         Thread.sleep(1000);
         assertEquals(60, player.getScore());
     }
-
 }

@@ -20,6 +20,10 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Nicolas Leemans on 7/03/16.
  */
+
+/**
+ * Test for the astarPath class containing methods to calculate the best move to apply by the AI
+ */
 public class AStarPathTest
 {
     private Launcher launcher;
@@ -326,7 +330,5 @@ public class AStarPathTest
 
         assertTrue(aStarPath.h(destination,destination4) == 3);
         assertTrue(aStarPath.h(destination3,destination4) == 1);
-
     }
-
 }

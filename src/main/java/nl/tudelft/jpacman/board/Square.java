@@ -28,7 +28,6 @@ public abstract class Square {
 	 * The units occupying this square, in order of appearance.
 	 */
 	private final List<Unit> occupants;
-
 	/**
 	 * The collection of squares adjacent to this square.
 	 */

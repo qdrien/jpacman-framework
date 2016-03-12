@@ -253,7 +253,8 @@ public abstract class AStar<T>
                 expand(p);
             }
         }
-        catch(Exception e){
+        catch(Exception e)
+        {
             return null;
         }
     }

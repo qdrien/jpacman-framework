@@ -108,6 +108,10 @@ public class Player extends Unit {
 		score += points;
 	}
 
+	/**
+	 * Get the interval to move the player periodically
+	 * @return the player interval
+     */
     public long getInterval()
     {
         return MOVE_INTERVAL;
