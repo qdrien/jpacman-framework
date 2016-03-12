@@ -32,7 +32,7 @@ import javax.swing.*;
  * 
  * @author Jeroen Roosen 
  */
-public class Launcher //extends JFrame implements ActionListener
+public class Launcher
 {
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
