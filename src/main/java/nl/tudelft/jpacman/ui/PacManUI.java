@@ -29,6 +29,7 @@ import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
  */
 public class PacManUI extends JFrame {
 
+
 	/**
 	 * Default serialisation UID.
 	 */

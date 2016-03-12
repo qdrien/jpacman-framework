@@ -23,7 +23,6 @@ import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import javax.swing.*;
 
-
 /**
  * Creates and launches the JPacMan UI.
  * 
@@ -206,6 +205,10 @@ public class Launcher
 	public static void main(String[] args) throws IOException {
 		new Launcher().launch();
 	}
+
+	/**
+	 * Construct the window to choose the game mode (Spectator or control)
+	 */
 	public void buildWindow()
 	{
 		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), "Strategy selection", "Choose a game mode and then click to start", builder,game, pacManUI);

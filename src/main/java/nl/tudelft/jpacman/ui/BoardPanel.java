@@ -19,6 +19,7 @@ import nl.tudelft.jpacman.game.Game;
  */
 class BoardPanel extends JPanel {
 
+
 	/**
 	 * Default serialisation ID.
 	 */

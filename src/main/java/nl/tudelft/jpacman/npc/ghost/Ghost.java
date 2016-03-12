@@ -36,7 +36,6 @@ public abstract class Ghost extends NPC {
 	public Sprite getSprite() {
 		return sprites.get(getDirection());
 	}
-
 	/**
 	 * Determines a possible move in a random direction.
 	 * 

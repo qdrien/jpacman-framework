@@ -42,7 +42,6 @@ public class MapParser {
 		this.levelCreator = levelFactory;
 		this.boardCreator = boardFactory;
 	}
-
 	/**
 	 * Parses the text representation of the board into an actual level.
 	 * 

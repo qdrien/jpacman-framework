@@ -1,6 +1,5 @@
 package nl.tudelft.jpacman.Strategie;
 
-import junit.framework.Assert;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;

@@ -105,7 +105,6 @@ public class PacManUiBuilder {
             }
         });
     }
-
 	/**
 	 * Adds a key listener to the UI.
 	 * 

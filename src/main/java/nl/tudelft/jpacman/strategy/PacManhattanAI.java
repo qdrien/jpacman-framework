@@ -276,7 +276,6 @@ public class PacManhattanAI extends AIStrategy
         }
         return validNeighbors;
     }
-
     /**
      * Determines if the square is safe
      * @param square the current square

@@ -13,6 +13,7 @@ public abstract class PacmanStrategy
      */
     protected Game game;
 
+
     /**
      * Default constructor
      * @param game the current game

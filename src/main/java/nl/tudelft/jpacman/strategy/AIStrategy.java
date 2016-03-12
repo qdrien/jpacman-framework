@@ -22,6 +22,7 @@ public abstract class AIStrategy extends PacmanStrategy
     private final Player player;//The player of the game
     private final Board board; // The board game
     private final ArrayList<Ghost> ghosts; //The ghosts list
+
     /**
      * Default constructor
      * @param game the current game

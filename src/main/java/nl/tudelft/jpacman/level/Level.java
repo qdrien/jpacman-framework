@@ -465,7 +465,6 @@ public class Level {
      */
     private final class PlayerMoveTask implements Runnable
     {
-
         /**
          * The service executing the task.
          */

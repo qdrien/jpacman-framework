@@ -75,6 +75,7 @@ public class MyJDialogStrategy extends JDialog
         setVisible(true);
     }
 
+
     /**
      * override the createRootPane inherited by the JDialog, to create the rootPane.
      * create functionality to close the window when "Escape" button is pressed

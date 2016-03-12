@@ -19,6 +19,7 @@ import nl.tudelft.jpacman.level.Player;
  */
 public class ScorePanel extends JPanel {
 
+
 	/**
 	 * Default serialisation ID.
 	 */

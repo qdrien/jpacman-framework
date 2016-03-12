@@ -27,6 +27,7 @@ public class PacmanConfigurationException extends RuntimeException {
 		super(cause);
 	}
 
+
 	/**
 	 * A configuration exception with a root cause and additional explanation.
 	 * 

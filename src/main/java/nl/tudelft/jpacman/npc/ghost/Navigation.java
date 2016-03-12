@@ -18,7 +18,6 @@ public final class Navigation {
 
 	private Navigation() {
 	}
-	
 	/**
 	 * Calculates the shortest path. This is done by BFS. This search ensures
 	 * the traveller is allowed to occupy the squares on the way, or returns the

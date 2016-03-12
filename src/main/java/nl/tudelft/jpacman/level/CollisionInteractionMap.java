@@ -32,7 +32,6 @@ public class CollisionInteractionMap implements CollisionMap {
 				Map<Class<? extends Unit>, CollisionHandler<?, ?>>
 		>();
 	}
-
 	/**
 	 * Adds a two-way collision interaction to this collection, i.e. the
 	 * collision handler will be used for both C1 versus C2 and C2 versus C1.

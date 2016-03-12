@@ -42,8 +42,7 @@ public class PlayerCollisions implements CollisionMap {
 			playerVersusGhost((Player) collidedOn, ghost);
 		}
 	}
-	
-	
+
 	/**
 	 * Actual case of player bumping into ghost or vice versa.
      *

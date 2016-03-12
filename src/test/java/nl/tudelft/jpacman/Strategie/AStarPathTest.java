@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by Nicolas Leemans on 7/03/16.
  */
 
+
 /**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
  */

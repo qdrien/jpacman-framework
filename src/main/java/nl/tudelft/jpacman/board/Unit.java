@@ -25,7 +25,6 @@ public abstract class Unit {
 	protected Unit() {
 		this.direction = Direction.EAST;
 	}
-	
 	/**
 	 * Sets this unit to face the new direction.
 	 * @param newDirection The new direction this unit is facing.

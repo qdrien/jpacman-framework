@@ -41,7 +41,6 @@ public class PacManSprites extends SpriteStore {
 	 * The amount of frames in the ghost animation.
 	 */
 	private static final int GHOST_ANIMATION_FRAMES = 2;
-
 	/**
 	 * The delay between frames.
 	 */

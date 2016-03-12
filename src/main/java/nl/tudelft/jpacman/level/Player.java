@@ -107,7 +107,6 @@ public class Player extends Unit {
 	public void addPoints(int points) {
 		score += points;
 	}
-
 	/**
 	 * Get the interval to move the player periodically
 	 * @return the player interval

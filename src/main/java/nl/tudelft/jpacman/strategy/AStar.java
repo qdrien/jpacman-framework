@@ -210,7 +210,6 @@ public abstract class AStar<T>
         return lastCost;
     }
 
-
     /**
      * Find the shortest path to a goal starting from
      * <code>start</code>.

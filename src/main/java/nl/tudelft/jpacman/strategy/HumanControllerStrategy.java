@@ -37,7 +37,6 @@ public class HumanControllerStrategy extends PacmanStrategy
     }
 
 
-
     /**
      * Adds key events UP, DOWN, LEFT and RIGHT to a game.
      *

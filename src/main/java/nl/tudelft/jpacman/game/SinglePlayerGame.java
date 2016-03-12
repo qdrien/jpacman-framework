@@ -41,7 +41,6 @@ public class SinglePlayerGame extends Game {
 		this.level = l;
 		level.registerPlayer(p);
 	}
-
 	@Override
 	public List<Player> getPlayers() {
 		return ImmutableList.of(player);

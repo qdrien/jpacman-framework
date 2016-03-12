@@ -26,7 +26,6 @@ public enum Direction {
 	 * East, or right.
 	 */
 	EAST(1, 0);
-
 	/**
 	 * The delta x (width difference) to an element in the direction in a grid
 	 * with 0,0 (x,y) as its top-left element.

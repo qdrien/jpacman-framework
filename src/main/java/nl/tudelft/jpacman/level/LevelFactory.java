@@ -45,7 +45,6 @@ public class LevelFactory {
 	 * The factory providing ghosts.
 	 */
 	private final GhostFactory ghostFact;
-
 	/**
 	 * Creates a new level factory.
 	 * 

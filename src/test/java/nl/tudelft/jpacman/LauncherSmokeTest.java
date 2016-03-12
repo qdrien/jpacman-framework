@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+
 /**
  * Smoke test launching the full game,
  * and attempting to make a number of typical moves.

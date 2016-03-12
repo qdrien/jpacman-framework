@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Nicolas Leemans on 10/03/16.
  */
 
+
 /**
  * Class to test coordinates of a square in the board
  */

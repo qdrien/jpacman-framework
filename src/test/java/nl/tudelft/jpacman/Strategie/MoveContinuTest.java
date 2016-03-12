@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Nicolas Leemans on 22/02/16.
  */
 
+
 /**
  * Class to test the moveContinu method for the continu move of the player
  */

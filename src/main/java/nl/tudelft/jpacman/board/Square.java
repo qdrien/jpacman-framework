@@ -169,7 +169,6 @@ public abstract class Square {
 	{
 		this.y=y;
 	}
-
 	/**
 	 * Get the neighbors list of a square
 	 * @return the neighbors list

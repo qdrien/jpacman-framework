@@ -67,7 +67,6 @@ public class Blinky extends Ghost {
 		// has no way to find out how many there are.
 		return MOVE_INTERVAL + new Random().nextInt(INTERVAL_VARIATION);
 	}
-
 	/**
 	 * {@inheritDoc}
 	 * 

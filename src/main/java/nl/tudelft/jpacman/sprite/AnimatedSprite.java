@@ -94,7 +94,6 @@ public class AnimatedSprite implements Sprite {
 		}
 		return END_OF_LOOP;
 	}
-
 	/**
 	 * Starts or stops the animation of this sprite.
 	 * 

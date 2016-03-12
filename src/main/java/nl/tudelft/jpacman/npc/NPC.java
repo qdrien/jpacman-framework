@@ -25,5 +25,4 @@ public abstract class NPC extends Unit {
 	 *         be devised.
 	 */
 	public abstract Direction nextMove();
-
 }

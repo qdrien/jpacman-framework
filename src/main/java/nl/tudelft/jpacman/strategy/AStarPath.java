@@ -57,6 +57,7 @@ public class AStarPath extends AStar<Square>
     {
         return Math.abs(a - x) + Math.abs(b - y);
     }
+
     /**
      * Test to know if the square is the goal or not
      * @param square The node to check.

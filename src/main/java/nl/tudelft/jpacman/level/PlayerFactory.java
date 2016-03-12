@@ -23,7 +23,6 @@ public class PlayerFactory {
 	public PlayerFactory(PacManSprites spriteStore) {
 		this.sprites = spriteStore;
 	}
-
 	/**
 	 * Creates a new player with the classic Pac-Man sprites.
 	 * 

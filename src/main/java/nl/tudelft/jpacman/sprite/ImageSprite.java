@@ -18,7 +18,6 @@ public class ImageSprite implements Sprite {
 	 * Internal image.
 	 */
 	private final Image image;
-
 	/**
 	 * Creates a new sprite from an image.
 	 * 

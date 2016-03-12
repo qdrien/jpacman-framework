@@ -88,7 +88,6 @@ public class BoardFactory {
 		 * The background for this square.
 		 */
 		private final Sprite background;
-
 		/**
 		 * Creates a new wall square.
 		 * 
