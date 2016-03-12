@@ -44,7 +44,9 @@ public class AStarPathTest
         launcher.dispose();
     }
 
-
+    /**
+     * Test for the constructor of a astarPath object
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void ConstructorTest()
@@ -69,6 +71,10 @@ public class AStarPathTest
         assertNotNull(aStarPath.getCost());
 
     }
+
+    /**
+     * Test to compute the manhattan distance between two points
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void ManhattanDistanceTest()
@@ -83,6 +89,9 @@ public class AStarPathTest
         assertEquals(AStarPath.ManhattanDistance(-2,-2,-1,-1), 2.0);
     }
 
+    /**
+     * Test to the initialisation of constants in the game
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void ConstanteTest()
@@ -108,6 +117,9 @@ public class AStarPathTest
 
     }
 
+    /**
+     * Test the list of valid neighbors
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void ValidNeighborsTest()
@@ -156,6 +168,9 @@ public class AStarPathTest
 
     }
 
+    /**
+     * Test the list of valid neighbors
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void ValidNeighborsTest2()
@@ -227,6 +242,10 @@ public class AStarPathTest
 
 
     }
+
+    /**
+     * test to know if the square is near of a ghost or not
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void nearestGhostTest()
@@ -261,6 +280,10 @@ public class AStarPathTest
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST)));
 
     }
+
+    /**
+     * Test the Astar method
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void gTest()
@@ -298,6 +321,9 @@ public class AStarPathTest
 
     }
 
+    /**
+     * Test the Astar method
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void hTest()

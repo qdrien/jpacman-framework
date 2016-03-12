@@ -5,12 +5,15 @@ import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
+import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.strategy.PacManhattanAI;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -43,11 +46,8 @@ public class PacManhattanAITest
     }
 
     /**
-     * Launch the game, and imitate what would happen in a typical game.
-     * The test is only a smoke test, and not a focused small test.
-     * Therefore it is OK that the method is a bit too long.
-     *
-     * @throws InterruptedException Since we're sleeping in this test.
+     * Test to know if the square is safe or not for the player
+     * A square is safe to more thant 14 squares about the nearest ghost
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -65,6 +65,9 @@ public class PacManhattanAITest
         assertTrue(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
     }
 
+    /**
+     * Test to get the list of valid neighbors about the player's square
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void getValidNeighborsTest()
@@ -98,12 +101,19 @@ public class PacManhattanAITest
         assertFalse(neighborsList2.contains(player.getSquare().getSquareAt(Direction.EAST)));
 
     }
+
+    /**
+     * Test to get the nearest safety square about the initial player position
+     */
     @SuppressWarnings("methodlength")
     @Test
     public void BFSNearestSafetySquareTest()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
         PacManhattanAI AI = new PacManhattanAI(game);
 
         Square square = AI.BFSNearestSafetySquare();
@@ -111,5 +121,162 @@ public class PacManhattanAITest
         assertNotNull(square);
         assertTrue(square.getX() == 19);
         assertTrue(square.getY() == 17);
+    }
+
+    /**
+     * Test to get the next move about the initial player position
+     */
+    @SuppressWarnings("methodlength")
+    @Test
+    public void NextMoveTest()
+    {
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
+        PacManhattanAI AI = new PacManhattanAI(game);
+
+        Direction nextMove = AI.nextMove();
+        assertEquals(nextMove,Direction.EAST);
+
+        game.start();
+
+        game.move(player, nextMove);
+
+        //New position
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 12);
+        assertEquals(player.getSquare().getY(), 15);
+
+        assertEquals(AI.nextMove(),Direction.EAST);
+
+        game.move(player, nextMove);
+
+        //New position
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 13);
+        assertEquals(player.getSquare().getY(), 15);
+    }
+
+    /**
+     * Test to get the nearest safe square where there is a pellet about the initial player position
+     */
+    @SuppressWarnings("methodlength")
+    @Test
+    public void SafetyPelletSquareTest()
+    {
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
+        PacManhattanAI AI = new PacManhattanAI(game);
+
+        Square safetyPelletSquare = AI.BFSNearestSafetyPelletSquare();
+        assertTrue(safetyPelletSquare.getOccupants().get(0) instanceof Pellet);
+
+        assertTrue(player.getSquare().getSquareAt(Direction.EAST) == safetyPelletSquare);
+
+        game.start();
+
+        game.move(player, Direction.EAST);
+
+        assertTrue(player.getSquare() == safetyPelletSquare);
+
+        //New position
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 12);
+        assertEquals(player.getSquare().getY(), 15);
+    }
+
+    /**
+     * Test to get the direction about a path
+     */
+    @SuppressWarnings("methodlength")
+    @Test
+    public void ConvertPathToDirectionTest()
+    {
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
+
+        Square square1 = player.getSquare();
+        Square square2 = square1.getSquareAt(Direction.WEST);
+        Square square3 = square2.getSquareAt(Direction.WEST);
+        Square square4 = square3.getSquareAt(Direction.WEST);
+        Square square5 = square4.getSquareAt(Direction.WEST);
+
+        ArrayList<Square> squaresList = new ArrayList<>();
+
+        squaresList.add(square1);
+        squaresList.add(square2);
+        squaresList.add(square3);
+        squaresList.add(square4);
+        squaresList.add(square5);
+
+        assertNotNull(squaresList);
+        assertTrue(squaresList.contains(square1));
+        assertTrue(squaresList.contains(square2));
+        assertTrue(squaresList.contains(square3));
+        assertTrue(squaresList.contains(square4));
+        assertTrue(squaresList.contains(square5));
+
+        PacManhattanAI AI = new PacManhattanAI(game);
+
+        Deque<Direction> dir = AI.convertPathToDirection(squaresList);
+
+        assertEquals(dir.getFirst(), Direction.WEST);
+        assertEquals(dir.getLast(), Direction.WEST);
+
+    }
+
+    /**
+     * Test to get the direction about a path
+     */
+    @SuppressWarnings("methodlength")
+    @Test
+    public void ConvertPathToDirectionTest2()
+    {
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
+
+        Square square1 = player.getSquare();
+        Square square2 = square1.getSquareAt(Direction.EAST);
+        Square square3 = square2.getSquareAt(Direction.WEST);
+        Square square4 = square3.getSquareAt(Direction.EAST);
+        Square square5 = square4.getSquareAt(Direction.WEST);
+        Square square6 = square4.getSquareAt(Direction.WEST);
+
+
+        ArrayList<Square> squaresList = new ArrayList<>();
+
+        squaresList.add(square1);
+        squaresList.add(square2);
+        squaresList.add(square3);
+        squaresList.add(square4);
+        squaresList.add(square5);
+        squaresList.add(square6);
+
+        assertNotNull(squaresList);
+        assertTrue(squaresList.contains(square1));
+        assertTrue(squaresList.contains(square2));
+        assertTrue(squaresList.contains(square3));
+        assertTrue(squaresList.contains(square4));
+        assertTrue(squaresList.contains(square5));
+        assertTrue(squaresList.contains(square6));
+
+
+        PacManhattanAI AI = new PacManhattanAI(game);
+
+        Deque<Direction> dir = AI.convertPathToDirection(squaresList);
+
+        assertEquals(dir.getFirst(), Direction.EAST);
+        assertEquals(dir.getLast(), Direction.NORTH);
     }
 }
