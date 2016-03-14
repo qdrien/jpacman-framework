@@ -253,13 +253,13 @@ public class Launcher {
      */
     public Level nextLevel() {
         Level level = makeLevel(++currentLevel);
-        level.setIndex(currentLevel);
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
 			//restart this last level and loop until player dies
             //(this level can't be finished without loosing at least one life so there will be an end)
             level = makeLevel(--currentLevel);
         }
+        level.setIndex(currentLevel);
         return level;
     }
 
