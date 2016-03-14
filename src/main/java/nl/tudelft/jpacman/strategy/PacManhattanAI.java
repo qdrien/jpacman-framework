@@ -124,7 +124,7 @@ public class PacManhattanAI extends AIStrategy
         {
             visitedCase[getPlayer().getSquare().getY()][getPlayer().getSquare().getX()] = true;
         }
-        while (squareQueue.isEmpty()==false)
+        while (!squareQueue.isEmpty())
         {
             Square square = squareQueue.remove();
             if (square.getOccupants().size() > 0 && square.getOccupants().get(0) instanceof Pellet)
@@ -138,7 +138,7 @@ public class PacManhattanAI extends AIStrategy
                 {
                     if(neighborSquare != null)
                     {
-                        if(visitedCase[neighborSquare.getY()][neighborSquare.getX()] == false)
+                        if(!visitedCase[neighborSquare.getY()][neighborSquare.getX()])
                         {
                             squareQueue.add(neighborSquare);
                         }
