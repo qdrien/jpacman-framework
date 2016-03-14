@@ -86,7 +86,7 @@ public class PacManUI extends JFrame {
 		if (sf != null) {
 			scorePanel.setScoreFormatter(sf);
 		}
-		
+
 		boardPanel = new BoardPanel(game);
 		
 		Container contentPanel = getContentPane();
@@ -106,17 +106,24 @@ public class PacManUI extends JFrame {
         buttonsList = new ArrayList<>();
         final JLabel choiceLevelLabel = new JLabel("Choose the level:");
         choiceLevelGroup = new ButtonGroup();
-        refreshLevelChoices(1);
+        refreshLevelChoices(0);
         final JButton loadButton = new JButton("Load");
         loadButton.addActionListener(e -> {
-            final Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
+			System.out.println("Hello my friend");
+			final Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
             while (elements.hasMoreElements()){
                 final AbstractButton button = elements.nextElement();
                 if(button.isSelected()) {
-                    //TODO: refactor this after the merge (should move mapparser into Game)
-                    final Level level = game.getLauncher().makeLevel(Integer.valueOf(button.getText()));
-                    game.setLevel(level);
+					System.out.println("I AM SELECTED: " + button.getText());
+					//TODO: refactor this after the merge (should move mapparser into Game)
+					Integer index = Integer.valueOf(button.getText());
+					System.out.println("index : " + index);
+//					final Level level = game.getLauncher().makeLevel(index);
+					game.getLauncher().setLevel(index);
+//					level.setIndex(index);
                     game.reset();
+                    game.getPlayers().get(0).setAlive(true);
+                    //sometimes ghost keep on moving after death, its a FEATURE
                 }
             }
         });
@@ -162,12 +169,12 @@ public class PacManUI extends JFrame {
             buttonPanel.remove(button);
         }
         buttonsList.clear();
-        System.out.println("Adding buttons up to level " + maxLevelReached);
+        System.out.println("Adding buttons up to level " + (maxLevelReached + 1));
         final JRadioButton level1 = new JRadioButton("1", true);
         choiceLevelGroup.add(level1);
         buttonPanel.add(level1);
         buttonsList.add(level1);
-        for(int i = 1; i < maxLevelReached; i++){
+        for(int i = 1; i < maxLevelReached + 1; i++){
             final JRadioButton button = new JRadioButton(String.valueOf(i + 1), false);
             choiceLevelGroup.add(button);
             buttonPanel.add(button);

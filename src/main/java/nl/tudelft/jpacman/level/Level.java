@@ -81,8 +81,9 @@ public class Level implements PlayerListener {
      * The amount of pellets there were when the level started
      */
     private int initialPelletCount = -1;
+	private int index;
 
-    /**
+	/**
 	 * Creates a new level for the board.
 	 *
 	 * @param b
@@ -406,6 +407,14 @@ public class Level implements PlayerListener {
     public static int manhattanDistance(final int x0, final int y0, final int x1, final int y1) {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
     }
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
 
 	/**
 	 * A task that moves an NPC and reschedules itself after it finished.

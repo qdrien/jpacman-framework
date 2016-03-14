@@ -63,7 +63,7 @@ public class Inky extends Ghost {
 	 *            The sprites for this ghost.
 	 */
 	public Inky(Map<Direction, Sprite> spriteMap) {
-		super(spriteMap);
+		super(spriteMap, GhostColor.CYAN);
 	}
 
 	@Override

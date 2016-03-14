@@ -16,7 +16,11 @@ import nl.tudelft.jpacman.sprite.Sprite;
  * @author Jeroen Roosen 
  */
 public abstract class Ghost extends NPC {
-	
+
+    private static final int VALUE = 10;
+
+    private GhostColor identity;
+
 	/**
 	 * The sprite map, one sprite for each direction.
 	 */
@@ -28,8 +32,9 @@ public abstract class Ghost extends NPC {
 	 * @param spriteMap
 	 *            The sprites for every direction.
 	 */
-	protected Ghost(Map<Direction, Sprite> spriteMap) {
+	protected Ghost(Map<Direction, Sprite> spriteMap, GhostColor type) {
 		this.sprites = spriteMap;
+        identity = type;
 	}
 
 	@Override
@@ -57,4 +62,14 @@ public abstract class Ghost extends NPC {
 		int i = new Random().nextInt(directions.size());
 		return directions.get(i);
 	}
+
+    public int getValue()
+    {
+        return VALUE;
+    }
+
+    public GhostColor getIdentity()
+    {
+        return identity;
+    }
 }

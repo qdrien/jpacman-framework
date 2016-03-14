@@ -76,7 +76,9 @@ public class Launcher {
 				.getResourceAsStream(file)) {
             if(boardStream == null) return null;
             currentLevel = id;
-			return parser.parseMap(boardStream);
+            Level level = parser.parseMap(boardStream);
+            level.setIndex(id);
+            return level;
 		} catch (IOException e) {
 			throw new PacmanConfigurationException("Unable to create level.", e);
 		}
@@ -190,23 +192,40 @@ public class Launcher {
 		game = makeGame();
 		game.setLauncher(this);
 		PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-        builder.addButton("Identification", new Action()
+		builder.addButton("Identification", new Action()
+        {
+            @Override
+            public void doAction() {
+				Player player = game.getPlayers().get(0);
+				boolean loggedIn = player.authenticate();
+				if (loggedIn) {
+					player.displayAchievements();
+//					pacManUI.refreshLevelChoices(4);
+					pacManUI.refreshLevelChoices(player.getMaxLevelReached()); //TODO: add this after the merge}
+				}
+			}
+        });
+        builder.addButton("New player", new Action()
         {
             @Override
             public void doAction()
             {
-                Player player = game.getPlayers().get(0);
-                boolean loggedIn = player.authenticate();
-                if (loggedIn) {
-                    pacManUI.refreshLevelChoices(4);
-//					pacManUI.refreshLevelChoices(player.getMaxLevelReached()); //TODO: add this after the merge and comment previous line
-                }
+                game.getPlayers().get(0).createNewPlayer();
             }
         });
-		addSinglePlayerKeys(builder, game);
-		pacManUI = builder.build(game);
-		pacManUI.start();
+        builder.addButton("Stats", new Action()
+        {
+            @Override
+            public void doAction()
+            {
+                game.getPlayers().get(0).displayProfileStats();
+            }
+        });
+        addSinglePlayerKeys(builder, game);
+        pacManUI = builder.build(game);
+        pacManUI.start();
 	}
+
 
     /**
 	 * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
@@ -234,6 +253,7 @@ public class Launcher {
      */
     public Level nextLevel() {
         Level level = makeLevel(++currentLevel);
+        level.setIndex(currentLevel);
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
 			//restart this last level and loop until player dies
@@ -253,9 +273,11 @@ public class Launcher {
 
     /**
      * Sets the level to the one that has the given id (calls #Game.setLevel)
-     * @param level The id of the level we want to switch to
+     * @param levelIndex The id of the level we want to switch to
      */
-    public void setLevel(final int level) {
-        game.setLevel(makeLevel(level));
+    public void setLevel(final int levelIndex) {
+        Level level = makeLevel(levelIndex);
+        level.setIndex(levelIndex);
+        game.setLevel(level);
     }
 }

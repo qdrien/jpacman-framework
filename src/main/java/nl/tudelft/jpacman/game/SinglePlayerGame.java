@@ -24,6 +24,7 @@ public class SinglePlayerGame extends Game {
 	 */
 	private Level level;
 
+
     /**
 	 * Create a new single player game for the provided level and player.
 	 * 
@@ -61,6 +62,8 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
+		System.out.println("lvl index: " + level.getIndex());
+		player.levelCompleted(level.getIndex());
         final Level level = launcher.nextLevel();
         setLevel(level);
     }

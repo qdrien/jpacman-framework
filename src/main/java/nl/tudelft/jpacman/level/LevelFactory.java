@@ -31,6 +31,26 @@ public class LevelFactory {
 	 */
 	private static final int PELLET_VALUE = 10;
 
+    /**
+     * The default value of a cherry.
+     */
+    private static final int CHERRY_VALUE = 100;
+
+    /**
+     * The default value of a strawberry.
+     */
+    private static final int STRAWBERRY_VALUE = 300;
+
+    /**
+     * The default value of an orange.
+     */
+    private static final int ORANGE_VALUE = 500;
+
+    /**
+     * The default value of a muskmelon.
+     */
+    private static final int MUSKMELON_VALUE = 1000;
+
 	/**
 	 * The sprite store that provides sprites for units.
 	 */
@@ -130,7 +150,7 @@ public class LevelFactory {
 		 *            The sprite for the ghost.
 		 */
 		private RandomGhost(Map<Direction, Sprite> ghostSprite) {
-			super(ghostSprite);
+			super(ghostSprite, GhostColor.RED);
 		}
 
 		@Override
