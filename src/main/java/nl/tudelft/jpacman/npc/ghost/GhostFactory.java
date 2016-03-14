@@ -8,7 +8,6 @@ import nl.tudelft.jpacman.sprite.PacManSprites;
  * @author Jeroen Roosen 
  */
 public class GhostFactory {
-
 	/**
 	 * The sprite store containing the ghost sprites.
 	 */

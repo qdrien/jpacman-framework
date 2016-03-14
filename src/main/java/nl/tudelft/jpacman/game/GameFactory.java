@@ -14,7 +14,6 @@ public class GameFactory {
 	 * The factory providing the player objects.
 	 */
 	private final PlayerFactory playerFact;
-
 	/**
 	 * Creates a new game factory.
 	 * 

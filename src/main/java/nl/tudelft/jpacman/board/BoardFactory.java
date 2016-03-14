@@ -58,6 +58,8 @@ public class BoardFactory {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Square square = grid[x][y];
+				square.setX(x);
+				square.setY(y);
 				for (Direction dir : Direction.values()) {
 					int dirX = (width + x + dir.getDeltaX()) % width;
 					int dirY = (height + y + dir.getDeltaY()) % height;
@@ -203,7 +205,6 @@ public class BoardFactory {
 		 * The background for this square.
 		 */
 		private final Sprite background;
-
 		/**
 		 * Creates a new wall square.
 		 * 

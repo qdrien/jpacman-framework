@@ -76,7 +76,6 @@ public class Pinky extends Ghost {
 	public long getInterval() {
 		return MOVE_INTERVAL + new Random().nextInt(INTERVAL_VARIATION);
 	}
-
 	/**
 	 * {@inheritDoc}
 	 * 

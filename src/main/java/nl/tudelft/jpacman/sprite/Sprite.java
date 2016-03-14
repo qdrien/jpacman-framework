@@ -24,7 +24,6 @@ public interface Sprite {
 	 *            The height of the destination draw area.
 	 */
 	void draw(Graphics g, int x, int y, int width, int height);
-
 	/**
 	 * Returns a portion of this sprite as a new Sprite.
 	 * 

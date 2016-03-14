@@ -6,7 +6,6 @@ package nl.tudelft.jpacman.npc.ghost;
  * @author Jeroen Roosen 
  */
 public enum GhostColor {
-
 	/**
 	 * Shadow, a.k.a. Blinky.
 	 */

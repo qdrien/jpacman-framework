@@ -27,7 +27,6 @@ public class SpriteStore {
 	public SpriteStore() {
 		spriteMap = new HashMap<String, Sprite>();
 	}
-	
 	/**
 	 * Loads a sprite from a resource on the class path.
 	 * Sprites are loaded once, and then stored in the store

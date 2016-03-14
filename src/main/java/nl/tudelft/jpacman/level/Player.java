@@ -29,6 +29,11 @@ public class Player extends Unit {
      */
     public static final int NEW_LIFE_THRESHOLD = 10000;
     /**
+     * The base movement interval.
+     */
+    private static final int MOVE_INTERVAL = 200;
+
+	/**
 	 * The amount of points accumulated by this player.
 	 */
 	private int score;
@@ -609,6 +614,15 @@ public class Player extends Unit {
     public boolean isPoweredUp()
     {//PoweredUp is always false for now, since the "superpellet" isn't implemented.
         return poweredUp;
+    }
+    
+    	/**
+	 * Get the interval to move the player periodically
+	 * @return the player interval
+     */
+    public long getInterval()
+    {
+        return MOVE_INTERVAL;
     }
 
     /**

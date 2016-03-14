@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PacManUI extends JFrame {
 
+
 	/**
 	 * Default serialisation UID.
 	 */

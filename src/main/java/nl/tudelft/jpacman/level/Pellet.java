@@ -29,7 +29,6 @@ public class Pellet extends Unit {
 		this.image = sprite;
 		this.value = points;
 	}
-	
 	/**
 	 * Returns the point value of this pellet.
 	 * @return The point value of this pellet.

@@ -26,5 +26,4 @@ public interface CollisionMap {
 	 *            The unit that is already on the square that is being invaded.
 	 */
 	<C1 extends Unit, C2 extends Unit> void collide(C1 collider, C2 collidee);
-
 }
