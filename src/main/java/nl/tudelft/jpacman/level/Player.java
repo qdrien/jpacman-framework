@@ -421,12 +421,14 @@ public class Player extends Unit {
          try
         {
             String split[] = readInfoLine(), toWrite = "";
+            Achievement toGrant = killer.getAchievementGranted();
             for (int i = 0; i < split.length; i++)
             {
                 if (i == toAlter) toWrite += Integer.parseInt(split[i]) + 1 + " ";
                 else toWrite += split[i] + " ";
             }
             updateInfoLine(toWrite);
+            if (toGrant != null) addAchievement(toGrant);
         }
         catch (IOException e)
         {
