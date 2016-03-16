@@ -629,9 +629,9 @@ public class Player extends Unit {
 	 */
 	public void loseLife(Ghost ghost) {
         lives--;
-		if (lives == 0) {
+        killedBy(ghost.getIdentity());
+        if (lives == 0) {
             setAlive(false);
-            killedBy(ghost.getIdentity());
         }
         else {
             //call the associated listeners (can only be one Level?)
