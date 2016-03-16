@@ -132,6 +132,7 @@ public class PlayerTest {
      * Tests whether adding achievements works correctly or not.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @Test
     public void testAchievementAddition()
     {
         testPlayer.addAchievement(Achievement.WON_THRICE);
@@ -162,9 +163,9 @@ public class PlayerTest {
         long before = System.currentTimeMillis();
         testPlayer.killedBy(GhostColor.RED);
         //An achievement has been added means the profile file of the player has been modified (added a line).
-        assertTrue("Achievement not added to file.", new File(PATH).lastModified() > before);
+        assertTrue("Achievement not added to file: SPEEDY_DEATH.", new File(PATH).lastModified() > before);
         before = System.currentTimeMillis();
         testPlayer.levelCompleted(1);
-        assertTrue("Achievement not added to file.", new File(PATH).lastModified() > before);
+        assertTrue("Achievement not added to file: VICTOR.", new File(PATH).lastModified() > before);
     }
 }
