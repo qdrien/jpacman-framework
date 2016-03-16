@@ -413,13 +413,13 @@ public class Player extends Unit {
      * Triggered whenever the player dies.
      * @param killer The ghost that killed pacman.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer)
     {
         if (playerName == null) return;
-        int toAlter = killer.getIndex();
-         try
+        try
         {
+            int toAlter = killer.getIndex();
             String split[] = readInfoLine(), toWrite = "";
             Achievement toGrant = killer.getAchievementGranted();
             for (int i = 0; i < split.length; i++)
