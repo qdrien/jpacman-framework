@@ -25,4 +25,19 @@ public enum GhostColor {
 	 * Pokey, a.k.a. Clyde.
 	 */
 	ORANGE;
+
+    private int index;
+
+    static
+    {
+        RED.index = 4;
+        PINK.index = 5;
+        CYAN.index = 6;
+        ORANGE.index = 7;
+    }
+
+    public int getIndex()
+    {
+        return index;
+    }
 }

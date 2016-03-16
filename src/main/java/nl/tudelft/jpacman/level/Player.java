@@ -417,26 +417,7 @@ public class Player extends Unit {
     public void killedBy(final GhostColor killer)
     {
         if (playerName == null) return;
-        int toAlter;
-        switch (killer)
-        {
-            case RED:
-                toAlter = 4;
-                addAchievement(Achievement.SPEEDY_DEATH);
-                break;
-            case PINK:
-                toAlter = 5;
-                addAchievement(Achievement.AMBUSHED);
-                break;
-            case CYAN:
-                toAlter = 6;
-                break;
-            case ORANGE:
-                toAlter = 7;
-                break;
-            default:
-                return;
-        }
+        int toAlter = killer.getIndex();
          try
         {
             String split[] = readInfoLine(), toWrite = "";
