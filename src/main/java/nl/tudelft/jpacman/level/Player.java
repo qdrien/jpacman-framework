@@ -413,39 +413,22 @@ public class Player extends Unit {
      * Triggered whenever the player dies.
      * @param killer The ghost that killed pacman.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer)
     {
         if (playerName == null) return;
-        int toAlter;
-        switch (killer)
+        try
         {
-            case RED:
-                toAlter = 4;
-                addAchievement(Achievement.SPEEDY_DEATH);
-                break;
-            case PINK:
-                toAlter = 5;
-                addAchievement(Achievement.AMBUSHED);
-                break;
-            case CYAN:
-                toAlter = 6;
-                break;
-            case ORANGE:
-                toAlter = 7;
-                break;
-            default:
-                return;
-        }
-         try
-        {
+            int toAlter = killer.getIndex();
             String split[] = readInfoLine(), toWrite = "";
+            Achievement toGrant = killer.getAchievementGranted();
             for (int i = 0; i < split.length; i++)
             {
                 if (i == toAlter) toWrite += Integer.parseInt(split[i]) + 1 + " ";
                 else toWrite += split[i] + " ";
             }
             updateInfoLine(toWrite);
+            if (toGrant != null) addAchievement(toGrant);
         }
         catch (IOException e)
         {
@@ -648,9 +631,9 @@ public class Player extends Unit {
 	 */
 	public void loseLife(Ghost ghost) {
         lives--;
-		if (lives == 0) {
+        killedBy(ghost.getIdentity());
+        if (lives == 0) {
             setAlive(false);
-            killedBy(ghost.getIdentity());
         }
         else {
             //call the associated listeners (can only be one Level?)

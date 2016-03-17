@@ -1,5 +1,7 @@
 package nl.tudelft.jpacman.npc.ghost;
 
+import nl.tudelft.jpacman.game.Achievement;
+
 /**
  * A list of supported ghost colors.
  * 
@@ -25,4 +27,30 @@ public enum GhostColor {
 	 * Pokey, a.k.a. Clyde.
 	 */
 	ORANGE;
+
+    private int index;
+    private Achievement achievementGranted;
+
+    static
+    {
+        RED.index = 4;
+        PINK.index = 5;
+        CYAN.index = 6;
+        ORANGE.index = 7;
+
+        RED.achievementGranted = Achievement.SPEEDY_DEATH;
+        PINK.achievementGranted = Achievement.AMBUSHED;
+        CYAN.achievementGranted = null;
+        ORANGE.achievementGranted = null;
+    }
+
+    public int getIndex()
+    {
+        return index;
+    }
+
+    public Achievement getAchievementGranted()
+    {
+        return achievementGranted;
+    }
 }

@@ -64,8 +64,7 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
-        //Attendre 400 ms
-        Thread.sleep(1500);
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
 
@@ -88,8 +87,7 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.WEST);
-        //Attendre 400 ms
-        Thread.sleep(1500);
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
 
@@ -112,8 +110,7 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.WEST);
-        //Wait 400 ms
-        Thread.sleep(1500);
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
         game.moveContinu(player, Direction.SOUTH);
@@ -143,7 +140,7 @@ public class MoveContinuTest
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
         //wait 1500 ms
-        Thread.sleep(1500);
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
         game.moveContinu(player, Direction.SOUTH);
@@ -172,8 +169,8 @@ public class MoveContinuTest
 
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
-        //wait 1500 ms
-        Thread.sleep(1500);
+        //wait 1600 ms
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
         //No pellet remaining, the score stay the same
