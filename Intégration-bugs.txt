@@ -1,0 +1,10 @@
+- la plupart des conflits a été résolu par Kdiff3 et pas par git de base.
+- Des conflits liés au merge de la javadoc (assemblage de plusieurs javadocs différentes)
+- Problème de conflit lié a l'ajout ou a la suppression d'accolade et des imports
+- Problème lié au fait que Damien a développé un jeu avec une seule vie et Adrien a développé un jeu avec 3 vies => problème que pacman mourrait définitivement et dans l'autre version il perdait une seule vie. On a donc du adapter le jeu pour qu'il prennen en charge les 2 versions.
+-Adaptation de certains paramètres de méthodes pour pouvoir intégrer les fonctionnalités ensemble
+-adaptation du processus de victoire et de défaite lié aux niveaux et aux vies (3 vies au lieu de 1)
+- (pas un réel conflit) ajouter le processus de récupération du niveau maximal atteint dans le fichier de profil.
+-problème lié à la création du fichier profil pour les achievements (passage de niveau)
+-Ajout d'un paramètre pour passer le level
+- résolution de la désactivation du bouton "load" quand le joueur est mort
