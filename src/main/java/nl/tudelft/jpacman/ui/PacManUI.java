@@ -120,6 +120,7 @@ public class PacManUI extends JFrame {
 					Integer index = Integer.valueOf(button.getText());
 					System.out.println("index : " + index);
 //					final Level level = game.getLauncher().makeLevel(index);
+					game.stop();
 					game.getLauncher().setLevel(index);
 //					level.setIndex(index);
                     game.reset();
