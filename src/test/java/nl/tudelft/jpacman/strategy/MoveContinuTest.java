@@ -143,7 +143,7 @@ public class MoveContinuTest
         //Test continu movement
         game.moveContinu(player, Direction.EAST);
         //wait 1500 ms
-        Thread.sleep(1500);
+        Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
         game.moveContinu(player, Direction.SOUTH);
