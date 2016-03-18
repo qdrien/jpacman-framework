@@ -40,6 +40,7 @@ public class PlayerTest {
      * The path of the file that will be used to test the player's profile.
      */
     private static final String PATH = new File("").getAbsolutePath()+"/src/test/resources/Testy.prf";
+    private static final String PATH2 = new File("").getAbsolutePath()+"/src/test/resources/Testy2.prf";
 
     @Before
     public void setUp() throws Exception {
@@ -74,6 +75,7 @@ public class PlayerTest {
     public static void cleanup()
     {
         new File(PATH).delete();
+        new File(PATH2).delete();
     }
 
      /**
@@ -159,11 +161,10 @@ public class PlayerTest {
     public void testAchievements()
     {
         long before = System.currentTimeMillis();
-        String tmp = new File("").getAbsolutePath()+"/src/test/resources/Testy2.prf";
-        testPlayer.setProfilePath(tmp);
+        testPlayer.setProfilePath(PATH2);
         try
         {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH2));
             writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
             writer.close();
         }
@@ -174,9 +175,9 @@ public class PlayerTest {
 
         testPlayer.killedBy(GhostColor.RED);
         //An achievement has been added means the profile file of the player has been modified (added a line).
-        assertTrue("Achievement not added to file: SPEEDY_DEATH.", new File(tmp).lastModified() > before);
+        assertTrue("Achievement not added to file: SPEEDY_DEATH.", new File(PATH2).lastModified() > before);
         before = System.currentTimeMillis();
         testPlayer.levelCompleted(1);
-        assertTrue("Achievement not added to file: VICTOR.", new File(tmp).lastModified() > before);
+        assertTrue("Achievement not added to file: VICTOR.", new File(PATH2).lastModified() > before);
     }
 }
