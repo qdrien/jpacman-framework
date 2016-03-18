@@ -222,9 +222,9 @@ public class Player extends Unit {
     public void addAchievement(final Achievement achievement)
     {
         //If the achievement has already been obtained by this player (or the player isn't logged in), don't add it.
-        if (playerName == null || checkAchievement(achievement)) return;
         try
         {
+            if (playerName == null || checkAchievement(achievement)) return;
             final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
             writer.write(achievement + System.getProperty("line.separator"));
             writer.close();
@@ -244,26 +244,18 @@ public class Player extends Unit {
      * @return Whether the achievement has already been earned or not.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private boolean checkAchievement(final Achievement achievement)
+    private boolean checkAchievement(final Achievement achievement) throws IOException
     {
-        boolean found = false;
-        try
+        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        String line = reader.readLine(); //the first line is ignored, since it contains other information.
+        while ((line = reader.readLine()) != null)
         {
-            final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            String line = reader.readLine(); //the first line is ignored, since it contains other information.
-            while ((line = reader.readLine()) != null)
-            {
-                //Removing whitespace just in case the file has been manually edited.
-                line = line.replaceAll("\\s+", "");
-                if (line.equals(achievement.toString())) found = true;
-            }
-            reader.close();
+            //Removing whitespace just in case the file has been manually edited.
+            line = line.replaceAll("\\s+", "");
+            if (line.equals(achievement.toString())) return true;
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return found;
+        reader.close();
+        return false;
     }
 
     /**
