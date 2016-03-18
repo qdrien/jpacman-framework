@@ -160,12 +160,6 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
-        final Player player = getPlayers().get(0);
-        player.addAchievement(Achievement.VICTOR);
-
-        //TODO: deal with this
-//            triggerHoF(player);
-//        firstPass = false;
     }
 
     @Override

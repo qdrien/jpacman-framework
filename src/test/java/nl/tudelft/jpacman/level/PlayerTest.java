@@ -7,9 +7,7 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 import nl.tudelft.jpacman.game.Achievement;
@@ -160,14 +158,25 @@ public class PlayerTest {
     @Test
     public void testAchievements()
     {
-        long before = System.currentTimeMillis() * 1000;
+        long before = System.currentTimeMillis();
+        String tmp = new File("").getAbsolutePath()+"/src/test/resources/Testy2.prf";
+        testPlayer.setProfilePath(tmp);
+        try
+        {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
+            writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
         testPlayer.killedBy(GhostColor.RED);
         //An achievement has been added means the profile file of the player has been modified (added a line).
-        long now = new File(PATH).lastModified() * 1000;
-        System.out.println("Initial:" + before + " after achievement addition: " + now);
-        assertTrue("Achievement not added to file: SPEEDY_DEATH.", now > before);
+        assertTrue("Achievement not added to file: SPEEDY_DEATH.", new File(tmp).lastModified() > before);
         before = System.currentTimeMillis();
         testPlayer.levelCompleted(1);
-        assertTrue("Achievement not added to file: VICTOR.", new File(PATH).lastModified() > before);
+        assertTrue("Achievement not added to file: VICTOR.", new File(tmp).lastModified() > before);
     }
 }

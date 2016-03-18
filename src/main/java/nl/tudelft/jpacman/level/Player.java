@@ -375,6 +375,7 @@ public class Player extends Unit {
         {
             final String split[] = readInfoLine();
             final int levelsCompleted = Integer.parseInt(split[0]);
+            addAchievement(Achievement.VICTOR);
             if (level > levelsCompleted) {
                 String result = "";
                 for (int i = 1; i < split.length; i++) result += split[i] + " ";
