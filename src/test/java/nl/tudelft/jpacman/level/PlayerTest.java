@@ -163,7 +163,9 @@ public class PlayerTest {
         long before = System.currentTimeMillis();
         testPlayer.killedBy(GhostColor.RED);
         //An achievement has been added means the profile file of the player has been modified (added a line).
-        assertTrue("Achievement not added to file: SPEEDY_DEATH.", new File(PATH).lastModified() > before);
+        long now = new File(PATH).lastModified();
+        System.out.println("Initial:" + before + " after achievement addition: " + now);
+        assertTrue("Achievement not added to file: SPEEDY_DEATH.", now > before);
         before = System.currentTimeMillis();
         testPlayer.levelCompleted(1);
         assertTrue("Achievement not added to file: VICTOR.", new File(PATH).lastModified() > before);
