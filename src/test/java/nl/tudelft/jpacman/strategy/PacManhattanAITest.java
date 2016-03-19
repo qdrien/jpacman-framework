@@ -277,4 +277,26 @@ public class PacManhattanAITest
         assertEquals(dir.getFirst(), Direction.EAST);
         assertEquals(dir.getLast(), Direction.NORTH);
     }
+
+    /**
+     * Test the choose of the direction in the last resort (No Best Direction found)
+     */
+    @SuppressWarnings("methodlength")
+    @Test
+    public void HurryMoveTest()
+    {
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        assertNotNull(player.getSquare());
+        assertEquals(player.getSquare().getX(), 11);
+        assertEquals(player.getSquare().getY(), 15);
+
+        PacManhattanAI AI = new PacManhattanAI(game);
+
+        assertEquals(AI.hurryMove(), Direction.EAST);
+
+        assertEquals(AI.getGhostDstThreshold(), 14);
+        AI.setGhostDstThreshold(7);
+        assertEquals(AI.getGhostDstThreshold(), 7);
+    }
 }
