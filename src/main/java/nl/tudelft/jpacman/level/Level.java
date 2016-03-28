@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class Level implements PlayerListener {
 
     private static final int UNSAFE_RANGE = 4;
-    private static final boolean QUICK_WIN = true; //todo
+    private static final boolean QUICK_WIN = false; //todo
 
     /**
 	 * The board of this level.
