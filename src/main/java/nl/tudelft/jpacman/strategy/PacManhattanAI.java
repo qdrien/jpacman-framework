@@ -62,7 +62,7 @@ public class PacManhattanAI extends AIStrategy
                 break;
             }
         }
-        if(warning == false)
+        if(!warning)
         {
             //There is no near ghost, thus find the nearest pellet
             computePath(BFSNearestSafetyPelletSquare());
@@ -75,7 +75,7 @@ public class PacManhattanAI extends AIStrategy
         }
         else
         {
-            if(warning == true)
+            if(warning)
             {
                 //No safe square found, find the nearest pellet
                 computePath(BFSNearestSafetyPelletSquare());
