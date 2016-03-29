@@ -59,7 +59,7 @@ public class LauncherSmokeTest {
     @Test
     public void smokeTest() throws InterruptedException {
         Game game = launcher.getGame();
-        HallOfFame.setHam(true);
+        HallOfFame.setHam();
         Player player = game.getPlayers().get(0);
         player.setLives(1);
  

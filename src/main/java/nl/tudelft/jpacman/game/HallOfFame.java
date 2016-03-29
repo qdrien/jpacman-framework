@@ -70,11 +70,10 @@ public class HallOfFame
 
     /**
      * Determines if the Hall of Fame is a ham. (whether the smoke test is running or the application)
-     * @param isSmoked whether the Hall of Fame was born amidst salt and smoke.
      */
-    public static void setHam(final boolean isSmoked)
+    public static void setHam()
     {
-        ham = isSmoked;
+        ham = true;
     }
 
     /**

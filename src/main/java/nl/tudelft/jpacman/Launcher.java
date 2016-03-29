@@ -63,7 +63,7 @@ public class Launcher
 	 * 
 	 * @return level 1.
 	 */
-	public Level makeLevel() {
+    Level makeLevel() {
 		return makeLevel(1);
 	}
 
@@ -259,7 +259,7 @@ public class Launcher
 	 */
 	public void buildWindow()
 	{
-		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), "Strategy selection", "Choose a game mode and then click to start", builder,game, pacManUI);
+		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
 		dialog.setSize(400, 200);
 		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	}

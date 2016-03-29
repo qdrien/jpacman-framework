@@ -34,7 +34,7 @@ public class PacManhattanAI extends AIStrategy
      * @param game
      *      The current game
      */
-    public void init(Game game)
+    void init(Game game)
     {
         visitedCase = new boolean[getBoard().getHeight()][getBoard().getWidth()];
         pathAStar = new AStarPath(game);
@@ -62,7 +62,7 @@ public class PacManhattanAI extends AIStrategy
                 break;
             }
         }
-        if(warning == false)
+        if(!warning)
         {
             //There is no near ghost, thus find the nearest pellet
             computePath(BFSNearestSafetyPelletSquare());
@@ -75,7 +75,7 @@ public class PacManhattanAI extends AIStrategy
         }
         else
         {
-            if(warning == true)
+            if(warning)
             {
                 //No safe square found, find the nearest pellet
                 computePath(BFSNearestSafetyPelletSquare());
@@ -110,7 +110,7 @@ public class PacManhattanAI extends AIStrategy
      * Compute a path
      * @param square the goal square
      */
-    public void computePath(Square square)
+    void computePath(Square square)
     {
         if (square == null)
         {

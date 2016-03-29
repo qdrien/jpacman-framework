@@ -144,7 +144,7 @@ public abstract class AStar<T>
     /**
      * Default c'tor.
      */
-    public AStar(){
+    AStar(){
         paths = new PriorityQueue<Path>();
         mindists = new HashMap<T, Double>();
         expandedCounter = 0;
@@ -161,7 +161,7 @@ public abstract class AStar<T>
      * @param to The node we are reaching.
      * @return The total cost.
      */
-    protected Double f(Path p, T from, T to){
+    Double f(Path p, T from, T to){
         Double g =  g(from, to) + ((p.parent != null) ? p.parent.g : 0.0);
         Double h = h(from, to);
 
