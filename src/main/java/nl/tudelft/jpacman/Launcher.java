@@ -209,8 +209,7 @@ public class Launcher
 				boolean loggedIn = player.authenticate();
 				if (loggedIn) {
 					player.displayAchievements();
-//					pacManUI.refreshLevelChoices(4);
-					pacManUI.refreshLevelChoices(player.getMaxLevelReached()); //TODO: add this after the merge}
+					pacManUI.refreshLevelChoices(player.getMaxLevelReached());
 				}
 			}
         });
