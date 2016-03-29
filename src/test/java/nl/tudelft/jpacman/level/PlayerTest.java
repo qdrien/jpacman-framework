@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.npc.ghost.Blinky;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +14,6 @@ import nl.tudelft.jpacman.npc.ghost.GhostColor;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.*;
 
@@ -27,17 +24,12 @@ import java.io.*;
 public class PlayerTest {
 
     /**
-     * The player we are making tests on
-     */
-    Player player;
-    
-    /**
-     * A player with which to test methods.
+     * A Test Player with which to test methods.
      */
     private Player testPlayer;
 
     /**
-     * The path of the file that will be used to test the player's profile.
+     * The path of the file that will be used to test the testPlayer's profile.
      */
     private static final String PATH = new File("").getAbsolutePath()+"/src/test/resources/Testy.prf";
 
@@ -46,7 +38,7 @@ public class PlayerTest {
         Launcher launcher = new Launcher();
         launcher.launch();
         Game game = launcher.getGame();
-        player = game.getPlayers().get(0);
+        testPlayer = game.getPlayers().get(0);
     }
 
     /**
@@ -56,11 +48,11 @@ public class PlayerTest {
     @Before
     public void init() throws IOException
     {
-        Player.setIsNotATest(false);
+        Player.setIsNotATest();
         final Sprite sprites[] = new Sprite[1];
         testPlayer = new Player(null, new AnimatedSprite(sprites, 1, false));
         testPlayer.setProfilePath(PATH);
-        testPlayer.setPlayerName("Testy");
+        testPlayer.setPlayerName();
 
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
@@ -82,49 +74,49 @@ public class PlayerTest {
      */
     @Test
     public void addPoints() throws Exception {
-        int score = player.getScore();
-        int lives = player.getLives();
-        player.addPoints(10);
-        assertEquals(score + 10, player.getScore());
+        int score = testPlayer.getScore();
+        int lives = testPlayer.getLives();
+        testPlayer.addPoints(10);
+        assertEquals(score + 10, testPlayer.getScore());
         //using MAX_VALUE to ensure it is bigger than the "add life threshold"
-        player.addPoints(Integer.MAX_VALUE);
-        assertEquals(lives + 1, player.getLives());
+        testPlayer.addPoints(Integer.MAX_VALUE);
+        assertEquals(lives + 1, testPlayer.getLives());
     }
 
     /**
-     * Tests that Player::loseLife() effectively removes one life from the player when called
+     * Tests that Player::loseLife() effectively removes one life from the testPlayer when called
      * @throws Exception
      */
     @Test
     public void loseLife() throws Exception {
         Ghost ghost = mock(Ghost.class);
-        final int lives = player.getLives();
-        player.loseLife(ghost);
-        assertEquals(lives - 1, player.getLives());
+        final int lives = testPlayer.getLives();
+        testPlayer.loseLife(ghost);
+        assertEquals(lives - 1, testPlayer.getLives());
     }
 
     /**
-     * Test that a player can die "for good" when Player::loseLife() removes its last life
+     * Test that a testPlayer can die "for good" when Player::loseLife() removes its last life
      * @throws Exception
      */
     @Test
     public void dies() throws Exception {
         Ghost ghost = mock(Ghost.class);
-        player.setLives(1);
-        assert player.isAlive();
-        player.loseLife(ghost);
-        assertFalse(player.isAlive());
+        testPlayer.setLives(1);
+        assert testPlayer.isAlive();
+        testPlayer.loseLife(ghost);
+        assertFalse(testPlayer.isAlive());
     }
 
     /**
-     * Tests that Player::addLife() effectively adds one life to the player when called
+     * Tests that Player::addLife() effectively adds one life to the testPlayer when called
      * @throws Exception
      */
     @Test
     public void addLife() throws Exception {
-        final int lives = player.getLives();
-        player.addLife();
-        assertEquals(lives + 1, player.getLives());
+        final int lives = testPlayer.getLives();
+        testPlayer.addLife();
+        assertEquals(lives + 1, testPlayer.getLives());
     }
     /**
      * Tests whether adding achievements works correctly or not.
@@ -143,7 +135,7 @@ public class PlayerTest {
             {
                 if (line.equals(Achievement.WON_THRICE.toString())) found = true;
             }
-            assertTrue("WON_THRICE wasn't found in the test player's achievement file", found);
+            assertTrue("WON_THRICE wasn't found in the test testPlayer's achievement file", found);
             reader.close();
         }
         catch (IOException e)

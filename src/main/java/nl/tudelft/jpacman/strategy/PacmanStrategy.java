@@ -11,14 +11,14 @@ public abstract class PacmanStrategy
     /**
      * The current game
      */
-    protected Game game;
+    Game game;
 
 
     /**
      * Default constructor
      * @param game the current game
      */
-    public PacmanStrategy(final Game game)
+    PacmanStrategy(final Game game)
     {
         this.game = game;
     }

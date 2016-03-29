@@ -39,7 +39,7 @@ public abstract class Game implements LevelObserver {
     /**
      * The Launcher that created this Game instance
      */
-    protected Launcher launcher;
+    Launcher launcher;
 
     /**
      * Creates a new game.
@@ -86,7 +86,7 @@ public abstract class Game implements LevelObserver {
             }
             if(service != null)
             {
-                currentMoveTask.setFinished(true);
+                currentMoveTask.setFinished();
             }
             inProgress = false;
             getLevel().stop();
@@ -133,7 +133,7 @@ public abstract class Game implements LevelObserver {
                 }
                 else
                 {
-                    this.currentMoveTask.setFinished(true);
+                    this.currentMoveTask.setFinished();
                 }
                 this.currentMoveTask = new PlayerMoveTask(service, player, direction);
                 service.schedule(currentMoveTask, player.getInterval(), TimeUnit.MILLISECONDS);
@@ -307,11 +307,10 @@ public abstract class Game implements LevelObserver {
         }
         /**
          * Boolean to finish the task for the thread
-         * @param finished true if the task is finished, false otherwise
          */
-        public void setFinished(boolean finished)
+        public void setFinished()
         {
-            this.finished = finished;
+            this.finished = true;
         }
 
         /**

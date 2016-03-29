@@ -49,7 +49,7 @@ public abstract class AIStrategy extends PacmanStrategy
      * Get the player of the game
      * @return the player
      */
-    public final Player getPlayer()
+    final Player getPlayer()
     {
         return this.player;
     }
@@ -57,7 +57,7 @@ public abstract class AIStrategy extends PacmanStrategy
      * Get the board of the game
      * @return the board
      */
-    public final Board getBoard()
+    final Board getBoard()
     {
         return this.board;
     }
@@ -65,7 +65,7 @@ public abstract class AIStrategy extends PacmanStrategy
      * Get the ghost's list of the game
      * @return the ghost's list
      */
-    public final ArrayList<Ghost> getGhostsList()
+    final ArrayList<Ghost> getGhostsList()
     {
         return this.ghosts;
     }

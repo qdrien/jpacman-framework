@@ -27,7 +27,7 @@ public class Player extends Unit {
      * The amount of points the player needs to get an additional life
      * (he gets one each time he reaches a multiple of this value)
      */
-    public static final int NEW_LIFE_THRESHOLD = 10000;
+    private static final int NEW_LIFE_THRESHOLD = 10000;
     /**
      * The base movement interval.
      */
@@ -547,11 +547,10 @@ public class Player extends Unit {
 
     /**
      * Sets whether the application is running or being test.
-     * @param noTest Whether the application is running or being test.
      */
-    public static void setIsNotATest(final boolean noTest)
+    public static void setIsNotATest()
     {
-        isNotATest = noTest;
+        isNotATest = false;
     }
 
     /**
@@ -603,11 +602,10 @@ public class Player extends Unit {
 
     /**
      * Sets the player's name.
-     * @param s The name to set.
      */
-    public void setPlayerName(final String s)
+    public void setPlayerName()
     {
-        playerName = s;
+        playerName = "Testy";
     }
     /**
     * Checks whether a player has reached the "new life threshold" allowing him to get an additional life

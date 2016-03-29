@@ -35,16 +35,16 @@ public class MyJDialogStrategy extends JDialog
 
     /**
      * Create a new window to chose the game mode (strategy,...)
-     * @param parent a JFrame parent
      * @param title a window title
      * @param message a message to add for the window
+     * @param parent a JFrame parent
      * @param builder the builder
      * @param game the game
      * @param pacManUI the pacManUI
      */
-    public MyJDialogStrategy(JFrame parent, String title, String message, PacManUiBuilder builder, Game game, PacManUI pacManUI)
+    public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI)
     {
-        super(parent, title);
+        super(parent, "Strategy selection");
         this.builder = builder;
         this.game = game;
         this.pacManUI = pacManUI;
@@ -54,7 +54,7 @@ public class MyJDialogStrategy extends JDialog
 
         // Create a message
         JPanel messagePane = new JPanel();
-        messagePane.add(new JLabel(message));
+        messagePane.add(new JLabel("Choose a game mode and then click to start"));
         // get content pane, which is usually the
         // Container of all the dialog's components.
         getContentPane().add(messagePane);
@@ -104,7 +104,7 @@ public class MyJDialogStrategy extends JDialog
      *  An action listener to be used when an action is performed
      *  (e.g. button is pressed)
      */
-    class MyActionListener implements ActionListener
+    private class MyActionListener implements ActionListener
     {
 
         //close and dispose of the window.
