@@ -669,14 +669,14 @@ public class Player extends Unit {
 	}
 
     public int getMaxLevelReached() {
+        int i = 0;
         try {
             String line[]=readInfoLine();
-            int i = Integer.parseInt(line[0]);//TODO
+            i = Integer.parseInt(line[0]);
             System.out.println("max level reached: " + i);
-            return i;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return 4; //TODO: 1
+        return i;
     }
 }

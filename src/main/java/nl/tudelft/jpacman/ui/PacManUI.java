@@ -118,10 +118,8 @@ public class PacManUI extends JFrame {
 					//TODO: refactor this after the merge (should move mapparser into Game)
 					Integer index = Integer.valueOf(button.getText());
 					System.out.println("index : " + index);
-//					final Level level = game.getLauncher().makeLevel(index);
 					game.stop();
 					game.getLauncher().setLevel(index);
-//					level.setIndex(index);
                     game.reset();
                     game.getPlayers().get(0).setAlive(true);
                     //sometimes ghost keep on moving after death, its a FEATURE
