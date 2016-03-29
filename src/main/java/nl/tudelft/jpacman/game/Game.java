@@ -49,7 +49,7 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * For the execution of the thread for the moveContinu method
+     * For the execution of the thread for the continuousMovement method
      */
     private PlayerMoveTask currentMoveTask;
     private ScheduledExecutorService service;
@@ -119,7 +119,7 @@ public abstract class Game implements LevelObserver {
 	 * @param direction
 	 *            The direction to move in.
 	 */
-	public void moveContinu(Player player, Direction direction)
+	public void continousMovement(Player player, Direction direction)
     {
         if (isInProgress())
         {

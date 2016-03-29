@@ -10,7 +10,7 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 
 /**
- * Navigation provides utility to nagivate on {@link Square}s.
+ * Navigation provides utility to navigate on {@link Square}s.
  * 
  * @author Jeroen Roosen 
  */

@@ -13,9 +13,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Class to test the moveContinu method for the continu move of the player
+ * Class to test the continuousMovement method for the continuous movement of the player
  */
-public class MoveContinuTest
+public class continuousMovementTest
 {
     private Launcher launcher;
 
@@ -46,7 +46,7 @@ public class MoveContinuTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void moveContinuTest1() throws InterruptedException
+    public void continuousMovementTest1() throws InterruptedException
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -57,19 +57,19 @@ public class MoveContinuTest
         assertTrue(game.isInProgress());
         assertEquals(0, player.getScore());
 
-        //Test continu movement
-        game.moveContinu(player, Direction.EAST);
+        //Test continuous movement
+        game.continousMovement(player, Direction.EAST);
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
 
     /**
-     * A continu move test
+     * A continuous movement test
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void moveContinuTest2() throws InterruptedException
+    public void continuousMovementTest2() throws InterruptedException
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -80,19 +80,19 @@ public class MoveContinuTest
         assertTrue(game.isInProgress());
         assertEquals(0, player.getScore());
 
-        //Test continu movement
-        game.moveContinu(player, Direction.WEST);
+        //Test continuous movement
+        game.continousMovement(player, Direction.WEST);
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
 
     /**
-     * A continu move test
+     * A continuous movement test
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void moveContinuTest3() throws InterruptedException
+    public void continuousMovementTest3() throws InterruptedException
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -103,12 +103,12 @@ public class MoveContinuTest
         assertTrue(game.isInProgress());
         assertEquals(0, player.getScore());
 
-        //Test continu movement
-        game.moveContinu(player, Direction.WEST);
+        //Test continuous movement
+        game.continousMovement(player, Direction.WEST);
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
-        game.moveContinu(player, Direction.SOUTH);
+        game.continousMovement(player, Direction.SOUTH);
         //wait 600 ms
         Thread.sleep(600);
         assertEquals(80, player.getScore());
@@ -116,12 +116,12 @@ public class MoveContinuTest
     }
 
     /**
-     * A continu move test
+     * A continuous move test
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void moveContinuTest4() throws InterruptedException
+    public void continuousMovementTest4() throws InterruptedException
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -132,13 +132,13 @@ public class MoveContinuTest
         assertTrue(game.isInProgress());
         assertEquals(0, player.getScore());
 
-        //Test continu movement
-        game.moveContinu(player, Direction.EAST);
+        //Test continuous movement
+        game.continousMovement(player, Direction.EAST);
         //wait 1500 ms
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
 
-        game.moveContinu(player, Direction.SOUTH);
+        game.continousMovement(player, Direction.SOUTH);
         //wait 1000 ms
         Thread.sleep(600);
         assertEquals(80, player.getScore());
@@ -146,12 +146,12 @@ public class MoveContinuTest
     }
 
     /**
-     * A continu move test
+     * A continuous move test
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void moveContinuTest5() throws InterruptedException
+    public void continuousMovementTest5() throws InterruptedException
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -162,8 +162,8 @@ public class MoveContinuTest
         assertTrue(game.isInProgress());
         assertEquals(0, player.getScore());
 
-        //Test continu movement
-        game.moveContinu(player, Direction.EAST);
+        //Test continuous movement
+        game.continousMovement(player, Direction.EAST);
         //wait 1600 ms
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
@@ -173,7 +173,7 @@ public class MoveContinuTest
         assertEquals(60, player.getScore());
 
         //Go back and no pellet remaining
-        game.moveContinu(player, Direction.WEST);
+        game.continousMovement(player, Direction.WEST);
         //wait 1000 ms
         Thread.sleep(1000);
         assertEquals(60, player.getScore());

@@ -89,7 +89,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ConstanteTest()
+    public void constantTest()
     {
         Game game = launcher.getGame();
         assertFalse(game.isInProgress());
@@ -132,15 +132,15 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighbors(square,player);
+        List<Square> neighbourList = aStarPath.getValidNeighbors(square,player);
 
         //The accessible square is to East and West. (North and south are walls)
-        assertNotNull(neigborList);
-        assertTrue(neigborList.contains(player.getSquare().getSquareAt(Direction.EAST)));
-        assertTrue(neigborList.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertNotNull(neighbourList);
+        assertTrue(neighbourList.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertTrue(neighbourList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
-        assertFalse(neigborList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse(neigborList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse(neighbourList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse(neighbourList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         //Player move to have others neighbors
         game.start();
@@ -277,7 +277,7 @@ public class AStarPathTest
     }
 
     /**
-     * Test the Astar method
+     * Test the AStar method
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -317,7 +317,7 @@ public class AStarPathTest
     }
 
     /**
-     * Test the Astar method
+     * Test the AStar method
      */
     @SuppressWarnings("methodlength")
     @Test

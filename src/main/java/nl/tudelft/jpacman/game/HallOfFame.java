@@ -27,7 +27,7 @@ public class HallOfFame
     /**
      * Whether the application is running or whether it's being tested. (ham for the launcherSmokeTest)
      */
-    private static boolean isNotATest, ham; //booleans are initialised to false by default, so ham can stay uninit.
+    private static boolean isNotATest, ham; //booleans are initialised to false by default, so these can stay uninitialised.
 
     /**
      * The points scored in the game.
