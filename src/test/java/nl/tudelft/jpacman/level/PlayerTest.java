@@ -24,7 +24,12 @@ import java.io.*;
 public class PlayerTest {
 
     /**
-     * A Test Player with which to test methods.
+     * The testPlayer we are making tests on
+     */
+    private Player player;
+
+    /**
+     * A testPlayer with which to test methods.
      */
     private Player testPlayer;
 
@@ -38,7 +43,7 @@ public class PlayerTest {
         Launcher launcher = new Launcher();
         launcher.launch();
         Game game = launcher.getGame();
-        testPlayer = game.getPlayers().get(0);
+        player = game.getPlayers().get(0);
     }
 
     /**
@@ -74,13 +79,13 @@ public class PlayerTest {
      */
     @Test
     public void addPoints() throws Exception {
-        int score = testPlayer.getScore();
-        int lives = testPlayer.getLives();
-        testPlayer.addPoints(10);
-        assertEquals(score + 10, testPlayer.getScore());
+        int score = player.getScore();
+        int lives = player.getLives();
+        player.addPoints(10);
+        assertEquals(score + 10, player.getScore());
         //using MAX_VALUE to ensure it is bigger than the "add life threshold"
-        testPlayer.addPoints(Integer.MAX_VALUE);
-        assertEquals(lives + 1, testPlayer.getLives());
+        player.addPoints(Integer.MAX_VALUE);
+        assertEquals(lives + 1, player.getLives());
     }
 
     /**
@@ -90,9 +95,9 @@ public class PlayerTest {
     @Test
     public void loseLife() throws Exception {
         Ghost ghost = mock(Ghost.class);
-        final int lives = testPlayer.getLives();
-        testPlayer.loseLife(ghost);
-        assertEquals(lives - 1, testPlayer.getLives());
+        final int lives = player.getLives();
+        player.loseLife(ghost);
+        assertEquals(lives - 1, player.getLives());
     }
 
     /**
@@ -102,10 +107,10 @@ public class PlayerTest {
     @Test
     public void dies() throws Exception {
         Ghost ghost = mock(Ghost.class);
-        testPlayer.setLives(1);
-        assert testPlayer.isAlive();
-        testPlayer.loseLife(ghost);
-        assertFalse(testPlayer.isAlive());
+        player.setLives(1);
+        assert player.isAlive();
+        player.loseLife(ghost);
+        assertFalse(player.isAlive());
     }
 
     /**
