@@ -7,13 +7,9 @@ import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 import java.awt.event.KeyEvent;
 
-
-/**
- * Created by Nicolas Leemans on 2/03/16.
- */
 public class HumanControllerStrategy extends PacmanStrategy
 {
-    private PacManUiBuilder builder;
+    private final PacManUiBuilder builder;
 
     /**
      * Default constructor
@@ -48,40 +44,10 @@ public class HumanControllerStrategy extends PacmanStrategy
     public void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game)
     {
         final Player p1 = game.getPlayers().get(0);
-        builder.addKey(KeyEvent.VK_UP, new Action()
-        {
-
-            @Override
-            public void doAction()
-            {
-                game.moveContinu(p1, Direction.NORTH);
-
-            }
-        }).addKey(KeyEvent.VK_DOWN, new Action()
-        {
-
-            @Override
-            public void doAction()
-            {
-                game.moveContinu(p1, Direction.SOUTH);
-            }
-        }).addKey(KeyEvent.VK_LEFT, new Action()
-        {
-
-            @Override
-            public void doAction()
-            {
-                game.moveContinu(p1, Direction.WEST);
-            }
-        }).addKey(KeyEvent.VK_RIGHT, new Action()
-        {
-
-            @Override
-            public void doAction()
-            {
-                game.moveContinu(p1, Direction.EAST);
-            }
-        });
+        builder.addKey(KeyEvent.VK_UP, () -> game.moveContinu(p1, Direction.NORTH))
+                .addKey(KeyEvent.VK_DOWN, () -> game.moveContinu(p1, Direction.SOUTH))
+                .addKey(KeyEvent.VK_LEFT, () -> game.moveContinu(p1, Direction.WEST))
+                .addKey(KeyEvent.VK_RIGHT, () -> game.moveContinu(p1, Direction.EAST));
 
     }
 

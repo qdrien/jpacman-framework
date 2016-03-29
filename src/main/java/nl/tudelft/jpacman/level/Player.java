@@ -10,7 +10,6 @@ import nl.tudelft.jpacman.sprite.Sprite;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 import java.io.*;
 import java.util.Arrays;
@@ -103,15 +102,6 @@ public class Player extends Unit {
 		deathSprite.setAnimating(false);
 		listeners = new ArrayList<>();
 	}
-
-    /**
-     * Returns the path of the file containing usernames and passwords.
-     * @return The path of the file containing usernames and passwords.
-     */
-    public String getLoginPath()
-    {
-        return LOGIN_PATH;
-    }
 
     /**
      * Authenticates existing player profile.

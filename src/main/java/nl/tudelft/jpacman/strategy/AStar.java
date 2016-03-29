@@ -127,8 +127,8 @@ public abstract class AStar<T>
     protected abstract List<T> generateSuccessors(T node);
 
 
-    private PriorityQueue<Path> paths;
-    private HashMap<T, Double> mindists;
+    private final PriorityQueue<Path> paths;
+    private final HashMap<T, Double> mindists;
     private Double lastCost;
     private int expandedCounter;
 
@@ -145,8 +145,8 @@ public abstract class AStar<T>
      * Default c'tor.
      */
     AStar(){
-        paths = new PriorityQueue<Path>();
-        mindists = new HashMap<T, Double>();
+        paths = new PriorityQueue<>();
+        mindists = new HashMap<>();
         expandedCounter = 0;
         lastCost = 0.0;
     }
@@ -159,16 +159,13 @@ public abstract class AStar<T>
      * The total cost is defined as: f(x) = g(x) + h(x).
      * @param from The node we are leaving.
      * @param to The node we are reaching.
-     * @return The total cost.
      */
-    Double f(Path p, T from, T to){
+    void f(Path p, T from, T to){
         Double g =  g(from, to) + ((p.parent != null) ? p.parent.g : 0.0);
         Double h = h(from, to);
 
         p.g = g;
         p.f = g + h;
-
-        return p.f;
     }
 
     /**
@@ -184,7 +181,7 @@ public abstract class AStar<T>
 				 * If a better path passing for this point already exists then
 				 * don't expand it.
 				 */
-        if(min == null || min.doubleValue() > path.f.doubleValue())
+        if(min == null || min > path.f)
             mindists.put(path.getPoint(), path.f);
         else
             return;
@@ -241,7 +238,7 @@ public abstract class AStar<T>
                 lastCost = p.g;
 
                 if(isGoal(last)){
-                    LinkedList<T> retPath = new LinkedList<T>();
+                    LinkedList<T> retPath = new LinkedList<>();
 
                     for(Path i = p; i != null; i = i.parent){
                         retPath.addFirst(i.getPoint());

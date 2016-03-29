@@ -12,7 +12,7 @@ public enum ItemsColor {
     SQUARE(Color.BLACK),
     PELLET(Color.WHITE);
 
-    private int value;
+    private final int value;
 
     ItemsColor(final Color color) {
         this.value = color.getRGB();

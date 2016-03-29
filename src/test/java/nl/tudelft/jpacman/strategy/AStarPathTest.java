@@ -17,11 +17,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by Nicolas Leemans on 7/03/16.
- */
-
-
-/**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
  */
 public class AStarPathTest
@@ -109,11 +104,11 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        assertEquals(aStarPath.PELLET_COST, 1.0);
-        assertEquals(aStarPath.EMPTY_COST, 5.0);
-        assertEquals(aStarPath.GHOST_COST, 1000000.0);
-        assertEquals(aStarPath.NEAREST_GHOST_COST, 500.0);
-        assertEquals(aStarPath.DST_THRESHOLD, 3);
+        assertEquals(AStarPath.PELLET_COST, 1.0);
+        assertEquals(AStarPath.EMPTY_COST, 5.0);
+        assertEquals(AStarPath.GHOST_COST, 1000000.0);
+        assertEquals(AStarPath.NEAREST_GHOST_COST, 500.0);
+        assertEquals(AStarPath.DST_THRESHOLD, 3);
 
     }
 

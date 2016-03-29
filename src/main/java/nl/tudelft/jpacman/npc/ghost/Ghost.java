@@ -19,7 +19,7 @@ public abstract class Ghost extends NPC {
 
     private static final int VALUE = 10;
 
-    private GhostColor identity;
+    private final GhostColor identity;
 
 	/**
 	 * The sprite map, one sprite for each direction.

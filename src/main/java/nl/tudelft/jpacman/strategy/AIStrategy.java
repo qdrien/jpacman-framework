@@ -1,9 +1,5 @@
 package nl.tudelft.jpacman.strategy;
 
-/**
- * Created by Nicolas Leemans on 2/03/16.
- */
-
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Player;

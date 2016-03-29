@@ -8,10 +8,6 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.*;
 
-
-/**
- * Created by Nicolas Leemans on 8/03/16.
- */
 public class PacManhattanAI extends AIStrategy
 {
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow

@@ -10,12 +10,6 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-
-/**
- * Created by Nicolas Leemans on 27/02/16.
- */
-
 
 /**
  * Class to test the choice of the strategy for the game mode

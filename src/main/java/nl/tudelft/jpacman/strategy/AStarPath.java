@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Nicolas Leemans on 5/03/16.
- */
 public class AStarPath extends AStar<Square>
 {
     /**

@@ -10,17 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Created by Nicolas Leemans on 10/03/16.
- */
-
 
 /**
  * Class to test coordinates of a square in the board
  */
-public class SquareCoordinate {
+public class SquareCoordinateTest
+{
     private Launcher launcher;
 
     /**
@@ -44,8 +39,6 @@ public class SquareCoordinate {
      * Launch the game, and imitate what would happen in a typical game.
      * The test is only a smoke test, and not a focused small test.
      * Therefore it is OK that the method is a bit too long.
-     *
-     * @throws InterruptedException Since we're sleeping in this test.
      */
     @SuppressWarnings("methodlength")
     @Test
