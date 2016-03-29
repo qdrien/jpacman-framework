@@ -24,7 +24,6 @@ public class SinglePlayerGameTest {
 
     private SinglePlayerGame game;
     private Player player;
-    private Level level;
 
     /**
      * Sets up the Game and its components
@@ -35,7 +34,7 @@ public class SinglePlayerGameTest {
         player = mock(Player.class);
         Map<Direction, Sprite> spriteMap = new HashMap<>();
         player = new Player(spriteMap, mock(AnimatedSprite.class));
-        level = mock(Level.class);
+        Level level = mock(Level.class);
         game = new SinglePlayerGame(player, level);
     }
 
