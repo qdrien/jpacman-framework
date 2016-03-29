@@ -299,7 +299,7 @@ public abstract class Game implements LevelObserver {
         public void run()
         {
             long interval = player.getInterval();
-            if(finished == false)
+            if(!finished)
             {
                 getLevel().move(player, dir);
                 s.schedule(this, interval, TimeUnit.MILLISECONDS);
