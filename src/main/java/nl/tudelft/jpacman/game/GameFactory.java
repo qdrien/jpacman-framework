@@ -34,8 +34,8 @@ public class GameFactory {
 	 * @param boardFactory
 	 *@param levelFactory @return A new single player game.
 	 */
-	public Game createSinglePlayerGame(Level level, BoardFactory boardFactory, LevelFactory levelFactory) {
-		return new SinglePlayerGame(playerFact.createPacMan(), level, boardFactory, levelFactory);
+	public Game createSinglePlayerGame(BoardFactory boardFactory, LevelFactory levelFactory) {
+		return new SinglePlayerGame(playerFact.createPacMan(), boardFactory, levelFactory);
 	}
 
 	/**

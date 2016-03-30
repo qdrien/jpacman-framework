@@ -35,12 +35,11 @@ public class SinglePlayerGame extends Game {
 	 * @param boardFactory The BoardFactory used to create the board
 	 * @param levelFactory The LevelFactory used to create the level
 	 */
-	protected SinglePlayerGame(Player p, Level l, BoardFactory boardFactory, LevelFactory levelFactory) {
+	protected SinglePlayerGame(Player p, BoardFactory boardFactory, LevelFactory levelFactory) {
 		assert p != null;
-		assert l != null;
 
 		this.player = p;
-		this.level = l;
+		this.level = makeLevel(1);
 		level.registerPlayer(p);
 	}
 	@Override
