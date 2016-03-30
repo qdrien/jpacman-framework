@@ -49,7 +49,7 @@ public class HumanControllerStrategyTest
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         PacmanStrategy strategy = new HumanControllerStrategy(game, builder);
 
-        assertTrue(strategy.getTypeStrategy() == PacmanStrategy.Type.PLAYER);
+        assertEquals(strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
         assertNotNull(strategy);
 
         strategy.executeStrategy();

@@ -17,6 +17,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class PacManhattanAITest
@@ -114,8 +115,8 @@ public class PacManhattanAITest
         Square square = AI.BFSNearestSafetySquare();
 
         assertNotNull(square);
-        assertTrue(square.getX() == 19);
-        assertTrue(square.getY() == 17);
+        assertSame(square.getX(), 19);
+        assertSame(square.getY(), 17);
     }
 
     /**
@@ -171,13 +172,13 @@ public class PacManhattanAITest
         Square safetyPelletSquare = AI.BFSNearestSafetyPelletSquare();
         assertTrue(safetyPelletSquare.getOccupants().get(0) instanceof Pellet);
 
-        assertTrue(player.getSquare().getSquareAt(Direction.EAST) == safetyPelletSquare);
+        assertEquals(player.getSquare().getSquareAt(Direction.EAST), safetyPelletSquare);
 
         game.start();
 
         game.move(player, Direction.EAST);
 
-        assertTrue(player.getSquare() == safetyPelletSquare);
+        assertEquals(player.getSquare(), safetyPelletSquare);
 
         //New position
         assertNotNull(player.getSquare());
