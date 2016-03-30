@@ -31,11 +31,8 @@ public class SinglePlayerGame extends Game {
 	 * Create a new single player game for the provided level and player.
 	 *  @param p
 	 *            The player.
-	 * @param l The level.
-	 * @param boardFactory The BoardFactory used to create the board
-	 * @param levelFactory The LevelFactory used to create the level
 	 */
-	protected SinglePlayerGame(Player p, BoardFactory boardFactory, LevelFactory levelFactory) {
+	protected SinglePlayerGame(Player p) {
 		assert p != null;
 
 		this.player = p;

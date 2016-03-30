@@ -51,7 +51,7 @@ public class Launcher
 	public Game makeGame()
     {
         GameFactory gf = getGameFactory();
-        return gf.createSinglePlayerGame(getBoardFactory(), getLevelFactory());
+        return gf.createSinglePlayerGame();
 	}
 
 	/**
