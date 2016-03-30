@@ -58,12 +58,13 @@ public class HallOfFameTest
      * Tests whether the HoF is correctly updated whenever a new high score is obtained.
      */
     @Test
-    public void hallOfFameUpdateTest()
+    public void hallOfFameUpdateTest() throws IOException
     {
         File hallOfFameFile = new File(path);
         hallOfFame.handleHoF(Integer.MAX_VALUE, "TESTPLAYER");
         //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
-        assertSame("The Hall of Fame hasn't been modified.", hallOfFameFile.lastModified() / 10000, System.currentTimeMillis() / 10000);
+        String line = reader.readLine().split(" ")[0];
+        assertEquals("The Hall of Fame hasn't been modified.", line, "TESTPLAYER");
     }
 
     /**
@@ -81,6 +82,7 @@ public class HallOfFameTest
             current += reader.readLine();
             base += defaultHOFReader.readLine();
         }
+        defaultHOFReader.close();
         assertEquals("Hall of Fame hasn't been reset.", current, base);
     }
 }

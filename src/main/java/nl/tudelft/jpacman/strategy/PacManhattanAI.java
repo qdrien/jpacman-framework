@@ -16,7 +16,7 @@ public class PacManhattanAI extends AIStrategy
     private AStarPath pathAStar; //The path calculates with AStar
     private boolean[][] visitedCase;//List to know if the square is yet visited or not
     private static int ghostDstThreshold = 14;//The threshold distance between the player and a ghost
-    
+
     /**
      * The default constructor
      *
