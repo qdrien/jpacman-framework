@@ -35,11 +35,4 @@ public class GameFactory {
 		return new SinglePlayerGame(playerFact.createPacMan());
 	}
 
-	/**
-	 * Returns the player factory associated with this game factory.
-	 * @return the player factory associated with this game factory.
-	 */
-	protected PlayerFactory getPlayerFactory() {
-		return playerFact;
-	}
 }

@@ -47,8 +47,7 @@ public class PlayerTest {
      * Operations to be executed prior to tests.
      * @throws IOException If the file used to test profiles cannot be created or written to.
      */
-    @Before
-    public void init() throws IOException
+    private void init() throws IOException
     {
         Player.setIsNotATest();
         player.setProfilePath(PATH);
@@ -73,7 +72,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void addPoints() throws Exception {
+    public void addPoints() {
         int score = player.getScore();
         int lives = player.getLives();
         player.addPoints(10);
@@ -88,7 +87,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void loseLife() throws Exception {
+    public void loseLife() {
         Ghost ghost = mock(Ghost.class);
         when(ghost.getIdentity()).thenReturn(GhostColor.CYAN);
         final int lives = player.getLives();
@@ -101,7 +100,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void dies() throws Exception {
+    public void dies() {
         Ghost ghost = mock(Ghost.class);
         when(ghost.getIdentity()).thenReturn(GhostColor.ORANGE);
         player.setLives(1);
@@ -115,7 +114,7 @@ public class PlayerTest {
      * @throws Exception
      */
     @Test
-    public void addLife() throws Exception {
+    public void addLife() {
         final int lives = player.getLives();
         player.addLife();
         assertEquals(lives + 1, player.getLives());
