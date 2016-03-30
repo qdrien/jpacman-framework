@@ -290,7 +290,7 @@ public class Player extends Unit {
      * @param pass the player's desired password.
      * @throws IOException If the login file cannot be written to or the player's profile file cannot be created.
      */
-    private void createProfile(final char pass[]) throws IOException
+    private void createProfile(final char... pass) throws IOException
     {
         BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
         writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
@@ -333,7 +333,7 @@ public class Player extends Unit {
      * @param passEntered the password entered by the player.
      * @return Whether the identifying info is correct or not.
      */
-    private boolean checkLoginInfo(final char passEntered[])
+    private boolean checkLoginInfo(final char... passEntered)
     {
         try
         {
