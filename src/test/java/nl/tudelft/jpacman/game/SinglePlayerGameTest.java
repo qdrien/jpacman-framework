@@ -38,8 +38,7 @@ public class SinglePlayerGameTest {
         LevelFactory levelFactory = mock(LevelFactory.class);
         Map<Direction, Sprite> spriteMap = new HashMap<>();
         player = new Player(spriteMap, mock(AnimatedSprite.class));
-        Level level = mock(Level.class);
-        game = new SinglePlayerGame(player, level, boardFactory, levelFactory);
+        game = new SinglePlayerGame(player, boardFactory, levelFactory);
     }
 
     /**

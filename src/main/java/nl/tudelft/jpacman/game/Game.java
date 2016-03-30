@@ -33,12 +33,10 @@ public abstract class Game implements LevelObserver {
      */
     private PacmanStrategy strategy;
 
-
-
     /**
      * The current level id
      */
-    protected static int currentLevel;
+    protected int currentLevel;
 
     /**
      * Object that locks the start and stop methods.
@@ -217,7 +215,7 @@ public abstract class Game implements LevelObserver {
      *
      * @return A new level.
      */
-    public static Level makeLevel(final int id) {
+    public Level makeLevel(final int id) {
         MapParser parser = getMapParser();
         String file = "/board" + id + ".txt";
         System.out.println("Loading " + file);
@@ -235,7 +233,7 @@ public abstract class Game implements LevelObserver {
      * @return A new map parser object using the factories from
      *         {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
      */
-    protected static MapParser getMapParser() {
+    protected MapParser getMapParser() {
         return new MapParser(Launcher.getLevelFactory(), Launcher.getBoardFactory());
     }
 

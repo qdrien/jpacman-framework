@@ -51,8 +51,7 @@ public class Launcher
 	public Game makeGame()
     {
         GameFactory gf = getGameFactory();
-		Level level = Game.makeLevel(1); // level 1 by default
-        return gf.createSinglePlayerGame(level, getBoardFactory(), getLevelFactory());
+        return gf.createSinglePlayerGame(getBoardFactory(), getLevelFactory());
 	}
 
 	/**
