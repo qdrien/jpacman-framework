@@ -1,6 +1,5 @@
 package nl.tudelft.jpacman.strategy;
 
-import junit.framework.Assert;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
@@ -12,17 +11,14 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 /**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
  */
 public class AStarPathTest
 {
+    private static final double EPSILON = .1;
     private Launcher launcher;
 
 
@@ -77,13 +73,13 @@ public class AStarPathTest
     public void manhattanDistanceTest()
     {
 
-        assertEquals(AStarPath.manhattanDistance(0,0,0,0), 0.0);
-        assertEquals(AStarPath.manhattanDistance(0,1,1,1), 1.0);
-        assertEquals(AStarPath.manhattanDistance(5,3,2,1), 5.0);
-        assertEquals(AStarPath.manhattanDistance(1,4,2,0), 5.0);
-        assertEquals(AStarPath.manhattanDistance(-1,-8,-3,-1), 9.0);
-        assertEquals(AStarPath.manhattanDistance(-0,-0,-0,-0), 0.0);
-        assertEquals(AStarPath.manhattanDistance(-2,-2,-1,-1), 2.0);
+        assertEquals(AStarPath.manhattanDistance(0,0,0,0), 0.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(0,1,1,1), 1.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(5,3,2,1), 5.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(1,4,2,0), 5.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-1,-8,-3,-1), 9.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-0,-0,-0,-0), 0.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-2,-2,-1,-1), 2.0, EPSILON);
     }
 
     /**
@@ -105,11 +101,11 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(player.getSquare());
 
-        assertEquals(AStarPath.PELLET_COST, 1.0);
-        assertEquals(AStarPath.EMPTY_COST, 5.0);
-        assertEquals(AStarPath.GHOST_COST, 1000000.0);
-        assertEquals(AStarPath.NEAREST_GHOST_COST, 500.0);
-        assertEquals(AStarPath.DST_THRESHOLD, 3);
+        assertEquals(AStarPath.PELLET_COST, 1.0, EPSILON);
+        assertEquals(AStarPath.EMPTY_COST, 5.0, EPSILON);
+        assertEquals(AStarPath.GHOST_COST, 1000000.0, EPSILON);
+        assertEquals(AStarPath.NEAREST_GHOST_COST, 500.0, EPSILON);
+        assertEquals(AStarPath.DST_THRESHOLD, 3, EPSILON);
 
     }
     /**
@@ -301,15 +297,15 @@ public class AStarPathTest
         final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
         //There is only Pellet
-        assertEquals(aStarPath.g(origin,destination), 1.0);
-        assertEquals(aStarPath.g(origin,destination2), 1.0);
-        assertEquals(aStarPath.g(origin,destination3), 1.0);
-        assertEquals(aStarPath.g(origin,destination4), 1.0);
-        assertEquals(aStarPath.g(destination,destination4), 1.0);
-        assertEquals(aStarPath.g(destination3,destination4), 1.0);
+        assertEquals(aStarPath.g(origin,destination), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin,destination2), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin,destination3), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin,destination4), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(destination,destination4), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(destination3,destination4), Double.valueOf(1.0));
 
         Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
-        assertEquals(aStarPath.g(origin,destinationNearestGhost), 500.0);
+        assertEquals(aStarPath.g(origin,destinationNearestGhost), Double.valueOf(500.0));
 
     }
 
@@ -340,13 +336,13 @@ public class AStarPathTest
         final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
         final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
-        assertEquals(aStarPath.h(origin, destination), 1.0);
-        assertEquals(aStarPath.h(origin, destination2), 2.0);
+        assertEquals(aStarPath.h(origin, destination), Double.valueOf(1.0));
+        assertEquals(aStarPath.h(origin, destination2), Double.valueOf(2.0));
 
-        assertEquals(aStarPath.h(origin, destination3), 1.0);
-        assertEquals(aStarPath.h(origin, destination4), 2.0);
+        assertEquals(aStarPath.h(origin, destination3), Double.valueOf(1.0));
+        assertEquals(aStarPath.h(origin, destination4), Double.valueOf(2.0));
 
-        assertEquals(aStarPath.h(destination, destination4), 3.0);
-        assertEquals(aStarPath.h(destination3, destination4), 1.0);
+        assertEquals(aStarPath.h(destination, destination4), Double.valueOf(3.0));
+        assertEquals(aStarPath.h(destination3, destination4), Double.valueOf(1.0));
     }
 }
