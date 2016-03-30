@@ -203,42 +203,37 @@ public abstract class AStar<T>
      * <code>null</code> if a path doesn't exist.
      */
     public List<T> compute(T start){
-        try{
-            Path root = new Path();
-            root.setPoint(start);
+
+        Path root = new Path();
+        root.setPoint(start);
 
 						/* Needed if the initial point has a cost.  */
-            f(root, start, start);
+        f(root, start, start);
 
-            expand(root);
+        expand(root);
 
-            for(;;){
-                Path p = paths.poll();
+        for(;;){
+            Path p = paths.poll();
 
-                if(p == null){
-                    lastCost = Double.MAX_VALUE;
-                    return null;
-                }
-
-                T last = p.getPoint();
-
-                lastCost = p.g;
-
-                if(isGoal(last)){
-                    LinkedList<T> retPath = new LinkedList<>();
-
-                    for(Path i = p; i != null; i = i.parent){
-                        retPath.addFirst(i.getPoint());
-                    }
-
-                    return retPath;
-                }
-                expand(p);
+            if(p == null){
+                lastCost = Double.MAX_VALUE;
+                return null;
             }
-        }
-        catch(Exception e)
-        {
-            return null;
+
+            T last = p.getPoint();
+
+            lastCost = p.g;
+
+            if(isGoal(last)){
+                LinkedList<T> retPath = new LinkedList<>();
+
+                for(Path i = p; i != null; i = i.parent){
+                    retPath.addFirst(i.getPoint());
+                }
+
+                return retPath;
+            }
+            expand(p);
         }
     }
 }
