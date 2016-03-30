@@ -28,21 +28,11 @@ public class GameFactory {
 
 	/**
 	 * Creates a game for a single level with one player.
-	 * 
-	 * @param level
-	 *            The level to create a game for.
-	 * @param boardFactory
-	 *@param levelFactory @return A new single player game.
+	 *
+	 * @return A new single player game.
 	 */
-	public Game createSinglePlayerGame(BoardFactory boardFactory, LevelFactory levelFactory) {
-		return new SinglePlayerGame(playerFact.createPacMan(), boardFactory, levelFactory);
+	public Game createSinglePlayerGame() {
+		return new SinglePlayerGame(playerFact.createPacMan());
 	}
 
-	/**
-	 * Returns the player factory associated with this game factory.
-	 * @return the player factory associated with this game factory.
-	 */
-	protected PlayerFactory getPlayerFactory() {
-		return playerFact;
-	}
 }

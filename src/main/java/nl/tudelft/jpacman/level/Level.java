@@ -343,14 +343,10 @@ public class Level implements PlayerListener {
     private void updateObservers() {
         if(initialPelletCount == -1) initialPelletCount = remainingPellets();
         if (!isAnyPlayerAlive()) {
-            for (LevelObserver o : observers) {
-                o.levelLost();
-            }
+            observers.forEach(LevelObserver::levelLost);
         }
 		if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == 13) {
-            for (LevelObserver o : observers) {
-                o.levelWon();
-            }
+            observers.forEach(LevelObserver::levelWon);
         }
     }
 

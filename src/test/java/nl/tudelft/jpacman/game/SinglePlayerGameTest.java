@@ -34,11 +34,9 @@ public class SinglePlayerGameTest {
     @Before
     public void setUp() throws Exception {
         player = mock(Player.class);
-        BoardFactory boardFactory = mock(BoardFactory.class);
-        LevelFactory levelFactory = mock(LevelFactory.class);
         Map<Direction, Sprite> spriteMap = new HashMap<>();
         player = new Player(spriteMap, mock(AnimatedSprite.class));
-        game = new SinglePlayerGame(player, boardFactory, levelFactory);
+        game = new SinglePlayerGame(player);
     }
 
     /**

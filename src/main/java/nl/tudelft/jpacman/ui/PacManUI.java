@@ -115,15 +115,12 @@ public class PacManUI extends JFrame {
             while (elements.hasMoreElements()){
                 final AbstractButton button = elements.nextElement();
                 if(button.isSelected()) {
-					System.out.println("I AM SELECTED: " + button.getText());
-					//TODO: refactor this after the merge (should move mapparser into Game)
 					Integer index = Integer.valueOf(button.getText());
-					System.out.println("index : " + index);
 					game.stop();
 					game.setLevel(index);
                     game.reset();
                     game.getPlayers().get(0).setAlive(true);
-                    //sometimes ghost keep on moving after death, its a FEATURE
+                    //sometimes ghost keep on moving after death, its not a but, its a FEATURE
                 }
             }
         });

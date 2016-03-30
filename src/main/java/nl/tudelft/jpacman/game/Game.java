@@ -192,7 +192,7 @@ public abstract class Game implements LevelObserver {
      *
      * @param level The Level we want to switch to
      */
-    public abstract void setLevel(Level level);
+    protected abstract void setLevel(Level level);
 
     /**
      * Set the Strategy
@@ -216,7 +216,7 @@ public abstract class Game implements LevelObserver {
      *
      * @return A new level.
      */
-    public Level makeLevel(final int id) {
+    protected Level makeLevel(final int id) {
         MapParser parser = getMapParser();
         String file = "/board" + id + ".txt";
         System.out.println("Loading " + file);
@@ -234,7 +234,7 @@ public abstract class Game implements LevelObserver {
      * @return A new map parser object using the factories from
      *         {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
      */
-    protected MapParser getMapParser() {
+    private MapParser getMapParser() {
         return new MapParser(Launcher.getLevelFactory(), Launcher.getBoardFactory());
     }
 
