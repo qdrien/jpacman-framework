@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Class to test the continuousMovement method for the continuous movement of the player
  */
-public class continuousMovementTest
+public class ContinuousMovementTest
 {
     private Launcher launcher;
 
