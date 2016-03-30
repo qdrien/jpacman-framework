@@ -150,7 +150,7 @@ public abstract class AStar<T>
      * @param to The node we are reaching.
      */
     private void f(Path p, T from, T to){
-        Double g =  g(from, to) + ((p.parent != null) ? p.parent.g : 0.0);
+        Double g =  g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
         Double h = h(from, to);
 
         p.g = g;
