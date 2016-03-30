@@ -152,7 +152,6 @@ public class Player extends Unit {
     /**
      * Displays the player's achievements, if any were obtained.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void displayAchievements()
     {
         if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;

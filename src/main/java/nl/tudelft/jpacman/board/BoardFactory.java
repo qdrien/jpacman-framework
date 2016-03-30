@@ -151,19 +151,19 @@ public class BoardFactory {
 				{
 					switch (item){
 						case PACMAN:
-							line.append("P");
+							line.append('P');
 							break;
 						case GHOST:
-							line.append("G");
+							line.append('G');
 							break;
 						case WALL:
-							line.append("#");
+							line.append('#');
 							break;
 						case SQUARE:
-							line.append(" ");
+							line.append(' ');
 							break;
 						case PELLET:
-							line.append(".");
+							line.append('.');
 							break;
 						default:
 					}
