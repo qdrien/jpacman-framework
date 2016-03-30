@@ -1,7 +1,9 @@
 package nl.tudelft.jpacman.game;
 
+import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
+import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
@@ -32,10 +34,12 @@ public class SinglePlayerGameTest {
     @Before
     public void setUp() throws Exception {
         player = mock(Player.class);
+        BoardFactory boardFactory = mock(BoardFactory.class);
+        LevelFactory levelFactory = mock(LevelFactory.class);
         Map<Direction, Sprite> spriteMap = new HashMap<>();
         player = new Player(spriteMap, mock(AnimatedSprite.class));
         Level level = mock(Level.class);
-        game = new SinglePlayerGame(player, level);
+        game = new SinglePlayerGame(player, level, boardFactory, levelFactory);
     }
 
     /**
@@ -53,6 +57,14 @@ public class SinglePlayerGameTest {
         assertNotEquals(player.getLives(), lives);
         assertEquals(0, player.getScore());
         assertEquals(3, player.getLives());
+    }
+
+
+    @Test
+    public void testNextLevel() throws Exception {
+        int initialLevel = game.getCurrentLevel();
+        game.nextLevel();
+        assertEquals(initialLevel + 1, game.getCurrentLevel());
     }
 
 }

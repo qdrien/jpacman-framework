@@ -1,6 +1,8 @@
 package nl.tudelft.jpacman.game;
 
+import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.level.Level;
+import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.PlayerFactory;
 
 /**
@@ -29,10 +31,11 @@ public class GameFactory {
 	 * 
 	 * @param level
 	 *            The level to create a game for.
-	 * @return A new single player game.
+	 * @param boardFactory
+	 *@param levelFactory @return A new single player game.
 	 */
-	public Game createSinglePlayerGame(Level level) {
-		return new SinglePlayerGame(playerFact.createPacMan(), level);
+	public Game createSinglePlayerGame(Level level, BoardFactory boardFactory, LevelFactory levelFactory) {
+		return new SinglePlayerGame(playerFact.createPacMan(), level, boardFactory, levelFactory);
 	}
 
 	/**

@@ -120,7 +120,7 @@ public class PacManUI extends JFrame {
 					Integer index = Integer.valueOf(button.getText());
 					System.out.println("index : " + index);
 					game.stop();
-					game.getLauncher().setLevel(index);
+					game.setLevel(index);
                     game.reset();
                     game.getPlayers().get(0).setAlive(true);
                     //sometimes ghost keep on moving after death, its a FEATURE

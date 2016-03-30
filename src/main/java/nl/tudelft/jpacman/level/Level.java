@@ -265,7 +265,7 @@ public class Level implements PlayerListener {
 
     /**
      * Starts or resumes the AI
-     * @param strategy
+     * @param strategy the chosen strategy
      */
     public void startStrategy(PacmanStrategy strategy)
     {
@@ -277,7 +277,6 @@ public class Level implements PlayerListener {
             strategy.executeStrategy();
         }
     }
-
 
 
     /**
@@ -495,14 +494,6 @@ public class Level implements PlayerListener {
     public static int manhattanDistance(final int x0, final int y0, final int x1, final int y1) {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
     }
-
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
 
 	/**
      * A task that moves an NPC and reschedules itself after it finished.

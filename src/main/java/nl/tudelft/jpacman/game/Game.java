@@ -1,18 +1,22 @@
 package nl.tudelft.jpacman.game;
 
 import nl.tudelft.jpacman.Launcher;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
+import nl.tudelft.jpacman.level.MapParser;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A basic implementation of a Pac-Man game.
@@ -29,17 +33,17 @@ public abstract class Game implements LevelObserver {
      */
     private PacmanStrategy strategy;
 
-    // --Commented out by Inspection (29/03/2016 19:09):private PacManUiBuilder builder;//The builder
+
+
+    /**
+     * The current level id
+     */
+    protected static int currentLevel;
 
     /**
      * Object that locks the start and stop methods.
      */
     private final Object progressLock = new Object();
-
-    /**
-     * The Launcher that created this Game instance
-     */
-    Launcher launcher;
 
     /**
      * Creates a new game.
@@ -185,60 +189,11 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Simple setter for the launcher that created the Game instance
-     *
-     * @param launcher The launcher that created the Game instance
-     */
-    public void setLauncher(final Launcher launcher) {
-        this.launcher = launcher;
-    }
-
-    /**
-     * Simple getter for the Launcher field
-     *
-     * @return The Launcher that created the Game instance
-     */
-    public Launcher getLauncher() {
-        return launcher;
-    }
-
-    /**
      * Forces subclasses to provide a method to switch to the given Level
      *
      * @param level The Level we want to switch to
      */
     public abstract void setLevel(Level level);
-
-// --Commented out by Inspection START (29/03/2016 19:08):
-//    /**
-//     * Get the builder
-//     * @return the builder
-//     */
-//    public PacManUiBuilder getBuilder() {
-//        return builder;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:08)
-
-// --Commented out by Inspection START (29/03/2016 19:09):
-//    /**
-//     * Set the builder
-//     * @param builder the builder to set
-//     */
-//    public void setBuilder(PacManUiBuilder builder) {
-//        this.builder = builder;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
-
-// --Commented out by Inspection START (29/03/2016 19:09):
-//    /**
-//     * Get the chosen strategy
-//     * @return the chosen strategy
-//     */
-//    public PacmanStrategy getStrategy()
-//    {
-//        return strategy;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
 
     /**
      * Set the Strategy
@@ -255,6 +210,71 @@ public abstract class Game implements LevelObserver {
      * (should be called when a new level is set "manually")
      */
     public abstract void reset();
+
+    /**
+     * Creates a new level. Uses the map parser to
+     * parse the desired board file.
+     *
+     * @return A new level.
+     */
+    public static Level makeLevel(final int id) {
+        MapParser parser = getMapParser();
+        String file = "/board" + id + ".txt";
+        System.out.println("Loading " + file);
+        try (InputStream boardStream = Launcher.class
+                .getResourceAsStream(file)) {
+            if(boardStream == null) return null;
+            currentLevel = id;
+            return parser.parseMap(boardStream);
+        } catch (IOException e) {
+            throw new PacmanConfigurationException("Unable to create level.", e);
+        }
+    }
+
+    /**
+     * @return A new map parser object using the factories from
+     *         {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
+     */
+    protected static MapParser getMapParser() {
+        return new MapParser(Launcher.getLevelFactory(), Launcher.getBoardFactory());
+    }
+
+
+    /**
+     * Returns the next level and increments the currentLevel field.
+     * If this was already the last level, simply restart it.
+     * @return The new(and next) level
+     */
+    public Level nextLevel() {
+        Level level = makeLevel(++currentLevel);
+        if (level == null) {
+            //the level could not be loaded, this means that the previous one was the final level
+            //restart this last level (loop until player dies)
+            //(this level can't be finished without loosing at least one life so that there will be an end)
+            level = makeLevel(--currentLevel);
+        }
+        assert level != null;
+        return level;
+    }
+
+    /**
+     * Simple getter for currentLevel
+     * @return The id of the current level
+     */
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    /**
+     * Sets the level to the one that has the given id (calls #Game.setLevel)
+     * @param levelIndex The id of the level we want to switch to
+     */
+    public void setLevel(final int levelIndex) {
+        Level level = makeLevel(levelIndex);
+        assert level != null;
+        setLevel(level);
+        currentLevel = levelIndex;
+    }
     
     /**
      * Class representing the timer and methods to apply during the timer
@@ -305,7 +325,7 @@ public abstract class Game implements LevelObserver {
         public void run()
         {
             long interval = player.getInterval();
-            if(!finished)
+            if(!getFinished())
             {
                 getLevel().move(player, dir);
                 s.schedule(this, interval, TimeUnit.MILLISECONDS);
@@ -319,15 +339,15 @@ public abstract class Game implements LevelObserver {
             this.finished = true;
         }
 
-// --Commented out by Inspection START (29/03/2016 19:09):
-//        /**
-//         * Get the boolean to know if the task is finish or not
-//         * @return true if the task is finished, false otherwise
-//         */
-//        public boolean getFinished()
-//        {
-//            return finished;
-//        }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
+
+        /**
+         * Get the boolean to know if the task is finish or not
+         * @return true if the task is finished, false otherwise
+        */
+        public boolean getFinished()
+        {
+            return finished;
+        }
+
     }
 }

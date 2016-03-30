@@ -58,15 +58,16 @@ public abstract class AStar<T>
          * Compare to another object using the total cost f.
          *
          * @param o The object to compare to.
-         * @see       Comparable#()
-         * @return <code>less than 0</code> This object is smaller
-         * than <code>0</code>;
-         *        <code>0</code> Object are the same.
-         *        <code>bigger than 0</code> This object is bigger
-         * than o.
+         *
+         * @return a number < 0 if this object is smaller
+         *         a number = 0 if objects are the same
+         *         a number > 0 if this object is bigger
          */
+        @Override
         public int compareTo(Object o){
-            Path p = (Path)o;
+
+            @SuppressWarnings("unchecked")
+            Path p = (Path) o;
             return (int)(f - p.f);
         }
 
@@ -130,16 +131,8 @@ public abstract class AStar<T>
     private final PriorityQueue<Path> paths;
     private final Map<T, Double> mindists;
     private Double lastCost;
-    private int expandedCounter;
 
-    /**
-     * Check how many times a node was expanded.
-     *
-     * @return A counter of how many times a node was expanded.
-     */
-    public int getExpandedCounter(){
-        return expandedCounter;
-    }
+
 
     /**
      * Default c'tor.
@@ -147,7 +140,6 @@ public abstract class AStar<T>
     AStar(){
         paths = new PriorityQueue<>();
         mindists = new HashMap<>();
-        expandedCounter = 0;
         lastCost = 0.0;
     }
 
@@ -160,14 +152,13 @@ public abstract class AStar<T>
      * @param from The node we are leaving.
      * @param to The node we are reaching.
      */
-    void f(Path p, T from, T to){
+    private void f(Path p, T from, T to){
         Double g =  g(from, to) + ((p.parent != null) ? p.parent.g : 0.0);
         Double h = h(from, to);
 
         p.g = g;
         p.f = g + h;
     }
-
     /**
      * Expand a path.
      *
@@ -194,8 +185,6 @@ public abstract class AStar<T>
             f(newPath, path.getPoint(), t);
             paths.offer(newPath);
         }
-
-        expandedCounter++;
     }
 
     /**

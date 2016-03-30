@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
@@ -29,11 +30,6 @@ public class PlayerTest {
     private Player player;
 
     /**
-     * A testPlayer with which to test methods.
-     */
-    private Player testPlayer;
-
-    /**
      * The path of the file that will be used to test the testPlayer's profile.
      */
     private static final String PATH = new File("").getAbsolutePath()+"/src/test/resources/Testy.prf";
@@ -44,6 +40,7 @@ public class PlayerTest {
         launcher.launch();
         Game game = launcher.getGame();
         player = game.getPlayers().get(0);
+        init();
     }
 
     /**
@@ -55,9 +52,8 @@ public class PlayerTest {
     {
         Player.setIsNotATest();
         final Sprite sprites[] = new Sprite[1];
-        testPlayer = new Player(null, new AnimatedSprite(sprites, 1, false));
-        testPlayer.setProfilePath(PATH);
-        testPlayer.setPlayerName();
+        player.setProfilePath(PATH);
+        player.setPlayerName();
 
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
@@ -95,6 +91,7 @@ public class PlayerTest {
     @Test
     public void loseLife() throws Exception {
         Ghost ghost = mock(Ghost.class);
+        when(ghost.getIdentity()).thenReturn(GhostColor.CYAN);
         final int lives = player.getLives();
         player.loseLife(ghost);
         assertEquals(lives - 1, player.getLives());
@@ -107,6 +104,7 @@ public class PlayerTest {
     @Test
     public void dies() throws Exception {
         Ghost ghost = mock(Ghost.class);
+        when(ghost.getIdentity()).thenReturn(GhostColor.ORANGE);
         player.setLives(1);
         assert player.isAlive();
         player.loseLife(ghost);
@@ -119,9 +117,9 @@ public class PlayerTest {
      */
     @Test
     public void addLife() throws Exception {
-        final int lives = testPlayer.getLives();
-        testPlayer.addLife();
-        assertEquals(lives + 1, testPlayer.getLives());
+        final int lives = player.getLives();
+        player.addLife();
+        assertEquals(lives + 1, player.getLives());
     }
     /**
      * Tests whether adding achievements works correctly or not.
@@ -130,7 +128,7 @@ public class PlayerTest {
     @Test
     public void testAchievementAddition()
     {
-        testPlayer.addAchievement(Achievement.WON_THRICE);
+        player.addAchievement(Achievement.WON_THRICE);
         try
         {
             String line;
@@ -155,8 +153,8 @@ public class PlayerTest {
     @Test
     public void testAchievements() throws IOException
     {
-        testPlayer.killedBy(GhostColor.RED);
-        testPlayer.levelCompleted(1);
+        player.killedBy(GhostColor.RED);
+        player.levelCompleted(1);
 
         String line;
         boolean speedyFound = false, victorFound = false;

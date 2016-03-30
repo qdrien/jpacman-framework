@@ -111,7 +111,6 @@ public class AStarPathTest
         assertEquals(AStarPath.DST_THRESHOLD, 3);
 
     }
-
     /**
      * Test the list of valid neighbors
      */
