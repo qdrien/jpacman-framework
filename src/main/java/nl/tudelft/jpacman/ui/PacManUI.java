@@ -5,6 +5,7 @@ import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class PacManUI extends JFrame {
 	private final BoardPanel boardPanel;
     private final ButtonPanel buttonPanel;
     private ButtonGroup choiceLevelGroup;
-    private ArrayList<JRadioButton> buttonsList;
+    private List<JRadioButton> buttonsList;
 
     /**
 	 * Creates a new UI for a JPac-Man game.

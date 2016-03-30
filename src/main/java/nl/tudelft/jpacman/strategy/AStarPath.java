@@ -18,7 +18,7 @@ public class AStarPath extends AStar<Square>
      */
     private Square goalSquare;//The square goal
     private final Board board;//The board game
-    private final ArrayList<Ghost> ghosts;// The list of the ghosts
+    private final List<Ghost> ghosts;// The list of the ghosts
 
     /**
      *

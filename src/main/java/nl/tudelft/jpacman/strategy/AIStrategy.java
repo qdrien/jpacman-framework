@@ -6,6 +6,7 @@ import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract class for each Artificial Intelligence strategy
@@ -17,7 +18,7 @@ public abstract class AIStrategy extends PacmanStrategy
      */
     private final Player player;//The player of the game
     private final Board board; // The board game
-    private final ArrayList<Ghost> ghosts; //The ghosts list
+    private final List<Ghost> ghosts; //The ghosts list
 
     /**
      * Default constructor
@@ -61,7 +62,7 @@ public abstract class AIStrategy extends PacmanStrategy
      * Get the ghost's list of the game
      * @return the ghost's list
      */
-    final ArrayList<Ghost> getGhostsList()
+    final List<Ghost> getGhostsList()
     {
         return this.ghosts;
     }

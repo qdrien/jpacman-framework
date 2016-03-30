@@ -173,9 +173,9 @@ public abstract class Square {
 	 * Get the neighbors list of a square
 	 * @return the neighbors list
      */
-	public  ArrayList<Square> getNeighbours()
+	public List<Square> getNeighbours()
 	{
-		ArrayList<Square> neighboursList = new ArrayList<>();
+		List<Square> neighboursList = new ArrayList<>();
 		if(getSquareAt(Direction.NORTH) != null)
 		{
 			neighboursList.add(getSquareAt(Direction.NORTH));
