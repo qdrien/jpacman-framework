@@ -15,7 +15,8 @@ public class PacManhattanAI extends AIStrategy
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
     private boolean[][] visitedCase;//List to know if the square is yet visited or not
-    private static final int GHOST_DST_THRESHOLD = 14;//The threshold distance between the player and a ghost
+    private static int ghostDstThreshold = 14;//The threshold distance between the player and a ghost
+    
     /**
      * The default constructor
      *
@@ -54,7 +55,7 @@ public class PacManhattanAI extends AIStrategy
         {
             //Test if a ghost is near of the player
             double distance = AStarPath.manhattanDistance(getPlayer().getSquare().getX(), getPlayer().getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
-            if (distance < GHOST_DST_THRESHOLD)
+            if (distance < ghostDstThreshold)
             {
                 computePath(BFSNearestSafetySquare());
                 warning = true;
@@ -303,7 +304,7 @@ public class PacManhattanAI extends AIStrategy
         for (Ghost ghost : getGhostsList())
         {
             double distance = AStarPath.manhattanDistance(square.getX(), square.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
-            if (distance < GHOST_DST_THRESHOLD)
+            if (distance < ghostDstThreshold)
             {
                 return false;
             }
@@ -368,21 +369,21 @@ public class PacManhattanAI extends AIStrategy
     public void executeStrategy() {}
 
     /**
-     * Get the GHOST_DST_THRESHOLD
-     * @return GHOST_DST_THRESHOLD
+     * Get the ghostDstThreshold
+     * @return ghostDstThreshold
      */
     public int getGhostDstThreshold()
     {
-        return GHOST_DST_THRESHOLD;
+        return ghostDstThreshold;
     }
 
     /**
-     * Set the GHOST_DST_THRESHOLD
-     * @param ghostDst the new GHOST_DST_THRESHOLD
+     * Set the ghostDstThreshold
+     * @param ghostDst the new ghostDstThreshold
      */
     public void setGhostDstThreshold(int ghostDst)
     {
-        GHOST_DST_THRESHOLD = ghostDst;
+        ghostDstThreshold = ghostDst;
     }
 
 }
