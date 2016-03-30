@@ -297,7 +297,7 @@ public abstract class Game implements LevelObserver {
         /**
          * A boolean to know if the current task is finished or not
          */
-        private boolean finished = false;
+        private boolean finished;
 
         /**
          * Creates a new task.

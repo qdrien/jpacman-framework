@@ -162,7 +162,6 @@ public abstract class AStar<T>
      * @param path The path to expand.
      */
     private void expand(Path path){
-        final T p = path.getPoint();
         final Double min = mindists.get(path.getPoint());
 
 				/*
@@ -171,9 +170,9 @@ public abstract class AStar<T>
 				 */
         if(min == null || min > path.f)
             mindists.put(path.getPoint(), path.f);
-        else
-            return;
+        else return;
 
+        final T p = path.getPoint();
         List<T> successors = generateSuccessors(p);
 
         for(T t : successors){
