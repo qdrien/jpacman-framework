@@ -56,7 +56,6 @@ public class PlayerTest {
 
      /**
      * Tests that Player::addPoints(int) effectively adds points and that a life is added when the threshold is reached
-     * @throws Exception
      */
     @Test
     public void addPoints() {
@@ -70,7 +69,6 @@ public class PlayerTest {
 
     /**
      * Tests that Player::loseLife() effectively removes one life from the testPlayer when called
-     * @throws Exception
      */
     @Test
     public void loseLife() {
@@ -83,7 +81,6 @@ public class PlayerTest {
 
     /**
      * Test that a testPlayer can die "for good" when Player::loseLife() removes its last life
-     * @throws Exception
      */
     @Test
     public void dies() {
@@ -97,7 +94,6 @@ public class PlayerTest {
 
     /**
      * Tests that Player::addLife() effectively adds one life to the testPlayer when called
-     * @throws Exception
      */
     @Test
     public void addLife() {
