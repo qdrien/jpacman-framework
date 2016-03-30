@@ -22,11 +22,6 @@ public class HallOfFameTest
     private HallOfFame hallOfFame;
 
     /**
-     * The pth of the file containing the running Hall of Fame.
-     */
-    private String path;
-
-    /**
      * To read the HoF file.
      */
     private BufferedReader reader;
@@ -40,7 +35,7 @@ public class HallOfFameTest
     {
         HallOfFame.setIsNotATest(false);
         hallOfFame = new HallOfFame();
-        path = hallOfFame.getHoFPath();
+        String path = hallOfFame.getHoFPath();
         reader = new BufferedReader(new FileReader(path));
     }
 
