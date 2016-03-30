@@ -172,7 +172,7 @@ public class Level implements PlayerListener {
             return;
         }
         players.add(p);
-        Square square = startSquares.get(startSquareIndex);
+        final Square square = startSquares.get(startSquareIndex);
 		p.register(this);
         p.occupy(square);
         startSquareIndex++;
@@ -209,8 +209,8 @@ public class Level implements PlayerListener {
         synchronized (moveLock)
         {
             unit.setDirection(direction);
-            Square location = unit.getSquare();
-            Square destination = location.getSquareAt(direction);
+            final Square location = unit.getSquare();
+            final Square destination = location.getSquareAt(direction);
 
             if (destination.isAccessibleTo(unit)) {
                 List<Unit> occupants = destination.getOccupants();
@@ -526,8 +526,7 @@ public class Level implements PlayerListener {
             if (nextMove != null) {
                 move(npc, nextMove);
             }
-            long interval = npc.getInterval();
-            service.schedule(this, interval, TimeUnit.MILLISECONDS);
+            service.schedule(this, npc.getInterval(), TimeUnit.MILLISECONDS);
         }
     }
 
@@ -616,8 +615,7 @@ public class Level implements PlayerListener {
                     move(player, nextMove);
                 }
             }
-            long interval = player.getInterval();
-            service.schedule(this, interval, TimeUnit.MILLISECONDS);
+            service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
 
         /**

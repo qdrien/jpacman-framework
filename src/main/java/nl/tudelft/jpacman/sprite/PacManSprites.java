@@ -57,10 +57,9 @@ public class PacManSprites extends SpriteStore {
 	 * @return The animation of a dying Pac-Man.
 	 */
 	public AnimatedSprite getPacManDeathAnimation() {
-		String resource = "/sprite/dead.png";
 
-		Sprite baseImage = loadSprite(resource);
-		AnimatedSprite animation = createAnimatedSprite(baseImage, PACMAN_DEATH_FRAMES,
+        Sprite baseImage = loadSprite("/sprite/dead.png");
+		final AnimatedSprite animation = createAnimatedSprite(baseImage, PACMAN_DEATH_FRAMES,
 				ANIMATION_DELAY, false);
 		animation.setAnimating(false);
 
@@ -79,11 +78,10 @@ public class PacManSprites extends SpriteStore {
 	private Map<Direction, Sprite> directionSprite(String resource, int frames) {
 		Map<Direction, Sprite> sprite = new HashMap<>();
 
-		Sprite baseImage = loadSprite(resource);
-		for (int i = 0; i < DIRECTIONS.length; i++) {
-			Sprite directionSprite = baseImage.split(0, i * SPRITE_SIZE, frames
-					* SPRITE_SIZE, SPRITE_SIZE);
-			AnimatedSprite animation = createAnimatedSprite(directionSprite,
+        for (int i = 0; i < DIRECTIONS.length; i++) {
+			final Sprite directionSprite = loadSprite(resource).split(0, i * SPRITE_SIZE, frames
+                    * SPRITE_SIZE, SPRITE_SIZE);
+			final AnimatedSprite animation = createAnimatedSprite(directionSprite,
 					frames, ANIMATION_DELAY, true);
 			animation.setAnimating(true);
 			sprite.put(DIRECTIONS[i], animation);

@@ -52,12 +52,11 @@ class BoardPanel extends JPanel {
 		assert game != null;
 		this.game = game;
 
-		Board board = game.getLevel().getBoard();
+		final Board board = game.getLevel().getBoard();
 
-		int w = board.getWidth() * SQUARE_SIZE;
-		int h = board.getHeight() * SQUARE_SIZE;
+		final int w = board.getWidth() * SQUARE_SIZE, h = board.getHeight() * SQUARE_SIZE;
 
-		Dimension size = new Dimension(w, h);
+		final Dimension size = new Dimension(w, h);
 		setMinimumSize(size);
 		setPreferredSize(size);
 	}
@@ -79,18 +78,14 @@ class BoardPanel extends JPanel {
 	 *            The dimensions to scale the rendered board to.
 	 */
 	private void render(Board board, Graphics g, Dimension window) {
-		int cellW = window.width / board.getWidth();
-		int cellH = window.height / board.getHeight();
+		final int cellW = window.width / board.getWidth(), cellH = window.height / board.getHeight();
 
 		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(0, 0, window.width, window.height);
 
 		for (int y = 0; y < board.getHeight(); y++) {
 			for (int x = 0; x < board.getWidth(); x++) {
-				int cellX = x * cellW;
-				int cellY = y * cellH;
-				Square square = board.squareAt(x, y);
-				render(square, g, cellX, cellY, cellW, cellH);
+                render(board.squareAt(x, y), g, x * cellW, y * cellH, cellW, cellH);
 			}
 		}
 	}

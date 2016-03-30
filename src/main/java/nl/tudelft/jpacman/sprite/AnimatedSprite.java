@@ -130,7 +130,7 @@ public class AnimatedSprite implements Sprite {
 	 * Updates the current frame index depending on the current system time.
 	 */
 	private void update() {
-		long now = System.currentTimeMillis();
+		final long now = System.currentTimeMillis();
 		if (animating) {
 			while (lastUpdate < now) {
 				lastUpdate += animationDelay;

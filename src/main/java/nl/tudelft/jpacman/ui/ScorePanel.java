@@ -64,7 +64,7 @@ public class ScorePanel extends JPanel {
 		}
 		scoreLabels = new LinkedHashMap<>();
 		for (Player p : players) {
-			JLabel scoreLabel = new JLabel("0", JLabel.CENTER);
+			final JLabel scoreLabel = new JLabel("0", JLabel.CENTER);
 			scoreLabels.put(p, scoreLabel);
 			add(scoreLabel);
 		}

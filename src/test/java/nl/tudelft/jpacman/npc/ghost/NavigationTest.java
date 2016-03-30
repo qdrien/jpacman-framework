@@ -34,7 +34,7 @@ public class NavigationTest {
 	 */
 	@Before
 	public void setUp() {
-		PacManSprites sprites = new PacManSprites();
+		final PacManSprites sprites = new PacManSprites();
 		parser = new MapParser(new LevelFactory(sprites, new GhostFactory(
 				sprites)), new BoardFactory(sprites));
 	}
@@ -44,9 +44,8 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testShortestPathEmpty() {
-		Board b = parser.parseMap(Lists.newArrayList(" ")).getBoard();
-		Square s1 = b.squareAt(0, 0);
-		Square s2 = b.squareAt(0, 0);
+		final Board b = parser.parseMap(Lists.newArrayList(" ")).getBoard();
+		final Square s1 = b.squareAt(0, 0), s2 = b.squareAt(0, 0);
 		List<Direction> path = Navigation
 				.shortestPath(s1, s2, mock(Unit.class));
 		assertEquals(0, path.size());
@@ -57,11 +56,10 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testNoShortestPath() {
-		Board b = parser
+		final Board b = parser
 				.parseMap(Lists.newArrayList("#####", "# # #", "#####"))
 				.getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Square s2 = b.squareAt(3, 1);
+		final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(3, 1);
 		List<Direction> path = Navigation
 				.shortestPath(s1, s2, mock(Unit.class));
 		assertNull(path);
@@ -72,11 +70,10 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testNoTraveller() {
-		Board b = parser
+		final Board b = parser
 				.parseMap(Lists.newArrayList("#####", "# # #", "#####"))
 				.getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Square s2 = b.squareAt(3, 1);
+		final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(3, 1);
 		List<Direction> path = Navigation.shortestPath(s1, s2, null);
 		assertArrayEquals(new Direction[] { Direction.EAST, Direction.EAST },
 				path.toArray(new Direction[] {}));
@@ -87,10 +84,9 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testSimplePath() {
-		Board b = parser.parseMap(Lists.newArrayList("####", "#  #", "####"))
+		final Board b = parser.parseMap(Lists.newArrayList("####", "#  #", "####"))
 				.getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Square s2 = b.squareAt(2, 1);
+		final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(2, 1);
 		List<Direction> path = Navigation
 				.shortestPath(s1, s2, mock(Unit.class));
 		assertArrayEquals(new Direction[] { Direction.EAST },
@@ -102,10 +98,9 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testCornerPath() {
-		Board b = parser.parseMap(
+		final Board b = parser.parseMap(
 				Lists.newArrayList("####", "#  #", "## #", "####")).getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Square s2 = b.squareAt(2, 2);
+		final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(2, 2);
 		List<Direction> path = Navigation
 				.shortestPath(s1, s2, mock(Unit.class));
 		assertArrayEquals(new Direction[] { Direction.EAST, Direction.SOUTH },
@@ -117,12 +112,10 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testNearestUnit() {
-		Board b = parser
+		final Board b = parser
 				.parseMap(Lists.newArrayList("#####", "# ..#", "#####"))
 				.getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Square s2 = b.squareAt(2, 1);
-		Square result = Navigation.findNearest(Pellet.class, s1).getSquare();
+		final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(2, 1), result = Navigation.findNearest(Pellet.class, s1).getSquare();
 		assertEquals(s2, result);
 	}
 
@@ -131,10 +124,7 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testNoNearestUnit() {
-		Board b = parser.parseMap(Lists.newArrayList(" ")).getBoard();
-		Square s1 = b.squareAt(0, 0);
-		Unit unit = Navigation.findNearest(Pellet.class, s1);
-		assertNull(unit);
+        assertNull(Navigation.findNearest(Pellet.class, parser.parseMap(Lists.newArrayList(" ")).getBoard().squareAt(0, 0)));
 	}
 	
 	/**
@@ -145,9 +135,6 @@ public class NavigationTest {
 	 */
 	@Test
 	public void testFullSizedLevel() throws IOException {
-		Board b = parser.parseMap(getClass().getResourceAsStream("/board1.txt")).getBoard();
-		Square s1 = b.squareAt(1, 1);
-		Unit unit = Navigation.findNearest(Ghost.class, s1);
-		assertNotNull(unit);
+        assertNotNull(Navigation.findNearest(Ghost.class, parser.parseMap(getClass().getResourceAsStream("/board1.txt")).getBoard().squareAt(1, 1)));
 	}
 }

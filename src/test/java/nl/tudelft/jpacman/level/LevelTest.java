@@ -106,7 +106,7 @@ public class LevelTest {
 	@Test
 	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 	public void registerPlayer() {
-		Player p = mock(Player.class);
+		final Player p = mock(Player.class);
 		level.registerPlayer(p);
 		verify(p).occupy(square1);
 	}
@@ -117,7 +117,7 @@ public class LevelTest {
 	@Test
 	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 	public void registerPlayerTwice() {
-		Player p = mock(Player.class);
+		final Player p = mock(Player.class);
 		level.registerPlayer(p);
 		level.registerPlayer(p);
 		verify(p, times(1)).occupy(square1);
@@ -130,8 +130,7 @@ public class LevelTest {
 	@Test
 	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 	public void registerSecondPlayer() {
-		Player p1 = mock(Player.class);
-		Player p2 = mock(Player.class);
+		final Player p1 = mock(Player.class), p2 = mock(Player.class);
 		level.registerPlayer(p1);
 		level.registerPlayer(p2);
 		verify(p2).occupy(square2);
@@ -144,9 +143,7 @@ public class LevelTest {
 	@Test
 	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 	public void registerThirdPlayer() {
-		Player p1 = mock(Player.class);
-		Player p2 = mock(Player.class);
-		Player p3 = mock(Player.class);
+		final Player p1 = mock(Player.class), p2 = mock(Player.class), p3 = mock(Player.class);
 		level.registerPlayer(p1);
 		level.registerPlayer(p2);
 		level.registerPlayer(p3);
@@ -167,11 +164,8 @@ public class LevelTest {
      */
     @Test
     public void isSafeTrue() {
-        Square[][] grid = new Square[2][2];
-        Square x0y0 = mock(Square.class);
-        Square x0y1 = mock(Square.class);
-        Square x1y0 = mock(Square.class);
-        Square x1y1 = mock(Square.class);
+        final Square[][] grid = new Square[2][2];
+        final Square x0y0 = mock(Square.class), x0y1 = mock(Square.class), x1y0 = mock(Square.class), x1y1 = mock(Square.class);
 
         ArrayList<Unit> units = new ArrayList<>();
         when(x0y0.getOccupants()).thenReturn(units);
@@ -197,11 +191,8 @@ public class LevelTest {
      */
     @Test
     public void isSafeFalse() {
-        Square[][] grid = new Square[2][2];
-        Square x0y0 = mock(Square.class);
-        Square x0y1 = mock(Square.class);
-        Square x1y0 = mock(Square.class);
-        Square x1y1 = mock(Square.class);
+        final Square[][] grid = new Square[2][2];
+        final Square x0y0 = mock(Square.class), x0y1 = mock(Square.class), x1y0 = mock(Square.class), x1y1 = mock(Square.class);
 
         Ghost ghost = mock(Ghost.class);
         ArrayList<Unit> units = new ArrayList<>();

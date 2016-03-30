@@ -77,8 +77,7 @@ public class PacManUI extends JFrame {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		PacKeyListener keys = new PacKeyListener(keyMappings);
-		addKeyListener(keys);
+        addKeyListener(new PacKeyListener(keyMappings));
 
 		buttonPanel = new ButtonPanel(buttons, this);
         addLevelChoiceButtons(game);
@@ -90,7 +89,7 @@ public class PacManUI extends JFrame {
 
 		boardPanel = new BoardPanel(game);
 		
-		Container contentPanel = getContentPane();
+		final Container contentPanel = getContentPane();
 		contentPanel.setLayout(new BorderLayout());
 		contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 		contentPanel.add(scorePanel, BorderLayout.NORTH);
@@ -114,9 +113,8 @@ public class PacManUI extends JFrame {
             while (elements.hasMoreElements()){
                 final AbstractButton button = elements.nextElement();
                 if(button.isSelected()) {
-					Integer index = Integer.valueOf(button.getText());
-					game.stop();
-					game.setLevel(index);
+                    game.stop();
+					game.setLevel(Integer.valueOf(button.getText()));
                     game.reset();
                     game.getPlayers().get(0).setAlive(true);
                     //sometimes ghost keep on moving after death, its not a but, its a FEATURE
@@ -134,7 +132,7 @@ public class PacManUI extends JFrame {
 	public void start() {
 		setVisible(true);
 
-		ScheduledExecutorService service = Executors
+		final ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
 
 		service.scheduleAtFixedRate(new Runnable() {

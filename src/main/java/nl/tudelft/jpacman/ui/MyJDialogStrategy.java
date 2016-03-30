@@ -45,18 +45,18 @@ public class MyJDialogStrategy extends JDialog
         this.game = game;
         this.pacManUI = pacManUI;
         // set the position of the window
-        Point p = new Point(100, 100);
+        final Point p = new Point(100, 100);
         setLocation(p.x, p.y);
 
         // Create a message
-        JPanel messagePane = new JPanel();
+        final JPanel messagePane = new JPanel();
         messagePane.add(new JLabel("Choose a game mode and then click to start"));
         // get content pane, which is usually the
         // Container of all the dialog's components.
         getContentPane().add(messagePane);
 
         // Create a button
-        JPanel buttonPane = new JPanel();
+        final JPanel buttonPane = new JPanel();
         HumanController = new JButton("Control Pacman");
         AIController = new JButton("Be spectator");
         buttonPane.add(HumanController);
@@ -79,17 +79,15 @@ public class MyJDialogStrategy extends JDialog
      */
     public JRootPane createRootPane()
     {
-        JRootPane rootPane = new JRootPane();
-        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
-        AbstractAction action = new AbstractAction() {
+        final JRootPane rootPane = new JRootPane();
+        final AbstractAction action = new AbstractAction() {
 
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
             }
         };
-        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(stroke, "ESCAPE");
+        rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", action);
         return rootPane;
     }
@@ -104,7 +102,7 @@ public class MyJDialogStrategy extends JDialog
         //close and dispose of the window.
         public void actionPerformed(ActionEvent e)
         {
-            Object source = e.getSource();
+            final Object source = e.getSource();
             if(source == HumanController)
             {
                 strategy= new HumanControllerStrategy(game,builder);

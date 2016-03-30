@@ -99,16 +99,14 @@ public class Inky extends Ghost {
 	// CHECKSTYLE:OFF To keep this more readable.
 	@Override
 	public Direction nextMove() {
-		Unit blinky = Navigation.findNearest(Blinky.class, getSquare());
+		final Unit blinky = Navigation.findNearest(Blinky.class, getSquare());
 		if (blinky == null) {
-			Direction d = randomMove();
-			return d;
+            return randomMove();
 		}
 
 		Unit player = Navigation.findNearest(Player.class, getSquare());
 		if (player == null) {
-			Direction d = randomMove();
-			return d;
+            return randomMove();
 		}
 
 		Direction targetDirection = player.getDirection();
@@ -121,8 +119,7 @@ public class Inky extends Ghost {
 		List<Direction> firstHalf = Navigation.shortestPath(blinky.getSquare(),
 				playerDestination, null);
 		if (firstHalf == null) {
-			Direction d = randomMove();
-			return d;
+            return randomMove();
 		}
 
 		for (Direction d : firstHalf) {
@@ -132,11 +129,9 @@ public class Inky extends Ghost {
 		List<Direction> path = Navigation.shortestPath(getSquare(),
 				destination, this);
 		if (path != null && !path.isEmpty()) {
-			Direction d = path.get(0);
-			return d;
+            return path.get(0);
 		}
-		Direction d = randomMove();
-		return d;
+        return randomMove();
 	}
 	// CHECKSTYLE:ON
 

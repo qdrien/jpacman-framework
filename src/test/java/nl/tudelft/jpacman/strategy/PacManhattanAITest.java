@@ -49,9 +49,9 @@ public class PacManhattanAITest
     @Test
     public void safetySquareTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
+        final PacManhattanAI AI = new PacManhattanAI(game);
         assertFalse(AI.isSafetySquare(player.getSquare()));
         assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
         assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
@@ -68,9 +68,9 @@ public class PacManhattanAITest
     @Test
     public void getValidNeighborsTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
+        final PacManhattanAI AI = new PacManhattanAI(game);
 
         List<Square> neighborsList = AI.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
@@ -105,14 +105,14 @@ public class PacManhattanAITest
     @Test
     public void BFSNearestSafetySquareTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI AI = new PacManhattanAI(game);
 
-        Square square = AI.BFSNearestSafetySquare();
+        final Square square = AI.BFSNearestSafetySquare();
 
         assertNotNull(square);
         assertSame(square.getX(), 19);
@@ -126,12 +126,12 @@ public class PacManhattanAITest
     @Test
     public void nextMoveTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI AI = new PacManhattanAI(game);
 
         Direction nextMove = AI.nextMove();
         assertEquals(nextMove,Direction.EAST);
@@ -162,12 +162,12 @@ public class PacManhattanAITest
     @Test
     public void safetyPelletSquareTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI AI = new PacManhattanAI(game);
 
         Square safetyPelletSquare = AI.BFSNearestSafetyPelletSquare();
         assertTrue(safetyPelletSquare.getOccupants().get(0) instanceof Pellet);
@@ -193,8 +193,8 @@ public class PacManhattanAITest
     @Test
     public void convertPathToDirectionTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -220,9 +220,7 @@ public class PacManhattanAITest
         assertTrue(squaresList.contains(square4));
         assertTrue(squaresList.contains(square5));
 
-        PacManhattanAI AI = new PacManhattanAI(game);
-
-        Deque<Direction> dir = AI.convertPathToDirection(squaresList);
+        Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
 
         assertEquals(dir.getFirst(), Direction.WEST);
         assertEquals(dir.getLast(), Direction.WEST);
@@ -236,8 +234,8 @@ public class PacManhattanAITest
     @Test
     public void convertPathToDirectionTest2()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -268,9 +266,7 @@ public class PacManhattanAITest
         assertTrue(squaresList.contains(square6));
 
 
-        PacManhattanAI AI = new PacManhattanAI(game);
-
-        Deque<Direction> dir = AI.convertPathToDirection(squaresList);
+        Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
 
         assertEquals(dir.getFirst(), Direction.EAST);
         assertEquals(dir.getLast(), Direction.NORTH);
@@ -282,13 +278,13 @@ public class PacManhattanAITest
     @Test
     public void hurryMoveTest()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
 
-        PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI AI = new PacManhattanAI(game);
 
         assertEquals(AI.hurryMove(), Direction.EAST);
 

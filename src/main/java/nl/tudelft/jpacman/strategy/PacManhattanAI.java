@@ -54,7 +54,7 @@ public class PacManhattanAI extends AIStrategy
         for(Ghost ghost : getGhostsList())
         {
             //Test if a ghost is near of the player
-            double distance = AStarPath.manhattanDistance(getPlayer().getSquare().getX(), getPlayer().getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double distance = AStarPath.manhattanDistance(getPlayer().getSquare().getX(), getPlayer().getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold)
             {
                 computePath(BFSNearestSafetySquare());
@@ -153,7 +153,7 @@ public class PacManhattanAI extends AIStrategy
         }
         while (!squareQueue.isEmpty())
         {
-            Square square = squareQueue.remove();
+            final Square square = squareQueue.remove();
             if (square.getOccupants().size() > 0 && square.getOccupants().get(0) instanceof Pellet)
             {
                 return square;
@@ -189,10 +189,9 @@ public class PacManhattanAI extends AIStrategy
         }
         for(int i = 1; i < squaresList.size(); ++i)
         {
-            Square originSquare = squaresList.get(i-1);
-            Square destinationSquare = squaresList.get(i);
-            int x = destinationSquare.getX() - originSquare.getX();
-            int y = destinationSquare.getY() - originSquare.getY();
+            final Square originSquare = squaresList.get(i-1);
+            final Square destinationSquare = squaresList.get(i);
+            final int x = destinationSquare.getX() - originSquare.getX(), y = destinationSquare.getY() - originSquare.getY();
 
             if(x == 0)
             {
@@ -270,7 +269,7 @@ public class PacManhattanAI extends AIStrategy
 
         while(iterator.hasNext())
         {
-            Square neighbor = iterator.next();
+            final Square neighbor = iterator.next();
             boolean invalidNeighbor = false;
             if(neighbor.isAccessibleTo(getPlayer()))
             {
@@ -303,7 +302,7 @@ public class PacManhattanAI extends AIStrategy
     {
         for (Ghost ghost : getGhostsList())
         {
-            double distance = AStarPath.manhattanDistance(square.getX(), square.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double distance = AStarPath.manhattanDistance(square.getX(), square.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold)
             {
                 return false;

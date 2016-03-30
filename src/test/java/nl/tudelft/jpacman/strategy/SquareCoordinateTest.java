@@ -44,10 +44,7 @@ public class SquareCoordinateTest
     @Test
     public void squareCoordinateTest1()
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
-
-        Square square = player.getSquare();
+        final Square square = launcher.getGame().getPlayers().get(0).getSquare();
 
         assertEquals(square.getX(), 11);
         assertEquals(square.getY(), 15);

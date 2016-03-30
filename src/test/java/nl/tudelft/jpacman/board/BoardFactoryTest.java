@@ -24,8 +24,7 @@ public class BoardFactoryTest {
 	 */
 	@Before
 	public void setUp() {
-		PacManSprites sprites = mock(PacManSprites.class);
-		factory = new BoardFactory(sprites);
+        factory = new BoardFactory(mock(PacManSprites.class));
 	}
 	
 	/**
@@ -33,9 +32,8 @@ public class BoardFactoryTest {
 	 */
 	@Test
 	public void worldIsRound() {
-		Square s = new BasicSquare();
-		Square[][] grid = new Square[][]{{s}};
-		factory.createBoard(grid);
+		final Square s = new BasicSquare();
+        factory.createBoard(new Square[][]{{s}});
 		assertEquals(s, s.getSquareAt(Direction.NORTH));
 		assertEquals(s, s.getSquareAt(Direction.SOUTH));
 		assertEquals(s, s.getSquareAt(Direction.WEST));
@@ -47,10 +45,8 @@ public class BoardFactoryTest {
 	 */
 	@Test
 	public void connectedEast() {
-		Square s1 = new BasicSquare();
-		Square s2 = new BasicSquare();
-		Square[][] grid = new Square[][]{{s1}, {s2}};
-		factory.createBoard(grid);
+		final Square s1 = new BasicSquare(), s2 = new BasicSquare();
+        factory.createBoard(new Square[][]{{s1}, {s2}});
 		assertEquals(s2, s1.getSquareAt(Direction.EAST));
 		assertEquals(s1, s2.getSquareAt(Direction.EAST));
 	}
@@ -60,10 +56,8 @@ public class BoardFactoryTest {
 	 */
 	@Test
 	public void connectedWest() {
-		Square s1 = new BasicSquare();
-		Square s2 = new BasicSquare();
-		Square[][] grid = new Square[][]{{s1}, {s2}};
-		factory.createBoard(grid);
+		final Square s1 = new BasicSquare(), s2 = new BasicSquare();
+        factory.createBoard(new Square[][]{{s1}, {s2}});
 		assertEquals(s2, s1.getSquareAt(Direction.WEST));
 		assertEquals(s1, s2.getSquareAt(Direction.WEST));
 	}
@@ -73,10 +67,8 @@ public class BoardFactoryTest {
 	 */
 	@Test
 	public void connectedNorth() {
-		Square s1 = new BasicSquare();
-		Square s2 = new BasicSquare();
-		Square[][] grid = new Square[][]{{s1, s2}};
-		factory.createBoard(grid);
+		final Square s1 = new BasicSquare(), s2 = new BasicSquare();
+        factory.createBoard(new Square[][]{{s1, s2}});
 		assertEquals(s2, s1.getSquareAt(Direction.NORTH));
 		assertEquals(s1, s2.getSquareAt(Direction.NORTH));
 	}
@@ -86,10 +78,8 @@ public class BoardFactoryTest {
 	 */
 	@Test
 	public void connectedSouth() {
-		Square s1 = new BasicSquare();
-		Square s2 = new BasicSquare();
-		Square[][] grid = new Square[][]{{s1, s2}};
-		factory.createBoard(grid);
+		final Square s1 = new BasicSquare(), s2 = new BasicSquare();
+        factory.createBoard(new Square[][]{{s1, s2}});
 		assertEquals(s2, s1.getSquareAt(Direction.SOUTH));
 		assertEquals(s1, s2.getSquareAt(Direction.SOUTH));
 	}

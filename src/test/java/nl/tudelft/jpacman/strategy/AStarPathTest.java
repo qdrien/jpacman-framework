@@ -48,19 +48,19 @@ public class AStarPathTest
     @Test
     public void constructorTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Square square = game.getPlayers().get(0).getSquare();
+        final Square square = game.getPlayers().get(0).getSquare();
         aStarPath.setGoal(square);
         assertNotNull(aStarPath.isGoal(square));
         assertTrue(aStarPath.isGoal(square));
 
-        Square square1 = square.getSquareAt(Direction.EAST);
+        final Square square1 = square.getSquareAt(Direction.EAST);
 
         assertNotNull(aStarPath.isGoal(square1));
         assertFalse(aStarPath.isGoal(square1));
@@ -93,18 +93,17 @@ public class AStarPathTest
     @Test
     public void constantTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
 
         assertNotNull(player);
-        assertNotNull(square);
+        assertNotNull(player.getSquare());
 
         assertEquals(AStarPath.PELLET_COST, 1.0);
         assertEquals(AStarPath.EMPTY_COST, 5.0);
@@ -120,15 +119,15 @@ public class AStarPathTest
     @Test
     public void validNeighboursTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
+        final Square square = player.getSquare();
 
         assertNotNull(player);
         assertNotNull(square);
@@ -171,15 +170,15 @@ public class AStarPathTest
     @Test
     public void validNeighborsTest2()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
+        final Square square = player.getSquare();
 
         assertNotNull(player);
         assertNotNull(square);
@@ -198,7 +197,7 @@ public class AStarPathTest
         game.start();
         assertTrue(game.isInProgress());
         game.move(player, Direction.WEST);
-        Square square2 = player.getSquare();
+        final Square square2 = player.getSquare();
 
         assertFalse(square.equals(square2));
 
@@ -222,7 +221,7 @@ public class AStarPathTest
         game.move(player, Direction.WEST);
         game.move(player, Direction.WEST);
 
-        Square square3 = player.getSquare();
+        final Square square3 = player.getSquare();
 
         assertFalse(square.equals(square3));
         assertFalse(square2.equals(square3));
@@ -235,8 +234,6 @@ public class AStarPathTest
         assertFalse(neigborList3.contains(square3.getSquareAt(Direction.WEST)));
         assertTrue(neigborList3.contains(square3.getSquareAt(Direction.NORTH)));
         assertTrue(neigborList3.contains(square3.getSquareAt(Direction.SOUTH)));
-
-
     }
 
     /**
@@ -246,15 +243,15 @@ public class AStarPathTest
     @Test
     public void nearestGhostTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
+        final Square square = player.getSquare();
 
         assertNotNull(player);
         assertNotNull(square);
@@ -274,7 +271,6 @@ public class AStarPathTest
 
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST)));
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST)));
-
     }
 
     /**
@@ -284,25 +280,25 @@ public class AStarPathTest
     @Test
     public void gTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
+        final Square square = player.getSquare();
 
         assertNotNull(player);
         assertNotNull(square);
 
-        Square origin = player.getSquare();
-        Square destination = player.getSquare().getSquareAt(Direction.EAST);
-        Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
+        final Square origin = player.getSquare();
+        final Square destination = player.getSquare().getSquareAt(Direction.EAST);
+        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
 
-        Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
-        Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
+        final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
+        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
         //There is only Pellet
         assertEquals(aStarPath.g(origin,destination), 1.0);
@@ -324,25 +320,25 @@ public class AStarPathTest
     @Test
     public void hTest()
     {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        Player player = game.getPlayers().get(0);
-        Square square = player.getSquare();
+        final Player player = game.getPlayers().get(0);
+        final Square square = player.getSquare();
 
         assertNotNull(player);
         assertNotNull(square);
 
-        Square origin = player.getSquare();
-        Square destination = player.getSquare().getSquareAt(Direction.EAST);
-        Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
+        final Square origin = player.getSquare();
+        final Square destination = player.getSquare().getSquareAt(Direction.EAST);
+        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
 
-        Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
-        Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
+        final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
+        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
         assertEquals(aStarPath.h(origin, destination), 1.0);
         assertEquals(aStarPath.h(origin, destination2), 2.0);

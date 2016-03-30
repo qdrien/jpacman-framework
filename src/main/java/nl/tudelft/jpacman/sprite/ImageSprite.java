@@ -61,7 +61,7 @@ public class ImageSprite implements Sprite {
 	 * @return The new, empty image.
 	 */
 	private BufferedImage newImage(int width, int height) {
-		GraphicsConfiguration gc = GraphicsEnvironment
+		final GraphicsConfiguration gc = GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 				.getDefaultConfiguration();
 		return gc.createCompatibleImage(width, height, Transparency.BITMASK);

@@ -34,8 +34,7 @@ public class SinglePlayerGameTest {
     @Before
     public void setUp() throws Exception {
         player = mock(Player.class);
-        Map<Direction, Sprite> spriteMap = new HashMap<>();
-        player = new Player(spriteMap, mock(AnimatedSprite.class));
+        player = new Player(new HashMap<>(), mock(AnimatedSprite.class));
         game = new SinglePlayerGame(player);
     }
 
@@ -47,8 +46,7 @@ public class SinglePlayerGameTest {
     public void resetTest(){
         player.addPoints(100);
         player.addLife();
-        int score = player.getScore();
-        int lives = player.getLives();
+        final int score = player.getScore(), lives = player.getLives();
         game.reset();
         assertNotEquals(player.getScore(), score);
         assertNotEquals(player.getLives(), lives);
@@ -59,7 +57,7 @@ public class SinglePlayerGameTest {
 
     @Test
     public void testNextLevel() throws Exception {
-        int initialLevel = game.getCurrentLevel();
+        final int initialLevel = game.getCurrentLevel();
         game.nextLevel();
         assertEquals(initialLevel + 1, game.getCurrentLevel());
     }

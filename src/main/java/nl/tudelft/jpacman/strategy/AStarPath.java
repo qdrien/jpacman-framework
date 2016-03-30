@@ -91,7 +91,7 @@ public class AStarPath extends AStar<Square>
 
         while(iterator.hasNext())
         {
-            Square neighborSquare = iterator.next();
+            final Square neighborSquare = iterator.next();
             boolean invalidNeighbor = false;
             if(neighborSquare.isAccessibleTo(player))
             {
@@ -137,7 +137,7 @@ public class AStarPath extends AStar<Square>
             {
                 return NEAREST_GHOST_COST;
             }
-            Square square = board.squareAt(destinationSquare.getX(),destinationSquare.getY());
+            final Square square = board.squareAt(destinationSquare.getX(),destinationSquare.getY());
 
             if(square.getOccupants().size()==0)
             {
@@ -194,7 +194,7 @@ public class AStarPath extends AStar<Square>
 
         for (Ghost ghost : ghosts)
         {
-            double dst = manhattanDistance(destinationSquare.getX(), destinationSquare.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double dst = manhattanDistance(destinationSquare.getX(), destinationSquare.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
             if (dst < DST_THRESHOLD)
             {
                 return true;

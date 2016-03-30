@@ -58,9 +58,9 @@ public class LauncherSmokeTest {
     @SuppressWarnings("methodlength")
     @Test
     public void smokeTest() throws InterruptedException {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         HallOfFame.setHam();
-        Player player = game.getPlayers().get(0);
+        final Player player = game.getPlayers().get(0);
         player.setLives(1);
  
         // start cleanly.
@@ -112,9 +112,8 @@ public class LauncherSmokeTest {
      * @param numSteps The number of steps to take
      */
     public static void move(Game game, Direction dir, int numSteps) {
-        Player player = game.getPlayers().get(0);
         for (int i = 0; i < numSteps; i++) {
-            game.move(player, dir);
+            game.move(game.getPlayers().get(0), dir);
         }
     }
 }

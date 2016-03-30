@@ -42,7 +42,7 @@ public class OccupantTest {
 	 */
 	@Test
 	public void testOccupy() {
-		Square target = new BasicSquare();
+		final Square target = new BasicSquare();
 		unit.occupy(target);
 		assertThat(unit.getSquare(), is(target));
 	}

@@ -32,7 +32,7 @@ class ButtonPanel extends JPanel {
 		assert parent != null;
 		
 		for (final String caption : buttons.keySet()) {
-			JButton button = new JButton(caption);
+			final JButton button = new JButton(caption);
 			button.addActionListener(new ActionListener() {
 
 				@Override

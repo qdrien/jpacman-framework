@@ -50,8 +50,7 @@ public class Launcher
 	 */
 	public Game makeGame()
     {
-        GameFactory gf = getGameFactory();
-        return gf.createSinglePlayerGame();
+        return getGameFactory().createSinglePlayerGame();
 	}
 
 	/**
@@ -147,8 +146,7 @@ public class Launcher
 		if (players.isEmpty()) {
 			throw new IllegalArgumentException("Game has 0 players.");
 		}
-		final Player p1 = players.get(0);
-		return p1;
+        return players.get(0);
 	}
 
 	/**
@@ -161,9 +159,8 @@ public class Launcher
         {
             @Override
             public void doAction() {
-				Player player = game.getPlayers().get(0);
-				boolean loggedIn = player.authenticate();
-				if (loggedIn) {
+				final Player player = game.getPlayers().get(0);
+                if (player.authenticate()) {
 					player.displayAchievements();
 					pacManUI.refreshLevelChoices(player.getMaxLevelReached());
 				}
@@ -215,7 +212,7 @@ public class Launcher
 	 */
 	public void buildWindow()
 	{
-		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
+		final MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
 		dialog.setSize(400, 200);
 		//prevents the user from closing the dialog via the upper-right corner "X"
 		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

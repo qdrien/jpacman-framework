@@ -47,8 +47,8 @@ public final class Navigation {
 		Set<Square> visited = new HashSet<>();
 		targets.add(new Node(null, from, null));
 		while (!targets.isEmpty()) {
-			Node n = targets.remove(0);
-			Square s = n.getSquare();
+			final Node n = targets.remove(0);
+			final Square s = n.getSquare();
 			if (s == to) {
 				List<Direction> path = n.getPath();
 				return path;
@@ -62,7 +62,7 @@ public final class Navigation {
 	private static void addNewTargets(Unit traveller, List<Node> targets,
 			Set<Square> visited, Node n, Square s) {
 		for (Direction d : Direction.values()) {
-			Square target = s.getSquareAt(d);
+			final Square target = s.getSquareAt(d);
 			if (!visited.contains(target)
 					&& (traveller == null || target
 							.isAccessibleTo(traveller))) {
@@ -91,14 +91,14 @@ public final class Navigation {
 		toDo.add(currentLocation);
 
 		while (!toDo.isEmpty()) {
-			Square square = toDo.remove(0);
-			Unit unit = findUnit(type, square);
+			final Square square = toDo.remove(0);
+			final Unit unit = findUnit(type, square);
 			if (unit != null) {
 				return unit;
 			}
 			visited.add(square);
 			for (Direction d : Direction.values()) {
-				Square newTarget = square.getSquareAt(d);
+				final Square newTarget = square.getSquareAt(d);
 				if (!visited.contains(newTarget) && !toDo.contains(newTarget)) {
 					toDo.add(newTarget);
 				}

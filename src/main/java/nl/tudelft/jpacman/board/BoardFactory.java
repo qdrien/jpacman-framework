@@ -51,10 +51,9 @@ public class BoardFactory {
 	public Board createBoard(Square[][] grid) {
 		assert grid != null;
 
-		Board board = new Board(grid);
+		final Board board = new Board(grid);
 
-		int width = board.getWidth();
-		int height = board.getHeight();
+		final int width = board.getWidth(), height = board.getHeight();
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Square square = grid[x][y];

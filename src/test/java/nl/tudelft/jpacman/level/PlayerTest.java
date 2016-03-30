@@ -1,7 +1,6 @@
 package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.Launcher;
-import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +11,6 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
-import nl.tudelft.jpacman.sprite.AnimatedSprite;
-import nl.tudelft.jpacman.sprite.Sprite;
 import org.junit.AfterClass;
 
 import java.io.*;
@@ -36,19 +33,9 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        Launcher launcher = new Launcher();
+        final Launcher launcher = new Launcher();
         launcher.launch();
-        Game game = launcher.getGame();
-        player = game.getPlayers().get(0);
-        init();
-    }
-
-    /**
-     * Operations to be executed prior to tests.
-     * @throws IOException If the file used to test profiles cannot be created or written to.
-     */
-    private void init() throws IOException
-    {
+        player = launcher.getGame().getPlayers().get(0);
         Player.setIsNotATest();
         player.setProfilePath(PATH);
         player.setPlayerName();
@@ -73,8 +60,7 @@ public class PlayerTest {
      */
     @Test
     public void addPoints() {
-        int score = player.getScore();
-        int lives = player.getLives();
+        final int score = player.getScore(), lives = player.getLives();
         player.addPoints(10);
         assertEquals(score + 10, player.getScore());
         //using MAX_VALUE to ensure it is bigger than the "add life threshold"
@@ -88,7 +74,7 @@ public class PlayerTest {
      */
     @Test
     public void loseLife() {
-        Ghost ghost = mock(Ghost.class);
+        final Ghost ghost = mock(Ghost.class);
         when(ghost.getIdentity()).thenReturn(GhostColor.CYAN);
         final int lives = player.getLives();
         player.loseLife(ghost);
@@ -101,7 +87,7 @@ public class PlayerTest {
      */
     @Test
     public void dies() {
-        Ghost ghost = mock(Ghost.class);
+        final Ghost ghost = mock(Ghost.class);
         when(ghost.getIdentity()).thenReturn(GhostColor.ORANGE);
         player.setLives(1);
         assert player.isAlive();
@@ -156,7 +142,7 @@ public class PlayerTest {
 
         String line;
         boolean speedyFound = false, victorFound = false;
-        BufferedReader reader = new BufferedReader(new FileReader(PATH));
+        final BufferedReader reader = new BufferedReader(new FileReader(PATH));
         while ((line = reader.readLine()) !=null)
         {
             if (line.equals(Achievement.SPEEDY_DEATH.toString())) speedyFound = true;

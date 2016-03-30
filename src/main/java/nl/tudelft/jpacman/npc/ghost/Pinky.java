@@ -92,25 +92,21 @@ public class Pinky extends Ghost {
 	 */
 	@Override
 	public Direction nextMove() {
-		Unit player = Navigation.findNearest(Player.class, getSquare());
+		final Unit player = Navigation.findNearest(Player.class, getSquare());
 		if (player == null) {
-			Direction d = randomMove();
-			return d;
+            return randomMove();
 		}
 
-		Direction targetDirection = player.getDirection();
-		Square destination = player.getSquare();
+        Square destination = player.getSquare();
 		for (int i = 0; i < SQUARES_AHEAD; i++) {
-			destination = destination.getSquareAt(targetDirection);
+			destination = destination.getSquareAt(player.getDirection());
 		}
 
 		List<Direction> path = Navigation.shortestPath(getSquare(),
 				destination, this);
 		if (path != null && !path.isEmpty()) {
-			Direction d = path.get(0);
-			return d;
+            return path.get(0);
 		}
-		Direction d = randomMove();
-		return d;
+        return randomMove();
 	}
 }

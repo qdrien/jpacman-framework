@@ -402,12 +402,12 @@ public class Player extends Unit {
         if (playerName == null) return;
         try
         {
-            int toAlter = killer.getIndex();
-            String split[] = readInfoLine(), toWrite = "";
-            Achievement toGrant = killer.getAchievementGranted();
+            final String split[] = readInfoLine();
+            String toWrite = "";
+            final Achievement toGrant = killer.getAchievementGranted();
             for (int i = 0; i < split.length; i++)
             {
-                if (i == toAlter) toWrite += Integer.parseInt(split[i]) + 1 + " ";
+                if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
                 else toWrite += split[i] + " ";
             }
             updateInfoLine(toWrite);
@@ -428,7 +428,8 @@ public class Player extends Unit {
         if (playerName == null) return;
         try
         {
-            String split[] = readInfoLine(), toWrite = "";
+            final String split[] = readInfoLine();
+            String toWrite = "";
             int highScore = Integer.parseInt(split[1]);
             if (score > 9000) addAchievement(Achievement.OVER_9000);
             if (score > highScore) highScore = score;
@@ -668,7 +669,7 @@ public class Player extends Unit {
     public int getMaxLevelReached() {
         int i = 0;
         try {
-            String line[]=readInfoLine();
+            final String line[]=readInfoLine();
             i = Integer.parseInt(line[0]);
             System.out.println("max level reached: " + i);
         } catch (IOException e) {

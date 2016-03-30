@@ -40,8 +40,8 @@ public class ChosenStrategyTest
     @Test
     public void humanStrategyTest1()
     {
-        Game game = launcher.getGame();
-        PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
+        final Game game = launcher.getGame();
+        final PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
 
         assertFalse(game.isInProgress());
@@ -49,7 +49,7 @@ public class ChosenStrategyTest
         assertNotNull(builder);
 
 
-        PacmanStrategy strategy1 = new HumanControllerStrategy(game,builder);
+        final PacmanStrategy strategy1 = new HumanControllerStrategy(game,builder);
         assertNotNull(strategy1.getTypeStrategy());
         assertEquals(strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
 
@@ -65,15 +65,14 @@ public class ChosenStrategyTest
     @Test
     public void AIStrategyTest1()
     {
-        Game game = launcher.getGame();
-        PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
+        final Game game = launcher.getGame();
+        final PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
         assertFalse(game.isInProgress());
         assertNotNull(game);
         assertNotNull(builder);
 
-
-        PacmanStrategy strategy2 = new PacManhattanAI(game);
+        final PacmanStrategy strategy2 = new PacManhattanAI(game);
         assertNotNull(strategy2.getTypeStrategy());
         assertEquals(strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
 
@@ -89,13 +88,13 @@ public class ChosenStrategyTest
     @SuppressWarnings("methodlength")
     @Test
     public void OtherStrategyAITest1() throws InterruptedException {
-        Game game = launcher.getGame();
+        final Game game = launcher.getGame();
         // start cleanly.
         assertFalse(game.isInProgress());
         assertNotNull(game);
 
         //Creation of a new AI strategy
-        AIStrategy strategy3 = new AIStrategy(game)
+        final AIStrategy strategy3 = new AIStrategy(game)
         {
             @Override
             public Direction nextMove() {

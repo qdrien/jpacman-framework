@@ -68,7 +68,7 @@ public class Board {
 	 */
 	public Square squareAt(int x, int y) {
 		assert withinBorders(x, y);
-		Square result = board[x][y];
+		final Square result = board[x][y];
 		assert result != null : "Follows from invariant.";
 		return result;
 	}

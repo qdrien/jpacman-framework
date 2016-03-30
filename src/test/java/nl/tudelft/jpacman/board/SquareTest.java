@@ -33,7 +33,7 @@ public class SquareTest {
 	 */
 	@Test
 	public void testOccupy() {
-		Unit occupant = mock(Unit.class);
+		final Unit occupant = mock(Unit.class);
 		square.put(occupant);
 
 		assertTrue(square.getOccupants().contains(occupant));
@@ -45,7 +45,7 @@ public class SquareTest {
 	 */
 	@Test
 	public void testLeave() {
-		Unit occupant = mock(Unit.class);
+		final Unit occupant = mock(Unit.class);
 		square.put(occupant);
 		square.remove(occupant);
 
@@ -57,12 +57,10 @@ public class SquareTest {
 	 */
 	@Test
 	public void testOrder() {
-		Unit o1 = mock(Unit.class);
-		Unit o2 = mock(Unit.class);
+		final Unit o1 = mock(Unit.class), o2 = mock(Unit.class);
 		square.put(o1);
 		square.put(o2);
 
-		Object[] occupantsAsArray = square.getOccupants().toArray();
-		assertArrayEquals(new Object[] { o1, o2 }, occupantsAsArray);
+        assertArrayEquals(new Object[] { o1, o2 }, square.getOccupants().toArray());
 	}
 }

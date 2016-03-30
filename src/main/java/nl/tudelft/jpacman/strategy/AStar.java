@@ -151,11 +151,10 @@ public abstract class AStar<T>
      * @param to The node we are reaching.
      */
     private void f(Path p, T from, T to){
-        Double g =  g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
-        Double h = h(from, to);
+        final Double g =  g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
 
         p.g = g;
-        p.f = g + h;
+        p.f = g + h(from, to);
     }
     /**
      * Expand a path.
@@ -163,8 +162,8 @@ public abstract class AStar<T>
      * @param path The path to expand.
      */
     private void expand(Path path){
-        T p = path.getPoint();
-        Double min = mindists.get(path.getPoint());
+        final T p = path.getPoint();
+        final Double min = mindists.get(path.getPoint());
 
 				/*
 				 * If a better path passing for this point already exists then
@@ -178,7 +177,7 @@ public abstract class AStar<T>
         List<T> successors = generateSuccessors(p);
 
         for(T t : successors){
-            Path newPath = new Path(path);
+            final Path newPath = new Path(path);
             newPath.setPoint(t);
             f(newPath, path.getPoint(), t);
             paths.offer(newPath);
@@ -204,7 +203,7 @@ public abstract class AStar<T>
      */
     public List<T> compute(T start){
 
-        Path root = new Path();
+        final Path root = new Path();
         root.setPoint(start);
 
 						/* Needed if the initial point has a cost.  */
@@ -213,14 +212,14 @@ public abstract class AStar<T>
         expand(root);
 
         for(;;){
-            Path p = paths.poll();
+            final Path p = paths.poll();
 
             if(p == null){
                 lastCost = Double.MAX_VALUE;
                 return null;
             }
 
-            T last = p.getPoint();
+            final T last = p.getPoint();
 
             lastCost = p.g;
 

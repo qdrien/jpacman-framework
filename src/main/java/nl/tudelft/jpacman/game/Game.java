@@ -125,8 +125,8 @@ public abstract class Game implements LevelObserver {
     {
         if (isInProgress())
         {
-            Square location = player.getSquare();
-            Square destination = location.getSquareAt(direction);
+            final Square location = player.getSquare();
+            final Square destination = location.getSquareAt(direction);
             if(destination.isAccessibleTo(player))
             {
                 if(service == null)
@@ -216,8 +216,8 @@ public abstract class Game implements LevelObserver {
      * @return A new level.
      */
     protected Level makeLevel(final int id) {
-        MapParser parser = getMapParser();
-        String file = "/board" + id + ".txt";
+        final MapParser parser = getMapParser();
+        final String file = "/board" + id + ".txt";
         System.out.println("Loading " + file);
         try (InputStream boardStream = Launcher.class
                 .getResourceAsStream(file)) {
@@ -268,7 +268,7 @@ public abstract class Game implements LevelObserver {
      * @param levelIndex The id of the level we want to switch to
      */
     public void setLevel(final int levelIndex) {
-        Level level = makeLevel(levelIndex);
+        final Level level = makeLevel(levelIndex);
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
@@ -322,11 +322,10 @@ public abstract class Game implements LevelObserver {
         @Override
         public void run()
         {
-            long interval = player.getInterval();
-            if(! isFinished())
+            if(!isFinished())
             {
                 getLevel().move(player, dir);
-                scheduledExecutorService.schedule(this, interval, TimeUnit.MILLISECONDS);
+                scheduledExecutorService.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
             }
         }
         /**

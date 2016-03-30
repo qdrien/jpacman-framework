@@ -42,12 +42,12 @@ public class HumanControllerStrategyTest
     @SuppressWarnings("methodlength")
     @Test
     public void strategyTest() throws AWTException, InterruptedException {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
         assertFalse(game.isInProgress());
         assertNotNull(game);
-        PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-        PacmanStrategy strategy = new HumanControllerStrategy(game, builder);
+        final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
+        final PacmanStrategy strategy = new HumanControllerStrategy(game, builder);
 
         assertEquals(strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
         assertNotNull(strategy);

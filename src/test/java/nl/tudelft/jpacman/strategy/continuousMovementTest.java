@@ -48,8 +48,8 @@ public class ContinuousMovementTest
     @Test
     public void continuousMovementTest1() throws InterruptedException
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -71,8 +71,8 @@ public class ContinuousMovementTest
     @Test
     public void continuousMovementTest2() throws InterruptedException
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -93,8 +93,8 @@ public class ContinuousMovementTest
     @Test
     public void continuousMovementTest3() throws InterruptedException
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -122,8 +122,8 @@ public class ContinuousMovementTest
     @Test
     public void continuousMovementTest4() throws InterruptedException
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -152,8 +152,8 @@ public class ContinuousMovementTest
     @Test
     public void continuousMovementTest5() throws InterruptedException
     {
-        Game game = launcher.getGame();
-        Player player = game.getPlayers().get(0);
+        final Game game = launcher.getGame();
+        final Player player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());

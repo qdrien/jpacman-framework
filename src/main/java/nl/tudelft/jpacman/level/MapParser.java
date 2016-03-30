@@ -60,10 +60,8 @@ public class MapParser {
 	 * @return The level as represented by this text.
 	 */
 	public Level parseMap(char[][] map) {
-		int width = map.length;
-		int height = map[0].length;
-
-		Square[][] grid = new Square[width][height];
+		final int width = map.length, height = map[0].length;
+		final Square[][] grid = new Square[width][height];
 
 		List<NPC> ghosts = new ArrayList<>();
 		List<Square> startPositions = new ArrayList<>();
@@ -99,8 +97,7 @@ public class MapParser {
 			levelCreator.createPellet().occupy(pelletSquare);
 			break;
 		case 'G':
-			Square ghostSquare = makeGhostSquare(ghosts);
-			grid[x][y] = ghostSquare;
+            grid[x][y] = makeGhostSquare(ghosts);
 			break;
 		case 'P':
 			Square playerSquare = boardCreator.createGround();
@@ -114,8 +111,8 @@ public class MapParser {
 	}
 
 	private Square makeGhostSquare(List<NPC> ghosts) {
-		Square ghostSquare = boardCreator.createGround();
-		NPC ghost = levelCreator.createGhost();
+		final Square ghostSquare = boardCreator.createGround();
+		final NPC ghost = levelCreator.createGhost();
 		ghosts.add(ghost);
 		ghost.occupy(ghostSquare);
 		return ghostSquare;
@@ -133,11 +130,8 @@ public class MapParser {
 	 * @throws PacmanConfigurationException If text lines are not properly formatted.
 	 */
 	public Level parseMap(List<String> text) {
-		
-		checkMapFormat(text);
-
-		int height = text.size();
-		int width = text.get(0).length();
+        final int height = text.size(), width = text.get(0).length();
+        checkMapFormat(text);
 
 		char[][] map = new char[width][height];
 		for (int x = 0; x < width; x++) {
@@ -164,7 +158,7 @@ public class MapParser {
 					"Input text must consist of at least 1 row.");
 		}
 
-		int width = text.get(0).length();
+		final int width = text.get(0).length();
 
 		if (width == 0) {
 			throw new PacmanConfigurationException(
@@ -172,8 +166,7 @@ public class MapParser {
 		}
 
 		for (int i = 0; i < text.size(); i++) {
-			String line = text.get(i);
-			if (line.length() != width) {
+            if (text.get(i).length() != width) {
 				throw new PacmanConfigurationException(
                         "Input text lines are not of equal width (thrown at line " + i + ").");
 			}
