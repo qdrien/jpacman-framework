@@ -117,11 +117,4 @@ public class LauncherSmokeTest {
             game.move(player, dir);
         }
     }
-
-    @Test
-    public void testNextLevel() throws Exception {
-        int initialLevel = launcher.getCurrentLevel();
-        launcher.nextLevel();
-        assertEquals(initialLevel + 1, launcher.getCurrentLevel());
-    }
 }

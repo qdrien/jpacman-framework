@@ -3,8 +3,12 @@ package nl.tudelft.jpacman;
 
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
-import nl.tudelft.jpacman.game.*;
-import nl.tudelft.jpacman.level.*;
+import nl.tudelft.jpacman.game.Game;
+import nl.tudelft.jpacman.game.GameFactory;
+import nl.tudelft.jpacman.level.Level;
+import nl.tudelft.jpacman.level.LevelFactory;
+import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
 import nl.tudelft.jpacman.ui.Action;
@@ -12,11 +16,9 @@ import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import javax.swing.*;
-
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -32,10 +34,6 @@ public class Launcher
 	private Game game;//The game
 	private PacManUiBuilder builder;//The builder
 
-    /**
-     * The current level id
-     */
-    private int currentLevel;
 
     /**
 	 * @return The game object this launcher will start when {@link #launch()}
@@ -46,69 +44,29 @@ public class Launcher
 	}
 
 	/**
-	 * Creates a new game using the level from {@link #makeLevel()}.
+	 * Creates a new game using the level from {@link Game#makeLevel(int)}.
 	 * 
 	 * @return a new Game.
 	 */
 	public Game makeGame()
     {
         GameFactory gf = getGameFactory();
-		Level level = makeLevel();
-        return gf.createSinglePlayerGame(level);
-	}
-
-	/**
-	 * Creates a new level. By default this method will use the map parser to
-	 * parse the default board stored in the <code>board1.txt</code> resource (=level 1).
-	 * 
-	 * @return level 1.
-	 */
-    Level makeLevel() {
-		return makeLevel(1);
-	}
-
-    /**
-     * Creates a new level. Uses the map parser to
-     * parse the desired board file.
-     *
-     * @return A new level.
-     */
-	public Level makeLevel(final int id) {
-		MapParser parser = getMapParser();
-		String file = "/board" + id + ".txt";
-        System.out.println("Loading " + file);
-        try (InputStream boardStream = Launcher.class
-				.getResourceAsStream(file)) {
-            if(boardStream == null) return null;
-            currentLevel = id;
-            Level level = parser.parseMap(boardStream);
-            level.setIndex(id);
-            return level;
-		} catch (IOException e) {
-			throw new PacmanConfigurationException("Unable to create level.", e);
-		}
-	}
-
-	/**
-	 * @return A new map parser object using the factories from
-	 *         {@link #getLevelFactory()} and {@link #getBoardFactory()}.
-	 */
-	protected MapParser getMapParser() {
-		return new MapParser(getLevelFactory(), getBoardFactory());
+		Level level = Game.makeLevel(1); // level 1 by default
+        return gf.createSinglePlayerGame(level, getBoardFactory(), getLevelFactory());
 	}
 
 	/**
 	 * @return A new board factory using the sprite store from
 	 *         {@link #getSpriteStore()}.
 	 */
-	protected BoardFactory getBoardFactory() {
+    public static BoardFactory getBoardFactory() {
 		return new BoardFactory(getSpriteStore());
 	}
 
 	/**
 	 * @return The default {@link PacManSprites}.
 	 */
-	protected PacManSprites getSpriteStore() {
+	public static PacManSprites getSpriteStore() {
 		return SPRITE_STORE;
 	}
 
@@ -116,14 +74,14 @@ public class Launcher
 	 * @return A new factory using the sprites from {@link #getSpriteStore()}
 	 *         and the ghosts from {@link #getGhostFactory()}.
 	 */
-	protected LevelFactory getLevelFactory() {
+    public static LevelFactory getLevelFactory() {
 		return new LevelFactory(getSpriteStore(), getGhostFactory());
 	}
 
 	/**
 	 * @return A new factory using the sprites from {@link #getSpriteStore()}.
 	 */
-	protected GhostFactory getGhostFactory() {
+	public static GhostFactory getGhostFactory() {
 		return new GhostFactory(getSpriteStore());
 	}
 
@@ -199,7 +157,6 @@ public class Launcher
 	 */
 	public void launch() {
 		game = makeGame();
-		game.setLauncher(this);
 		builder = new PacManUiBuilder().withDefaultButtons();
 		builder.addButton("Identification", new Action()
         {
@@ -261,41 +218,7 @@ public class Launcher
 	{
 		MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
 		dialog.setSize(400, 200);
+		//prevents the user from closing the dialog via the upper-right corner "X"
 		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	}
-
-    /**
-     * Returns the next level and increments the currentLevel field.
-     * If this was already the last level, simply restart it.
-     * @return The new(and next) level
-     */
-    public Level nextLevel() {
-        Level level = makeLevel(++currentLevel);
-        if (level == null) {
-            //the level could not be loaded, this means that the previous one was the final level
-			//restart this last level and loop until player dies
-            //(this level can't be finished without loosing at least one life so there will be an end)
-            level = makeLevel(--currentLevel);
-        }
-        level.setIndex(currentLevel);
-        return level;
-    }
-
-    /**
-     * Simple getter for currentLevel
-     * @return The id of the current level
-     */
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
-
-    /**
-     * Sets the level to the one that has the given id (calls #Game.setLevel)
-     * @param levelIndex The id of the level we want to switch to
-     */
-    public void setLevel(final int levelIndex) {
-        Level level = makeLevel(levelIndex);
-        level.setIndex(levelIndex);
-        game.setLevel(level);
-    }
 }

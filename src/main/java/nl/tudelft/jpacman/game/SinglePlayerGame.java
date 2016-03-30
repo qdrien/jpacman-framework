@@ -1,8 +1,10 @@
 package nl.tudelft.jpacman.game;
 
 import com.google.common.collect.ImmutableList;
+import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
+import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.Player;
 
 import java.util.List;
@@ -27,13 +29,13 @@ public class SinglePlayerGame extends Game {
 
     /**
 	 * Create a new single player game for the provided level and player.
-	 * 
-	 * @param p
+	 *  @param p
 	 *            The player.
-	 * @param l
-	 *            The level.
+	 * @param l The level.
+	 * @param boardFactory The BoardFactory used to create the board
+	 * @param levelFactory The LevelFactory used to create the level
 	 */
-	protected SinglePlayerGame(Player p, Level l) {
+	protected SinglePlayerGame(Player p, Level l, BoardFactory boardFactory, LevelFactory levelFactory) {
 		assert p != null;
 		assert l != null;
 
@@ -61,10 +63,9 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
-		System.out.println("lvl index: " + level.getIndex());
-		player.levelCompleted(level.getIndex());
-        final Level level = launcher.nextLevel();
-        setLevel(level);
+		System.out.println("Just won level: " + currentLevel);
+		player.levelCompleted(currentLevel);
+        setLevel(nextLevel());
     }
 
     /**
