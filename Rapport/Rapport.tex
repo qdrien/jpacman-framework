@@ -1,0 +1,127 @@
+\documentclass[12pt, openany]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[frenchb]{babel}
+\usepackage{libertine}
+\usepackage[pdftex]{graphicx}
+\usepackage{amssymb}
+
+
+
+\usepackage[colorlinks=true,linkcolor=red]{hyperref}
+\usepackage[nottoc, notlof, notlot]{tocbibind}
+
+\usepackage{cite}
+
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\begin{document}
+
+\begin{titlepage}
+  \begin{sffamily}
+  \begin{center}
+
+    % Upper part of the page. The '~' is needed because \\
+    % only works if a paragraph has started.
+    \includegraphics[scale=0.2]{Images/UMONS+txt.png}   ~\\[1.5cm]
+    
+
+
+    \HRule \\[0.4cm]
+    { \huge \bfseries Projet de Software Evolution - JPacman\\[0.4cm] }
+    \HRule \\[2cm]
+    \includegraphics[scale=0.5]{Images/Pac-Man.jpg}~\\[1.5cm] 
+
+    
+    
+
+    % Author and supervisor
+    \begin{minipage}{0.4\textwidth}
+      \begin{flushleft} \large
+        \emph{Réalisateurs :\\} Damien \textsc{Legay}\\ Adrien \textsc{Coppens}\\ Nicolas \textsc{Leemans}\\
+        
+      \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+      \begin{flushright} \large
+        \emph{Enseignant :} M. Tom  \textsc{Mens}\\
+        \emph{Date de remise : } 9 mai 2016\\
+        \emph{Année d'étude : } Master 1
+      \end{flushright}
+    \end{minipage}
+
+    \vfill
+
+    % Bottom of the page
+    {\large Année académique 2015 - 2016}
+	
+  \end{center}
+  \end{sffamily}
+\end{titlepage}
+
+
+
+
+\newpage
+
+
+	\tableofcontents
+	\newpage
+	\setcounter{secnumdepth}{3}
+	\setcounter{tocdepth}{4}
+	
+
+\chapter{Introduction}
+
+Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par Monsieur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielles vus au cours théorique. Il consiste à analyser et à étendre un projet pour ensuite l'évoluer à l'aide de \textit{"refactorings"}. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du professeur Arie van Deursen, Delft University of Technology (Pays-Bas).
+ JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
+ 
+ Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
+ 
+\chapter{Extension du projet et ajout de tests unitaires pour cette extension }
+
+\section{Extension du logiciel}
+
+La première partie de ce projet consistait à étendre la version initial de JPacman en ajoutant de nouvelles fonctionnalités et en suivant un processus de développement dirigé par les tests. De nouveaux tests unitaires ont donc été ajoutés pour chaque fonctionnalité afin de vérifier que le comportement initial du logiciel n’a pas été altéré. 
+
+Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
+\begin{itemize}
+\item L'implémentation d'un score (réalisé par Damien Legay)
+\item L'implémentation d'une série de labyrinthes (réalisé par Adrien Coppens)
+\item L'implémentation d'une intelligence artificielle pour pacman (réalisé par Nicolas Leemans)
+
+\end{itemize}
+
+\subsection{Fonctionnalité "Score"}
+\subsection{Fonctionnalité "Série de labyrinthes"}
+\subsection{Fonctionnalité "IA pour Pacman"}
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Analyse de la qualité du code source}
+
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
+
+\section{Analyse statique}
+\section{Analyse dynamique}
+\section{Mesure de la qualité du logiciel}
+\section{Conclusion de l'analyse}
+
+
+
+
+
+%\bibliographystyle{plain}
+%\bibliography{bibliographie}
+\end{document}
