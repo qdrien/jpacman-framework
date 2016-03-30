@@ -10,15 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Nicolas Leemans on 10/03/16.
- */
 public class MyJDialogStrategy extends JDialog
 {
     /**
      * Button of the window
      */
-    private JButton HumanController, AIController;
+    private final JButton HumanController, AIController;
     /**
      * The chose strategy by the player
      */
@@ -31,12 +28,10 @@ public class MyJDialogStrategy extends JDialog
      * The builder
      */
     private final PacManUiBuilder builder;
-    private PacManUI pacManUI;
+    private final PacManUI pacManUI;
 
     /**
      * Create a new window to chose the game mode (strategy,...)
-     * @param title a window title
-     * @param message a message to add for the window
      * @param parent a JFrame parent
      * @param builder the builder
      * @param game the game
@@ -86,8 +81,6 @@ public class MyJDialogStrategy extends JDialog
         JRootPane rootPane = new JRootPane();
         KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
         AbstractAction action = new AbstractAction() {
-
-            private static final long serialVersionUID = 1L;
 
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);

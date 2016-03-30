@@ -13,11 +13,6 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 /**
- * Created by Nicolas Leemans on 2/03/16.
- */
-
-
-/**
  * Human strategy test in the game
  */
 public class HumanControllerStrategyTest

@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Nicolas Leemans on 5/03/16.
- */
 public class AStarPath extends AStar<Square>
 {
     /**
@@ -46,7 +43,7 @@ public class AStarPath extends AStar<Square>
     }
 
     /**
-     * Compute the manhattan distance (called texi-distance) between a point (x,y) and a point (a,b)
+     * Compute the manhattan distance (called taxi-distance) between a point (x,y) and a point (a,b)
      * @param x the x coordinate from first point
      * @param y the y coordinate from first point
      * @param a the x coordinate from second point

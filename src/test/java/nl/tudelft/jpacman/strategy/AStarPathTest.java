@@ -17,11 +17,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by Nicolas Leemans on 7/03/16.
- */
-
-
-/**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
  */
 public class AStarPathTest
@@ -94,7 +89,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ConstanteTest()
+    public void constantTest()
     {
         Game game = launcher.getGame();
         assertFalse(game.isInProgress());
@@ -109,11 +104,11 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        assertEquals(aStarPath.PELLET_COST, 1.0);
-        assertEquals(aStarPath.EMPTY_COST, 5.0);
-        assertEquals(aStarPath.GHOST_COST, 1000000.0);
-        assertEquals(aStarPath.NEAREST_GHOST_COST, 500.0);
-        assertEquals(aStarPath.DST_THRESHOLD, 3);
+        assertEquals(AStarPath.PELLET_COST, 1.0);
+        assertEquals(AStarPath.EMPTY_COST, 5.0);
+        assertEquals(AStarPath.GHOST_COST, 1000000.0);
+        assertEquals(AStarPath.NEAREST_GHOST_COST, 500.0);
+        assertEquals(AStarPath.DST_THRESHOLD, 3);
 
     }
 
@@ -137,15 +132,15 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighbors(square,player);
+        List<Square> neighbourList = aStarPath.getValidNeighbors(square,player);
 
         //The accessible square is to East and West. (North and south are walls)
-        assertNotNull(neigborList);
-        assertTrue(neigborList.contains(player.getSquare().getSquareAt(Direction.EAST)));
-        assertTrue(neigborList.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertNotNull(neighbourList);
+        assertTrue(neighbourList.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertTrue(neighbourList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
-        assertFalse(neigborList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse(neigborList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse(neighbourList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse(neighbourList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         //Player move to have others neighbors
         game.start();
@@ -282,7 +277,7 @@ public class AStarPathTest
     }
 
     /**
-     * Test the Astar method
+     * Test the AStar method
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -322,7 +317,7 @@ public class AStarPathTest
     }
 
     /**
-     * Test the Astar method
+     * Test the AStar method
      */
     @SuppressWarnings("methodlength")
     @Test

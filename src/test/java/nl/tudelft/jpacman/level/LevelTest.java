@@ -188,7 +188,6 @@ public class LevelTest {
         grid[0][1] = x0y1;
         grid[1][0] = x1y0;
         grid[1][1] = x1y1;
-        Board board = new Board(grid);
 
         assertTrue(level.isSafe(0, 0));
     }
@@ -222,7 +221,6 @@ public class LevelTest {
         grid[0][1] = x0y1;
         grid[1][0] = x1y0;
         grid[1][1] = x1y1;
-        Board board = new Board(grid);
 
         assertFalse(level.isSafe(0, 1));
     }

@@ -611,12 +611,9 @@ public class Level implements PlayerListener {
                 {
 
                     nextMove = strategy.nextMove();
-                    if(nextMove != null)
+                    if(nextMove != null && player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
                     {
-                        if(player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
-                        {
-                            move(player, nextMove);
-                        }
+                        move(player, nextMove);
                     }
                 }
                 else

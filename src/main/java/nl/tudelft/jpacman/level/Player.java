@@ -10,7 +10,6 @@ import nl.tudelft.jpacman.sprite.Sprite;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 import java.io.*;
 import java.util.Arrays;
@@ -103,15 +102,6 @@ public class Player extends Unit {
 		deathSprite.setAnimating(false);
 		listeners = new ArrayList<>();
 	}
-
-    /**
-     * Returns the path of the file containing usernames and passwords.
-     * @return The path of the file containing usernames and passwords.
-     */
-    public String getLoginPath()
-    {
-        return LOGIN_PATH;
-    }
 
     /**
      * Authenticates existing player profile.
@@ -578,8 +568,10 @@ public class Player extends Unit {
 	 *            has.
 	 */
 	public void addPoints(int points) {
-        checkNewLifeThreshold(points);
-		score += points;
+        //Simply uses integer division (if we have different results, a threshold has been reached)
+        //Note that this can only work if the amount of points a player can get in one go is < the threshold
+        if (score / NEW_LIFE_THRESHOLD != (score + points) / NEW_LIFE_THRESHOLD) addLife();
+        score += points;
     }
 
     /**
@@ -606,15 +598,6 @@ public class Player extends Unit {
     public void setPlayerName()
     {
         playerName = "Testy";
-    }
-    /**
-    * Checks whether a player has reached the "new life threshold" allowing him to get an additional life
-     * @param points The amount of points that are going to be added
-     */
-    private void checkNewLifeThreshold(int points) {
-        //Simply uses integer division (if we have different results, a threshold has been reached)
-        //Note that this can only work if the amount of points a player can get in one go is < the threshold
-        if (score / NEW_LIFE_THRESHOLD != (score + points) / NEW_LIFE_THRESHOLD) addLife();
     }
 
     /**
@@ -678,6 +661,10 @@ public class Player extends Unit {
 		score = 0;
 	}
 
+    /**
+     * Returns the highest level ever reached by the player.
+     * @return said level.
+     */
     public int getMaxLevelReached() {
         int i = 0;
         try {

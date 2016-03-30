@@ -19,9 +19,6 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Nicolas Leemans on 8/03/16.
- */
 public class PacManhattanAITest
 {
     private Launcher launcher;

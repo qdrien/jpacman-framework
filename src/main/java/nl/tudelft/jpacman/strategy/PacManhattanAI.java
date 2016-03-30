@@ -8,10 +8,6 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.*;
 
-
-/**
- * Created by Nicolas Leemans on 8/03/16.
- */
 public class PacManhattanAI extends AIStrategy
 {
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
@@ -49,7 +45,7 @@ public class PacManhattanAI extends AIStrategy
     {
         directionQueue = new ArrayDeque<>();//Initialisation of the queue containing best moves
         boolean warning = false;//Boolean to know if a ghost is near of the player or not
-        updatePacmanbehaviour(game.getLevel().remainingPellets());//Accelerate the endgame
+        updatePacmanBehaviour(game.getLevel().remainingPellets());//Accelerate the endgame
 
         for(Ghost ghost : getGhostsList())
         {
@@ -229,7 +225,7 @@ public class PacManhattanAI extends AIStrategy
 
     /**
      * Compute a BFS to know the nearest safety square
-     * @return the nearest safety square, null if there is'nt
+     * @return the nearest safety square, null if there isn't
      */
     public Square BFSNearestSafetySquare()
     {
@@ -346,10 +342,10 @@ public class PacManhattanAI extends AIStrategy
     }
 
     /**
-     * Define the pacman Behavior in the game
+     * Define the Pacman Behaviour in the game
      * @param pelletNbr the pellets number remaining in the game
      */
-    private void updatePacmanbehaviour(int pelletNbr)
+    private void updatePacmanBehaviour(int pelletNbr)
     {
         if(pelletNbr <= 30)
         {

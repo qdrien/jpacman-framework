@@ -3,9 +3,6 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 
-/**
- * Created by Nicolas Leemans on 2/03/16.
- */
 public abstract class PacmanStrategy
 {
     /**

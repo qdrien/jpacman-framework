@@ -1,7 +1,6 @@
 package nl.tudelft.jpacman.ui;
 
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
 import javax.swing.*;
