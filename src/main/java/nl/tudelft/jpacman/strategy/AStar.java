@@ -26,6 +26,11 @@ import java.util.*;
  */
 public abstract class AStar<T>
 {
+
+    private final PriorityQueue<Path> paths;
+    private final Map<T, Double> mindists;
+    private Double lastCost;
+
     private class Path implements Comparable
     {
         public T point;
@@ -87,10 +92,6 @@ public abstract class AStar<T>
             point = p;
         }
     }
-
-    private final PriorityQueue<Path> paths;
-    private final Map<T, Double> mindists;
-    private Double lastCost;
 
     /**
      * Check if the current node is a goal for the problem.
