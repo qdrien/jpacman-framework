@@ -147,7 +147,7 @@ public class AStarPathTest
         game.move(player, Direction.EAST);
         Square square2 = player.getSquare();
 
-        assertFalse(square == square2);
+        assertFalse(square.equals(square2));
 
         List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
@@ -198,7 +198,8 @@ public class AStarPathTest
         game.move(player, Direction.WEST);
         Square square2 = player.getSquare();
 
-        assertFalse(square == square2);
+        assertFalse(square.equals(square2));
+
 
         List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
@@ -221,9 +222,8 @@ public class AStarPathTest
 
         Square square3 = player.getSquare();
 
-        assertFalse(square == square3);
-        assertFalse(square2 == square3);
-
+        assertFalse(square.equals(square3));
+        assertFalse(square2.equals(square3));
 
         List<Square> neigborList3 = aStarPath.getValidNeighbors(square3,player);
 

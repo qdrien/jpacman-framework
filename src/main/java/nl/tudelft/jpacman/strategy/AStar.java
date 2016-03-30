@@ -88,6 +88,10 @@ public abstract class AStar<T>
         }
     }
 
+    private final PriorityQueue<Path> paths;
+    private final Map<T, Double> mindists;
+    private Double lastCost;
+
     /**
      * Check if the current node is a goal for the problem.
      *
@@ -126,13 +130,6 @@ public abstract class AStar<T>
      * @return A list of possible next steps.
      */
     protected abstract List<T> generateSuccessors(T node);
-
-
-    private final PriorityQueue<Path> paths;
-    private final Map<T, Double> mindists;
-    private Double lastCost;
-
-
 
     /**
      * Default c'tor.
