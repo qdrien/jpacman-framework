@@ -129,7 +129,7 @@ public abstract class AStar<T>
 
 
     private final PriorityQueue<Path> paths;
-    private final HashMap<T, Double> mindists;
+    private final Map<T, Double> mindists;
     private Double lastCost;
 
 

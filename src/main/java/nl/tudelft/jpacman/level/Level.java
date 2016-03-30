@@ -88,7 +88,7 @@ public class Level implements PlayerListener {
     /**
      * The list of the ghosts in the game
      */
-    private final ArrayList<Ghost> ghostList;
+    private final List<Ghost> ghostList;
     /**
      * The amount of pellets there were when the level started
      */
@@ -400,7 +400,7 @@ public class Level implements PlayerListener {
     @Override
     public void onPlayerLoseLife(final Player p) {
         if (p.getLives() > 0) {
-            final ArrayList<Square> possibleSquares = getPossibleSquares();
+            final List<Square> possibleSquares = getPossibleSquares();
             if (possibleSquares.isEmpty()) {
                 throw new PacmanConfigurationException("There is no safe square.");
             } else {
@@ -424,7 +424,7 @@ public class Level implements PlayerListener {
      * Get the ghost's list
      * @return the ghost's list
      */
-    public ArrayList<Ghost> getGhostList()
+    public List<Ghost> getGhostList()
     {
         return ghostList;
     }
@@ -434,12 +434,12 @@ public class Level implements PlayerListener {
      *
      * @return An ArrayList of Squares the player can move on
      */
-    private ArrayList<Square> getPossibleSquares() {
+    private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
 
         final int boardWidth = board.getWidth();
         final int boardHeight = board.getHeight();
-        final ArrayList<Square> possibleSquares = new ArrayList<>();
+        final List<Square> possibleSquares = new ArrayList<>();
         for (int x = 0; x < boardWidth; x++){
             for (int y = 0; y < boardHeight; y++){
                 final Square square = board.squareAt(x, y);

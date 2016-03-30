@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,7 +60,7 @@ public class Player extends Unit {
 	/**
 	 * The ArrayList of listeners that will be called when a player-related event occurs
 	 */
-	private final ArrayList<PlayerListener> listeners;
+	private final List<PlayerListener> listeners;
 
     /**
      * The maximum size of the player's username and password.
