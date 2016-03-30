@@ -51,7 +51,6 @@ public class PlayerTest {
     public void init() throws IOException
     {
         Player.setIsNotATest();
-        final Sprite sprites[] = new Sprite[1];
         player.setProfilePath(PATH);
         player.setPlayerName();
 
