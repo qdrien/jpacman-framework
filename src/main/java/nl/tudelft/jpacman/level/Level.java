@@ -93,9 +93,8 @@ public class Level implements PlayerListener {
      * The amount of pellets there were when the level started
      */
     private int initialPelletCount = -1;
-	private int index;
 
-	/**
+    /**
      * Creates a new level for the board.
      *
      * @param b

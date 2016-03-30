@@ -344,13 +344,13 @@ public class AStarPathTest
         Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
         Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
-        assertSame(aStarPath.h(origin, destination), 1);
-        assertSame(aStarPath.h(origin, destination2), 2);
+        assertEquals(aStarPath.h(origin, destination), 1.0);
+        assertEquals(aStarPath.h(origin, destination2), 2.0);
 
-        assertSame(aStarPath.h(origin, destination3), 1);
-        assertSame(aStarPath.h(origin, destination4), 2);
+        assertEquals(aStarPath.h(origin, destination3), 1.0);
+        assertEquals(aStarPath.h(origin, destination4), 2.0);
 
-        assertSame(aStarPath.h(destination, destination4), 3);
-        assertSame(aStarPath.h(destination3, destination4), 1);
+        assertEquals(aStarPath.h(destination, destination4), 3.0);
+        assertEquals(aStarPath.h(destination3, destination4), 1.0);
     }
 }
