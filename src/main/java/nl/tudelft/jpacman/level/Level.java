@@ -495,14 +495,6 @@ public class Level implements PlayerListener {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
     }
 
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
 	/**
      * A task that moves an NPC and reschedules itself after it finished.
      *
@@ -618,12 +610,9 @@ public class Level implements PlayerListener {
                 {
 
                     nextMove = strategy.nextMove();
-                    if(nextMove != null)
+                    if(nextMove != null && player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
                     {
-                        if(player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
-                        {
-                            move(player, nextMove);
-                        }
+                        move(player, nextMove);
                     }
                 }
                 else
