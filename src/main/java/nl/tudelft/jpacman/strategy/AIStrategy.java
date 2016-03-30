@@ -30,7 +30,6 @@ public abstract class AIStrategy extends PacmanStrategy
         this.player = game.getLevel().getPlayer();
         this.ghosts = game.getLevel().getGhostList();
     }
-
     /**
      * Get the type of the strategy
      * @return a AI type strategy

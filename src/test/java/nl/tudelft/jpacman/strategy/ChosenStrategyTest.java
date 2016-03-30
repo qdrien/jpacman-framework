@@ -109,7 +109,6 @@ public class ChosenStrategyTest
 
             }
         };
-
         assertNotNull(strategy3.getTypeStrategy());
         assertTrue(strategy3.getTypeStrategy() == PacmanStrategy.Type.AI);
 

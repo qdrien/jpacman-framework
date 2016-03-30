@@ -279,7 +279,6 @@ public class Level implements PlayerListener {
     }
 
 
-
     /**
      * Starts all NPC movement scheduling.
      */

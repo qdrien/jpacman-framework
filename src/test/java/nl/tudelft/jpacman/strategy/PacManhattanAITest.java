@@ -274,7 +274,6 @@ public class PacManhattanAITest
         assertEquals(dir.getFirst(), Direction.EAST);
         assertEquals(dir.getLast(), Direction.NORTH);
     }
-
     /**
      * Test the choose of the direction in the last resort (No Best Direction found)
      */

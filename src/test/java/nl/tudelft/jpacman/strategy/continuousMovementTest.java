@@ -85,7 +85,6 @@ public class continuousMovementTest
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
-
     /**
      * A continuous movement test
      * @throws InterruptedException

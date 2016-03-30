@@ -159,7 +159,6 @@ public abstract class AStar<T>
         p.g = g;
         p.f = g + h;
     }
-
     /**
      * Expand a path.
      *

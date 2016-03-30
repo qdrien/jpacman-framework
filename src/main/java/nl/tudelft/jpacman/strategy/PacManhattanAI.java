@@ -361,7 +361,6 @@ public class PacManhattanAI extends AIStrategy
         }
     }
 
-
     /**
      * No Strategy to execute for the AI
      */

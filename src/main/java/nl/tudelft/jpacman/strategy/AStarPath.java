@@ -184,7 +184,6 @@ public class AStarPath extends AStar<Square>
         return manhattanDistance(originSquare.getX(),originSquare.getY(),destinationSquare.getX(),destinationSquare.getY());
     }
 
-
     /**
      * Check if the square is nearest to a square with a ghost
      * @param destinationSquare the square to check
