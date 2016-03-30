@@ -10,6 +10,8 @@ public class HumanControllerStrategy extends PacmanStrategy
 {
     private final PacManUiBuilder builder;
 
+
+
     /**
      * Default constructor
      * @param game the current game
@@ -40,7 +42,7 @@ public class HumanControllerStrategy extends PacmanStrategy
      * @param game
      *            The game that will process the events.
      */
-    public void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game)
+    private void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game)
     {
         final Player p1 = game.getPlayers().get(0);
         builder.addKey(KeyEvent.VK_UP, () -> game.continousMovement(p1, Direction.NORTH))

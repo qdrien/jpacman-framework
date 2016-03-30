@@ -7,9 +7,11 @@ import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PacManhattanAI extends AIStrategy
 {
+    private final Game game;
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
     private boolean[][] visitedCase;//List to know if the square is yet visited or not
@@ -22,6 +24,7 @@ public class PacManhattanAI extends AIStrategy
     public PacManhattanAI(final Game game)
     {
         super(game);
+        this.game = game;
         init(game);
     }
 
@@ -30,7 +33,7 @@ public class PacManhattanAI extends AIStrategy
      * @param game
      *      The current game
      */
-    void init(Game game)
+    private void init(Game game)
     {
         visitedCase = new boolean[getBoard().getHeight()][getBoard().getWidth()];
         pathAStar = new AStarPath(game);
@@ -106,7 +109,7 @@ public class PacManhattanAI extends AIStrategy
      * Compute a path
      * @param square the goal square
      */
-    void computePath(Square square)
+    private void computePath(Square square)
     {
         if (square == null)
         {
@@ -157,17 +160,12 @@ public class PacManhattanAI extends AIStrategy
             else
             {
                 List<Square> neighborsList = getValidNeighbors(square);
-                for(Square neighborSquare : neighborsList)
-                {
-                    if(neighborSquare != null)
-                    {
-                        if(!visitedCase[neighborSquare.getY()][neighborSquare.getX()])
-                        {
-                            squareQueue.add(neighborSquare);
-                        }
-                        visitedCase[neighborSquare.getY()][neighborSquare.getX()] = true;
+                neighborsList.stream().filter(neighborSquare -> neighborSquare != null).forEach(neighborSquare -> {
+                    if (!visitedCase[neighborSquare.getY()][neighborSquare.getX()]) {
+                        squareQueue.add(neighborSquare);
                     }
-                }
+                    visitedCase[neighborSquare.getY()][neighborSquare.getX()] = true;
+                });
             }
         }
         return null;
@@ -251,11 +249,7 @@ public class PacManhattanAI extends AIStrategy
             else
             {
                 List<Square> neighborsList = getValidNeighbors(square);
-                for (Square neighbor : neighborsList)
-                {
-                    if (!visitedCase[neighbor.getY()][neighbor.getX()])
-                        squaresQueue.add(neighbor);
-                }
+                squaresQueue.addAll(neighborsList.stream().filter(neighbor -> !visitedCase[neighbor.getY()][neighbor.getX()]).collect(Collectors.toList()));
             }
         }
         return null;
