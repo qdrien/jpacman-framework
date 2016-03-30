@@ -124,7 +124,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void NextMoveTest()
+    public void nextMoveTest()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -160,7 +160,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void SafetyPelletSquareTest()
+    public void safetyPelletSquareTest()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -191,7 +191,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ConvertPathToDirectionTest()
+    public void convertPathToDirectionTest()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -234,7 +234,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ConvertPathToDirectionTest2()
+    public void convertPathToDirectionTest2()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
@@ -280,7 +280,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void HurryMoveTest()
+    public void hurryMoveTest()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);

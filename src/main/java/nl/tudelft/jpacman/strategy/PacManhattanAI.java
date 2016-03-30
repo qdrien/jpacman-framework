@@ -15,7 +15,7 @@ public class PacManhattanAI extends AIStrategy
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
     private boolean[][] visitedCase;//List to know if the square is yet visited or not
-    private static int GHOST_DST_THRESHOLD = 14;//The threshold distance between the player and a ghost
+    private static final int GHOST_DST_THRESHOLD = 14;//The threshold distance between the player and a ghost
     /**
      * The default constructor
      *

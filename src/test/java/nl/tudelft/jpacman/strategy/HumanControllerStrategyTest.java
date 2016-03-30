@@ -41,7 +41,7 @@ public class HumanControllerStrategyTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void StrategyTest() throws AWTException, InterruptedException {
+    public void strategyTest() throws AWTException, InterruptedException {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);
         assertFalse(game.isInProgress());

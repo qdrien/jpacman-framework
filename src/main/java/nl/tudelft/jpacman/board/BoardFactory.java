@@ -113,7 +113,6 @@ public class BoardFactory {
 				}
 				currentFile = levelFileFor(levelCount + 1, files);
 			}
-			System.out.println("Found " + levelCount + " levels");
 		}
 	}
 
@@ -126,13 +125,13 @@ public class BoardFactory {
 	private void createBoardFileFromImage(final File file, final int level) throws IOException {
 		final BufferedImage img = ImageIO.read(file);
 		if(img == null) {
-			System.out.println("Error loading image " + file.getName());
+			System.err.println("Error loading image " + file.getName());
 			return;
 		}
 
 		final List<String> lines = convertImageToTxt(img);
 		final Path newFile = Paths.get(file.getParent() + File.separator + "board" + level + ".txt");
-		System.out.println("Creating file for level " + level + " from an image.");
+		System.err.println("Creating file for level " + level + " from an image.");
 		Files.write(newFile, lines, Charset.forName("UTF-8"));
 	}
 
@@ -148,8 +147,8 @@ public class BoardFactory {
 			for(int x = 0; x < img.getWidth(); x++){
 				final int rgbValue = img.getRGB(x, y);
 				final ItemsColor item = ItemsColor.getItemByRGBValue(rgbValue);
-				if(item == null) System.out.println("Unknown color, ignoring this pixel.");
-				else{
+				if(item != null)
+				{
 					switch (item){
 						case PACMAN:
 							line.append("P");
@@ -167,7 +166,6 @@ public class BoardFactory {
 							line.append(".");
 							break;
 						default:
-							System.out.println("Unhandled item type, Houston?");
 					}
 				}
 			}

@@ -42,7 +42,7 @@ public class SquareCoordinateTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void SquareCoordinateTest1()
+    public void squareCoordinateTest1()
     {
         Game game = launcher.getGame();
         Player player = game.getPlayers().get(0);

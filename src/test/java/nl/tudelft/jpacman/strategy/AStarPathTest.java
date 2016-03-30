@@ -46,7 +46,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ConstructorTest()
+    public void constructorTest()
     {
         Game game = launcher.getGame();
         assertFalse(game.isInProgress());
@@ -74,7 +74,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ManhattanDistanceTest()
+    public void manhattanDistanceTest()
     {
 
         assertEquals(AStarPath.manhattanDistance(0,0,0,0), 0.0);
@@ -118,7 +118,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ValidNeighborsTest()
+    public void validNeighboursTest()
     {
         Game game = launcher.getGame();
         assertFalse(game.isInProgress());
@@ -169,7 +169,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void ValidNeighborsTest2()
+    public void validNeighborsTest2()
     {
         Game game = launcher.getGame();
         assertFalse(game.isInProgress());

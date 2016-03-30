@@ -110,7 +110,6 @@ public class PacManUI extends JFrame {
         refreshLevelChoices(0);
         final JButton loadButton = new JButton("Load");
         loadButton.addActionListener(e -> {
-			System.out.println("Hello my friend");
 			final Enumeration<AbstractButton> elements = choiceLevelGroup.getElements();
             while (elements.hasMoreElements()){
                 final AbstractButton button = elements.nextElement();
@@ -166,7 +165,6 @@ public class PacManUI extends JFrame {
             buttonPanel.remove(button);
         }
         buttonsList.clear();
-        System.out.println("Adding buttons up to level " + (maxLevelReached + 1));
         final JRadioButton level1 = new JRadioButton("1", true);
         choiceLevelGroup.add(level1);
         buttonPanel.add(level1);

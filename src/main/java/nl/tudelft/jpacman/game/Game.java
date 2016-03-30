@@ -9,7 +9,6 @@ import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
-import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -176,7 +175,7 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Triggers the Hall of Fame handler and eventually updates of the player's score.
+     * Triggers the Hall of Fame handler and eventually updates of the player'scheduledExecutorService score.
      *
      * @param player The player in question.
      */
@@ -284,7 +283,7 @@ public abstract class Game implements LevelObserver {
         /**
          * The service executing the task.
          */
-        private final ScheduledExecutorService s;
+        private final ScheduledExecutorService scheduledExecutorService;
     
 
         /**
@@ -312,7 +311,7 @@ public abstract class Game implements LevelObserver {
          */
         PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction)
         {
-            this.s = s;
+            this.scheduledExecutorService = s;
             this.player = p;
             this.dir = direction;
         }
@@ -324,10 +323,10 @@ public abstract class Game implements LevelObserver {
         public void run()
         {
             long interval = player.getInterval();
-            if(!getFinished())
+            if(! isFinished())
             {
                 getLevel().move(player, dir);
-                s.schedule(this, interval, TimeUnit.MILLISECONDS);
+                scheduledExecutorService.schedule(this, interval, TimeUnit.MILLISECONDS);
             }
         }
         /**
@@ -343,7 +342,7 @@ public abstract class Game implements LevelObserver {
          * Get the boolean to know if the task is finish or not
          * @return true if the task is finished, false otherwise
         */
-        public boolean getFinished()
+        public boolean isFinished()
         {
             return finished;
         }

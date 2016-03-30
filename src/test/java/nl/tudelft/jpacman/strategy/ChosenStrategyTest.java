@@ -38,7 +38,7 @@ public class ChosenStrategyTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void HuManStrategyTest1()
+    public void humanStrategyTest1()
     {
         Game game = launcher.getGame();
         PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();

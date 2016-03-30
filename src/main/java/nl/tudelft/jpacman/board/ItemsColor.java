@@ -27,7 +27,7 @@ public enum ItemsColor {
         for(final ItemsColor c : ItemsColor.values()){
             if(rgbValue == c.value) return c;
         }
-        System.out.println("Unknown color " + rgbValue);
+        System.err.println("Unknown color " + rgbValue);
         return null;
     }
 }
