@@ -661,6 +661,10 @@ public class Player extends Unit {
 		score = 0;
 	}
 
+    /**
+     * Returns the highest level ever reached by the player.
+     * @return said level.
+     */
     public int getMaxLevelReached() {
         int i = 0;
         try {
