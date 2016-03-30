@@ -34,7 +34,6 @@ public class HumanControllerStrategyTest
     public void tearDown() {
         launcher.dispose();
     }
-
     /**
      * Attribution of keys for the player to move the Pacman in the game
      * @throws AWTException

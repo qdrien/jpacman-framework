@@ -265,7 +265,7 @@ public class Level implements PlayerListener {
 
     /**
      * Starts or resumes the AI
-     * @param strategy
+     * @param strategy the chosen strategy
      */
     public void startStrategy(PacmanStrategy strategy)
     {
@@ -277,7 +277,6 @@ public class Level implements PlayerListener {
             strategy.executeStrategy();
         }
     }
-
 
 
     /**

@@ -56,9 +56,6 @@ public class ChosenStrategyTest
         //The mode depends on a click by the player => no move in nextMove()
         assertNull(strategy1.nextMove());
 
-        assertTrue(strategy1 instanceof PacmanStrategy);
-        assertFalse(strategy1 instanceof AIStrategy);
-
     }
 
     /**
@@ -82,8 +79,6 @@ public class ChosenStrategyTest
 
         assertNotNull(strategy2.nextMove());
 
-        assertTrue(strategy2 instanceof PacmanStrategy);
-        assertTrue(strategy2 instanceof AIStrategy);
 
     }
 
@@ -114,12 +109,9 @@ public class ChosenStrategyTest
 
             }
         };
-
         assertNotNull(strategy3.getTypeStrategy());
         assertTrue(strategy3.getTypeStrategy() == PacmanStrategy.Type.AI);
 
-        assertTrue(strategy3 instanceof PacmanStrategy);
-        assertTrue(strategy3 instanceof AIStrategy);
 
         //Launch AI
         assertFalse(game.isInProgress());

@@ -72,6 +72,5 @@ public class SquareCoordinateTest
 
         assertEquals(square.getX(), 20);
         assertEquals(square.getY(), 25);
-
     }
 }

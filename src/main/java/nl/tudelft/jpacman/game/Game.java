@@ -33,7 +33,6 @@ public abstract class Game implements LevelObserver {
      */
     private PacmanStrategy strategy;
 
-    // --Commented out by Inspection (29/03/2016 19:09):private PacManUiBuilder builder;//The builder
 
 
     /**
@@ -196,37 +195,6 @@ public abstract class Game implements LevelObserver {
      */
     public abstract void setLevel(Level level);
 
-// --Commented out by Inspection START (29/03/2016 19:08):
-//    /**
-//     * Get the builder
-//     * @return the builder
-//     */
-//    public PacManUiBuilder getBuilder() {
-//        return builder;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:08)
-
-// --Commented out by Inspection START (29/03/2016 19:09):
-//    /**
-//     * Set the builder
-//     * @param builder the builder to set
-//     */
-//    public void setBuilder(PacManUiBuilder builder) {
-//        this.builder = builder;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
-
-// --Commented out by Inspection START (29/03/2016 19:09):
-//    /**
-//     * Get the chosen strategy
-//     * @return the chosen strategy
-//     */
-//    public PacmanStrategy getStrategy()
-//    {
-//        return strategy;
-//    }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
-
     /**
      * Set the Strategy
      * @param strategy the strategy to set
@@ -357,7 +325,7 @@ public abstract class Game implements LevelObserver {
         public void run()
         {
             long interval = player.getInterval();
-            if(!finished)
+            if(!getFinished())
             {
                 getLevel().move(player, dir);
                 s.schedule(this, interval, TimeUnit.MILLISECONDS);
@@ -371,15 +339,15 @@ public abstract class Game implements LevelObserver {
             this.finished = true;
         }
 
-// --Commented out by Inspection START (29/03/2016 19:09):
-//        /**
-//         * Get the boolean to know if the task is finish or not
-//         * @return true if the task is finished, false otherwise
-//         */
-//        public boolean getFinished()
-//        {
-//            return finished;
-//        }
-// --Commented out by Inspection STOP (29/03/2016 19:09)
+
+        /**
+         * Get the boolean to know if the task is finish or not
+         * @return true if the task is finished, false otherwise
+        */
+        public boolean getFinished()
+        {
+            return finished;
+        }
+
     }
 }

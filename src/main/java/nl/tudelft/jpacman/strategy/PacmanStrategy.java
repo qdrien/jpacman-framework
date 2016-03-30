@@ -29,7 +29,6 @@ public abstract class PacmanStrategy
         return Type.UNKNOWN;
     }
 
-
     /**
      * Different type of the strategy
      */
