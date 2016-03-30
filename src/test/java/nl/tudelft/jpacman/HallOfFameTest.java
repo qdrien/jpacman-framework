@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.io.*;
@@ -62,7 +63,7 @@ public class HallOfFameTest
         File hallOfFameFile = new File(path);
         hallOfFame.handleHoF(Integer.MAX_VALUE, "TESTPLAYER");
         //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
-        assertTrue("The Hall of Fame hasn't been modified.", hallOfFameFile.lastModified() / 10000 == System.currentTimeMillis() / 10000);
+        assertSame("The Hall of Fame hasn't been modified.", hallOfFameFile.lastModified() / 10000, System.currentTimeMillis() / 10000);
     }
 
     /**

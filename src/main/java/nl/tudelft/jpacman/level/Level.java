@@ -580,7 +580,7 @@ public class Level implements PlayerListener {
          * @param p
          *          The player of the game
          */
-        private PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p)
+        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p)
         {
             this.service = s;
             this.strategy = strategy;

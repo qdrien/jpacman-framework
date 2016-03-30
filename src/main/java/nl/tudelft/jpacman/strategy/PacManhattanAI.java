@@ -67,41 +67,41 @@ public class PacManhattanAI extends AIStrategy
             computePath(BFSNearestSafetyPelletSquare());
         }
 
-        if (!directionQueue.isEmpty())
-        {
-            //Apply the best move
-            return directionQueue.removeFirst();
-        }
-        else
+        if (directionQueue.isEmpty())
         {
             if(warning)
             {
                 //No safe square found, find the nearest pellet
                 computePath(BFSNearestSafetyPelletSquare());
-                if(!directionQueue.isEmpty())
-                {
-                    return directionQueue.removeFirst();
-                }
-                else
+                if (directionQueue.isEmpty())
                 {
                     //No path found, find a other direction
                     return hurryMove();
+                }
+                else
+                {
+                    return directionQueue.removeFirst();
                 }
             }
             else
             {
                 //No path found to a nearest pellet, find a safe square
                 computePath( BFSNearestSafetySquare());
-                if(!directionQueue.isEmpty())
-                {
-                    return directionQueue.removeFirst();
-                }
-                else
+                if (directionQueue.isEmpty())
                 {
                     //No path found, find a other direction
                     return hurryMove();
                 }
+                else
+                {
+                    return directionQueue.removeFirst();
+                }
             }
+        }
+        else
+        {
+            //Apply the best move
+            return directionQueue.removeFirst();
         }
     }
 
@@ -249,7 +249,7 @@ public class PacManhattanAI extends AIStrategy
             else
             {
                 List<Square> neighborsList = getValidNeighbors(square);
-                squaresQueue.addAll(neighborsList.stream().filter(neighbor -> !visitedCase[neighbor.getY()][neighbor.getX()]).collect(Collectors.toList()));
+                squaresQueue.addAll(neighborsList.stream().filter(neighbor -> ! visitedCase[neighbor.getY()][neighbor.getX()]).collect(Collectors.toList()));
             }
         }
         return null;

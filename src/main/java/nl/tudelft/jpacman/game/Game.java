@@ -44,17 +44,18 @@ public abstract class Game implements LevelObserver {
     private final Object progressLock = new Object();
 
     /**
+     * For the execution of the thread for the continuousMovement method
+     */
+    private PlayerMoveTask currentMoveTask;
+    private ScheduledExecutorService service;
+
+    /**
      * Creates a new game.
      */
     protected Game() {
         inProgress = false;
     }
 
-    /**
-     * For the execution of the thread for the continuousMovement method
-     */
-    private PlayerMoveTask currentMoveTask;
-    private ScheduledExecutorService service;
 	/**
      * Starts or resumes the game.
      */
@@ -309,7 +310,7 @@ public abstract class Game implements LevelObserver {
          * @param direction
          *             The direction to follow
          */
-        private PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction)
+        PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction)
         {
             this.s = s;
             this.player = p;

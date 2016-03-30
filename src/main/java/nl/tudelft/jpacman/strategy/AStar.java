@@ -26,6 +26,11 @@ import java.util.*;
  */
 public abstract class AStar<T>
 {
+
+    private final PriorityQueue<Path> paths;
+    private final Map<T, Double> mindists;
+    private Double lastCost;
+
     private class Path implements Comparable
     {
         public T point;
@@ -127,13 +132,6 @@ public abstract class AStar<T>
      */
     protected abstract List<T> generateSuccessors(T node);
 
-
-    private final PriorityQueue<Path> paths;
-    private final Map<T, Double> mindists;
-    private Double lastCost;
-
-
-
     /**
      * Default c'tor.
      */
@@ -153,7 +151,7 @@ public abstract class AStar<T>
      * @param to The node we are reaching.
      */
     private void f(Path p, T from, T to){
-        Double g =  g(from, to) + ((p.parent != null) ? p.parent.g : 0.0);
+        Double g =  g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
         Double h = h(from, to);
 
         p.g = g;

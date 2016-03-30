@@ -51,7 +51,7 @@ public class ChosenStrategyTest
 
         PacmanStrategy strategy1 = new HumanControllerStrategy(game,builder);
         assertNotNull(strategy1.getTypeStrategy());
-        assertTrue(strategy1.getTypeStrategy() == PacmanStrategy.Type.PLAYER);
+        assertEquals(strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
 
         //The mode depends on a click by the player => no move in nextMove()
         assertNull(strategy1.nextMove());
@@ -75,7 +75,7 @@ public class ChosenStrategyTest
 
         PacmanStrategy strategy2 = new PacManhattanAI(game);
         assertNotNull(strategy2.getTypeStrategy());
-        assertTrue(strategy2.getTypeStrategy() == PacmanStrategy.Type.AI);
+        assertEquals(strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
 
         assertNotNull(strategy2.nextMove());
 
@@ -110,7 +110,7 @@ public class ChosenStrategyTest
             }
         };
         assertNotNull(strategy3.getTypeStrategy());
-        assertTrue(strategy3.getTypeStrategy() == PacmanStrategy.Type.AI);
+        assertEquals(strategy3.getTypeStrategy(), PacmanStrategy.Type.AI);
 
 
         //Launch AI

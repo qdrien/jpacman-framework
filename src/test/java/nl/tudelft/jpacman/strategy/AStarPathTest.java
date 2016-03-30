@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.strategy;
 
+import junit.framework.Assert;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
@@ -15,6 +16,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
@@ -147,7 +149,7 @@ public class AStarPathTest
         game.move(player, Direction.EAST);
         Square square2 = player.getSquare();
 
-        assertFalse(square == square2);
+        assertFalse(square.equals(square2));
 
         List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
@@ -198,7 +200,8 @@ public class AStarPathTest
         game.move(player, Direction.WEST);
         Square square2 = player.getSquare();
 
-        assertFalse(square == square2);
+        assertFalse(square.equals(square2));
+
 
         List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
 
@@ -221,9 +224,8 @@ public class AStarPathTest
 
         Square square3 = player.getSquare();
 
-        assertFalse(square == square3);
-        assertFalse(square2 == square3);
-
+        assertFalse(square.equals(square3));
+        assertFalse(square2.equals(square3));
 
         List<Square> neigborList3 = aStarPath.getValidNeighbors(square3,player);
 
@@ -342,13 +344,13 @@ public class AStarPathTest
         Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
         Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
-        assertTrue(aStarPath.h(origin,destination) == 1);
-        assertTrue(aStarPath.h(origin,destination2) == 2);
+        assertSame(aStarPath.h(origin, destination), 1);
+        assertSame(aStarPath.h(origin, destination2), 2);
 
-        assertTrue(aStarPath.h(origin,destination3) == 1);
-        assertTrue(aStarPath.h(origin,destination4) == 2);
+        assertSame(aStarPath.h(origin, destination3), 1);
+        assertSame(aStarPath.h(origin, destination4), 2);
 
-        assertTrue(aStarPath.h(destination,destination4) == 3);
-        assertTrue(aStarPath.h(destination3,destination4) == 1);
+        assertSame(aStarPath.h(destination, destination4), 3);
+        assertSame(aStarPath.h(destination3, destination4), 1);
     }
 }
