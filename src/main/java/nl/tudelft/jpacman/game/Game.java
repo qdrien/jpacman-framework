@@ -218,7 +218,6 @@ public abstract class Game implements LevelObserver {
     protected Level makeLevel(final int id) {
         final MapParser parser = getMapParser();
         final String file = "/board" + id + ".txt";
-        System.out.println("Loading " + file);
         try (InputStream boardStream = Launcher.class
                 .getResourceAsStream(file)) {
             if(boardStream == null) return null;
