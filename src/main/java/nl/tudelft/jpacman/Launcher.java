@@ -109,33 +109,10 @@ public class Launcher
     {
 		final Player p1 = getSinglePlayer(game);
 
-		builder.addKey(KeyEvent.VK_UP, new Action() {
-
-			@Override
-			public void doAction()
-            {
-                game.move(p1, Direction.NORTH);
-
-			}
-		}).addKey(KeyEvent.VK_DOWN, new Action() {
-
-			@Override
-			public void doAction() {
-				game.move(p1, Direction.SOUTH);
-			}
-		}).addKey(KeyEvent.VK_LEFT, new Action() {
-
-			@Override
-			public void doAction() {
-				game.move(p1, Direction.WEST);
-			}
-		}).addKey(KeyEvent.VK_RIGHT, new Action() {
-
-            @Override
-            public void doAction() {
-                game.move(p1, Direction.EAST);
-            }
-        });
+		builder.addKey(KeyEvent.VK_UP, () -> game.move(p1, Direction.NORTH))
+                .addKey(KeyEvent.VK_DOWN, () -> game.move(p1, Direction.SOUTH))
+                .addKey(KeyEvent.VK_LEFT, () -> game.move(p1, Direction.WEST))
+                .addKey(KeyEvent.VK_RIGHT, () -> game.move(p1, Direction.EAST));
 
 	}
 
@@ -153,33 +130,17 @@ public class Launcher
 	public void launch() {
 		game = makeGame();
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
-		builder.addButton("Identification", new Action()
+		builder.addButton("Identification", () ->
         {
-            @Override
-            public void doAction() {
-				final Player player = game.getPlayers().get(0);
-                if (player.authenticate()) {
-					player.displayAchievements();
-					pacManUI.refreshLevelChoices(player.getMaxLevelReached());
-				}
-			}
-        });
-        builder.addButton("New player", new Action()
-        {
-            @Override
-            public void doAction()
+            final Player player = game.getPlayers().get(0);
+            if (player.authenticate())
             {
-                game.getPlayers().get(0).createNewPlayer();
+                player.displayAchievements();
+                pacManUI.refreshLevelChoices(player.getMaxLevelReached());
             }
         });
-        builder.addButton("Stats", new Action()
-        {
-            @Override
-            public void doAction()
-            {
-                game.getPlayers().get(0).displayProfileStats();
-            }
-        });
+        builder.addButton("New player", () -> game.getPlayers().get(0).createNewPlayer());
+        builder.addButton("Stats", () -> game.getPlayers().get(0).displayProfileStats());
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
         final MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);

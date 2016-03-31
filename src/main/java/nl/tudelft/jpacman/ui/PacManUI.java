@@ -135,13 +135,7 @@ public class PacManUI extends JFrame {
 		final ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
 
-		service.scheduleAtFixedRate(new Runnable() {
-
-			@Override
-			public void run() {
-				nextFrame();
-			}
-		}, 0, FRAME_INTERVAL, TimeUnit.MILLISECONDS);
+		service.scheduleAtFixedRate((Runnable) PacManUI.this::nextFrame, 0, FRAME_INTERVAL, TimeUnit.MILLISECONDS);
 
 	}
 
