@@ -20,12 +20,13 @@ public enum ItemsColor {
 
     /**
      * Returns the type of item that matches the given RGB value
+     *
      * @param rgbValue The int representing a RGB value
      * @return The corresponding "pacman object" enum type or null if none matches
      */
-    public static ItemsColor getItemByRGBValue(final int rgbValue){
-        for(final ItemsColor c : ItemsColor.values()){
-            if(rgbValue == c.value) return c;
+    public static ItemsColor getItemByRGBValue(final int rgbValue) {
+        for (final ItemsColor c : ItemsColor.values()) {
+            if (rgbValue == c.value) return c;
         }
         System.err.println("Unknown color " + rgbValue);
         return null;

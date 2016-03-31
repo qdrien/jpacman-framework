@@ -11,16 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class MyJDialogStrategy extends JDialog
-{
+public class MyJDialogStrategy extends JDialog {
     /**
      * Button of the window
      */
     private final JButton HumanController, AIController;
-    /**
-     * The strategy chosen by the player
-     */
-    private PacmanStrategy strategy;
     /**
      * The game
      */
@@ -30,16 +25,20 @@ public class MyJDialogStrategy extends JDialog
      */
     private final PacManUiBuilder builder;
     private final PacManUI pacManUI;
+    /**
+     * The strategy chosen by the player
+     */
+    private PacmanStrategy strategy;
 
     /**
      * Create a new window to chose the game mode (strategy,...)
-     * @param parent a JFrame parent
-     * @param builder the builder
-     * @param game the game
+     *
+     * @param parent   a JFrame parent
+     * @param builder  the builder
+     * @param game     the game
      * @param pacManUI the pacManUI
      */
-    public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI)
-    {
+    public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI) {
         super(parent, "Strategy selection");
         this.builder = builder;
         this.game = game;
@@ -74,10 +73,10 @@ public class MyJDialogStrategy extends JDialog
     /**
      * override the createRootPane inherited by the JDialog, to create the rootPane.
      * create functionality to close the window when "Escape" button is pressed
+     *
      * @return the root pane
      */
-    public JRootPane createRootPane()
-    {
+    public JRootPane createRootPane() {
         final JRootPane rootPane = new JRootPane();
         final AbstractAction action = new AbstractAction() {
 
@@ -92,17 +91,15 @@ public class MyJDialogStrategy extends JDialog
     }
 
     /**
-     *  An action listener to be used when an action is performed
-     *  (e.g. button is pressed)
+     * An action listener to be used when an action is performed
+     * (e.g. button is pressed)
      */
-    private class MyActionListener implements ActionListener
-    {
+    private class MyActionListener implements ActionListener {
         //close and dispose of the window.
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             final Object source = e.getSource();
-            if(source == HumanController) strategy= new HumanControllerStrategy(game,builder);
-            else if(source == AIController) strategy = new PacManhattanAI(game);
+            if (source == HumanController) strategy = new HumanControllerStrategy(game, builder);
+            else if (source == AIController) strategy = new PacManhattanAI(game);
             System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
             game.setStrategy(strategy);
             setVisible(false);

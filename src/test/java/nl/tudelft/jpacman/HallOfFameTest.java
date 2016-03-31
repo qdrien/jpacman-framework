@@ -5,17 +5,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-import java.io.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class fo the Hall of Fame.
  */
-public class HallOfFameTest
-{
+public class HallOfFameTest {
     /**
      * A Hall of Fame to test methods with.
      */
@@ -28,11 +27,11 @@ public class HallOfFameTest
 
     /**
      * Operations to be executed prior to tests.
+     *
      * @throws IOException If the HoF file cannot be found or read.
      */
     @Before
-    public void init() throws IOException
-    {
+    public void init() throws IOException {
         HallOfFame.setIsNotATest(false);
         hallOfFame = new HallOfFame();
         String path = hallOfFame.getHoFPath();
@@ -41,11 +40,11 @@ public class HallOfFameTest
 
     /**
      * Closes the HoF file after a test.
+     *
      * @throws IOException If the HoF file cannot be closed.
      */
     @After
-    public void cleanup() throws IOException
-    {
+    public void cleanup() throws IOException {
         reader.close();
     }
 
@@ -53,8 +52,7 @@ public class HallOfFameTest
      * Tests whether the HoF is correctly updated whenever a new high score is obtained.
      */
     @Test
-    public void hallOfFameUpdateTest() throws IOException
-    {
+    public void hallOfFameUpdateTest() throws IOException {
         hallOfFame.handleHoF(Integer.MAX_VALUE, "TESTPLAYER");
         //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
         assertEquals("The Hall of Fame hasn't been modified.", reader.readLine().split(" ")[0], "TESTPLAYER");
@@ -62,16 +60,15 @@ public class HallOfFameTest
 
     /**
      * Tests whether the HoF gets reset to default values when appropriate.
+     *
      * @throws IOException If the default HoF file cannot be read or found.
      */
     @Test
-    public void hallOfFameResetTest() throws IOException
-    { // Note: running tests resets the Hall of Fame.
+    public void hallOfFameResetTest() throws IOException { // Note: running tests resets the Hall of Fame.
         hallOfFame.resetHoF();
         final BufferedReader defaultHOFReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
         String current = reader.readLine(), base = defaultHOFReader.readLine();
-        for (int i = 0; i < hallOfFame.getNumberOfRecordsKept(); i++)
-        {
+        for (int i = 0; i < hallOfFame.getNumberOfRecordsKept(); i++) {
             current += reader.readLine();
             base += defaultHOFReader.readLine();
         }

@@ -8,23 +8,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Class to test the continuousMovement method for the continuous movement of the player
  */
-public class ContinuousMovementTest
-{
+public class ContinuousMovementTest {
     private Launcher launcher;
 
     /**
      * Launch the user interface.
      */
     @Before
-    public void setUpPacman()
-    {
+    public void setUpPacman() {
         launcher = new Launcher();
         launcher.launch();
     }
@@ -46,8 +42,7 @@ public class ContinuousMovementTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void continuousMovementTest1() throws InterruptedException
-    {
+    public void continuousMovementTest1() throws InterruptedException {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
 
@@ -65,12 +60,12 @@ public class ContinuousMovementTest
 
     /**
      * A continuous movement test
+     *
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void continuousMovementTest2() throws InterruptedException
-    {
+    public void continuousMovementTest2() throws InterruptedException {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
 
@@ -85,14 +80,15 @@ public class ContinuousMovementTest
         Thread.sleep(1600);
         assertEquals(60, player.getScore());
     }
+
     /**
      * A continuous movement test
+     *
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void continuousMovementTest3() throws InterruptedException
-    {
+    public void continuousMovementTest3() throws InterruptedException {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
 
@@ -116,12 +112,12 @@ public class ContinuousMovementTest
 
     /**
      * A continuous move test
+     *
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void continuousMovementTest4() throws InterruptedException
-    {
+    public void continuousMovementTest4() throws InterruptedException {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
 
@@ -146,12 +142,12 @@ public class ContinuousMovementTest
 
     /**
      * A continuous move test
+     *
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void continuousMovementTest5() throws InterruptedException
-    {
+    public void continuousMovementTest5() throws InterruptedException {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
 

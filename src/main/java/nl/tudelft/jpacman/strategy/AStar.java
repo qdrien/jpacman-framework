@@ -24,73 +24,19 @@ import java.util.*;
  *
  * @author Giuseppe Scrivano
  */
-public abstract class AStar<T>
-{
+public abstract class AStar<T> {
 
     private final PriorityQueue<Path> paths;
     private final Map<T, Double> mindists;
     private Double lastCost;
 
-    private class Path implements Comparable
-    {
-        public T point;
-        public Double f;
-        public Double g;
-        public Path parent;
-
-        /**
-         * Default c'tor.
-         */
-        public Path(){
-            parent = null;
-            point = null;
-            g = f = 0.0;
-        }
-
-        /**
-         * C'tor by copy another object.
-         *
-         * @param p The path object to clone.
-         */
-        public Path(Path p){
-            this();
-            parent = p;
-            g = p.g;
-            f = p.f;
-        }
-
-        /**
-         * Compare to another object using the total cost f.
-         *
-         * @param o The object to compare to.
-         *
-         * @return a number < 0 if this object is smaller
-         *         a number = 0 if objects are the same
-         *         a number > 0 if this object is bigger
-         */
-        @Override
-        public int compareTo(Object o){
-
-            @SuppressWarnings("unchecked")
-            Path p = (Path) o;
-            return (int)(f - p.f);
-        }
-
-        /**
-         * Get the last point on the path.
-         *
-         * @return The last point visited by the path.
-         */
-        public T getPoint(){
-            return point;
-        }
-
-        /**
-         * Set the
-         */
-        public void setPoint(T p){
-            point = p;
-        }
+    /**
+     * Default c'tor.
+     */
+    AStar() {
+        paths = new PriorityQueue<>();
+        mindists = new HashMap<>();
+        lastCost = 0.0;
     }
 
     /**
@@ -106,7 +52,7 @@ public abstract class AStar<T>
      * <code>from</from>.
      *
      * @param from The node we are leaving.
-     * @param to The node we are reaching.
+     * @param to   The node we are reaching.
      * @return The cost of the operation.
      */
     protected abstract Double g(T from, T to);
@@ -118,7 +64,7 @@ public abstract class AStar<T>
      * <code>from</from>.
      *
      * @param from The node we are leaving.
-     * @param to The node we are reaching.
+     * @param to   The node we are reaching.
      * @return The estimated cost to reach an object.
      */
     protected abstract Double h(T from, T to);
@@ -133,49 +79,41 @@ public abstract class AStar<T>
     protected abstract List<T> generateSuccessors(T node);
 
     /**
-     * Default c'tor.
-     */
-    AStar(){
-        paths = new PriorityQueue<>();
-        mindists = new HashMap<>();
-        lastCost = 0.0;
-    }
-
-
-    /**
      * Total cost function to reach the node <code>to</code> from
      * <code>from</code>.
-     *
+     * <p>
      * The total cost is defined as: f(x) = g(x) + h(x).
+     *
      * @param from The node we are leaving.
-     * @param to The node we are reaching.
+     * @param to   The node we are reaching.
      */
-    private void f(Path p, T from, T to){
-        final Double g =  g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
+    private void f(Path p, T from, T to) {
+        final Double g = g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
 
         p.g = g;
         p.f = g + h(from, to);
     }
+
     /**
      * Expand a path.
      *
      * @param path The path to expand.
      */
-    private void expand(Path path){
+    private void expand(Path path) {
         final Double min = mindists.get(path.getPoint());
 
 				/*
-				 * If a better path passing for this point already exists then
+                 * If a better path passing for this point already exists then
 				 * don't expand it.
 				 */
-        if(min == null || min > path.f)
+        if (min == null || min > path.f)
             mindists.put(path.getPoint(), path.f);
         else return;
 
         final T p = path.getPoint();
         List<T> successors = generateSuccessors(p);
 
-        for(T t : successors){
+        for (T t : successors) {
             final Path newPath = new Path(path);
             newPath.setPoint(t);
             f(newPath, path.getPoint(), t);
@@ -188,7 +126,7 @@ public abstract class AStar<T>
      *
      * @return The cost for the found path.
      */
-    public Double getCost(){
+    public Double getCost() {
         return lastCost;
     }
 
@@ -200,7 +138,7 @@ public abstract class AStar<T>
      * @return A list of nodes from the initial point to a goal,
      * <code>null</code> if a path doesn't exist.
      */
-    public List<T> compute(T start){
+    public List<T> compute(T start) {
 
         final Path root = new Path();
         root.setPoint(start);
@@ -210,10 +148,10 @@ public abstract class AStar<T>
 
         expand(root);
 
-        for(;;){
+        for (; ; ) {
             final Path p = paths.poll();
 
-            if(p == null){
+            if (p == null) {
                 lastCost = Double.MAX_VALUE;
                 return null;
             }
@@ -222,16 +160,76 @@ public abstract class AStar<T>
 
             lastCost = p.g;
 
-            if(isGoal(last)){
+            if (isGoal(last)) {
                 LinkedList<T> retPath = new LinkedList<>();
 
-                for(Path i = p; i != null; i = i.parent){
+                for (Path i = p; i != null; i = i.parent) {
                     retPath.addFirst(i.getPoint());
                 }
 
                 return retPath;
             }
             expand(p);
+        }
+    }
+
+    private class Path implements Comparable {
+        public T point;
+        public Double f;
+        public Double g;
+        public Path parent;
+
+        /**
+         * Default c'tor.
+         */
+        public Path() {
+            parent = null;
+            point = null;
+            g = f = 0.0;
+        }
+
+        /**
+         * C'tor by copy another object.
+         *
+         * @param p The path object to clone.
+         */
+        public Path(Path p) {
+            this();
+            parent = p;
+            g = p.g;
+            f = p.f;
+        }
+
+        /**
+         * Compare to another object using the total cost f.
+         *
+         * @param o The object to compare to.
+         * @return a number < 0 if this object is smaller
+         * a number = 0 if objects are the same
+         * a number > 0 if this object is bigger
+         */
+        @Override
+        public int compareTo(Object o) {
+
+            @SuppressWarnings("unchecked")
+            Path p = (Path) o;
+            return (int) (f - p.f);
+        }
+
+        /**
+         * Get the last point on the path.
+         *
+         * @return The last point visited by the path.
+         */
+        public T getPoint() {
+            return point;
+        }
+
+        /**
+         * Set the
+         */
+        public void setPoint(T p) {
+            point = p;
         }
     }
 }

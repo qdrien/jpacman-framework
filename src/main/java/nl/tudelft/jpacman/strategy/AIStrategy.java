@@ -5,14 +5,12 @@ import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract class for each Artificial Intelligence strategy
  */
-public abstract class AIStrategy extends PacmanStrategy
-{
+public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Game data used by AI's to calculate the next move to apply
      */
@@ -22,47 +20,50 @@ public abstract class AIStrategy extends PacmanStrategy
 
     /**
      * Default constructor
+     *
      * @param game the current game
      */
-    public AIStrategy(final Game game)
-    {
+    public AIStrategy(final Game game) {
         super(game);
         this.board = game.getLevel().getBoard();
         this.player = game.getLevel().getPlayer();
         this.ghosts = game.getLevel().getGhostList();
     }
+
     /**
      * Get the type of the strategy
+     *
      * @return a AI type strategy
      */
     @Override
-    public final PacmanStrategy.Type getTypeStrategy()
-    {
+    public final PacmanStrategy.Type getTypeStrategy() {
         return Type.AI;
     }
 
     /**
      * Get the player of the game
+     *
      * @return the player
      */
-    final Player getPlayer()
-    {
+    final Player getPlayer() {
         return this.player;
     }
+
     /**
      * Get the board of the game
+     *
      * @return the board
      */
-    final Board getBoard()
-    {
+    final Board getBoard() {
         return this.board;
     }
+
     /**
      * Get the ghost's list of the game
+     *
      * @return the ghost's list
      */
-    final List<Ghost> getGhostsList()
-    {
+    final List<Ghost> getGhostsList() {
         return this.ghosts;
     }
 }

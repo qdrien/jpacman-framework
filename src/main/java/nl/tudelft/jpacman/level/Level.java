@@ -26,68 +26,59 @@ public class Level implements PlayerListener {
 
     private static final boolean QUICK_WIN = false; //todo
     /**
-     * The service for the thread
-     */
-    private ScheduledExecutorService serviceAI;
-    /**
      * The board of this level.
      */
     private final Board board;
-
     /**
      * The lock that ensures moves are executed sequential.
      */
     private final Object moveLock = new Object();
-
     /**
      * The lock that ensures starting and stopping can't interfere with each
      * other.
      */
     private final Object startStopLock = new Object();
-
     /**
      * The NPCs of this level and, if they are running, their schedules.
      */
     private final Map<NPC, ScheduledExecutorService> npcs;
-
-    /**
-     * <code>true</code> iff this level is currently in progress, i.e. players
-     * and NPCs can move.
-     */
-    private boolean inProgress;
-
     /**
      * The squares from which players can start this game.
      */
     private final List<Square> startSquares;
-
-    /**
-     * The start current selected starting square.
-     */
-    private int startSquareIndex;
-
     /**
      * The players on this level.
      */
     private final List<Player> players;
-
     /**
      * The table of possible collisions between units.
      */
     private final CollisionMap collisions;
-
     /**
      * The objects observing this level.
      */
     private final List<LevelObserver> observers;
     /**
-     * The chosen strategy by the player
-     */
-    private PacmanStrategy strategy;
-    /**
      * The list of the ghosts in the game
      */
     private final List<Ghost> ghostList;
+    /**
+     * The service for the thread
+     */
+    private ScheduledExecutorService serviceAI;
+    /**
+     * <code>true</code> iff this level is currently in progress, i.e. players
+     * and NPCs can move.
+     */
+    private boolean inProgress;
+    /**
+     * The start current selected starting square.
+     */
+    private int startSquareIndex;
+    /**
+     * The chosen strategy by the player
+     */
+    private PacmanStrategy strategy;
     /**
      * The amount of pellets there were when the level started
      */
@@ -96,14 +87,10 @@ public class Level implements PlayerListener {
     /**
      * Creates a new level for the board.
      *
-     * @param b
-     *            The board for the level.
-     * @param ghosts
-     *            The ghosts on the board.
-     * @param startPositions
-     *            The squares on which players start on this board.
-     * @param collisionMap
-     *            The collection of collisions that should be handled.
+     * @param b              The board for the level.
+     * @param ghosts         The ghosts on the board.
+     * @param startPositions The squares on which players start on this board.
+     * @param collisionMap   The collection of collisions that should be handled.
      */
     public Level(Board b, List<NPC> ghosts, List<Square> startPositions,
                  CollisionMap collisionMap) {
@@ -117,8 +104,7 @@ public class Level implements PlayerListener {
         this.npcs = new HashMap<>();
         for (NPC g : ghosts) {
             npcs.put(g, null);
-            if(g instanceof Ghost)
-            {
+            if (g instanceof Ghost) {
                 ghostList.add((Ghost) g);
             }
         }
@@ -127,16 +113,15 @@ public class Level implements PlayerListener {
         this.players = new ArrayList<>();
         this.collisions = collisionMap;
         this.observers = new ArrayList<>();
-		if(QUICK_WIN)
-			System.out.println("Warning: QUICK_WIN mode activated, the level will be considered complete if 13 pellets are picked up.\n" +
-					"Disable this by setting QUICK_WIN to false in 'nl.tudelft.jpacman.level.Level.java'");
+        if (QUICK_WIN)
+            System.out.println("Warning: QUICK_WIN mode activated, the level will be considered complete if 13 pellets are picked up.\n" +
+                    "Disable this by setting QUICK_WIN to false in 'nl.tudelft.jpacman.level.Level.java'");
     }
 
     /**
      * Adds an observer that will be notified when the level is won or lost.
      *
-     * @param observer
-     *            The observer that will be notified.
+     * @param observer The observer that will be notified.
      */
     public void addObserver(LevelObserver observer) {
         if (observers.contains(observer)) {
@@ -148,8 +133,7 @@ public class Level implements PlayerListener {
     /**
      * Removes an observer if it was listed.
      *
-     * @param observer
-     *            The observer to be removed.
+     * @param observer The observer to be removed.
      */
     public void removeObserver(LevelObserver observer) {
         observers.remove(observer);
@@ -160,8 +144,7 @@ public class Level implements PlayerListener {
      * player can only be registered once, registering a player again will have
      * no effect.
      *
-     * @param p
-     *            The player to register.
+     * @param p The player to register.
      */
     public void registerPlayer(Player p) {
         assert p != null;
@@ -172,7 +155,7 @@ public class Level implements PlayerListener {
         }
         players.add(p);
         final Square square = startSquares.get(startSquareIndex);
-		p.register(this);
+        p.register(this);
         p.occupy(square);
         startSquareIndex++;
         startSquareIndex %= startSquares.size();
@@ -191,13 +174,10 @@ public class Level implements PlayerListener {
      * Moves the unit into the given direction if possible and handles all
      * collisions.
      *
-     * @param unit
-     *            The unit to move.
-     * @param direction
-     *            The direction to move the unit in.
+     * @param unit      The unit to move.
+     * @param direction The direction to move the unit in.
      */
-    public void move(Unit unit, Direction direction)
-    {
+    public void move(Unit unit, Direction direction) {
         assert unit != null;
         assert direction != null;
 
@@ -205,8 +185,7 @@ public class Level implements PlayerListener {
             return;
         }
 
-        synchronized (moveLock)
-        {
+        synchronized (moveLock) {
             unit.setDirection(direction);
             final Square location = unit.getSquare();
             final Square destination = location.getSquareAt(direction);
@@ -234,8 +213,7 @@ public class Level implements PlayerListener {
 
             startNPCs();
             inProgress = true;
-            if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
-            {
+            if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                 startAIStrategy();
             }
             updateObservers();
@@ -252,8 +230,7 @@ public class Level implements PlayerListener {
                 return;
             }
             stopNPCs();
-            if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
-            {
+            if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                 stopAIStrategy();
             }
             inProgress = false;
@@ -263,10 +240,10 @@ public class Level implements PlayerListener {
 
     /**
      * Starts or resumes the AI
+     *
      * @param strategy the chosen strategy
      */
-    public void startStrategy(PacmanStrategy strategy)
-    {
+    public void startStrategy(PacmanStrategy strategy) {
         this.strategy = strategy;
         synchronized (startStopLock) {
             if (isInProgress()) {
@@ -303,12 +280,10 @@ public class Level implements PlayerListener {
     /**
      * Start or create a thread for the AI
      */
-    private void startAIStrategy()
-    {
+    private void startAIStrategy() {
         //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
-        if(isInProgress())
-        {
+        if (isInProgress()) {
             serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)), players.get(0).getInterval(), TimeUnit.MILLISECONDS);
         }
     }
@@ -316,10 +291,8 @@ public class Level implements PlayerListener {
     /**
      * Shutdown the thread
      */
-    private void stopAIStrategy()
-    {
-        if(serviceAI != null)
-        {
+    private void stopAIStrategy() {
+        if (serviceAI != null) {
             serviceAI.shutdown();
         }
     }
@@ -339,11 +312,11 @@ public class Level implements PlayerListener {
      * Updates the observers about the state of this level.
      */
     private void updateObservers() {
-        if(initialPelletCount == -1) initialPelletCount = remainingPellets();
+        if (initialPelletCount == -1) initialPelletCount = remainingPellets();
         if (!isAnyPlayerAlive()) {
             observers.forEach(LevelObserver::levelLost);
         }
-		if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == 13) {
+        if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == 13) {
             observers.forEach(LevelObserver::levelWon);
         }
     }
@@ -353,7 +326,7 @@ public class Level implements PlayerListener {
      * is alive.
      *
      * @return <code>true</code> if at least one of the registered players is
-     *         alive.
+     * alive.
      */
     public boolean isAnyPlayerAlive() {
         for (Player p : players) {
@@ -404,22 +377,22 @@ public class Level implements PlayerListener {
             }
         }
     }
-    
+
     /**
      * Get the player of the game
+     *
      * @return the player
      */
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return players.get(0);
     }
 
     /**
      * Get the ghost's list
+     *
      * @return the ghost's list
      */
-    public List<Ghost> getGhostList()
-    {
+    public List<Ghost> getGhostList() {
         return ghostList;
     }
 
@@ -432,6 +405,26 @@ public class Level implements PlayerListener {
     private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
         return board.getPossibleSquares(players.get(0));
+    }
+
+    /**
+     * An observer that will be notified when the level is won or lost.
+     *
+     * @author Jeroen Roosen
+     */
+    public interface LevelObserver {
+
+        /**
+         * The level has been won. Typically the level should be stopped when
+         * this event is received.
+         */
+        void levelWon();
+
+        /**
+         * The level has been lost. Typically the level should be stopped when
+         * this event is received.
+         */
+        void levelLost();
     }
 
     /**
@@ -454,10 +447,8 @@ public class Level implements PlayerListener {
         /**
          * Creates a new task.
          *
-         * @param s
-         *            The service that executes the task.
-         * @param n
-         *            The NPC to move.
+         * @param s The service that executes the task.
+         * @param n The NPC to move.
          */
         private NpcMoveTask(ScheduledExecutorService s, NPC n) {
             this.service = s;
@@ -474,33 +465,12 @@ public class Level implements PlayerListener {
         }
     }
 
-
-    /**
-     * An observer that will be notified when the level is won or lost.
-     *
-     * @author Jeroen Roosen
-     */
-    public interface LevelObserver {
-
-        /**
-         * The level has been won. Typically the level should be stopped when
-         * this event is received.
-         */
-        void levelWon();
-
-        /**
-         * The level has been lost. Typically the level should be stopped when
-         * this event is received.
-         */
-        void levelLost();
-    }
     /**
      * A task that moves the player used by a AI
      *
      * @author Leemans Nicolas
      */
-    private final class PlayerMoveTask implements Runnable
-    {
+    private final class PlayerMoveTask implements Runnable {
         /**
          * The service executing the task.
          */
@@ -516,46 +486,38 @@ public class Level implements PlayerListener {
         /**
          * Creates a new task.
          *
-         * @param s
-         *          The service that executes the task.
-         * @param strategy
-         *          The chosen strategy by the player
-         * @param p
-         *          The player of the game
+         * @param s        The service that executes the task.
+         * @param strategy The chosen strategy by the player
+         * @param p        The player of the game
          */
-        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p)
-        {
+        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p) {
             this.service = s;
             this.strategy = strategy;
-            this.player=p;
+            this.player = p;
         }
 
         /**
          * The run method called periodically
          */
         @Override
-        public void run()
-        {
-            if(nextMove== null || isIntersection(player, nextMove)) nextMove = strategy.nextMove();
+        public void run() {
+            if (nextMove == null || isIntersection(player, nextMove)) nextMove = strategy.nextMove();
             move(player, nextMove);
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
 
         /**
          * Test if the player is at an intersection in the game
-         * @param player the player of the game
+         *
+         * @param player    the player of the game
          * @param direction the current direction
          * @return true if the player is in a intersection, false otherwise
          */
-        public boolean isIntersection(Player player, Direction direction)
-        {
-            if(direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH))
-            {
+        public boolean isIntersection(Player player, Direction direction) {
+            if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
                 return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
                         player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
-            }
-            else
-            {
+            } else {
                 return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
                         player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
             }

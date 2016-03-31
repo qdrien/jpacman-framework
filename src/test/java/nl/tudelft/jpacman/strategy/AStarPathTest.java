@@ -16,15 +16,13 @@ import static org.junit.Assert.*;
 /**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI
  */
-public class AStarPathTest
-{
+public class AStarPathTest {
     private static final double EPSILON = .1;
     private Launcher launcher;
 
 
     @Before
-    public void setUpPacman()
-    {
+    public void setUpPacman() {
         launcher = new Launcher();
         launcher.launch();
     }
@@ -42,8 +40,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void constructorTest()
-    {
+    public void constructorTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -70,16 +67,15 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void manhattanDistanceTest()
-    {
+    public void manhattanDistanceTest() {
 
-        assertEquals(AStarPath.manhattanDistance(0,0,0,0), 0.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(0,1,1,1), 1.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(5,3,2,1), 5.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(1,4,2,0), 5.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(-1,-8,-3,-1), 9.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(-0,-0,-0,-0), 0.0, EPSILON);
-        assertEquals(AStarPath.manhattanDistance(-2,-2,-1,-1), 2.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(0, 0, 0, 0), 0.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(0, 1, 1, 1), 1.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(5, 3, 2, 1), 5.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(1, 4, 2, 0), 5.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-1, -8, -3, -1), 9.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-0, -0, -0, -0), 0.0, EPSILON);
+        assertEquals(AStarPath.manhattanDistance(-2, -2, -1, -1), 2.0, EPSILON);
     }
 
     /**
@@ -87,8 +83,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void constantTest()
-    {
+    public void constantTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -108,13 +103,13 @@ public class AStarPathTest
         assertEquals(AStarPath.DST_THRESHOLD, 3, EPSILON);
 
     }
+
     /**
      * Test the list of valid neighbors
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void validNeighboursTest()
-    {
+    public void validNeighboursTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -128,7 +123,7 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neighbourList = aStarPath.getValidNeighbors(square,player);
+        List<Square> neighbourList = aStarPath.getValidNeighbors(square, player);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neighbourList);
@@ -146,7 +141,7 @@ public class AStarPathTest
 
         assertFalse(square.equals(square2));
 
-        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
+        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2, player);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -164,8 +159,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void validNeighborsTest2()
-    {
+    public void validNeighborsTest2() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -179,7 +173,7 @@ public class AStarPathTest
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighbors(square,player);
+        List<Square> neigborList = aStarPath.getValidNeighbors(square, player);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neigborList);
@@ -198,7 +192,7 @@ public class AStarPathTest
         assertFalse(square.equals(square2));
 
 
-        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2,player);
+        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2, player);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -222,7 +216,7 @@ public class AStarPathTest
         assertFalse(square.equals(square3));
         assertFalse(square2.equals(square3));
 
-        List<Square> neigborList3 = aStarPath.getValidNeighbors(square3,player);
+        List<Square> neigborList3 = aStarPath.getValidNeighbors(square3, player);
 
         assertNotNull(neigborList3);
         //All move is possible except to left (West)
@@ -237,8 +231,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void nearestGhostTest()
-    {
+    public void nearestGhostTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -274,8 +267,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void gTest()
-    {
+    public void gTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -297,15 +289,15 @@ public class AStarPathTest
         final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 
         //There is only Pellet
-        assertEquals(aStarPath.g(origin,destination), Double.valueOf(1.0));
-        assertEquals(aStarPath.g(origin,destination2), Double.valueOf(1.0));
-        assertEquals(aStarPath.g(origin,destination3), Double.valueOf(1.0));
-        assertEquals(aStarPath.g(origin,destination4), Double.valueOf(1.0));
-        assertEquals(aStarPath.g(destination,destination4), Double.valueOf(1.0));
-        assertEquals(aStarPath.g(destination3,destination4), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin, destination), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin, destination2), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin, destination3), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(origin, destination4), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(destination, destination4), Double.valueOf(1.0));
+        assertEquals(aStarPath.g(destination3, destination4), Double.valueOf(1.0));
 
         Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
-        assertEquals(aStarPath.g(origin,destinationNearestGhost), Double.valueOf(500.0));
+        assertEquals(aStarPath.g(origin, destinationNearestGhost), Double.valueOf(500.0));
 
     }
 
@@ -314,8 +306,7 @@ public class AStarPathTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void hTest()
-    {
+    public void hTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);

@@ -4,20 +4,19 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
+
 import java.awt.event.KeyEvent;
 
-public class HumanControllerStrategy extends PacmanStrategy
-{
+public class HumanControllerStrategy extends PacmanStrategy {
     private final PacManUiBuilder builder;
-
 
 
     /**
      * Default constructor
+     *
      * @param game the current game
      */
-    public HumanControllerStrategy(Game game, PacManUiBuilder builder)
-    {
+    public HumanControllerStrategy(Game game, PacManUiBuilder builder) {
         super(game);
         this.game = game;
         this.builder = builder;
@@ -25,24 +24,21 @@ public class HumanControllerStrategy extends PacmanStrategy
 
     /**
      * Return the type of the strategy
+     *
      * @return PLAYER strategy
      */
     @Override
-    public Type getTypeStrategy()
-    {
+    public Type getTypeStrategy() {
         return Type.PLAYER;
     }
 
     /**
      * Adds key events UP, DOWN, LEFT and RIGHT to a game.
      *
-     * @param builder
-     *            The {@link PacManUiBuilder} that will provide the UI.
-     * @param game
-     *            The game that will process the events.
+     * @param builder The {@link PacManUiBuilder} that will provide the UI.
+     * @param game    The game that will process the events.
      */
-    private void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game)
-    {
+    private void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game) {
         final Player p1 = game.getPlayers().get(0);
         builder.addKey(KeyEvent.VK_UP, () -> game.continousMovement(p1, Direction.NORTH))
                 .addKey(KeyEvent.VK_DOWN, () -> game.continousMovement(p1, Direction.SOUTH))
@@ -53,11 +49,11 @@ public class HumanControllerStrategy extends PacmanStrategy
 
     /**
      * Return the next move to apply
+     *
      * @return null
      */
     @Override
-    public Direction nextMove()
-    {
+    public Direction nextMove() {
         return null;
     }
 
@@ -65,8 +61,7 @@ public class HumanControllerStrategy extends PacmanStrategy
     /**
      * Add keys to the player
      */
-    public void executeStrategy()
-    {
-        addSinglePlayerKeys(builder,game);
+    public void executeStrategy() {
+        addSinglePlayerKeys(builder, game);
     }
 }

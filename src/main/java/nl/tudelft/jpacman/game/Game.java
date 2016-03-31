@@ -24,24 +24,21 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Game implements LevelObserver {
     /**
-     * <code>true</code> if the game is in progress.
+     * Object that locks the start and stop methods.
      */
-    private boolean inProgress, firstPass = true;
-    /**
-     *  The chosen strategy by the player
-     */
-    private PacmanStrategy strategy;
-
+    private final Object progressLock = new Object();
     /**
      * The current level id
      */
     protected int currentLevel;
-
     /**
-     * Object that locks the start and stop methods.
+     * <code>true</code> if the game is in progress.
      */
-    private final Object progressLock = new Object();
-
+    private boolean inProgress, firstPass = true;
+    /**
+     * The chosen strategy by the player
+     */
+    private PacmanStrategy strategy;
     /**
      * For the execution of the thread for the continuousMovement method
      */
@@ -55,18 +52,15 @@ public abstract class Game implements LevelObserver {
         inProgress = false;
     }
 
-	/**
+    /**
      * Starts or resumes the game.
      */
-	public void start()
-    {
-        synchronized (progressLock)
-        {
+    public void start() {
+        synchronized (progressLock) {
             if (isInProgress()) {
                 return;
             }
-            if(strategy != null)
-            {
+            if (strategy != null) {
                 getLevel().startStrategy(strategy);
             }
             if (getLevel().isAnyPlayerAlive()
@@ -77,17 +71,16 @@ public abstract class Game implements LevelObserver {
             }
         }
     }
+
     /**
      * Pauses the game.
      */
-	public void stop()
-    {
+    public void stop() {
         synchronized (progressLock) {
             if (!isInProgress()) {
                 return;
             }
-            if(service != null)
-            {
+            if (service != null) {
                 currentMoveTask.setFinished();
             }
             inProgress = false;
@@ -96,7 +89,6 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     *
      * @return <code>true</code> iff the game is started and in progress.
      */
     public boolean isInProgress() {
@@ -114,27 +106,31 @@ public abstract class Game implements LevelObserver {
     public abstract Level getLevel();
 
     /**
-	 * Moves the specified player until the next cross in the given direction.
-	 * 
-	 * @param player
-	 *            The player to move.
-	 * @param direction
-	 *            The direction to move in.
-	 */
-	public void continousMovement(Player player, Direction direction)
-    {
-        if (isInProgress())
-        {
+     * Sets the level to the one that has the given id (calls #Game.setLevel)
+     *
+     * @param levelIndex The id of the level we want to switch to
+     */
+    public void setLevel(final int levelIndex) {
+        final Level level = makeLevel(levelIndex);
+        assert level != null;
+        setLevel(level);
+        currentLevel = levelIndex;
+    }
+
+    /**
+     * Moves the specified player until the next cross in the given direction.
+     *
+     * @param player    The player to move.
+     * @param direction The direction to move in.
+     */
+    public void continousMovement(Player player, Direction direction) {
+        if (isInProgress()) {
             final Square location = player.getSquare();
             final Square destination = location.getSquareAt(direction);
-            if(destination.isAccessibleTo(player))
-            {
-                if(service == null)
-                {
+            if (destination.isAccessibleTo(player)) {
+                if (service == null) {
                     this.service = Executors.newSingleThreadScheduledExecutor();
-                }
-                else
-                {
+                } else {
                     this.currentMoveTask.setFinished();
                 }
                 this.currentMoveTask = new PlayerMoveTask(service, player, direction);
@@ -142,23 +138,19 @@ public abstract class Game implements LevelObserver {
             }
         }
     }
+
     /**
      * Moves the specified player one square in the given direction.
      *
-     * @param player
-     *            The player to move.
-     * @param direction
-     *            The direction to move in.
+     * @param player    The player to move.
+     * @param direction The direction to move in.
      */
-    public void move(Player player, Direction direction)
-    {
-        if(isInProgress())
-        {
+    public void move(Player player, Direction direction) {
+        if (isInProgress()) {
             getLevel().move(player, direction);
         }
     }
 
-	
     @Override
     public void levelWon() {
         stop();
@@ -195,13 +187,12 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Set the Strategy
+     *
      * @param strategy the strategy to set
      */
-    public void setStrategy(PacmanStrategy strategy)
-    {
+    public void setStrategy(PacmanStrategy strategy) {
         this.strategy = strategy;
     }
-
 
     /**
      * Forces subclasses to provide a method to reset the score and the number of lives the player has
@@ -220,7 +211,7 @@ public abstract class Game implements LevelObserver {
         final String file = "/board" + id + ".txt";
         try (InputStream boardStream = Launcher.class
                 .getResourceAsStream(file)) {
-            if(boardStream == null) return null;
+            if (boardStream == null) return null;
             currentLevel = id;
             return parser.parseMap(boardStream);
         } catch (IOException e) {
@@ -230,16 +221,16 @@ public abstract class Game implements LevelObserver {
 
     /**
      * @return A new map parser object using the factories from
-     *         {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
+     * {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
      */
     private MapParser getMapParser() {
         return new MapParser(Launcher.getLevelFactory(), Launcher.getBoardFactory());
     }
 
-
     /**
      * Returns the next level and increments the currentLevel field.
      * If this was already the last level, simply restart it.
+     *
      * @return The new(and next) level
      */
     public Level nextLevel() {
@@ -256,6 +247,7 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Simple getter for currentLevel
+     *
      * @return The id of the current level
      */
     public int getCurrentLevel() {
@@ -263,27 +255,15 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Sets the level to the one that has the given id (calls #Game.setLevel)
-     * @param levelIndex The id of the level we want to switch to
-     */
-    public void setLevel(final int levelIndex) {
-        final Level level = makeLevel(levelIndex);
-        assert level != null;
-        setLevel(level);
-        currentLevel = levelIndex;
-    }
-    
-    /**
      * Class representing the timer and methods to apply during the timer
      */
-    private final class PlayerMoveTask implements Runnable
-    {
+    private final class PlayerMoveTask implements Runnable {
 
         /**
          * The service executing the task.
          */
         private final ScheduledExecutorService scheduledExecutorService;
-    
+
 
         /**
          * The player to move.
@@ -301,15 +281,11 @@ public abstract class Game implements LevelObserver {
         /**
          * Creates a new task.
          *
-         * @param s
-         *            The service that executes the task.
-         * @param p
-         *            The player to move.
-         * @param direction
-         *             The direction to follow
+         * @param s         The service that executes the task.
+         * @param p         The player to move.
+         * @param direction The direction to follow
          */
-        PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction)
-        {
+        PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction) {
             this.scheduledExecutorService = s;
             this.player = p;
             this.dir = direction;
@@ -319,29 +295,27 @@ public abstract class Game implements LevelObserver {
          * The run method to apply periodically
          */
         @Override
-        public void run()
-        {
-            if(!isFinished())
-            {
+        public void run() {
+            if (!isFinished()) {
                 getLevel().move(player, dir);
                 scheduledExecutorService.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
             }
         }
+
         /**
          * Boolean to finish the task for the thread
          */
-        public void setFinished()
-        {
+        public void setFinished() {
             this.finished = true;
         }
 
 
         /**
          * Get the boolean to know if the task is finish or not
+         *
          * @return true if the task is finished, false otherwise
-        */
-        public boolean isFinished()
-        {
+         */
+        public boolean isFinished() {
             return finished;
         }
 

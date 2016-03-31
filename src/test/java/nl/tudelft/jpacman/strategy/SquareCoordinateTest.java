@@ -3,8 +3,6 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
-import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Class to test coordinates of a square in the board
  */
-public class SquareCoordinateTest
-{
+public class SquareCoordinateTest {
     private Launcher launcher;
 
     /**
@@ -42,8 +39,7 @@ public class SquareCoordinateTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void squareCoordinateTest1()
-    {
+    public void squareCoordinateTest1() {
         final Square square = launcher.getGame().getPlayers().get(0).getSquare();
 
         assertEquals(square.getX(), 11);

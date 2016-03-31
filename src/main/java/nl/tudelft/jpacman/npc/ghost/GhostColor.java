@@ -4,35 +4,31 @@ import nl.tudelft.jpacman.game.Achievement;
 
 /**
  * A list of supported ghost colors.
- * 
- * @author Jeroen Roosen 
+ *
+ * @author Jeroen Roosen
  */
 public enum GhostColor {
-	/**
-	 * Shadow, a.k.a. Blinky.
-	 */
-	RED,
+    /**
+     * Shadow, a.k.a. Blinky.
+     */
+    RED,
 
-	/**
-	 * Bashful, a.k.a. Inky.
-	 */
-	CYAN,
+    /**
+     * Bashful, a.k.a. Inky.
+     */
+    CYAN,
 
-	/**
-	 * Speedy, a.k.a. Pinky.
-	 */
-	PINK,
+    /**
+     * Speedy, a.k.a. Pinky.
+     */
+    PINK,
 
-	/**
-	 * Pokey, a.k.a. Clyde.
-	 */
-	ORANGE;
+    /**
+     * Pokey, a.k.a. Clyde.
+     */
+    ORANGE;
 
-    private int index;
-    private Achievement achievementGranted;
-
-    static
-    {
+    static {
         RED.index = 4;
         PINK.index = 5;
         CYAN.index = 6;
@@ -44,13 +40,14 @@ public enum GhostColor {
         ORANGE.achievementGranted = null;
     }
 
-    public int getIndex()
-    {
+    private int index;
+    private Achievement achievementGranted;
+
+    public int getIndex() {
         return index;
     }
 
-    public Achievement getAchievementGranted()
-    {
+    public Achievement getAchievementGranted() {
         return achievementGranted;
     }
 }

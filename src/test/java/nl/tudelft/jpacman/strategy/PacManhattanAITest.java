@@ -16,12 +16,9 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class PacManhattanAITest
-{
+public class PacManhattanAITest {
     private Launcher launcher;
 
     /**
@@ -47,8 +44,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void safetySquareTest()
-    {
+    public void safetySquareTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         final PacManhattanAI AI = new PacManhattanAI(game);
@@ -66,8 +62,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void getValidNeighborsTest()
-    {
+    public void getValidNeighborsTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         final PacManhattanAI AI = new PacManhattanAI(game);
@@ -81,12 +76,12 @@ public class PacManhattanAITest
         assertFalse(neighborsList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         game.start();
-        game.move(player,Direction.EAST);
-        game.move(player,Direction.EAST);
-        game.move(player,Direction.EAST);
-        game.move(player,Direction.EAST);
-        game.move(player,Direction.EAST);
-        game.move(player,Direction.EAST);
+        game.move(player, Direction.EAST);
+        game.move(player, Direction.EAST);
+        game.move(player, Direction.EAST);
+        game.move(player, Direction.EAST);
+        game.move(player, Direction.EAST);
+        game.move(player, Direction.EAST);
 
         List<Square> neighborsList2 = AI.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
@@ -103,8 +98,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void BFSNearestSafetySquareTest()
-    {
+    public void BFSNearestSafetySquareTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
@@ -124,8 +118,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void nextMoveTest()
-    {
+    public void nextMoveTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
@@ -134,7 +127,7 @@ public class PacManhattanAITest
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         Direction nextMove = AI.nextMove();
-        assertEquals(nextMove,Direction.EAST);
+        assertEquals(nextMove, Direction.EAST);
 
         game.start();
 
@@ -145,7 +138,7 @@ public class PacManhattanAITest
         assertEquals(player.getSquare().getX(), 12);
         assertEquals(player.getSquare().getY(), 15);
 
-        assertEquals(AI.nextMove(),Direction.EAST);
+        assertEquals(AI.nextMove(), Direction.EAST);
 
         game.move(player, nextMove);
 
@@ -160,8 +153,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void safetyPelletSquareTest()
-    {
+    public void safetyPelletSquareTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
@@ -191,8 +183,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void convertPathToDirectionTest()
-    {
+    public void convertPathToDirectionTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
@@ -232,8 +223,7 @@ public class PacManhattanAITest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void convertPathToDirectionTest2()
-    {
+    public void convertPathToDirectionTest2() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
@@ -271,13 +261,13 @@ public class PacManhattanAITest
         assertEquals(dir.getFirst(), Direction.EAST);
         assertEquals(dir.getLast(), Direction.NORTH);
     }
+
     /**
      * Test the choose of the direction in the last resort (No Best Direction found)
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void hurryMoveTest()
-    {
+    public void hurryMoveTest() {
         final Game game = launcher.getGame();
         final Player player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());

@@ -14,13 +14,11 @@ import static org.junit.Assert.*;
 /**
  * Class to test the choice of the strategy for the game mode
  */
-public class ChosenStrategyTest
-{
+public class ChosenStrategyTest {
     private Launcher launcher;
 
     @Before
-    public void setUpPacman()
-    {
+    public void setUpPacman() {
         launcher = new Launcher();
         launcher.launch();
     }
@@ -38,10 +36,9 @@ public class ChosenStrategyTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void humanStrategyTest1()
-    {
+    public void humanStrategyTest1() {
         final Game game = launcher.getGame();
-        final PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
+        final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
 
         assertFalse(game.isInProgress());
@@ -49,7 +46,7 @@ public class ChosenStrategyTest
         assertNotNull(builder);
 
 
-        final PacmanStrategy strategy1 = new HumanControllerStrategy(game,builder);
+        final PacmanStrategy strategy1 = new HumanControllerStrategy(game, builder);
         assertNotNull(strategy1.getTypeStrategy());
         assertEquals(strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
 
@@ -63,10 +60,9 @@ public class ChosenStrategyTest
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void AIStrategyTest1()
-    {
+    public void AIStrategyTest1() {
         final Game game = launcher.getGame();
-        final PacManUiBuilder  builder = new PacManUiBuilder().withDefaultButtons();
+        final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -83,6 +79,7 @@ public class ChosenStrategyTest
 
     /**
      * Other strategy test (for a new implementation of strategy)
+     *
      * @throws InterruptedException
      */
     @SuppressWarnings("methodlength")
@@ -94,16 +91,14 @@ public class ChosenStrategyTest
         assertNotNull(game);
 
         //Creation of a new AI strategy
-        final AIStrategy strategy3 = new AIStrategy(game)
-        {
+        final AIStrategy strategy3 = new AIStrategy(game) {
             @Override
             public Direction nextMove() {
                 return Direction.NORTH;
             }
 
             @Override
-            public void executeStrategy()
-            {
+            public void executeStrategy() {
                 game.move(game.getPlayers().get(0), nextMove());
 
             }

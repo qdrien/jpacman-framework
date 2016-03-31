@@ -1,17 +1,11 @@
 package nl.tudelft.jpacman.game;
 
-import nl.tudelft.jpacman.board.BoardFactory;
-import nl.tudelft.jpacman.board.Direction;
-import nl.tudelft.jpacman.level.Level;
-import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
-import nl.tudelft.jpacman.sprite.Sprite;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -29,6 +23,7 @@ public class SinglePlayerGameTest {
 
     /**
      * Sets up the Game and its components
+     *
      * @throws Exception
      */
     @Before
@@ -43,7 +38,7 @@ public class SinglePlayerGameTest {
      * (when #Game.reset is called)
      */
     @Test
-    public void resetTest(){
+    public void resetTest() {
         player.addPoints(100);
         player.addLife();
         final int score = player.getScore(), lives = player.getLives();

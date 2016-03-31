@@ -15,14 +15,12 @@ import static org.junit.Assert.*;
 /**
  * Human strategy test in the game
  */
-public class HumanControllerStrategyTest
-{
+public class HumanControllerStrategyTest {
     private Launcher launcher;
 
 
     @Before
-    public void setUpPacman()
-    {
+    public void setUpPacman() {
         launcher = new Launcher();
         launcher.launch();
     }
@@ -34,8 +32,10 @@ public class HumanControllerStrategyTest
     public void tearDown() {
         launcher.dispose();
     }
+
     /**
      * Attribution of keys for the player to move the Pacman in the game
+     *
      * @throws AWTException
      * @throws InterruptedException
      */
