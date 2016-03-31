@@ -1,10 +1,16 @@
 package nl.tudelft.jpacman.board;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import nl.tudelft.jpacman.npc.ghost.Ghost;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 /**
  * Test various aspects of board.
@@ -78,5 +84,39 @@ public class BoardTest {
 	@Test
 	public void verifyX0Y1() {
 		assertEquals(x0y1, board.squareAt(0, 1));
+	}
+
+	/**
+	 * Tests manhattan distance computation
+	 */
+	@Test
+	public void manhattanDistanceTest() {
+		assertEquals(1, Board.manhattanDistance(0, 0, 0, 1));
+		assertEquals(2, Board.manhattanDistance(0, 0, 1, 1));
+	}
+
+	/**
+	 * Tests if a square is effectively considered safe when no ghosts are occupying "neighbouring squares"
+	 */
+	@Test
+	public void isSafeTrue() {
+		ArrayList<Unit> units = new ArrayList<>();
+		when(x0y0.getOccupants()).thenReturn(units);
+
+		assertTrue(board.isSafe(0, 0));
+	}
+
+	/**
+	 * Tests if a square is effectively considered unsafe when a ghosts is occupying a "neighbouring square"
+	 */
+	@Test
+	public void isSafeFalse() {
+		Ghost ghost = mock(Ghost.class);
+		ArrayList<Unit> units = new ArrayList<>();
+		units.add(ghost);
+
+		when(x0y0.getOccupants()).thenReturn(units);
+
+		assertFalse(board.isSafe(0, 1));
 	}
 }

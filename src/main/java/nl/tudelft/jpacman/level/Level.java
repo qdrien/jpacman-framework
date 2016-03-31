@@ -7,10 +7,10 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
-
-import java.util.*;
 import nl.tudelft.jpacman.strategy.AIStrategy;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
+
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class Level implements PlayerListener {
 
-    private static final int UNSAFE_RANGE = 4;
     private static final boolean QUICK_WIN = false; //todo
     /**
      * The service for the thread
@@ -425,72 +424,17 @@ public class Level implements PlayerListener {
     }
 
     /**
-     * Retrieves possible target squares for the player by looking at ghosts positions.
+     * Calls {@link Board#getPossibleSquares(Player)} to get the list of squares the player can move onto
+     * (such squares are accessible & have no ghost that are too close to them)
      *
-     * @return An ArrayList of Squares the player can move on
+     * @return An ArrayList of Squares the player can move onto
      */
     private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
-
-        final int boardWidth = board.getWidth();
-        final int boardHeight = board.getHeight();
-        final List<Square> possibleSquares = new ArrayList<>();
-        for (int x = 0; x < boardWidth; x++){
-            for (int y = 0; y < boardHeight; y++){
-                final Square square = board.squareAt(x, y);
-                if (square.isAccessibleTo(players.get(0)) && isSafe(x, y)) possibleSquares.add(square);
-            }
-        }
-        return possibleSquares;
+        return board.getPossibleSquares(players.get(0));
     }
 
     /**
-     * Determine whether a Square (given by its coordinates) is safe for the player (i.e. no ghosts are too close)
-     *
-     * @param x The given horizontal coordinate of the Square we want to check
-     * @param y The given vertical coordinate of the Square we want to check
-     * @return true if it is safe, false otherwise
-     */
-    boolean isSafe(final int x, final int y) {
-        int minX, minY, maxX, maxY;
-
-        //Clamp values so that we stay within borders (between 0 and "width or height")
-		minX = Math.max(0, Math.min(board.getWidth() - 1, x - UNSAFE_RANGE));
-		maxX = Math.max(0, Math.min(board.getWidth() - 1, x + UNSAFE_RANGE));
-		minY = Math.max(0, Math.min(board.getHeight() - 1, y - UNSAFE_RANGE));
-		maxY = Math.max(0, Math.min(board.getHeight() - 1, y + UNSAFE_RANGE));
-
-        //For each position in the rectangle produced by (minX,minY) and (maxX,maxY)
-        for(int currentX = minX; currentX < maxX; currentX++){
-            for(int currentY = minY; currentY < maxY; currentY++){
-                //as we considered a rectangle around the target square that contains too much squares,
-                // we need to filter (ignore) "out of range" neighbors (using manhattan distance)
-                if(manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) continue;
-                //If is is in "Manhattan range", we need to check whether there is a ghost on it
-                final long count = board.squareAt(currentX, currentY).getOccupants().stream()
-                        .filter(p -> p instanceof Ghost)
-                        .count();
-                //If there is at least one Ghost on that square, the original square at (x,y) is not safe
-                if(count != 0) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Returns the Manhattan distance between two points p0 and p1 given by their coordinates
-     *
-     * @param x0 The horizontal coordinate of p0
-     * @param y0 The vertical coordinate of p0
-     * @param x1 The horizontal coordinate of p1
-     * @param y1 The vertical coordinate of p1
-     * @return The int value of the Manhattan distance between the given points
-     */
-    public static int manhattanDistance(final int x0, final int y0, final int x1, final int y1) {
-        return Math.abs(x0 - x1) + Math.abs(y0 - y1);
-    }
-
-	/**
      * A task that moves an NPC and reschedules itself after it finished.
      *
      * @author Jeroen Roosen
