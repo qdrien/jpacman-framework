@@ -96,7 +96,7 @@ public class Player extends Unit {
 	 *            The sprite to be shown when this player dies.
 	 */
 	public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
-		this.score = 0;
+        this.score = 0;
 		this.alive = true;
 		this.sprites = spriteMap;
 		this.deathSprite = deathAnimation;
@@ -516,8 +516,8 @@ public class Player extends Unit {
 	 *
 	 * @return <code>true</code> iff the player is alive.
 	 */
-	public boolean isAlive() {
-		return alive;
+        public boolean isAlive() {
+            return alive;
 	}
 
 	/**
@@ -527,7 +527,7 @@ public class Player extends Unit {
 	 *            <code>true</code> iff this player is alive.
 	 */
 	public void setAlive(boolean isAlive) {
-		if (isAlive) {
+        if (isAlive) {
 			deathSprite.setAnimating(false);
 		}
 		if (!isAlive) {
@@ -550,12 +550,12 @@ public class Player extends Unit {
 	 * @return The amount of points accumulated by this player.
 	 */
 	public int getScore() {
-		return score;
+        return score;
 	}
 
 	@Override
 	public Sprite getSprite() {
-		if (isAlive()) {
+        if (isAlive()) {
 			return sprites.get(getDirection());
 		}
 		return deathSprite;
@@ -644,7 +644,7 @@ public class Player extends Unit {
 	 * @param level The given Level that the player is playing on
      */
 	public void register(Level level) {
-		listeners.add(level);
+        listeners.add(level);
 	}
 
 	/**
@@ -652,14 +652,14 @@ public class Player extends Unit {
 	 * @param level The given Level that has to be removed
      */
 	public void unregister(Level level) {
-		listeners.remove(level);
+        listeners.remove(level);
 	}
 
 	/**
 	 * Resets the score (to 0)
 	 */
 	public void resetScore() {
-		score = 0;
+        score = 0;
 	}
 
     /**
@@ -669,8 +669,7 @@ public class Player extends Unit {
     public int getMaxLevelReached() {
         int i = 0;
         try {
-            final String line[]=readInfoLine();
-            i = Integer.parseInt(line[0]);
+            i = Integer.parseInt(readInfoLine()[0]);
             System.out.println("max level reached: " + i);
         } catch (IOException e) {
             e.printStackTrace();
