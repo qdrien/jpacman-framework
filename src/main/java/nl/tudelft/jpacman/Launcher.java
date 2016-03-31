@@ -30,8 +30,7 @@ public class Launcher
 	private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
 	private PacManUI pacManUI;
-	private Game game;//The game
-	private PacManUiBuilder builder;//The builder
+	private Game game;
 
 
     /**
@@ -153,7 +152,7 @@ public class Launcher
 	 */
 	public void launch() {
 		game = makeGame();
-		builder = new PacManUiBuilder().withDefaultButtons();
+        PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
 		builder.addButton("Identification", new Action()
         {
             @Override
