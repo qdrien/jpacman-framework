@@ -536,8 +536,7 @@ public class Level implements PlayerListener {
         @Override
         public void run()
         {
-            if(nextMove== null) nextMove = strategy.nextMove();
-            else if(isIntersection(player, nextMove)) nextMove = strategy.nextMove();
+            if(nextMove== null || isIntersection(player, nextMove)) nextMove = strategy.nextMove();
             move(player, nextMove);
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
