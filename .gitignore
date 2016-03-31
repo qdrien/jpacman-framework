@@ -14,3 +14,7 @@ target/
 *.iml
 /bin
 doc/javadoc/
+*.toc
+*.synctex.gz
+*.out
+*.aux

@@ -109,11 +109,48 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 
 
 
+\chapter{Refactorings avant analyse}
+%todo: ce qui était prévu juste après merge, qu'on avait laissé tel quel ds les parties individuelles pr éviter au maximum les conflits lors de l'intégration des PR
+
+\subsubsection{Fusion des tests sur \og Player \fg}
+%Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \og Ghost#getIdentity() \fg.
+\subsubsection{Déplacement de la variable retenant le niveau courant de \og Level \fg vers \og Game \fg}
+%Plus logique et évite un problème de \og feature envy \fg 
+\subsubsection{Déplacement des méthodes concernant le \og map parser \fg de \og Launcher \fg vers \og Game \fg}
+%Plus logique et évite que \og Game \fg doive avoir une référence vers le \og Launcher \fg qui l’a créé (pour pouvoir charger le niveau suivant en cas de \og victoire \fg)
+%A nécessité de passer des méthodes/variables en \og static \fg (une partie des accesseurs aux \og Factories \fg de \og Launcher \fg puisque \og MapParser \fg en a besoin) mais cela reste logique puisque ces méthodes/variables sont en effet uniques au runtime.
+
+
+
+
+
+
+
+
+
 \chapter{Analyse de la qualité du code source}
 
 Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
 
 \section{Analyse statique}
+\subsection{IntelliJ Code inspection}
+\subsubsection{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
+%Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)
+\subsubsection{Changements mineurs (\og scope \fg de méthodes/variables, variables qui peuvent être \og final \fg)}
+\subsubsection{Dans le code de base, beaucoup de \og warnings \fg sur des \og problèmes de modernité \fg}
+%for indexé plutôt que foreach, méthode anonyme classique plutôt que lambda, etc
+
+\subsection{PMD}
+\subsubsection{Déplacement des méthodes liées à la récupération des cases \og safe \fg pour téléporter le joueur de Level vers Board}
+%Plus logique et évite un problème de \og feature envy \fg desdites méthodes
+\subsubsection{Problème détecté par PMD : Level == godclass}
+%Signifie que :
+%1.	Level a une \og cohésion interne \fg faible, nous sommes en effet très loin du seuil de 1/3 mais cela devait également être le cas dans la version de base
+%2.	Level accède à des attributs appartenant à trop de classes étrangères, encore une fois, peu de changements à ce niveau là par rapport à la version de base
+%3.	Level est \og trop complexe par rapport à sa taille \fg : le problème ici semble venir de PMD qui, d’après la règle définie sur https://pmd.github.io/pmd-5.4.1/pmd-java/xref/net/sourceforge/pmd/lang/java/rule/design/GodClassRule.html attribue effectivement une valeur de complexité mais à aucun moment ne prend en compte la \og taille \fg de la classe.
+%Etant donné que Level comprend beaucoup de méthodes, la complexité est naturellement élevée.
+
+
 \section{Analyse dynamique}
 \section{Mesure de la qualité du logiciel}
 \section{Conclusion de l'analyse}
