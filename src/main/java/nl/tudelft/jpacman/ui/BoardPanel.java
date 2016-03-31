@@ -69,7 +69,7 @@ class BoardPanel extends JPanel {
 
 	/**
 	 * Renders the board on the given graphics context to the given dimensions.
-	 * 
+	 *
 	 * @param board
 	 *            The board to render.
 	 * @param g
@@ -93,7 +93,7 @@ class BoardPanel extends JPanel {
 	/**
 	 * Renders a single square on the given graphics context on the specified
 	 * rectangle.
-	 * 
+	 *
 	 * @param square
 	 *            The square to render.
 	 * @param g
