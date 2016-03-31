@@ -204,6 +204,7 @@ public abstract class Game implements LevelObserver {
      * Creates a new level. Uses the map parser to
      * parse the desired board file.
      *
+     * @param id The id of the level we want to load
      * @return A new level.
      */
     protected Level makeLevel(final int id) {

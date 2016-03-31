@@ -123,6 +123,8 @@ public class PlayerTest {
 
     /**
      * Tests whether some methods triggered by the obtention of specific achievements work correctly.
+     *
+     * @throws IOException if a problem happens while reading the file
      */
     @Test
     public void testAchievements() throws IOException {

@@ -36,8 +36,8 @@ public class HumanControllerStrategyTest {
     /**
      * Attribution of keys for the player to move the Pacman in the game
      *
-     * @throws AWTException
-     * @throws InterruptedException
+     * @throws AWTException todo: add description
+     * @throws InterruptedException todo: add description
      */
     @SuppressWarnings("methodlength")
     @Test

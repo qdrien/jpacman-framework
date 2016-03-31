@@ -72,7 +72,6 @@ public class Inky extends Ghost {
     /**
      * {@inheritDoc}
      * <p>
-     * <p>
      * Bashful has the most complicated AI of all. When the ghosts are not
      * patrolling their home corners, Bashful considers two things: Shadow's
      * location, and the location two grid spaces ahead of Pac-Man. Bashful
@@ -86,7 +85,6 @@ public class Inky extends Ghost {
      * facing up, the spot Bashful uses to draw the line is two squares above
      * and left of Pac-Man.
      * </p>
-     * <p>
      * <p>
      * <b>Implementation:</b> by lack of a coordinate system there is a
      * workaround: first determine the square of Blinky (A) and the square 2

@@ -3,7 +3,6 @@
  * This package contains some approximate implementations of the original
  * Pac-Man AIs.
  * </p>
- * <p>
  * <ul>
  * <li>The original AIs for Pac-Man are fairly well described on strategy
  * wiki.org.

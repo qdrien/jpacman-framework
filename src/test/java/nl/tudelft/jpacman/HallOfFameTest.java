@@ -50,6 +50,7 @@ public class HallOfFameTest {
 
     /**
      * Tests whether the HoF is correctly updated whenever a new high score is obtained.
+     * @throws IOException Thrown if there is a problem while reading the hof file
      */
     @Test
     public void hallOfFameUpdateTest() throws IOException {

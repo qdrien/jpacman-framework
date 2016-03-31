@@ -332,6 +332,8 @@ public class Player extends Unit {
 
     /**
      * Triggered whenever the player completes a game.
+     *
+     * @param level The id of the level that has been completed
      */
     public void levelCompleted(int level) {
         if (playerName == null) return;
@@ -548,6 +550,8 @@ public class Player extends Unit {
 
     /**
      * Removes one life from the player and check if he has none left afterwards
+     *
+     * @param ghost The ghost that is responsible for the player's death
      */
     public void loseLife(Ghost ghost) {
         lives--;

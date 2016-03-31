@@ -18,3 +18,4 @@ doc/javadoc/
 *.synctex.gz
 *.out
 *.aux
+javadoc/

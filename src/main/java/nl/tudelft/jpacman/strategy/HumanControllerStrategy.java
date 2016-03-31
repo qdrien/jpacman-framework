@@ -15,6 +15,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
      * Default constructor
      *
      * @param game the current game
+     * @param builder The UI builder that will be used
      */
     public HumanControllerStrategy(Game game, PacManUiBuilder builder) {
         super(game);

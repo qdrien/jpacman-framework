@@ -78,7 +78,6 @@ public class Pinky extends Ghost {
     /**
      * {@inheritDoc}
      * <p>
-     * <p>
      * When the ghosts are not patrolling their home corners, Pinky wants to go
      * to the place that is four grid spaces ahead of Pac-Man in the direction
      * that Pac-Man is facing. If Pac-Man is facing down, Pinky wants to go to

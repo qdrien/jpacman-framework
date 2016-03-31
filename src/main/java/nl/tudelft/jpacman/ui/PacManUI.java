@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * The default JPacMan UI frame. The PacManUI consists of the following
  * elements:
- * <p>
  * <ul>
  * <li>A score panel at the top, displaying the score of the player(s).
  * <li>A board panel, displaying the current level, i.e. the board and all units

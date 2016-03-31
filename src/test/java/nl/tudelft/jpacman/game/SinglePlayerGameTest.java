@@ -23,11 +23,9 @@ public class SinglePlayerGameTest {
 
     /**
      * Sets up the Game and its components
-     *
-     * @throws Exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         player = mock(Player.class);
         player = new Player(new HashMap<>(), mock(AnimatedSprite.class));
         game = new SinglePlayerGame(player);

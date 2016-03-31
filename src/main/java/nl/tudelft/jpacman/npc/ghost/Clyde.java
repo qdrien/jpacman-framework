@@ -86,7 +86,6 @@ public class Clyde extends Ghost {
     /**
      * {@inheritDoc}
      * <p>
-     * <p>
      * Pokey has two basic AIs, one for when he's far from Pac-Man, and one for
      * when he is near to Pac-Man. When the ghosts are not patrolling their home
      * corners, and Pokey is far away from Pac-Man (beyond eight grid spaces),

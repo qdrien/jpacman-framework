@@ -69,7 +69,6 @@ public class Blinky extends Ghost {
     /**
      * {@inheritDoc}
      * <p>
-     * <p>
      * When the ghosts are not patrolling in their home corners (Blinky:
      * top-right, Pinky: top-left, Inky: bottom-right, Clyde: bottom-left),
      * Blinky will attempt to shorten the distance between Pac-Man and himself.

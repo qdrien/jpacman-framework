@@ -24,6 +24,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class Level implements PlayerListener {
 
+    /**
+     * If true, picking up 13 pellets is enough to win a level
+     */
     private static final boolean QUICK_WIN = false; //todo
     /**
      * The board of this level.
@@ -325,8 +328,7 @@ public class Level implements PlayerListener {
      * Returns <code>true</code> iff at least one of the players in this level
      * is alive.
      *
-     * @return <code>true</code> if at least one of the registered players is
-     * alive.
+     * @return <code>true</code> if at least one of the registered players is alive.
      */
     public boolean isAnyPlayerAlive() {
         for (Player p : players) {

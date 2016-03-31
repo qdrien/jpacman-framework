@@ -43,7 +43,6 @@ public class MapParser {
 
     /**
      * Parses the text representation of the board into an actual level.
-     * <p>
      * <ul>
      * <li>Supported characters:
      * <li>' ' (space) an empty square.

@@ -80,7 +80,7 @@ public class ChosenStrategyTest {
     /**
      * Other strategy test (for a new implementation of strategy)
      *
-     * @throws InterruptedException
+     * @throws InterruptedException todo: add description
      */
     @SuppressWarnings("methodlength")
     @Test

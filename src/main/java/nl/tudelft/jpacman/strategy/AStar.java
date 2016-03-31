@@ -43,13 +43,13 @@ public abstract class AStar<T> {
      * Check if the current node is a goal for the problem.
      *
      * @param node The node to check.
-     * @return <code>true</code> if it is a goal, <code>false</else> otherwise.
+     * @return <code>true</code> if it is a goal, <code>false</code> otherwise.
      */
     protected abstract boolean isGoal(T node);
 
     /**
      * Cost for the operation to go to <code>to</code> from
-     * <code>from</from>.
+     * <code>from</code>.
      *
      * @param from The node we are leaving.
      * @param to   The node we are reaching.
@@ -61,7 +61,7 @@ public abstract class AStar<T> {
      * Estimated cost to reach a goal node.
      * An admissible heuristic never gives a cost bigger than the real
      * one.
-     * <code>from</from>.
+     * <code>from</code>.
      *
      * @param from The node we are leaving.
      * @param to   The node we are reaching.
