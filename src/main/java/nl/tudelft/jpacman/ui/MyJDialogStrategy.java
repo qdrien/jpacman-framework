@@ -18,7 +18,7 @@ public class MyJDialogStrategy extends JDialog
      */
     private final JButton HumanController, AIController;
     /**
-     * The chose strategy by the player
+     * The strategy chosen by the player
      */
     private PacmanStrategy strategy;
     /**
@@ -71,7 +71,6 @@ public class MyJDialogStrategy extends JDialog
         setVisible(true);
     }
 
-
     /**
      * override the createRootPane inherited by the JDialog, to create the rootPane.
      * create functionality to close the window when "Escape" button is pressed
@@ -98,7 +97,6 @@ public class MyJDialogStrategy extends JDialog
      */
     private class MyActionListener implements ActionListener
     {
-
         //close and dispose of the window.
         public void actionPerformed(ActionEvent e)
         {
