@@ -619,27 +619,17 @@ public class Level implements PlayerListener {
         }
 
         /**
-         * Test if the player is in a intersection in the game
+         * Test if the player is at an intersection in the game
          * @param player the player of the game
          * @param direction the current direction
          * @return true if the player is in a intersection, false otherwise
          */
         public boolean isIntersection(Player player, Direction direction)
         {
-            if(direction.equals(Direction.NORTH))
+            if(direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH))
             {
                 return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
                         player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
-            }
-            if(direction.equals(Direction.SOUTH))
-            {
-                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
-            }
-            else if(direction.equals(Direction.EAST))
-            {
-                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
             }
             else
             {
