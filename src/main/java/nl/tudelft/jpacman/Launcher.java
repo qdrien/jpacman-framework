@@ -10,7 +10,6 @@ import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
-import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
@@ -107,24 +106,15 @@ public class Launcher
 	protected void addSinglePlayerKeys(final PacManUiBuilder builder,
 			final Game game)
     {
-		final Player p1 = getSinglePlayer(game);
+        final Player p1 = game.getPlayers().get(0);
 
 		builder.addKey(KeyEvent.VK_UP, () -> game.move(p1, Direction.NORTH))
                 .addKey(KeyEvent.VK_DOWN, () -> game.move(p1, Direction.SOUTH))
                 .addKey(KeyEvent.VK_LEFT, () -> game.move(p1, Direction.WEST))
                 .addKey(KeyEvent.VK_RIGHT, () -> game.move(p1, Direction.EAST));
-
 	}
 
-	private Player getSinglePlayer(final Game game) {
-		List<Player> players = game.getPlayers();
-		if (players.isEmpty()) {
-			throw new IllegalArgumentException("Game has 0 players.");
-		}
-        return players.get(0);
-	}
-
-	/**
+    /**
 	 * Creates and starts a JPac-Man game.
 	 */
 	public void launch() {
