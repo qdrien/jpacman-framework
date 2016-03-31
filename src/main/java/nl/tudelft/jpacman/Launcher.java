@@ -5,7 +5,6 @@ import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
-import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
@@ -184,7 +183,10 @@ public class Launcher
         });
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
-	buildWindow();
+        final MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
+        dialog.setSize(400, 200);
+        //prevents the user from closing the dialog via the upper-right corner "X"
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
 
@@ -205,16 +207,5 @@ public class Launcher
 	 */
 	public static void main(String[] args) throws IOException {
 		new Launcher().launch();
-	}
-
-	/**
-	 * Construct the window to choose the game mode (Spectator or control)
-	 */
-	public void buildWindow()
-	{
-		final MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder,game, pacManUI);
-		dialog.setSize(400, 200);
-		//prevents the user from closing the dialog via the upper-right corner "X"
-		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	}
 }
