@@ -41,7 +41,7 @@ public class LevelTest {
     /**
      * The level under test.
      */
-    private Level level;
+    private AILevel level;
 
     /**
      * Sets up the level with the default board, a single NPC and a starting
@@ -50,7 +50,7 @@ public class LevelTest {
     @Before
     public void setUp() {
         final long defaultInterval = 100L;
-        level = new Level(board, Lists.newArrayList(ghost), Lists.newArrayList(
+        level = new AILevel(board, Lists.newArrayList(ghost), Lists.newArrayList(
                 square1, square2), collisions);
         when(ghost.getInterval()).thenReturn(defaultInterval);
     }

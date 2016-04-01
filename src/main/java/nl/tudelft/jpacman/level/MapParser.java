@@ -56,7 +56,7 @@ public class MapParser {
      *            representing the square at position x,y.
      * @return The level as represented by this text.
      */
-    public Level parseMap(char[][] map) {
+    public AILevel parseMap(char[][] map) {
         final int width = map.length, height = map[0].length;
         final Square[][] grid = new Square[width][height];
 
@@ -125,7 +125,7 @@ public class MapParser {
      * @return The level as represented by the text.
      * @throws PacmanConfigurationException If text lines are not properly formatted.
      */
-    public Level parseMap(List<String> text) {
+    public AILevel parseMap(List<String> text) {
         final int height = text.size(), width = text.get(0).length();
         checkMapFormat(text);
 
@@ -178,7 +178,7 @@ public class MapParser {
      * @return The parsed level as represented by the text on the input stream.
      * @throws IOException when the source could not be read.
      */
-    public Level parseMap(InputStream source) throws IOException {
+    public AILevel parseMap(InputStream source) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 source, "UTF-8"))) {
             List<String> lines = new ArrayList<>();

@@ -4,6 +4,7 @@ import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
+import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
@@ -103,7 +104,7 @@ public abstract class Game implements LevelObserver {
     /**
      * @return The level currently being played.
      */
-    public abstract Level getLevel();
+    public abstract AILevel getLevel();
 
     /**
      * Sets the level to the one that has the given id (calls #Game.setLevel)
@@ -111,7 +112,7 @@ public abstract class Game implements LevelObserver {
      * @param levelIndex The id of the level we want to switch to
      */
     public void setLevel(final int levelIndex) {
-        final Level level = makeLevel(levelIndex);
+        final AILevel level = makeLevel(levelIndex);
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
@@ -183,7 +184,7 @@ public abstract class Game implements LevelObserver {
      *
      * @param level The Level we want to switch to
      */
-    protected abstract void setLevel(Level level);
+    protected abstract void setLevel(AILevel level);
 
     /**
      * Set the Strategy
@@ -207,14 +208,14 @@ public abstract class Game implements LevelObserver {
      * @param id The id of the level we want to load
      * @return A new level.
      */
-    protected Level makeLevel(final int id) {
+    protected AILevel makeLevel(final int id) {
         final MapParser parser = getMapParser();
         final String file = "/board" + id + ".txt";
         try (InputStream boardStream = Launcher.class
                 .getResourceAsStream(file)) {
             if (boardStream == null) return null;
             currentLevel = id;
-            return parser.parseMap(boardStream);
+            return  parser.parseMap(boardStream);
         } catch (IOException e) {
             throw new PacmanConfigurationException("Unable to create level.", e);
         }
@@ -234,8 +235,8 @@ public abstract class Game implements LevelObserver {
      *
      * @return The new(and next) level
      */
-    public Level nextLevel() {
-        Level level = makeLevel(++currentLevel);
+    public AILevel nextLevel() {
+        AILevel level = makeLevel(++currentLevel);
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
             //restart this last level (loop until player dies)

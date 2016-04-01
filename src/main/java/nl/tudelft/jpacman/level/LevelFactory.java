@@ -84,11 +84,11 @@ public class LevelFactory {
      * @param startPositions A list of squares from which players may start the game.
      * @return A new level for the board.
      */
-    public Level createLevel(Board board, List<NPC> ghosts,
+    public AILevel createLevel(Board board, List<NPC> ghosts,
                              List<Square> startPositions) {
 
         // We'll adopt the simple collision map for now.
-        return new Level(board, ghosts, startPositions, new PlayerCollisions());
+        return new AILevel(board, ghosts, startPositions, new PlayerCollisions());
     }
 
     /**

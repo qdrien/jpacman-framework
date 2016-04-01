@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.game;
 
 import com.google.common.collect.ImmutableList;
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Player;
 
@@ -22,7 +23,7 @@ public class SinglePlayerGame extends Game {
     /**
      * The level of this game.
      */
-    private Level level;
+    private AILevel level;
 
 
     /**
@@ -49,7 +50,7 @@ public class SinglePlayerGame extends Game {
      * @return The current Level
      */
     @Override
-    public Level getLevel() {
+    public AILevel getLevel() {
         return level;
     }
 
@@ -59,7 +60,7 @@ public class SinglePlayerGame extends Game {
      * @param level The Level that is to be played
      */
     @Override
-    public void setLevel(final Level level) {
+    public void setLevel(final AILevel level) {
         player.unregister(level);
         level.registerPlayer(player);
         this.level = level;

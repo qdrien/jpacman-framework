@@ -7,14 +7,8 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
-import nl.tudelft.jpacman.strategy.AIStrategy;
-import nl.tudelft.jpacman.strategy.PacmanStrategy;
-
 import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * A level of Pac-Man. A level consists of the board with the players and the
@@ -22,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Jeroen Roosen
  */
-public class Level implements PlayerListener {
+public abstract class Level implements PlayerListener {
 
     /**
      * If true, picking up 13 pellets is enough to win a level
@@ -37,22 +31,13 @@ public class Level implements PlayerListener {
      */
     private final Object moveLock = new Object();
     /**
-     * The lock that ensures starting and stopping can't interfere with each
-     * other.
-     */
-    private final Object startStopLock = new Object();
-    /**
-     * The NPCs of this level and, if they are running, their schedules.
-     */
-    private final Map<NPC, ScheduledExecutorService> npcs;
-    /**
      * The squares from which players can start this game.
      */
     private final List<Square> startSquares;
     /**
      * The players on this level.
      */
-    private final List<Player> players;
+    protected final List<Player> players;
     /**
      * The table of possible collisions between units.
      */
@@ -64,24 +49,17 @@ public class Level implements PlayerListener {
     /**
      * The list of the ghosts in the game
      */
-    private final List<Ghost> ghostList;
-    /**
-     * The service for the thread
-     */
-    private ScheduledExecutorService serviceAI;
+    protected final List<Ghost> ghostList;
     /**
      * <code>true</code> iff this level is currently in progress, i.e. players
      * and NPCs can move.
      */
-    private boolean inProgress;
+    protected boolean inProgress;
     /**
      * The start current selected starting square.
      */
     private int startSquareIndex;
-    /**
-     * The chosen strategy by the player
-     */
-    private PacmanStrategy strategy;
+
     /**
      * The amount of pellets there were when the level started
      */
@@ -104,13 +82,6 @@ public class Level implements PlayerListener {
         this.board = b;
         this.inProgress = false;
         this.ghostList = new ArrayList<>();
-        this.npcs = new HashMap<>();
-        for (NPC g : ghosts) {
-            npcs.put(g, null);
-            if (g instanceof Ghost) {
-                ghostList.add((Ghost) g);
-            }
-        }
         this.startSquares = startPositions;
         this.startSquareIndex = 0;
         this.players = new ArrayList<>();
@@ -131,15 +102,6 @@ public class Level implements PlayerListener {
             return;
         }
         observers.add(observer);
-    }
-
-    /**
-     * Removes an observer if it was listed.
-     *
-     * @param observer The observer to be removed.
-     */
-    public void removeObserver(LevelObserver observer) {
-        observers.remove(observer);
     }
 
     /**
@@ -205,103 +167,6 @@ public class Level implements PlayerListener {
     }
 
     /**
-     * Starts or resumes this level, allowing movement and (re)starting the
-     * NPCs.
-     */
-    public void start() {
-        synchronized (startStopLock) {
-            if (isInProgress()) {
-                return;
-            }
-
-            startNPCs();
-            inProgress = true;
-            if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
-                startAIStrategy();
-            }
-            updateObservers();
-        }
-    }
-
-    /**
-     * Stops or pauses this level, no longer allowing any movement on the board
-     * and stopping all NPCs.
-     */
-    public void stop() {
-        synchronized (startStopLock) {
-            if (!isInProgress()) {
-                return;
-            }
-            stopNPCs();
-            if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
-                stopAIStrategy();
-            }
-            inProgress = false;
-        }
-    }
-
-
-    /**
-     * Starts or resumes the AI
-     *
-     * @param strategy the chosen strategy
-     */
-    public void startStrategy(PacmanStrategy strategy) {
-        this.strategy = strategy;
-        synchronized (startStopLock) {
-            if (isInProgress()) {
-                return;
-            }
-            strategy.executeStrategy();
-        }
-    }
-
-
-    /**
-     * Starts all NPC movement scheduling.
-     */
-    private void startNPCs() {
-        for (final NPC npc : npcs.keySet()) {
-            ScheduledExecutorService service = Executors
-                    .newSingleThreadScheduledExecutor();
-            service.schedule(new NpcMoveTask(service, npc),
-                    npc.getInterval() / 2, TimeUnit.MILLISECONDS);
-            npcs.put(npc, service);
-        }
-    }
-
-    /**
-     * Stops all NPC movement scheduling and interrupts any movements being
-     * executed.
-     */
-    private void stopNPCs() {
-        for (Entry<NPC, ScheduledExecutorService> e : npcs.entrySet()) {
-            e.getValue().shutdownNow();
-        }
-    }
-
-    /**
-     * Start or create a thread for the AI
-     */
-    private void startAIStrategy() {
-        //Start the main thread for the AI
-        serviceAI = Executors.newSingleThreadScheduledExecutor();
-        if (isInProgress()) {
-            serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)), players.get(0).getInterval(), TimeUnit.MILLISECONDS);
-        }
-    }
-
-    /**
-     * Shutdown the thread
-     */
-    private void stopAIStrategy() {
-        if (serviceAI != null) {
-            serviceAI.shutdown();
-        }
-    }
-
-
-    /**
      * Returns whether this level is in progress, i.e. whether moves can be made
      * on the board.
      *
@@ -314,7 +179,7 @@ public class Level implements PlayerListener {
     /**
      * Updates the observers about the state of this level.
      */
-    private void updateObservers() {
+    protected void updateObservers() {
         if (initialPelletCount == -1) initialPelletCount = remainingPellets();
         if (!isAnyPlayerAlive()) {
             observers.forEach(LevelObserver::levelLost);
@@ -389,6 +254,7 @@ public class Level implements PlayerListener {
         return players.get(0);
     }
 
+
     /**
      * Get the ghost's list
      *
@@ -429,100 +295,4 @@ public class Level implements PlayerListener {
         void levelLost();
     }
 
-    /**
-     * A task that moves an NPC and reschedules itself after it finished.
-     *
-     * @author Jeroen Roosen
-     */
-    private final class NpcMoveTask implements Runnable {
-
-        /**
-         * The service executing the task.
-         */
-        private final ScheduledExecutorService service;
-
-        /**
-         * The NPC to move.
-         */
-        private final NPC npc;
-
-        /**
-         * Creates a new task.
-         *
-         * @param s The service that executes the task.
-         * @param n The NPC to move.
-         */
-        private NpcMoveTask(ScheduledExecutorService s, NPC n) {
-            this.service = s;
-            this.npc = n;
-        }
-
-        @Override
-        public void run() {
-            Direction nextMove = npc.nextMove();
-            if (nextMove != null) {
-                move(npc, nextMove);
-            }
-            service.schedule(this, npc.getInterval(), TimeUnit.MILLISECONDS);
-        }
-    }
-
-    /**
-     * A task that moves the player used by a AI
-     *
-     * @author Leemans Nicolas
-     */
-    private final class PlayerMoveTask implements Runnable {
-        /**
-         * The service executing the task.
-         */
-        private final ScheduledExecutorService service;
-
-        /**
-         * The NPC to move.
-         */
-        private final AIStrategy strategy;
-        private final Player player;
-        private Direction nextMove;
-
-        /**
-         * Creates a new task.
-         *
-         * @param s        The service that executes the task.
-         * @param strategy The chosen strategy by the player
-         * @param p        The player of the game
-         */
-        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p) {
-            this.service = s;
-            this.strategy = strategy;
-            this.player = p;
-        }
-
-        /**
-         * The run method called periodically
-         */
-        @Override
-        public void run() {
-            if (nextMove == null || isIntersection(player, nextMove)) nextMove = strategy.nextMove();
-            move(player, nextMove);
-            service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
-        }
-
-        /**
-         * Test if the player is at an intersection in the game
-         *
-         * @param player    the player of the game
-         * @param direction the current direction
-         * @return true if the player is in a intersection, false otherwise
-         */
-        public boolean isIntersection(Player player, Direction direction) {
-            if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
-                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
-            } else {
-                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
-            }
-        }
-    }
 }
