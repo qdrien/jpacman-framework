@@ -203,12 +203,12 @@ public class AILevel extends Level
         private final ScheduledExecutorService service;
 
         /**
-         * The NPC to move.
+         * The Player to move.
          */
         private final AIStrategy strategy;
         private final Player player;
         private Direction nextMove;
-
+        private int i=0;
         /**
          * Creates a new task.
          *
@@ -231,7 +231,6 @@ public class AILevel extends Level
             move(player, nextMove);
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
-
 
         /**
          * Test if the player is at an intersection in the game
