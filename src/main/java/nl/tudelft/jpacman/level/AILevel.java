@@ -232,6 +232,7 @@ public class AILevel extends Level
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
 
+
         /**
          * Test if the player is at an intersection in the game
          *
