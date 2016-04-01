@@ -61,7 +61,7 @@ public class ContinuousMovementTest {
     /**
      * A continuous movement test
      *
-     * @throws InterruptedException todo: add description
+     * @throws InterruptedException if the thread is interrupted
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -84,7 +84,7 @@ public class ContinuousMovementTest {
     /**
      * A continuous movement test
      *
-     * @throws InterruptedException todo: add description
+     * @throws InterruptedException if the thread is interrupted
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -113,7 +113,7 @@ public class ContinuousMovementTest {
     /**
      * A continuous move test
      *
-     * @throws InterruptedException todo: add description
+     * @throws InterruptedException if the thread is interrupted
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -143,7 +143,7 @@ public class ContinuousMovementTest {
     /**
      * A continuous move test
      *
-     * @throws InterruptedException todo: add description
+     * @throws InterruptedException if the thread is interrupted
      */
     @SuppressWarnings("methodlength")
     @Test
