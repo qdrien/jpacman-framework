@@ -54,7 +54,7 @@ public class ContinuousMovementTest {
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
-        Thread.sleep(1600);
+        Thread.sleep(2000);
         assertEquals(60, player.getScore());
     }
 
@@ -77,7 +77,7 @@ public class ContinuousMovementTest {
 
         //Test continuous movement
         game.continousMovement(player, Direction.WEST);
-        Thread.sleep(1600);
+        Thread.sleep(2000);
         assertEquals(60, player.getScore());
     }
 
@@ -100,12 +100,12 @@ public class ContinuousMovementTest {
 
         //Test continuous movement
         game.continousMovement(player, Direction.WEST);
-        Thread.sleep(1600);
+        Thread.sleep(2000);
         assertEquals(60, player.getScore());
 
         game.continousMovement(player, Direction.SOUTH);
         //wait 600 ms
-        Thread.sleep(600);
+        Thread.sleep(800);
         assertEquals(80, player.getScore());
 
     }
@@ -129,13 +129,13 @@ public class ContinuousMovementTest {
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
-        //wait 1500 ms
-        Thread.sleep(1600);
+        //wait 2000 ms
+        Thread.sleep(2000);
         assertEquals(60, player.getScore());
 
         game.continousMovement(player, Direction.SOUTH);
         //wait 1000 ms
-        Thread.sleep(600);
+        Thread.sleep(800);
         assertEquals(80, player.getScore());
 
     }
@@ -159,8 +159,8 @@ public class ContinuousMovementTest {
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
-        //wait 1600 ms
-        Thread.sleep(1600);
+        //wait 2000 ms
+        Thread.sleep(2000);
         assertEquals(60, player.getScore());
 
         //No pellet remaining, the score stay the same
