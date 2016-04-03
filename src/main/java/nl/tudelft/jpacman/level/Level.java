@@ -22,6 +22,7 @@ public abstract class Level implements PlayerListener {
      * If true, picking up 13 pellets is enough to win a level.
      */
     private static final boolean QUICK_WIN = false; //todo
+    public static final int QUICK_WIN_NEEDED_PELLETS = 13;
     /**
      * The board of this level.
      */
@@ -184,7 +185,7 @@ public abstract class Level implements PlayerListener {
         if (!isAnyPlayerAlive()) {
             observers.forEach(LevelObserver::levelLost);
         }
-        if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == 13) {
+        if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
             observers.forEach(LevelObserver::levelWon);
         }
     }

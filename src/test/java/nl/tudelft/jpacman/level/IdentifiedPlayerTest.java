@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests methods that have been added or modified in the Player class since v6.3.0
+ * Tests methods that have been added or modified in the Player class since v6.3.0.
  *
  * @author Adrien Coppens
  */
@@ -27,7 +27,7 @@ public class IdentifiedPlayerTest
      */
     private static final String PATH = new File("").getAbsolutePath() + "/src/test/resources/Testy.prf";
     /**
-     * The testPlayer we are making tests on
+     * The player we are making tests on.
      */
     private static IdentifiedPlayer player;
 

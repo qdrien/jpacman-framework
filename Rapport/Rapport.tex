@@ -168,6 +168,15 @@ final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSq
 	\caption{\label{duplicate} Recherche de code dupliqué via l'outil intégré à \textit{IntelliJ IDEA}}
 \end{figure}
 
+\subsection{CheckStyle}
+Egalement intégré dans la suite d'analyses à effectuer via \textit{Maven}, \textit{CheckStyle} a été utilisé avec le \og ruleset \fg \, présent dans la version du code d'origine.
+Aucune erreur n'a été détectée mais de nombreux warnings sont cependant présents. Par ordre de nombre de \og violations \fg :
+\begin{itemize}
+	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ réglé. 
+	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile.
+	\item 104 violations de type \textit{LineLength} %todo
+\end{itemize}
+
 \subsection{IntelliJ Code inspection}
 \subsubsection{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
 %Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)

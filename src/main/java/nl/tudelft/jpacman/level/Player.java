@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
+import nl.tudelft.jpacman.game.SinglePlayerGame;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
@@ -46,9 +47,9 @@ public class Player extends Unit
      */
     protected String playerName;
     /**
-     * The number of lives left
+     * The number of lives left.
      */
-    private int lives = 3;
+    private int lives = SinglePlayerGame.STARTING_LIVES;
     /**
      * Whether the player has eaten a superpellet or not. (for future use, superpellet not implemented)
      */
