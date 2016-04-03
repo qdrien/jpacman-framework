@@ -274,8 +274,7 @@ public class PacManhattanAI extends AIStrategy {
      * No Strategy to execute for the AI.
      */
     @Override
-    public void executeStrategy() {
-    }
+    public void executeStrategy() {/**/}
 
     /**
      * Get the ghostDstThreshold.
