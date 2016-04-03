@@ -19,3 +19,4 @@ doc/javadoc/
 *.out
 *.aux
 javadoc/
+*.prf
