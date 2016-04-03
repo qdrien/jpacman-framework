@@ -208,7 +208,6 @@ public class AILevel extends Level
         private final AIStrategy strategy;
         private final IdentifiedPlayer player;
         private Direction nextMove;
-        private int i=0;
         /**
          * Creates a new task.
          *
