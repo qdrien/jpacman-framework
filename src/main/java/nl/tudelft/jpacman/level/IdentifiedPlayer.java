@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Achievement;
-import nl.tudelft.jpacman.npc.ghost.Ghost;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
@@ -34,18 +33,15 @@ public class IdentifiedPlayer extends Player {
     protected String profilePath;
 
     /**
-     * Creates a new player with a score of 0 points.
+     * Creates a new player.
      *
      * @param spriteMap      A map containing a sprite for this player for every direction.
      * @param deathAnimation The sprite to be shown when this player dies.
      */
-    public IdentifiedPlayer(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
-        super(spriteMap, deathAnimation);
-        deathSprite.setAnimating(false);
-    }
+    public IdentifiedPlayer(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {super(spriteMap, deathAnimation);}
 
     /**
-     * Sets whether the application is running or being test.
+     * Sets whether the application is running or being tested.
      */
     public static void setIsNotATest() {
         isNotATest = false;
@@ -98,18 +94,21 @@ public class IdentifiedPlayer extends Player {
      * Displays the player's achievements, if any were obtained.
      */
     public void displayAchievements() {
-        if (displayChoiceBox(new String[]{"Yes", "No"}, "Display Achievements?", "Query") != 0) return;
+        final String[] options = new String[]{"Yes", "No"};
+        final JPanel panel = new JPanel();
+        panel.add(new JLabel("Display Achievements?"));
+        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0) return;
         String toDisplay = "<html>";
-        try {
+        try
+        {
             toDisplay = parseAchievements(toDisplay);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
         toDisplay += "</html>";
-        if ("<html></html>".equals(toDisplay))
-            JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
-        else displayChoiceBox(new String[]{"Ok"}, toDisplay, "Achievements");
-
+        if ("<html></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -129,21 +128,6 @@ public class IdentifiedPlayer extends Player {
         }
         reader.close();
         return achievements;
-    }
-
-    /**
-     * Displays an option dialog.
-     *
-     * @param options The buttons that can be clicked.
-     * @param label   The text that will be displayed.
-     * @param title   The title of the dialog.
-     * @return The index of the button that was clicked.
-     */
-    private int displayChoiceBox(final String[] options, final String label, final String title) {
-        final JPanel panel = new JPanel();
-        final JLabel text = new JLabel(label);
-        panel.add(text);
-        return JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }
 
     /**
@@ -209,33 +193,23 @@ public class IdentifiedPlayer extends Player {
                 playerName = loginEntered.getText();
             } while (checkUsername(playerName));
             final char pass[] = passEntered.getPassword();
-            createProfile(pass);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
+            writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
+            writer.close();
+            //Creating "profiles" subdirectory if necessary.
+            new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
+            //Creating the profile file for the new user.
+            setProfilePath();
+            writer = new BufferedWriter(new FileWriter(profilePath));
+            //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
+            writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
+            writer.close();
             JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             //Security precaution
             Arrays.fill(pass, '0');
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Creates the player's profile file, and initialises it. Also adds the player's identifying information to the login file.
-     *
-     * @param pass the player's desired password.
-     * @throws IOException If the login file cannot be written to or the player's profile file cannot be created.
-     */
-    private void createProfile(final char... pass) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
-        writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
-        writer.close();
-        //Creating "profiles" subdirectory if necessary.
-        new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
-        //Creating the profile file for the new user.
-        setProfilePath();
-        writer = new BufferedWriter(new FileWriter(profilePath));
-        //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
-        writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
-        writer.close();
     }
 
     /**
@@ -291,13 +265,13 @@ public class IdentifiedPlayer extends Player {
     public void levelCompleted(int level) {
         if (playerName == null) return;
         try {
-            final String split[] = readInfoLine();
+            final String split[] = getInfoLine();
             final int levelsCompleted = Integer.parseInt(split[0]);
             addAchievement(Achievement.VICTOR);
             if (level > levelsCompleted) {
                 String result = "";
                 for (int i = 1; i < split.length; i++) result += split[i] + " ";
-                updateInfoLine(level + " " + result);
+                setInfoLine(level + " " + result);
                 if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
             }
         } catch (IOException e) {
@@ -311,7 +285,7 @@ public class IdentifiedPlayer extends Player {
      * @return The line, split into its components.
      * @throws IOException If the file cannot be found or read.
      */
-    private String[] readInfoLine() throws IOException {
+    private String[] getInfoLine() throws IOException {
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         final String split[] = reader.readLine().split(" ");
         reader.close();
@@ -327,14 +301,14 @@ public class IdentifiedPlayer extends Player {
     public void killedBy(final GhostColor killer) {
         if (playerName == null) return;
         try {
-            final String split[] = readInfoLine();
+            final String split[] = getInfoLine();
             String toWrite = "";
             final Achievement toGrant = killer.getAchievementGranted();
             for (int i = 0; i < split.length; i++) {
                 if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
                 else toWrite += split[i] + " ";
             }
-            updateInfoLine(toWrite);
+            setInfoLine(toWrite);
             if (toGrant != null) addAchievement(toGrant);
         } catch (IOException e) {
             e.printStackTrace();
@@ -348,7 +322,7 @@ public class IdentifiedPlayer extends Player {
     public void saveScore() {
         if (playerName == null) return;
         try {
-            final String split[] = readInfoLine();
+            final String split[] = getInfoLine();
             String toWrite = "";
             int highScore = Integer.parseInt(split[1]);
             if (score > 9000) addAchievement(Achievement.OVER_9000);
@@ -357,7 +331,7 @@ public class IdentifiedPlayer extends Player {
                 if (i == 1) toWrite += highScore + " ";
                 else toWrite += split[i] + " ";
             }
-            updateInfoLine(toWrite);
+            setInfoLine(toWrite);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -370,7 +344,7 @@ public class IdentifiedPlayer extends Player {
      * @throws IOException If the file cannot be written to.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private void updateInfoLine(String toWrite) throws IOException {
+    private void setInfoLine(String toWrite) throws IOException {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
@@ -437,7 +411,7 @@ public class IdentifiedPlayer extends Player {
     public int getMaxLevelReached() {
         int i = 0;
         try {
-            i = Integer.parseInt(readInfoLine()[0]);
+            i = Integer.parseInt(getInfoLine()[0]);
             System.out.println("max level reached: " + i);
         } catch (IOException e) {
             e.printStackTrace();

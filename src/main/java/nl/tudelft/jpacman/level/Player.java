@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Unit;
-import nl.tudelft.jpacman.npc.ghost.Ghost;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
 
@@ -62,6 +61,7 @@ public class Player extends Unit
         this.sprites = spriteMap;
         this.score = 0;
         this.deathSprite = deathAnimation;
+        deathSprite.setAnimating(false);
     }
 
     /**
