@@ -1,6 +1,6 @@
 package nl.tudelft.jpacman.game;
 
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,15 +19,15 @@ import static org.mockito.Mockito.mock;
 public class SinglePlayerGameTest {
 
     private SinglePlayerGame game;
-    private Player player;
+    private IdentifiedPlayer player;
 
     /**
      * Sets up the Game and its components.
      */
     @Before
     public void setUp() {
-        player = mock(Player.class);
-        player = new Player(new HashMap<>(), mock(AnimatedSprite.class));
+        player = mock(IdentifiedPlayer.class);
+        player = new IdentifiedPlayer(new HashMap<>(), mock(AnimatedSprite.class));
         game = new SinglePlayerGame(player);
     }
 

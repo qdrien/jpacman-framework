@@ -3,7 +3,7 @@ package nl.tudelft.jpacman;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.HallOfFame;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +72,7 @@ public class LauncherSmokeTest {
     public void smokeTest() throws InterruptedException {
         final Game game = launcher.getGame();
         HallOfFame.setHam();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         player.setLives(1);
 
         // start cleanly.

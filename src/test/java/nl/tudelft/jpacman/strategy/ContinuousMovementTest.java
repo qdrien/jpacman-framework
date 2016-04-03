@@ -3,7 +3,7 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class ContinuousMovementTest {
     @Test
     public void continuousMovementTest1() throws InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -67,7 +67,7 @@ public class ContinuousMovementTest {
     @Test
     public void continuousMovementTest2() throws InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -90,7 +90,7 @@ public class ContinuousMovementTest {
     @Test
     public void continuousMovementTest3() throws InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -119,7 +119,7 @@ public class ContinuousMovementTest {
     @Test
     public void continuousMovementTest4() throws InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());
@@ -149,7 +149,7 @@ public class ContinuousMovementTest {
     @Test
     public void continuousMovementTest5() throws InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
         assertFalse(game.isInProgress());

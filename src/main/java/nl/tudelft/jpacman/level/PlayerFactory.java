@@ -28,8 +28,8 @@ public class PlayerFactory {
      *
      * @return A new player.
      */
-    public Player createPacMan() {
-        return new Player(sprites.getPacmanSprites(),
+    public IdentifiedPlayer createPacMan() {
+        return new IdentifiedPlayer(sprites.getPacmanSprites(),
                 sprites.getPacManDeathAnimation());
     }
 }

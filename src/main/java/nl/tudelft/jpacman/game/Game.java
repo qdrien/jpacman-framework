@@ -5,10 +5,9 @@ import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.level.AILevel;
-import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
 
 import java.io.IOException;
@@ -99,7 +98,7 @@ public abstract class Game implements LevelObserver {
     /**
      * @return An immutable list of the participants of this game.
      */
-    public abstract List<Player> getPlayers();
+    public abstract List<IdentifiedPlayer> getPlayers();
 
     /**
      * @return The level currently being played.
@@ -124,7 +123,7 @@ public abstract class Game implements LevelObserver {
      * @param player    The player to move.
      * @param direction The direction to move in.
      */
-    public void continousMovement(Player player, Direction direction) {
+    public void continousMovement(IdentifiedPlayer player, Direction direction) {
         if (isInProgress()) {
             final Square location = player.getSquare();
             final Square destination = location.getSquareAt(direction);
@@ -146,7 +145,7 @@ public abstract class Game implements LevelObserver {
      * @param player    The player to move.
      * @param direction The direction to move in.
      */
-    public void move(Player player, Direction direction) {
+    public void move(IdentifiedPlayer player, Direction direction) {
         if (isInProgress()) {
             getLevel().move(player, direction);
         }
@@ -161,22 +160,12 @@ public abstract class Game implements LevelObserver {
     public void levelLost() {
         if (firstPass) {
             stop();
-            final Player player = getPlayers().get(0);
-            triggerHoF(player);
+            final IdentifiedPlayer player = getPlayers().get(0);
+            HallOfFame.setIsNotATest(true);
+            player.saveScore();
+            new HallOfFame().handleHoF(player.getScore(), player.getPlayerName());
         }
         firstPass = false;
-    }
-
-    /**
-     * Triggers the Hall of Fame handler and eventually updates of the player'scheduledExecutorService score.
-     *
-     * @param player The player in question.
-     */
-    private void triggerHoF(Player player) {
-        HallOfFame.setIsNotATest(true);
-        final HallOfFame hallOfFame = new HallOfFame();
-        player.saveScore();
-        hallOfFame.handleHoF(player.getScore(), player.getPlayerName());
     }
 
     /**
@@ -270,7 +259,7 @@ public abstract class Game implements LevelObserver {
         /**
          * The player to move.
          */
-        private final Player player;
+        private final IdentifiedPlayer player;
         /**
          * The direction to follow by the player.
          */
@@ -287,7 +276,7 @@ public abstract class Game implements LevelObserver {
          * @param p         The player to move.
          * @param direction The direction to follow
          */
-        PlayerMoveTask(ScheduledExecutorService s, Player p, Direction direction) {
+        PlayerMoveTask(ScheduledExecutorService s, IdentifiedPlayer p, Direction direction) {
             this.scheduledExecutorService = s;
             this.player = p;
             this.dir = direction;

@@ -4,7 +4,7 @@ import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,7 +91,7 @@ public class AStarPathTest {
         final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
 
         assertNotNull(player);
         assertNotNull(player.getSquare());
@@ -117,7 +117,7 @@ public class AStarPathTest {
         final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final Square square = player.getSquare();
 
         assertNotNull(player);
@@ -167,7 +167,7 @@ public class AStarPathTest {
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final Square square = player.getSquare();
 
         assertNotNull(player);
@@ -239,7 +239,7 @@ public class AStarPathTest {
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final Square square = player.getSquare();
 
         assertNotNull(player);
@@ -275,7 +275,7 @@ public class AStarPathTest {
         AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final Square square = player.getSquare();
 
         assertNotNull(player);
@@ -314,7 +314,7 @@ public class AStarPathTest {
         final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull(aStarPath);
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final Square square = player.getSquare();
 
         assertNotNull(player);

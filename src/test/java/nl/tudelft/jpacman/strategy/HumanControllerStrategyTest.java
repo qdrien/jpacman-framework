@@ -2,7 +2,7 @@ package nl.tudelft.jpacman.strategy;
 
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class HumanControllerStrategyTest {
     @Test
     public void strategyTest() throws AWTException, InterruptedException {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertFalse(game.isInProgress());
         assertNotNull(game);
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();

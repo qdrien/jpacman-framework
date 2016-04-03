@@ -6,7 +6,7 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.level.LevelFactory;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
@@ -108,7 +108,7 @@ public class Launcher {
      */
     protected void addSinglePlayerKeys(final PacManUiBuilder builder,
                                        final Game game) {
-        final Player p1 = game.getPlayers().get(0);
+        final IdentifiedPlayer p1 = game.getPlayers().get(0);
 
         builder.addKey(KeyEvent.VK_UP, () -> game.move(p1, Direction.NORTH))
                 .addKey(KeyEvent.VK_DOWN, () -> game.move(p1, Direction.SOUTH))
@@ -124,7 +124,7 @@ public class Launcher {
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         builder.addButton("Identification", () ->
         {
-            final Player player = game.getPlayers().get(0);
+            final IdentifiedPlayer player = game.getPlayers().get(0);
             if (player.authenticate()) {
                 player.displayAchievements();
                 pacManUI.refreshLevelChoices(player.getMaxLevelReached());

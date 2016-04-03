@@ -2,7 +2,7 @@ package nl.tudelft.jpacman.strategy;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import java.awt.event.KeyEvent;
@@ -40,7 +40,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
      * @param game    The game that will process the events.
      */
     private void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game) {
-        final Player p1 = game.getPlayers().get(0);
+        final IdentifiedPlayer p1 = game.getPlayers().get(0);
         builder.addKey(KeyEvent.VK_UP, () -> game.continousMovement(p1, Direction.NORTH))
                 .addKey(KeyEvent.VK_DOWN, () -> game.continousMovement(p1, Direction.SOUTH))
                 .addKey(KeyEvent.VK_LEFT, () -> game.continousMovement(p1, Direction.WEST))

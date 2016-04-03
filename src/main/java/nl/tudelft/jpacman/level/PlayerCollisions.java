@@ -18,14 +18,14 @@ public class PlayerCollisions implements CollisionMap {
     @Override
     public void collide(Unit mover, Unit collidedOn) {
 
-        if (mover instanceof Player) {
-            playerColliding((Player) mover, collidedOn);
+        if (mover instanceof IdentifiedPlayer) {
+            playerColliding((IdentifiedPlayer) mover, collidedOn);
         } else if (mover instanceof Ghost) {
             ghostColliding((Ghost) mover, collidedOn);
         }
     }
 
-    private void playerColliding(Player player, Unit collidedOn) {
+    private void playerColliding(IdentifiedPlayer player, Unit collidedOn) {
         if (collidedOn instanceof Ghost) {
             playerVersusGhost(player, (Ghost) collidedOn);
         }
@@ -36,8 +36,8 @@ public class PlayerCollisions implements CollisionMap {
     }
 
     private void ghostColliding(Ghost ghost, Unit collidedOn) {
-        if (collidedOn instanceof Player) {
-            playerVersusGhost((Player) collidedOn, ghost);
+        if (collidedOn instanceof IdentifiedPlayer) {
+            playerVersusGhost((IdentifiedPlayer) collidedOn, ghost);
         }
     }
 
@@ -47,11 +47,12 @@ public class PlayerCollisions implements CollisionMap {
      * @param player The player involved in the collision.
      * @param ghost  The ghost involved in the collision.
      */
-    public void playerVersusGhost(Player player, Ghost ghost) {
+    public void playerVersusGhost(IdentifiedPlayer player, Ghost ghost) {
         if (player.isPoweredUp()) {
             player.addPoints(ghost.getValue());
         } else {
-            player.loseLife(ghost);
+            player.killedBy(ghost.getIdentity());
+            player.loseLife();
         }
     }
 
@@ -61,7 +62,7 @@ public class PlayerCollisions implements CollisionMap {
      * @param player The player involved in the collision.
      * @param pellet The pellet involved in the collision.
      */
-    public void playerVersusPellet(Player player, Pellet pellet) {
+    public void playerVersusPellet(IdentifiedPlayer player, Pellet pellet) {
         pellet.leaveSquare();
         player.addPoints(pellet.getValue());
     }
