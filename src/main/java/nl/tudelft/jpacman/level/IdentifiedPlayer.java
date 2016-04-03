@@ -38,7 +38,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Path of the player's profile file.
      */
-    protected String profilePath;
+    private String profilePath;
 
     /**
      * Creates a new player.

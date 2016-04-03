@@ -24,27 +24,27 @@ public class Player extends Unit {
     /**
      * The animations for every direction.
      */
-    protected final Map<Direction, Sprite> sprites;
+    private final Map<Direction, Sprite> sprites;
     /**
      * The animation that is to be played when Pac-Man dies.
      */
-    protected final AnimatedSprite deathSprite;
+    private final AnimatedSprite deathSprite;
     /**
      * The ArrayList of listeners that will be called when a player-related event occurs.
      */
-    protected final List<PlayerListener> listeners;
+    private final List<PlayerListener> listeners;
     /**
      * The amount of points accumulated by this player.
      */
-    protected int score;
+    int score;
     /**
      * <code>true</code> iff this player is alive.
      */
-    protected boolean alive;
+    private boolean alive;
     /**
      * The name of the current player and the path to the file storing the player's stats.
      */
-    protected String playerName;
+    String playerName;
     /**
      * The number of lives left.
      */
