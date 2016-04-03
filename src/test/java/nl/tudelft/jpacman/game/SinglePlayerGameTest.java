@@ -41,10 +41,11 @@ public class SinglePlayerGameTest {
         player.addLife();
         final int score = player.getScore(), lives = player.getLives();
         game.reset();
-        assertNotEquals(player.getScore(), score);
-        assertNotEquals(player.getLives(), lives);
-        assertEquals(0, player.getScore());
-        assertEquals(SinglePlayerGame.STARTING_LIVES, player.getLives());
+        assertNotEquals("Additional score hasn't been granted", player.getScore(), score);
+        assertNotEquals("Additional life hasn't been granted", player.getLives(), lives);
+        assertEquals("The player's score hasn't been reset properly", 0, player.getScore());
+        assertEquals("The player does not have the correct amount of lives after the reset",
+                SinglePlayerGame.STARTING_LIVES, player.getLives());
     }
 
 
@@ -52,7 +53,8 @@ public class SinglePlayerGameTest {
     public void testNextLevel() throws Exception {
         final int initialLevel = game.getCurrentLevel();
         game.nextLevel();
-        assertEquals(initialLevel + 1, game.getCurrentLevel());
+        assertEquals("current level hasn't been correctly updated",
+                initialLevel + 1, game.getCurrentLevel());
     }
 
 }

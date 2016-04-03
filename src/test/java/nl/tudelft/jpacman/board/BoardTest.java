@@ -87,8 +87,10 @@ public class BoardTest {
      */
     @Test
     public void manhattanDistanceTest() {
-        assertEquals(1, Board.manhattanDistance(0, 0, 0, 1));
-        assertEquals(2, Board.manhattanDistance(0, 0, 1, 1));
+        assertEquals("manhatthanDistance returned an incorrect value",
+                1, Board.manhattanDistance(0, 0, 0, 1));
+        assertEquals("manhatthanDistance returned an incorrect value",
+                2, Board.manhattanDistance(0, 0, 1, 1));
     }
 
     /**
@@ -100,7 +102,7 @@ public class BoardTest {
         ArrayList<Unit> units = new ArrayList<>();
         when(x0y0.getOccupants()).thenReturn(units);
 
-        assertTrue(board.isSafe(0, 0));
+        assertTrue("A normally safe square has been considered unsafe", board.isSafe(0, 0));
     }
 
     /**
@@ -115,6 +117,6 @@ public class BoardTest {
 
         when(x0y0.getOccupants()).thenReturn(units);
 
-        assertFalse(board.isSafe(0, 1));
+        assertFalse("A normally unsafe square has been considered safe", board.isSafe(0, 1));
     }
 }

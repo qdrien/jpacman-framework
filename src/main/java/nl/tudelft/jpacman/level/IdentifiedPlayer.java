@@ -46,7 +46,8 @@ public class IdentifiedPlayer extends Player {
      * @param spriteMap      A map containing a sprite for this player for every direction.
      * @param deathAnimation The sprite to be shown when this player dies.
      */
-    public IdentifiedPlayer(final Map<Direction, Sprite> spriteMap, final AnimatedSprite deathAnimation) {
+    public IdentifiedPlayer(final Map<Direction, Sprite> spriteMap,
+                            final AnimatedSprite deathAnimation) {
         super(spriteMap, deathAnimation);
     }
 

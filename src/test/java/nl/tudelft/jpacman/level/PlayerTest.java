@@ -28,10 +28,11 @@ public class PlayerTest {
     public void addPoints() {
         final int score = player.getScore(), lives = player.getLives();
         player.addPoints(10);
-        assertEquals(score + 10, player.getScore());
+        assertEquals("Score wasn't properly added", score + 10, player.getScore());
         //using MAX_VALUE to ensure it is bigger than the "add life threshold"
         player.addPoints(Integer.MAX_VALUE);
-        assertEquals(lives + 1, player.getLives());
+        assertEquals("incorrect amount of lives, should have received a free life",
+                lives + 1, player.getLives());
     }
 
     /**
@@ -41,7 +42,8 @@ public class PlayerTest {
     public void loseLife() {
         final int lives = player.getLives();
         player.loseLife();
-        assertEquals(lives - 1, player.getLives());
+        assertEquals("Incorrect amount of lives after removing one",
+                lives - 1, player.getLives());
     }
 
     /**
@@ -52,7 +54,8 @@ public class PlayerTest {
         player.setLives(1);
         assert player.isAlive();
         player.loseLife();
-        assertFalse(player.isAlive());
+        assertFalse("The player did not properly die after loosing its last life",
+                player.isAlive());
     }
 
     /**
@@ -62,6 +65,6 @@ public class PlayerTest {
     public void addLife() {
         final int lives = player.getLives();
         player.addLife();
-        assertEquals(lives + 1, player.getLives());
+        assertEquals("Additional life was not properly granted", lives + 1, player.getLives());
     }
 }
