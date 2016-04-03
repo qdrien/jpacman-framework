@@ -5,8 +5,8 @@ import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
-import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
+import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
@@ -136,7 +136,8 @@ public class Launcher {
         builder.addButton("Stats", () -> game.getPlayers().get(0).displayProfileStats());
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
-        final MyJDialogStrategy dialog = new MyJDialogStrategy(new JFrame(), builder, game, pacManUI);
+        final MyJDialogStrategy dialog =
+                new MyJDialogStrategy(new JFrame(), builder, game, pacManUI);
         dialog.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
         //prevents the user from closing the dialog via the upper-right corner "X"
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

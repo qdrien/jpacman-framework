@@ -15,11 +15,16 @@ public class AStarPath extends AStar<Square> {
     /**
      * Initialization of constants used to select the best move based on the current game.
      */
-    public static final double GHOST_COST = 1000000; //The cost when you go to a square where there is a ghost
-    public static final double NEAREST_GHOST_COST = 500;//The cost when you go to a square nearest to a ghost
-    public static final double PELLET_COST = 1;//The cost when you go to a square where there is a pellet
-    public static final double EMPTY_COST = 5;//The cost when you go to empty square (no pellet)
-    public static final int DST_THRESHOLD = 3; //Distance used to calculate a square cost near a ghost
+    //The cost when you go to a square where there is a ghost
+    public static final double GHOST_COST = 1000000;
+    //The cost when you go to a square nearest to a ghost
+    public static final double NEAREST_GHOST_COST = 500;
+    //The cost when you go to a square where there is a pellet
+    public static final double PELLET_COST = 1;
+    //The cost when you go to empty square (no pellet)
+    public static final double EMPTY_COST = 5;
+    //Distance used to calculate a square cost near a ghost
+    public static final int DST_THRESHOLD = 3;
     private final Board board;//The board game
     private final List<Ghost> ghosts;// The list of the ghosts
     /**
@@ -39,7 +44,8 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Compute the manhattan distance (called taxi-distance) between a point (x,y) and a point (a,b).
+     * Compute the manhattan distance (called taxi-distance)
+     * between a point (x,y) and a point (a,b).
      *
      * @param x the x coordinate from first point
      * @param y the y coordinate from first point
@@ -115,13 +121,15 @@ public class AStarPath extends AStar<Square> {
     @Override
     public Double g(Square originSquare, Square destinationSquare) {
 
-        if (originSquare.getX() == destinationSquare.getX() && originSquare.getY() == destinationSquare.getY()) {
+        if (originSquare.getX() == destinationSquare.getX()
+                && originSquare.getY() == destinationSquare.getY()) {
             return 0.0;
         } else {
             if (nearestGhosts(destinationSquare)) {
                 return NEAREST_GHOST_COST;
             }
-            final Square square = board.squareAt(destinationSquare.getX(), destinationSquare.getY());
+            final Square square =
+                    board.squareAt(destinationSquare.getX(), destinationSquare.getY());
 
             if (square.getOccupants().size() == 0) {
                 return EMPTY_COST;
@@ -153,7 +161,8 @@ public class AStarPath extends AStar<Square> {
      */
     @Override
     public Double h(Square originSquare, Square destinationSquare) {
-        return manhattanDistance(originSquare.getX(), originSquare.getY(), destinationSquare.getX(), destinationSquare.getY());
+        return manhattanDistance(originSquare.getX(), originSquare.getY(),
+                destinationSquare.getX(), destinationSquare.getY());
     }
 
     /**
@@ -165,7 +174,9 @@ public class AStarPath extends AStar<Square> {
     public boolean nearestGhosts(Square destinationSquare) {
 
         for (Ghost ghost : ghosts) {
-            final double dst = manhattanDistance(destinationSquare.getX(), destinationSquare.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double dst =
+                    manhattanDistance(destinationSquare.getX(), destinationSquare.getY(),
+                            ghost.getSquare().getX(), ghost.getSquare().getY());
             if (dst < DST_THRESHOLD) {
                 return true;
             }

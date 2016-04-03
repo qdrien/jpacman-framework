@@ -25,7 +25,8 @@ public class IdentifiedPlayerTest
     /**
      * The path of the file that will be used to test the testPlayer's profile.
      */
-    private static final String PATH = new File("").getAbsolutePath() + "/src/test/resources/Testy.prf";
+    private static final String PATH = new File("").getAbsolutePath()
+            + "/src/test/resources/Testy.prf";
     /**
      * The player we are making tests on.
      */
@@ -75,7 +76,8 @@ public class IdentifiedPlayerTest
     }
 
     /**
-     * Tests whether some methods triggered by the obtention of specific achievements work correctly.
+     * Tests whether some methods triggered by the obtention
+     * of specific achievements work correctly.
      *
      * @throws IOException if a problem happens while reading the file
      */

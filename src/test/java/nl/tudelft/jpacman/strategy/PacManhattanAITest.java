@@ -50,11 +50,19 @@ public class PacManhattanAITest {
         final PacManhattanAI AI = new PacManhattanAI(game);
         assertFalse(AI.isSafetySquare(player.getSquare()));
         assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
+        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                .getSquareAt(Direction.SOUTH)));
+        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
 
         //Safety Square more than 14 squares about the nearest ghost
-        assertTrue(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
+        assertTrue(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)
+                .getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST)));
     }
 
     /**
@@ -149,7 +157,8 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the nearest safe square where there is a pellet about the initial player position.
+     * Test to get the nearest safe square where there is a pellet about
+     * the initial player position.
      */
     @SuppressWarnings("methodlength")
     @Test

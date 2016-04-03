@@ -135,7 +135,8 @@ public class LevelTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerThirdPlayer() {
-        final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class), p2 = mock(IdentifiedPlayer.class), p3 = mock(IdentifiedPlayer.class);
+        final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class),
+                p2 = mock(IdentifiedPlayer.class), p3 = mock(IdentifiedPlayer.class);
         level.registerPlayer(p1);
         level.registerPlayer(p2);
         level.registerPlayer(p3);

@@ -130,7 +130,8 @@ public class PacManUI extends JFrame {
         final ScheduledExecutorService service = Executors
                 .newSingleThreadScheduledExecutor();
 
-        service.scheduleAtFixedRate((Runnable) PacManUI.this::nextFrame, 0, FRAME_INTERVAL, TimeUnit.MILLISECONDS);
+        service.scheduleAtFixedRate(
+                (Runnable) PacManUI.this::nextFrame, 0, FRAME_INTERVAL, TimeUnit.MILLISECONDS);
 
     }
 
@@ -143,7 +144,8 @@ public class PacManUI extends JFrame {
     }
 
     /**
-     * Removes all "level selection" radio buttons and adds those that are needed (up to @maxLevelReached).
+     * Removes all "level selection" radio buttons and adds those that are needed
+     * (up to @maxLevelReached).
      *
      * @param maxLevelReached The max level the player has reached
      */

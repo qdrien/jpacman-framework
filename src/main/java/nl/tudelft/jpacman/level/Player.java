@@ -51,7 +51,8 @@ public class Player extends Unit
      */
     private int lives = SinglePlayerGame.STARTING_LIVES;
     /**
-     * Whether the player has eaten a superpellet or not. (for future use, superpellet not implemented)
+     * Whether the player has eaten a superpellet or not.
+     * (for future use, superpellet not implemented)
      */
     private boolean poweredUp; //booleans are initialised to false by default.
 
@@ -114,7 +115,8 @@ public class Player extends Unit
      */
     public void addPoints(int points) {
         //Simply uses integer division (if we have different results, a threshold has been reached)
-        //Note that this can only work if the amount of points a player can get in one go is < the threshold
+        //Note that this can only work if the amount of points a player
+        // can get in one go is < the threshold
         if (score / NEW_LIFE_THRESHOLD != (score + points) / NEW_LIFE_THRESHOLD) addLife();
         score += points;
     }
@@ -124,7 +126,8 @@ public class Player extends Unit
      *
      * @return Whether pacman has eaten a superpellet or not.
      */
-    public boolean isPoweredUp() {//PoweredUp is always false for now, since the "superpellet" isn't implemented.
+    public boolean isPoweredUp() {
+        //PoweredUp is always false for now, since the "superpellet" isn't implemented.
         return poweredUp;
     }
 
@@ -185,7 +188,8 @@ public class Player extends Unit
     }
 
     /**
-     * Unregisters the given Level (if he was registered) so that it is no longer called when an event occurs.
+     * Unregisters the given Level (if he was registered)
+     * so that it is no longer called when an event occurs.
      *
      * @param level The given Level that has to be removed
      */

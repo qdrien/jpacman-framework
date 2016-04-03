@@ -92,7 +92,8 @@ public class BoardTest {
     }
 
     /**
-     * Tests if a square is effectively considered safe when no ghosts are occupying "neighbouring squares".
+     * Tests if a square is effectively considered safe
+     * when no ghosts are occupying "neighbouring squares".
      */
     @Test
     public void isSafeTrue() {
@@ -103,7 +104,8 @@ public class BoardTest {
     }
 
     /**
-     * Tests if a square is effectively considered unsafe when a ghosts is occupying a "neighbouring square".
+     * Tests if a square is effectively considered unsafe
+     * when a ghost is occupying a "neighbouring square".
      */
     @Test
     public void isSafeFalse() {

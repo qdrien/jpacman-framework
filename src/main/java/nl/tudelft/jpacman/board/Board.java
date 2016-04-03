@@ -123,7 +123,8 @@ public class Board {
     }
 
     /**
-     * Determine whether a Square (given by its coordinates) is safe for the player (i.e. no ghosts are too close).
+     * Determine whether a Square (given by its coordinates) is safe for the player
+     * (i.e. no ghosts are too close).
      *
      * @param x The given horizontal coordinate of the Square we want to check
      * @param y The given vertical coordinate of the Square we want to check
@@ -141,14 +142,15 @@ public class Board {
         //For each position in the rectangle produced by (minX,minY) and (maxX,maxY)
         for (int currentX = minX; currentX < maxX; currentX++) {
             for (int currentY = minY; currentY < maxY; currentY++) {
-                //as we considered a rectangle around the target square that contains too much squares,
+                //as we have a rectangle around the target square that contains too much squares,
                 // we need to filter (ignore) "out of range" neighbors (using manhattan distance)
                 if (manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) continue;
                 //If is is in "Manhattan range", we need to check whether there is a ghost on it
                 final long count = squareAt(currentX, currentY).getOccupants().stream()
                         .filter(p -> p instanceof Ghost)
                         .count();
-                //If there is at least one Ghost on that square, the original square at (x,y) is not safe
+                //If there is at least one Ghost on that square,
+                // the original square at (x,y) is not safe
                 if (count != 0) return false;
             }
         }

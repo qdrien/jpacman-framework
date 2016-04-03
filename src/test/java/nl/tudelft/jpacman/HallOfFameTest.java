@@ -53,8 +53,10 @@ public class HallOfFameTest {
     @Test
     public void hallOfFameUpdateTest() throws IOException {
         hallOfFame.handleHoF(Integer.MAX_VALUE, "TESTPLAYER");
-        //Testing whether the Hall of Fame file was modified within the last few seconds, as it should' ve been, given the score.
-        assertEquals("The Hall of Fame hasn't been modified.", reader.readLine().split(" ")[0], "TESTPLAYER");
+        //Testing whether the Hall of Fame file was modified within the last few seconds,
+        // as it should' ve been, given the score.
+        assertEquals("The Hall of Fame hasn't been modified.",
+                reader.readLine().split(" ")[0], "TESTPLAYER");
     }
 
     /**
@@ -62,9 +64,11 @@ public class HallOfFameTest {
      * @throws IOException If the default HoF file cannot be read or found.
      */
     @Test
-    public void hallOfFameResetTest() throws IOException { // Note: running tests resets the Hall of Fame.
+    public void hallOfFameResetTest() throws IOException {
+        // Note: running tests resets the Hall of Fame.
         hallOfFame.resetHoF();
-        final BufferedReader defaultHOFReader = new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
+        final BufferedReader defaultHOFReader =
+                new BufferedReader(new FileReader(hallOfFame.getDefaultHoFPath()));
         String current = reader.readLine(), base = defaultHOFReader.readLine();
         for (int i = 0; i < hallOfFame.getNumberOfRecordsKept(); i++) {
             current += reader.readLine();

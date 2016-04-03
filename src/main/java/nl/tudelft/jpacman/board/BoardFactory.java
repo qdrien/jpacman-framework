@@ -92,7 +92,8 @@ public class BoardFactory {
      * (will stop when no file is found for the next level i.e. no text/image file)
      */
     private void generateLevels() {
-        final String path = Launcher.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        final String path =
+                Launcher.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         final File dir = new File(path);
         final File[] files = dir.listFiles();
 
@@ -128,7 +129,8 @@ public class BoardFactory {
         }
 
         final List<String> lines = convertImageToTxt(img);
-        final Path newFile = Paths.get(file.getParent() + File.separator + "board" + level + ".txt");
+        final Path newFile = Paths.get(file.getParent() + File.separator
+                + "board" + level + ".txt");
         System.err.println("Creating file for level " + level + " from an image.");
         Files.write(newFile, lines, Charset.forName("UTF-8"));
     }
