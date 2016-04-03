@@ -151,8 +151,7 @@ public class IdentifiedPlayer extends Player {
         }
         final int bonus = achievement.getBonusScore();
         score += bonus;
-        if (isNotATest)
-            JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -190,9 +189,9 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         try {
             int choice = 0;
-            do {
-                if (isNotATest)
-                    choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            do
+            {
+                if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
             } while (checkUsername(playerName));
@@ -352,9 +351,7 @@ public class IdentifiedPlayer extends Player {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null) {
-            toWrite += line + System.getProperty("line.separator");
-        }
+        while ((line = reader.readLine()) != null) toWrite += line + System.getProperty("line.separator");
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
