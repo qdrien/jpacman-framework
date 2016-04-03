@@ -98,7 +98,7 @@ public class LevelTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerPlayer() {
-        final Player p = mock(Player.class);
+        final IdentifiedPlayer p = mock(IdentifiedPlayer.class);
         level.registerPlayer(p);
         verify(p).occupy(square1);
     }
@@ -109,7 +109,7 @@ public class LevelTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerPlayerTwice() {
-        final Player p = mock(Player.class);
+        final IdentifiedPlayer p = mock(IdentifiedPlayer.class);
         level.registerPlayer(p);
         level.registerPlayer(p);
         verify(p, times(1)).occupy(square1);
@@ -122,7 +122,7 @@ public class LevelTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerSecondPlayer() {
-        final Player p1 = mock(Player.class), p2 = mock(Player.class);
+        final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class), p2 = mock(IdentifiedPlayer.class);
         level.registerPlayer(p1);
         level.registerPlayer(p2);
         verify(p2).occupy(square2);
@@ -135,7 +135,7 @@ public class LevelTest {
     @Test
     @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerThirdPlayer() {
-        final Player p1 = mock(Player.class), p2 = mock(Player.class), p3 = mock(Player.class);
+        final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class), p2 = mock(IdentifiedPlayer.class), p3 = mock(IdentifiedPlayer.class);
         level.registerPlayer(p1);
         level.registerPlayer(p2);
         level.registerPlayer(p3);

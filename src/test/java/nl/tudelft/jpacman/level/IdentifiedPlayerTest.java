@@ -19,7 +19,8 @@ import static org.mockito.Mockito.when;
  *
  * @author Adrien Coppens
  */
-public class PlayerTest {
+public class IdentifiedPlayerTest
+{
 
     /**
      * The path of the file that will be used to test the testPlayer's profile.
@@ -28,7 +29,7 @@ public class PlayerTest {
     /**
      * The testPlayer we are making tests on
      */
-    private Player player;
+    private IdentifiedPlayer player;
 
     /**
      * Deletes the file used to test profiles after all tests have run.
@@ -43,7 +44,7 @@ public class PlayerTest {
         final Launcher launcher = new Launcher();
         launcher.launch();
         player = launcher.getGame().getPlayers().get(0);
-        Player.setIsNotATest();
+        IdentifiedPlayer.setIsNotATest();
         player.setProfilePath(PATH);
         player.setPlayerName();
 
@@ -70,10 +71,8 @@ public class PlayerTest {
      */
     @Test
     public void loseLife() {
-        final Ghost ghost = mock(Ghost.class);
-        when(ghost.getIdentity()).thenReturn(GhostColor.CYAN);
         final int lives = player.getLives();
-        player.loseLife(ghost);
+        player.loseLife();
         assertEquals(lives - 1, player.getLives());
     }
 
@@ -82,11 +81,9 @@ public class PlayerTest {
      */
     @Test
     public void dies() {
-        final Ghost ghost = mock(Ghost.class);
-        when(ghost.getIdentity()).thenReturn(GhostColor.ORANGE);
         player.setLives(1);
         assert player.isAlive();
-        player.loseLife(ghost);
+        player.loseLife();
         assertFalse(player.isAlive());
     }
 

@@ -3,8 +3,7 @@ package nl.tudelft.jpacman.game;
 import com.google.common.collect.ImmutableList;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.AILevel;
-import nl.tudelft.jpacman.level.Level;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class SinglePlayerGame extends Game {
     /**
      * The player of this game.
      */
-    private final Player player;
+    private final IdentifiedPlayer player;
 
     /**
      * The level of this game.
@@ -31,7 +30,7 @@ public class SinglePlayerGame extends Game {
      *
      * @param p The player.
      */
-    protected SinglePlayerGame(Player p) {
+    protected SinglePlayerGame(IdentifiedPlayer p) {
         assert p != null;
 
         this.player = p;
@@ -40,7 +39,7 @@ public class SinglePlayerGame extends Game {
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public List<IdentifiedPlayer> getPlayers() {
         return ImmutableList.of(player);
     }
 

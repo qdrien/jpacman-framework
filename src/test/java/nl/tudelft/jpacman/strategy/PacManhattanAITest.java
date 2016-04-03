@@ -5,7 +5,7 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Pellet;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class PacManhattanAITest {
     @Test
     public void safetySquareTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final PacManhattanAI AI = new PacManhattanAI(game);
         assertFalse(AI.isSafetySquare(player.getSquare()));
         assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -64,7 +64,7 @@ public class PacManhattanAITest {
     @Test
     public void getValidNeighborsTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         List<Square> neighborsList = AI.getValidNeighbors(player.getSquare());
@@ -100,7 +100,7 @@ public class PacManhattanAITest {
     @Test
     public void BFSNearestSafetySquareTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -120,7 +120,7 @@ public class PacManhattanAITest {
     @Test
     public void nextMoveTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -155,7 +155,7 @@ public class PacManhattanAITest {
     @Test
     public void safetyPelletSquareTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -185,7 +185,7 @@ public class PacManhattanAITest {
     @Test
     public void convertPathToDirectionTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -225,7 +225,7 @@ public class PacManhattanAITest {
     @Test
     public void convertPathToDirectionTest2() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
@@ -269,7 +269,7 @@ public class PacManhattanAITest {
     @Test
     public void hurryMoveTest() {
         final Game game = launcher.getGame();
-        final Player player = game.getPlayers().get(0);
+        final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);

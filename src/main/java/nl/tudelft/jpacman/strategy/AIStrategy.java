@@ -2,7 +2,7 @@ package nl.tudelft.jpacman.strategy;
 
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Game data used by AI's to calculate the next move to apply
      */
-    private final Player player;//The player of the game
+    private final IdentifiedPlayer player;//The player of the game
     private final Board board; // The board game
     private final List<Ghost> ghosts; //The ghosts list
 
@@ -45,7 +45,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the player
      */
-    final Player getPlayer() {
+    final IdentifiedPlayer getPlayer() {
         return this.player;
     }
 

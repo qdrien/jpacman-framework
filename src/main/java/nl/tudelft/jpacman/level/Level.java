@@ -37,7 +37,7 @@ public abstract class Level implements PlayerListener {
     /**
      * The players on this level.
      */
-    protected final List<Player> players;
+    protected final List<IdentifiedPlayer> players;
     /**
      * The table of possible collisions between units.
      */
@@ -111,7 +111,7 @@ public abstract class Level implements PlayerListener {
      *
      * @param p The player to register.
      */
-    public void registerPlayer(Player p) {
+    public void registerPlayer(IdentifiedPlayer p) {
         assert p != null;
         assert !startSquares.isEmpty();
 
@@ -196,7 +196,7 @@ public abstract class Level implements PlayerListener {
      * @return <code>true</code> if at least one of the registered players is alive.
      */
     public boolean isAnyPlayerAlive() {
-        for (Player p : players) {
+        for (IdentifiedPlayer p : players) {
             if (p.isAlive()) {
                 return true;
             }
@@ -232,7 +232,7 @@ public abstract class Level implements PlayerListener {
      * @param p The Player that just lost one life
      */
     @Override
-    public void onPlayerLoseLife(final Player p) {
+    public void onPlayerLoseLife(final IdentifiedPlayer p) {
         if (p.getLives() > 0) {
             final List<Square> possibleSquares = getPossibleSquares();
             if (possibleSquares.isEmpty()) {
@@ -250,7 +250,7 @@ public abstract class Level implements PlayerListener {
      *
      * @return the player
      */
-    public Player getPlayer() {
+    public IdentifiedPlayer getPlayer() {
         return players.get(0);
     }
 
@@ -265,7 +265,7 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-     * Calls {@link Board#getPossibleSquares(Player)} to get the list of squares the player can move onto
+     * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)} to get the list of squares the player can move onto
      * (such squares are accessible & have no ghost that are too close to them)
      *
      * @return An ArrayList of Squares the player can move onto

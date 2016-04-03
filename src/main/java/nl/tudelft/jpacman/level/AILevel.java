@@ -206,7 +206,7 @@ public class AILevel extends Level
          * The Player to move.
          */
         private final AIStrategy strategy;
-        private final Player player;
+        private final IdentifiedPlayer player;
         private Direction nextMove;
         private int i=0;
         /**
@@ -216,7 +216,7 @@ public class AILevel extends Level
          * @param strategy The chosen strategy by the player
          * @param p        The player of the game
          */
-        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, Player p) {
+        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, IdentifiedPlayer p) {
             this.service = s;
             this.strategy = strategy;
             this.player = p;
@@ -239,7 +239,7 @@ public class AILevel extends Level
          * @param direction the current direction
          * @return true if the player is in a intersection, false otherwise
          */
-        public boolean isIntersection(Player player, Direction direction) {
+        public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
             if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
                 return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
                         player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);

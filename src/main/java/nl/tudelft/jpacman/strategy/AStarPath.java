@@ -4,7 +4,7 @@ import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Pellet;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class AStarPath extends AStar<Square> {
      * @param player the player
      * @return the neighbor's list
      */
-    public List<Square> getValidNeighbors(Square square, Player player) {
+    public List<Square> getValidNeighbors(Square square, IdentifiedPlayer player) {
         List<Square> neighborsList = square.getNeighbours();
         List<Square> validNeighbors = new ArrayList<>(neighborsList);
         Iterator<Square> iterator = validNeighbors.iterator();

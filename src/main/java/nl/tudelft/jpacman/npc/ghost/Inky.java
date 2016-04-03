@@ -3,7 +3,7 @@ package nl.tudelft.jpacman.npc.ghost;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
-import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.sprite.Sprite;
 
 import java.util.List;
@@ -101,7 +101,7 @@ public class Inky extends Ghost {
             return randomMove();
         }
 
-        Unit player = Navigation.findNearest(Player.class, getSquare());
+        Unit player = Navigation.findNearest(IdentifiedPlayer.class, getSquare());
         if (player == null) {
             return randomMove();
         }

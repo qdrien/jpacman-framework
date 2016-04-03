@@ -10,5 +10,5 @@ interface PlayerListener {
      *
      * @param p The Player that just lost one life
      */
-    void onPlayerLoseLife(Player p);
+    void onPlayerLoseLife(IdentifiedPlayer p);
 }
