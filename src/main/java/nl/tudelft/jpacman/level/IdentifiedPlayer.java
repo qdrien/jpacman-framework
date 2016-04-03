@@ -107,8 +107,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Displays the player's achievements, if any were obtained.
      */
-    public void displayAchievements() throws IOException
-    {
+    public void displayAchievements() throws IOException {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
@@ -153,8 +152,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @param achievement The achievement to add.
      */
-    public void addAchievement(final Achievement achievement) throws IOException
-    {
+    public void addAchievement(final Achievement achievement) throws IOException {
         //If the achievement has already been obtained by this player
         // (or the player isn't logged in), don't add it.
         if (playerName == null || checkAchievement(achievement)) return;
@@ -205,8 +203,7 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         try {
             int choice = 0;
-            do
-            {
+            do {
                 if (isNotATest)
                     choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
@@ -242,8 +239,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @param level The id of the level that has been completed
      */
-    public void levelCompleted(final int level) throws IOException
-    {
+    public void levelCompleted(final int level) throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
         final int levelsCompleted = Integer.parseInt(split[0]);
@@ -270,13 +266,31 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
+     * Updates all the player's info.
+     *
+     * @param toWrite The info to write to the player's profile file.
+     * @throws IOException If the file cannot be written to.
+     */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    private void setInfoLine(String toWrite) throws IOException {
+        toWrite += System.getProperty("line.separator");
+        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        String line = reader.readLine(); //ignore first line, it's already included.
+        while ((line = reader.readLine()) != null)
+            toWrite += line + System.getProperty("line.separator");
+        reader.close();
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
+        writer.write(toWrite);
+        writer.close();
+    }
+
+    /**
      * Triggered whenever the player dies.
      *
      * @param killer The ghost that killed pacman.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
-    public void killedBy(final GhostColor killer) throws IOException
-    {
+    public void killedBy(final GhostColor killer) throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
         String toWrite = "";
@@ -294,8 +308,7 @@ public class IdentifiedPlayer extends Player {
      * whether it's high enough to earn him an achievement.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void saveScore() throws IOException
-    {
+    public void saveScore() throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
         String toWrite = "";
@@ -307,25 +320,6 @@ public class IdentifiedPlayer extends Player {
             else toWrite += split[i] + " ";
         }
         setInfoLine(toWrite);
-    }
-
-    /**
-     * Updates all the player's info.
-     *
-     * @param toWrite The info to write to the player's profile file.
-     * @throws IOException If the file cannot be written to.
-     */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private void setInfoLine(String toWrite) throws IOException {
-        toWrite += System.getProperty("line.separator");
-        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-        String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null)
-            toWrite += line + System.getProperty("line.separator");
-        reader.close();
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
-        writer.write(toWrite);
-        writer.close();
     }
 
     /**
@@ -380,8 +374,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @return said level.
      */
-    public int getMaxLevelReached() throws IOException
-    {
+    public int getMaxLevelReached() throws IOException {
         return Integer.parseInt(getInfoLine()[0]);
     }
 }

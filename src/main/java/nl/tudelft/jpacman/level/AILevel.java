@@ -19,21 +19,20 @@ import java.util.concurrent.TimeUnit;
  * A level of Pac-Man. A level consists of the board with the players and the
  * AIs on it. Enables management of AI during a level (Pacman and ghosts)
  */
-public class AILevel extends Level
-{
+public class AILevel extends Level {
     /**
      * The NPCs of this level and, if they are running, their schedules.
      */
     private final Map<NPC, ScheduledExecutorService> npcs;
     /**
-     * The service for the thread.
-     */
-    private ScheduledExecutorService serviceAI;
-    /**
      * The lock that ensures starting and stopping can't interfere with each
      * other.
      */
     private final Object startStopLock = new Object();
+    /**
+     * The service for the thread.
+     */
+    private ScheduledExecutorService serviceAI;
     /**
      * The chosen strategy by the player.
      */
@@ -48,12 +47,10 @@ public class AILevel extends Level
      * @param collisionMap   The collection of collisions that should be handled.
      */
     public AILevel(Board b, List<NPC> ghosts,
-                   List<Square> startPositions, CollisionMap collisionMap)
-    {
+                   List<Square> startPositions, CollisionMap collisionMap) {
         super(b, ghosts, startPositions, collisionMap);
         this.npcs = new HashMap<>();
-        for (NPC g : ghosts)
-        {
+        for (NPC g : ghosts) {
             npcs.put(g, null);
             if (g instanceof Ghost) {
                 ghostList.add((Ghost) g);
@@ -180,6 +177,7 @@ public class AILevel extends Level
             this.service = s;
             this.npc = n;
         }
+
         /**
          * The run method called periodically.
          */
@@ -196,7 +194,6 @@ public class AILevel extends Level
 
     /**
      * A task that moves the player used by a AI.
-     *
      */
     private final class PlayerMoveTask implements Runnable {
         /**
@@ -210,6 +207,7 @@ public class AILevel extends Level
         private final AIStrategy strategy;
         private final IdentifiedPlayer player;
         private Direction nextMove;
+
         /**
          * Creates a new task.
          *

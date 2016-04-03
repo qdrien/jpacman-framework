@@ -85,7 +85,7 @@ public class LevelFactory {
      * @return A new level for the board.
      */
     public AILevel createLevel(Board board, List<NPC> ghosts,
-                             List<Square> startPositions) {
+                               List<Square> startPositions) {
 
         // We'll adopt the simple collision map for now.
         return new AILevel(board, ghosts, startPositions, new PlayerCollisions());

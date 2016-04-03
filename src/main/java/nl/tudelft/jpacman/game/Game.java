@@ -5,9 +5,9 @@ import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.level.AILevel;
+import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
-import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.strategy.PacmanStrategy;
 
 import java.io.IOException;
@@ -118,6 +118,13 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
+     * Forces subclasses to provide a method to switch to the given Level.
+     *
+     * @param level The Level we want to switch to
+     */
+    protected abstract void setLevel(AILevel level);
+
+    /**
      * Moves the specified player until the next cross in the given direction.
      *
      * @param player    The player to move.
@@ -162,25 +169,15 @@ public abstract class Game implements LevelObserver {
             stop();
             final IdentifiedPlayer player = getPlayers().get(0);
             HallOfFame.setIsNotATest(true);
-            try
-            {
+            try {
                 player.saveScore();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             new HallOfFame().handleHoF(player.getScore(), player.getPlayerName());
         }
         firstPass = false;
     }
-
-    /**
-     * Forces subclasses to provide a method to switch to the given Level.
-     *
-     * @param level The Level we want to switch to
-     */
-    protected abstract void setLevel(AILevel level);
 
     /**
      * Set the Strategy.
@@ -212,7 +209,7 @@ public abstract class Game implements LevelObserver {
                 .getResourceAsStream(file)) {
             if (boardStream == null) return null;
             currentLevel = id;
-            return  parser.parseMap(boardStream);
+            return parser.parseMap(boardStream);
         } catch (IOException e) {
             throw new PacmanConfigurationException("Unable to create level.", e);
         }

@@ -30,7 +30,7 @@ public abstract class Ghost extends NPC {
      * Creates a new ghost.
      *
      * @param spriteMap The sprites for every direction.
-     * @param type The type of ghost to create
+     * @param type      The type of ghost to create
      */
     protected Ghost(Map<Direction, Sprite> spriteMap, GhostColor type) {
         this.sprites = spriteMap;

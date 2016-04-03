@@ -195,8 +195,9 @@ public class HallOfFame {
     private void saveUpdatedHoF(final int bestScores[], final String... bestPlayers) {
         try {
             final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
-            for (int i = 0; i < NUMBER_OF_RECORDS; i++) writer.write(bestPlayers[i] + " "
-                    + bestScores[i] + "\n");
+            for (int i = 0; i < NUMBER_OF_RECORDS; i++)
+                writer.write(bestPlayers[i] + " "
+                        + bestScores[i] + "\n");
             writer.close();
         } catch (IOException e) {
             System.err.println("Error whilst writing to HoF.txt " + e.getMessage());

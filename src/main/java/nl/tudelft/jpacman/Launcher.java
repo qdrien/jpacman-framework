@@ -24,10 +24,9 @@ import java.io.IOException;
  * @author Jeroen Roosen
  */
 public class Launcher {
-    private static final PacManSprites SPRITE_STORE = new PacManSprites();
     public static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
-
+    private static final PacManSprites SPRITE_STORE = new PacManSprites();
     private PacManUI pacManUI;
     private Game game;
 
@@ -128,13 +127,10 @@ public class Launcher {
         {
             final IdentifiedPlayer player = game.getPlayers().get(0);
             if (player.authenticate()) {
-                try
-                {
+                try {
                     player.displayAchievements();
                     pacManUI.refreshLevelChoices(player.getMaxLevelReached());
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 

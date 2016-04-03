@@ -7,7 +7,10 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.NPC;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -18,11 +21,19 @@ import java.util.*;
  */
 public abstract class Level implements PlayerListener {
 
+    public static final int QUICK_WIN_NEEDED_PELLETS = 13;
     /**
      * If true, picking up 13 pellets is enough to win a level.
      */
     private static final boolean QUICK_WIN = false; //todo
-    public static final int QUICK_WIN_NEEDED_PELLETS = 13;
+    /**
+     * The players on this level.
+     */
+    protected final List<IdentifiedPlayer> players;
+    /**
+     * The list of the ghosts in the game.
+     */
+    protected final List<Ghost> ghostList;
     /**
      * The board of this level.
      */
@@ -36,10 +47,6 @@ public abstract class Level implements PlayerListener {
      */
     private final List<Square> startSquares;
     /**
-     * The players on this level.
-     */
-    protected final List<IdentifiedPlayer> players;
-    /**
      * The table of possible collisions between units.
      */
     private final CollisionMap collisions;
@@ -47,10 +54,6 @@ public abstract class Level implements PlayerListener {
      * The objects observing this level.
      */
     private final List<LevelObserver> observers;
-    /**
-     * The list of the ghosts in the game.
-     */
-    protected final List<Ghost> ghostList;
     /**
      * <code>true</code> iff this level is currently in progress, i.e. players
      * and NPCs can move.

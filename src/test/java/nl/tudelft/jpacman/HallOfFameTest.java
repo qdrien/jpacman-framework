@@ -27,6 +27,7 @@ public class HallOfFameTest {
 
     /**
      * Operations to be executed prior to tests.
+     *
      * @throws IOException If the HoF file cannot be found or read.
      */
     @Before
@@ -39,6 +40,7 @@ public class HallOfFameTest {
 
     /**
      * Closes the HoF file after a test.
+     *
      * @throws IOException If the HoF file cannot be closed.
      */
     @After
@@ -48,6 +50,7 @@ public class HallOfFameTest {
 
     /**
      * Tests whether the HoF is correctly updated whenever a new high score is obtained.
+     *
      * @throws IOException If the default HoF file cannot be read or found.
      */
     @Test
@@ -61,6 +64,7 @@ public class HallOfFameTest {
 
     /**
      * Tests whether the HoF gets reset to default values when appropriate.
+     *
      * @throws IOException If the default HoF file cannot be read or found.
      */
     @Test

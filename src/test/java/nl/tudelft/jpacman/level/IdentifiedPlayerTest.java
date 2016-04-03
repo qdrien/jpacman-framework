@@ -2,26 +2,21 @@ package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Achievement;
-import nl.tudelft.jpacman.npc.ghost.Ghost;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests methods that have been added or modified in the Player class since v6.3.0.
  *
  * @author Adrien Coppens
  */
-public class IdentifiedPlayerTest
-{
+public class IdentifiedPlayerTest {
     /**
      * The path of the file that will be used to test the testPlayer's profile.
      */

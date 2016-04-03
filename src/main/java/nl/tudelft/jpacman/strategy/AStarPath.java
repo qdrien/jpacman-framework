@@ -3,8 +3,8 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
+import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.ArrayList;

@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Player extends Unit
-{
+public class Player extends Unit {
 
     /**
      * The amount of points the player needs to get an additional life
@@ -56,8 +55,7 @@ public class Player extends Unit
      */
     private boolean poweredUp; //booleans are initialised to false by default.
 
-    public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation)
-    {
+    public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.alive = true;
         listeners = new ArrayList<>();
         this.sprites = spriteMap;

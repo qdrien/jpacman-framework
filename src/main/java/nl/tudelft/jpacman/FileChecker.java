@@ -7,8 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public final class FileChecker
-{
+public final class FileChecker {
     /**
      * The path of the file containing usernames and passwords.
      */
@@ -18,7 +17,8 @@ public final class FileChecker
     /**
      * Forces the compiler to not generate default constructor, making this a true Utility Class.
      */
-    private FileChecker() {}
+    private FileChecker() {
+    }
 
     /**
      * Checks whether a user already exists with the username desired by the player.
@@ -28,8 +28,7 @@ public final class FileChecker
      * @throws IOException If the login file cannot be found or read.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public static boolean checkUsername(final String name) throws IOException
-    {
+    public static boolean checkUsername(final String name) throws IOException {
         String line;
         final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
         while ((line = reader.readLine()) != null) {

@@ -108,6 +108,7 @@ public class Board {
 
     /**
      * Retrieves possible target squares for the given player by looking at ghosts positions.
+     *
      * @param player The player we want to retrieve possible squares for
      * @return An ArrayList of Squares the player can move on
      */

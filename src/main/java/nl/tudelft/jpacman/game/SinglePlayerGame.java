@@ -74,12 +74,9 @@ public class SinglePlayerGame extends Game {
     public void levelWon() {
         super.levelWon();
         System.out.println("Just won level: " + currentLevel);
-        try
-        {
+        try {
             player.levelCompleted(currentLevel);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         setLevel(nextLevel());
