@@ -134,16 +134,13 @@ public class IdentifiedPlayer extends Player {
      *
      * @param achievement The achievement to add.
      */
-    public void addAchievement(final Achievement achievement) {
+    public void addAchievement(final Achievement achievement) throws IOException
+    {
         //If the achievement has already been obtained by this player (or the player isn't logged in), don't add it.
-        try {
-            if (playerName == null || checkAchievement(achievement)) return;
-            final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
-            writer.write(achievement + System.getProperty("line.separator"));
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (playerName == null || checkAchievement(achievement)) return;
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
+        writer.write(achievement + System.getProperty("line.separator"));
+        writer.close();
         final int bonus = achievement.getBonusScore();
         score += bonus;
         if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
