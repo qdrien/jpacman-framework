@@ -12,7 +12,8 @@ public final class FileChecker
     /**
      * The path of the file containing usernames and passwords.
      */
-    private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
+    private static final String LOGIN_PATH = new File("").getAbsolutePath()
+            + "/src/main/resources/login.txt";
 
     /**
      * Forces the compiler to not generate default constructor, making this a true Utility Class.
@@ -33,7 +34,8 @@ public final class FileChecker
         final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
         while ((line = reader.readLine()) != null) {
             if (name.equals(line.split(" ")[0])) {
-                JOptionPane.showMessageDialog(null, "Profile already exists", "Error", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
+                        JOptionPane.PLAIN_MESSAGE);
                 return true;
             }
         }
@@ -53,14 +55,17 @@ public final class FileChecker
             String line = reader.readLine();
             while (line != null) {
                 final String split[] = line.split(" ");
-                if (split[0].equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
+                if (split[0].equals(playerName)
+                        && Arrays.hashCode(passEntered) == Integer.parseInt(split[1]))
+                    return true;
                 line = reader.readLine();
             }
             reader.close();
         } catch (IOException e) {
             System.err.println("Error whilst reading login.txt " + e.getMessage());
         }
-        JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error",
+                JOptionPane.PLAIN_MESSAGE);
         return false;
     }
 }

@@ -29,6 +29,7 @@ public class IdentifiedPlayer extends Player {
      */
     private static final String LOGIN_PATH = new File("").getAbsolutePath()
             + "/src/main/resources/login.txt";
+
     /**
      * Whether the application is running or whether it's being tested.
      */
@@ -45,8 +46,7 @@ public class IdentifiedPlayer extends Player {
      * @param spriteMap      A map containing a sprite for this player for every direction.
      * @param deathAnimation The sprite to be shown when this player dies.
      */
-    public IdentifiedPlayer(Map<Direction,
-            Sprite> spriteMap, AnimatedSprite deathAnimation) {
+    public IdentifiedPlayer(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         super(spriteMap, deathAnimation);
     }
 
@@ -91,8 +91,8 @@ public class IdentifiedPlayer extends Player {
      * Sets the path to the file storing the player's stats. (default version)
      */
     private void setProfilePath() {
-        profilePath = new File("").getAbsolutePath()
-                + "/src/main/resources/profiles/" + playerName + ".prf";
+        profilePath = new File("").getAbsolutePath() +
+                "/src/main/resources/profiles/" + playerName + ".prf";
     }
 
     /**
@@ -112,15 +112,16 @@ public class IdentifiedPlayer extends Player {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
-        if (JOptionPane.showOptionDialog(null, panel, "Query",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                options, options[0]) != 0) return;
+        if (JOptionPane.showOptionDialog(
+                null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]) != 0)
+            return;
         String toDisplay = "<html>";
         toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
         if ("<html><br>Achievements: <br></html>".equals(toDisplay))
-            JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww",
-                    JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No achievements earned yet.",
+                    "Awww", JOptionPane.PLAIN_MESSAGE);
         else
             JOptionPane.showMessageDialog(null, toDisplay, "Achievements",
                     JOptionPane.PLAIN_MESSAGE);
@@ -140,8 +141,8 @@ public class IdentifiedPlayer extends Player {
         String achievementName = reader.readLine();
         achievements += "<br>Achievements: <br>";
         while ((achievementName = reader.readLine()) != null) {
-            achievements += achievementName + ": "
-                    + Achievement.parseAchievement(achievementName).getDescription() + "<br>";
+            achievements += achievementName + ": " +
+                    Achievement.parseAchievement(achievementName).getDescription() + "<br>";
         }
         reader.close();
         return achievements;
@@ -162,7 +163,7 @@ public class IdentifiedPlayer extends Player {
         writer.close();
         final int bonus = achievement.getBonusScore();
         score += bonus;
-        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest)
             JOptionPane.showMessageDialog(null,
                     "Achievement unlocked: " + achievement + ", gained " + bonus + " points.",
                     "Congratulations", JOptionPane.PLAIN_MESSAGE);
@@ -206,7 +207,8 @@ public class IdentifiedPlayer extends Player {
             int choice = 0;
             do
             {
-                if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
+                if (isNotATest)
+                    choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                             options, options[0]);
                 if (choice != 0) return;
@@ -221,9 +223,9 @@ public class IdentifiedPlayer extends Player {
             //Creating the profile file for the new user.
             setProfilePath();
             writer = new BufferedWriter(new FileWriter(profilePath));
-            //0 levels completed, 0 high score achieved, 0 fruits eaten,
-            // 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky,
-            // 0 times killed by Inky, 0 times killed by Clyde.
+            //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed,
+            // 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky,
+            // 0 times killed by Clyde.
             writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
             writer.close();
             JOptionPane.showMessageDialog(null, "Profile created", "Success",
@@ -236,13 +238,6 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-                JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
-                        JOptionPane.PLAIN_MESSAGE);
-                if (login.equals(playerName)
-                        && Arrays.hashCode(passEntered) == Integer.parseInt(split[1]))
-                    return true;
-        JOptionPane.showMessageDialog(null, "Username and/or password is erroneous",
-                "Error", JOptionPane.PLAIN_MESSAGE);
      * Triggered whenever the player completes a game.
      *
      * @param level The id of the level that has been completed
@@ -295,23 +290,23 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * Saves the player's highest scores and checks whether it's high enough
-     * to earn him an achievement.
+     * Saves the player's highest scores and checks
+     * whether it's high enough to earn him an achievement.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void saveScore() throws IOException
     {
         if (playerName == null) return;
-            final String split[] = getInfoLine();
-            String toWrite = "";
-            int highScore = Integer.parseInt(split[1]);
-            if (score > 9000) addAchievement(Achievement.OVER_9000);
-            if (score > highScore) highScore = score;
-            for (int i = 0; i < split.length; i++) {
-                if (i == 1) toWrite += highScore + " ";
-                else toWrite += split[i] + " ";
-            }
-            setInfoLine(toWrite);
+        final String split[] = getInfoLine();
+        String toWrite = "";
+        int highScore = Integer.parseInt(split[1]);
+        if (score > 9000) addAchievement(Achievement.OVER_9000);
+        if (score > highScore) highScore = score;
+        for (int i = 0; i < split.length; i++) {
+            if (i == 1) toWrite += highScore + " ";
+            else toWrite += split[i] + " ";
+        }
+        setInfoLine(toWrite);
     }
 
     /**
@@ -325,7 +320,8 @@ public class IdentifiedPlayer extends Player {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null) toWrite += line + System.getProperty("line.separator");
+        while ((line = reader.readLine()) != null)
+            toWrite += line + System.getProperty("line.separator");
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
