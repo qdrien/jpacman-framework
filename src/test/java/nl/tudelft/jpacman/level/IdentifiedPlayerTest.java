@@ -40,7 +40,7 @@ public class IdentifiedPlayerTest
     }
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() throws IOException {
         final Launcher launcher = new Launcher();
         launcher.launch();
         player = launcher.getGame().getPlayers().get(0);
