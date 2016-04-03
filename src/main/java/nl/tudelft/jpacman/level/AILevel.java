@@ -192,7 +192,7 @@ public class AILevel extends Level
 
 
     /**
-     * A task that moves the player used by a AI
+     * A task that moves the player used by a AI.
      *
      *
      */

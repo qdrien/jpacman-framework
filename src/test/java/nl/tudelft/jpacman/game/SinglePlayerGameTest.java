@@ -44,7 +44,7 @@ public class SinglePlayerGameTest {
         assertNotEquals(player.getScore(), score);
         assertNotEquals(player.getLives(), lives);
         assertEquals(0, player.getScore());
-        assertEquals(3, player.getLives());
+        assertEquals(SinglePlayerGame.STARTING_LIVES, player.getLives());
     }
 
 

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class SinglePlayerGame extends Game {
 
+    public static final int STARTING_LIVES = 3;
     /**
      * The player of this game.
      */
@@ -112,6 +113,6 @@ public class SinglePlayerGame extends Game {
     public void reset() {
         stop();
         player.resetScore();
-        player.setLives(3);
+        player.setLives(STARTING_LIVES);
     }
 }
