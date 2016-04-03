@@ -49,7 +49,7 @@ public final class FileChecker
      * @param passEntered the password entered by the player.
      * @return Whether the identifying info is correct or not.
      */
-    public static boolean checkLoginInfo(String playerName, final char... passEntered) {
+    public static boolean checkLoginInfo(final String playerName, final char... passEntered) {
         try {
             final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
             String line = reader.readLine();

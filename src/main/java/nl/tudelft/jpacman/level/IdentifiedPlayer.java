@@ -46,7 +46,7 @@ public class IdentifiedPlayer extends Player {
      * @param spriteMap      A map containing a sprite for this player for every direction.
      * @param deathAnimation The sprite to be shown when this player dies.
      */
-    public IdentifiedPlayer(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
+    public IdentifiedPlayer(final Map<Direction, Sprite> spriteMap, final AnimatedSprite deathAnimation) {
         super(spriteMap, deathAnimation);
     }
 
@@ -242,7 +242,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @param level The id of the level that has been completed
      */
-    public void levelCompleted(int level) throws IOException
+    public void levelCompleted(final int level) throws IOException
     {
         if (playerName == null) return;
         final String split[] = getInfoLine();
