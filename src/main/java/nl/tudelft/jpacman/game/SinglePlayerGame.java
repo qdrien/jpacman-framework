@@ -5,6 +5,7 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -73,7 +74,14 @@ public class SinglePlayerGame extends Game {
     public void levelWon() {
         super.levelWon();
         System.out.println("Just won level: " + currentLevel);
-        player.levelCompleted(currentLevel);
+        try
+        {
+            player.levelCompleted(currentLevel);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         setLevel(nextLevel());
     }
 

@@ -128,8 +128,16 @@ public class Launcher {
         {
             final IdentifiedPlayer player = game.getPlayers().get(0);
             if (player.authenticate()) {
-                player.displayAchievements();
-                pacManUI.refreshLevelChoices(player.getMaxLevelReached());
+                try
+                {
+                    player.displayAchievements();
+                    pacManUI.refreshLevelChoices(player.getMaxLevelReached());
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
             }
         });
         builder.addButton("New player", () -> game.getPlayers().get(0).createNewPlayer());

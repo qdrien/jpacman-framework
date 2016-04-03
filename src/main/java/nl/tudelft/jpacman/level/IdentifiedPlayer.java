@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.level;
 
+import nl.tudelft.jpacman.FileChecker;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
@@ -22,6 +23,7 @@ public class IdentifiedPlayer extends Player {
      * The maximum size of the player's username and password.
      */
     private static final int MAX_LOGIN_LENGTH = 25, MAX_PASS_LENGTH = 15;
+
     /**
      * The path of the file containing usernames and passwords.
      */
@@ -31,6 +33,10 @@ public class IdentifiedPlayer extends Player {
      * Whether the application is running or whether it's being tested.
      */
     private static boolean isNotATest = true;
+
+    /**
+     * Path of the player's profile file.
+     */
     protected String profilePath;
 
     /**
@@ -72,7 +78,7 @@ public class IdentifiedPlayer extends Player {
                     options, options[0]);
             if (choice != 0) return false;
             playerName = loginEntered.getText();
-        } while (!checkLoginInfo(passEntered.getPassword()));
+        } while (!FileChecker.checkLoginInfo(playerName, passEntered.getPassword()));
         setProfilePath();
         JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName,
                 "Login successful", JOptionPane.PLAIN_MESSAGE);
@@ -101,7 +107,8 @@ public class IdentifiedPlayer extends Player {
     /**
      * Displays the player's achievements, if any were obtained.
      */
-    public void displayAchievements() {
+    public void displayAchievements() throws IOException
+    {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
@@ -109,15 +116,9 @@ public class IdentifiedPlayer extends Player {
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                 options, options[0]) != 0) return;
         String toDisplay = "<html>";
-        try
-        {
-            toDisplay = parseAchievements(toDisplay);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
-        if ("<html></html>".equals(toDisplay))
+        if ("<html><br>Achievements: <br></html>".equals(toDisplay))
             JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww",
                     JOptionPane.PLAIN_MESSAGE);
         else
@@ -151,20 +152,17 @@ public class IdentifiedPlayer extends Player {
      *
      * @param achievement The achievement to add.
      */
-    public void addAchievement(final Achievement achievement) {
+    public void addAchievement(final Achievement achievement) throws IOException
+    {
         //If the achievement has already been obtained by this player
         // (or the player isn't logged in), don't add it.
-        try {
-            if (playerName == null || checkAchievement(achievement)) return;
-            final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
-            writer.write(achievement + System.getProperty("line.separator"));
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (playerName == null || checkAchievement(achievement)) return;
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
+        writer.write(achievement + System.getProperty("line.separator"));
+        writer.close();
         final int bonus = achievement.getBonusScore();
         score += bonus;
-        if (isNotATest)
+        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
             JOptionPane.showMessageDialog(null,
                     "Achievement unlocked: " + achievement + ", gained " + bonus + " points.",
                     "Congratulations", JOptionPane.PLAIN_MESSAGE);
@@ -206,14 +204,14 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         try {
             int choice = 0;
-            do {
-                if (isNotATest)
-                    choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
+            do
+            {
+                if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                             options, options[0]);
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
-            } while (checkUsername(playerName));
+            } while (FileChecker.checkUsername(playerName));
             final char pass[] = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
             writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
@@ -238,73 +236,28 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * Checks whether a user already exists with the username desired by the player.
-     *
-     * @param name the name to check.
-     * @return Whether the name is already in use or not.
-     * @throws IOException If the login file cannot be found or read.
-     */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private boolean checkUsername(final String name) throws IOException {
-        String line;
-        final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
-        while ((line = reader.readLine()) != null) {
-            if (name.equals(line.split(" ")[0])) {
                 JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
                         JOptionPane.PLAIN_MESSAGE);
-                return true;
-            }
-        }
-        reader.close();
-        return false;
-    }
-
-    /**
-     * Checks whether the player correctly identified himself.
-     *
-     * @param passEntered the password entered by the player.
-     * @return Whether the identifying info is correct or not.
-     */
-    private boolean checkLoginInfo(final char... passEntered) {
-        try {
-            final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
-            String line = reader.readLine();
-            while (line != null) {
-                final String split[] = line.split(" ");
-                final String login = split[0];
                 if (login.equals(playerName)
                         && Arrays.hashCode(passEntered) == Integer.parseInt(split[1]))
                     return true;
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.err.println("Error whilst reading login.txt " + e.getMessage());
-        }
         JOptionPane.showMessageDialog(null, "Username and/or password is erroneous",
                 "Error", JOptionPane.PLAIN_MESSAGE);
-        return false;
-    }
-
-    /**
      * Triggered whenever the player completes a game.
      *
      * @param level The id of the level that has been completed
      */
-    public void levelCompleted(int level) {
+    public void levelCompleted(int level) throws IOException
+    {
         if (playerName == null) return;
-        try {
-            final String split[] = getInfoLine();
-            final int levelsCompleted = Integer.parseInt(split[0]);
-            addAchievement(Achievement.VICTOR);
-            if (level > levelsCompleted) {
-                String result = "";
-                for (int i = 1; i < split.length; i++) result += split[i] + " ";
-                setInfoLine(level + " " + result);
-                if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        final String split[] = getInfoLine();
+        final int levelsCompleted = Integer.parseInt(split[0]);
+        addAchievement(Achievement.VICTOR);
+        if (level > levelsCompleted) {
+            String result = "";
+            for (int i = 1; i < split.length; i++) result += split[i] + " ";
+            setInfoLine(level + " " + result);
+            if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
         }
     }
 
@@ -327,21 +280,18 @@ public class IdentifiedPlayer extends Player {
      * @param killer The ghost that killed pacman.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
-    public void killedBy(final GhostColor killer) {
+    public void killedBy(final GhostColor killer) throws IOException
+    {
         if (playerName == null) return;
-        try {
-            final String split[] = getInfoLine();
-            String toWrite = "";
-            final Achievement toGrant = killer.getAchievementGranted();
-            for (int i = 0; i < split.length; i++) {
-                if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
-                else toWrite += split[i] + " ";
-            }
-            setInfoLine(toWrite);
-            if (toGrant != null) addAchievement(toGrant);
-        } catch (IOException e) {
-            e.printStackTrace();
+        final String split[] = getInfoLine();
+        String toWrite = "";
+        final Achievement toGrant = killer.getAchievementGranted();
+        for (int i = 0; i < split.length; i++) {
+            if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
+            else toWrite += split[i] + " ";
         }
+        setInfoLine(toWrite);
+        if (toGrant != null) addAchievement(toGrant);
     }
 
     /**
@@ -349,9 +299,9 @@ public class IdentifiedPlayer extends Player {
      * to earn him an achievement.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void saveScore() {
+    public void saveScore() throws IOException
+    {
         if (playerName == null) return;
-        try {
             final String split[] = getInfoLine();
             String toWrite = "";
             int highScore = Integer.parseInt(split[1]);
@@ -362,9 +312,6 @@ public class IdentifiedPlayer extends Player {
                 else toWrite += split[i] + " ";
             }
             setInfoLine(toWrite);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -378,9 +325,7 @@ public class IdentifiedPlayer extends Player {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null) {
-            toWrite += line + System.getProperty("line.separator");
-        }
+        while ((line = reader.readLine()) != null) toWrite += line + System.getProperty("line.separator");
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
@@ -411,7 +356,6 @@ public class IdentifiedPlayer extends Player {
             toDisplay += "<br>Times killed by Clyde: " + split[7];
             toDisplay = parseAchievements(toDisplay);
             toDisplay += "</html>";
-
             JOptionPane.showMessageDialog(null, toDisplay, "Statistics",
                     JOptionPane.PLAIN_MESSAGE);
         } catch (IOException e) {
@@ -440,14 +384,8 @@ public class IdentifiedPlayer extends Player {
      *
      * @return said level.
      */
-    public int getMaxLevelReached() {
-        int i = 0;
-        try {
-            i = Integer.parseInt(getInfoLine()[0]);
-            System.out.println("max level reached: " + i);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return i;
+    public int getMaxLevelReached() throws IOException
+    {
+        return Integer.parseInt(getInfoLine()[0]);
     }
 }
