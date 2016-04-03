@@ -161,21 +161,11 @@ public abstract class Game implements LevelObserver {
         if (firstPass) {
             stop();
             final IdentifiedPlayer player = getPlayers().get(0);
-            triggerHoF(player);
+            HallOfFame.setIsNotATest(true);
+            player.saveScore();
+            new HallOfFame().handleHoF(player.getScore(), player.getPlayerName());
         }
         firstPass = false;
-    }
-
-    /**
-     * Triggers the Hall of Fame handler and eventually updates of the player'scheduledExecutorService score.
-     *
-     * @param player The player in question.
-     */
-    private void triggerHoF(IdentifiedPlayer player) {
-        HallOfFame.setIsNotATest(true);
-        final HallOfFame hallOfFame = new HallOfFame();
-        player.saveScore();
-        hallOfFame.handleHoF(player.getScore(), player.getPlayerName());
     }
 
     /**
