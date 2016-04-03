@@ -93,7 +93,7 @@ public class PacManUI extends JFrame {
     }
 
     /**
-     * Adds buttons that allows the user to choose the level he wants to play in
+     * Adds buttons that allows the user to choose the level he wants to play in.
      *
      * @param game The Game instance we are playing on
      */
@@ -143,7 +143,7 @@ public class PacManUI extends JFrame {
     }
 
     /**
-     * Removes all "level selection" radio buttons and adds those that are needed (up to @maxLevelReached)
+     * Removes all "level selection" radio buttons and adds those that are needed (up to @maxLevelReached).
      *
      * @param maxLevelReached The max level the player has reached
      */

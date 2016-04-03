@@ -30,7 +30,7 @@ public enum Achievement {
     private int bonusScore;
 
     /**
-     * Returns the Achievement corresponding to the given String,
+     * Returns the Achievement corresponding to the given String.
      *
      * @param s The String.
      * @return The Achievement.

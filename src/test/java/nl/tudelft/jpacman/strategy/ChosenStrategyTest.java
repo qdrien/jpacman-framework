@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
 /**
- * Class to test the choice of the strategy for the game mode
+ * Class to test the choice of the strategy for the game mode.
  */
 public class ChosenStrategyTest {
     private Launcher launcher;
@@ -32,7 +32,7 @@ public class ChosenStrategyTest {
     }
 
     /**
-     * Human strategy test
+     * Human strategy test.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -56,7 +56,7 @@ public class ChosenStrategyTest {
     }
 
     /**
-     * AI strategy test
+     * AI strategy test.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -78,7 +78,7 @@ public class ChosenStrategyTest {
     }
 
     /**
-     * Other strategy test (for a new implementation of strategy)
+     * Other strategy test (for a new implementation of strategy).
      *
      * @throws InterruptedException if the thread is interrupted
      */

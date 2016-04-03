@@ -10,7 +10,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Class to test coordinates of a square in the board
+ * Class to test coordinates of a square in the board.
  */
 public class SquareCoordinateTest {
     private Launcher launcher;

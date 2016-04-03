@@ -114,7 +114,7 @@ public class BoardFactory {
     }
 
     /**
-     * Creates a text file for a level from a given image file
+     * Creates a text file for a level from a given image file.
      *
      * @param file  The image file to generate the level from
      * @param level The level id of this level
@@ -134,7 +134,7 @@ public class BoardFactory {
     }
 
     /**
-     * Converts a given image to a list of "pacman level" lines (Strings)
+     * Converts a given image to a list of "pacman level" lines (Strings).
      *
      * @param img The image used for generating the level
      * @return a List of Strings containing lines in pacman's format
@@ -173,7 +173,7 @@ public class BoardFactory {
     }
 
     /**
-     * Returns the file matching the given level in the given list of files
+     * Returns the file matching the given level in the given list of files.
      *
      * @param level The level we are searching for
      * @param files The list of files to search in

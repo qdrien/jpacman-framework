@@ -3,7 +3,7 @@ package nl.tudelft.jpacman.board;
 import java.awt.*;
 
 /**
- * Contains the mapping between pacman items and their corresponding color
+ * Contains the mapping between pacman items and their corresponding color.
  */
 public enum ItemsColor {
     PACMAN(Color.YELLOW),
@@ -19,7 +19,7 @@ public enum ItemsColor {
     }
 
     /**
-     * Returns the type of item that matches the given RGB value
+     * Returns the type of item that matches the given RGB value.
      *
      * @param rgbValue The int representing a RGB value
      * @return The corresponding "pacman object" enum type or null if none matches

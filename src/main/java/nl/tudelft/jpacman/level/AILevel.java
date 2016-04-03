@@ -26,7 +26,7 @@ public class AILevel extends Level
      */
     private final Map<NPC, ScheduledExecutorService> npcs;
     /**
-     * The service for the thread
+     * The service for the thread.
      */
     private ScheduledExecutorService serviceAI;
     /**
@@ -35,7 +35,7 @@ public class AILevel extends Level
      */
     private final Object startStopLock = new Object();
     /**
-     * The chosen strategy by the player
+     * The chosen strategy by the player.
      */
     private PacmanStrategy strategy;
 
@@ -84,7 +84,7 @@ public class AILevel extends Level
     }
 
     /**
-     * Starts or resumes the AI
+     * Starts or resumes the AI.
      *
      * @param strategy the chosen strategy
      */
@@ -99,7 +99,7 @@ public class AILevel extends Level
     }
 
     /**
-     * Start or create a thread for the AI
+     * Start or create a thread for the AI.
      */
     private void startAIStrategy() {
         //Start the main thread for the AI
@@ -110,7 +110,7 @@ public class AILevel extends Level
     }
 
     /**
-     * Shutdown the thread
+     * Shutdown the thread.
      */
     private void stopAIStrategy() {
         if (serviceAI != null) {
@@ -178,7 +178,7 @@ public class AILevel extends Level
             this.npc = n;
         }
         /**
-         * The run method called periodically
+         * The run method called periodically.
          */
         @Override
         public void run() {
@@ -223,7 +223,7 @@ public class AILevel extends Level
         }
 
         /**
-         * The run method called periodically
+         * The run method called periodically.
          */
         @Override
         public void run() {
@@ -233,7 +233,7 @@ public class AILevel extends Level
         }
 
         /**
-         * Test if the player is at an intersection in the game
+         * Test if the player is at an intersection in the game.
          *
          * @param player    the player of the game
          * @param direction the current direction

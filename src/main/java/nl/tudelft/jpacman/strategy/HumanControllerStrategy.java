@@ -12,7 +12,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
 
 
     /**
-     * Default constructor
+     * Default constructor.
      *
      * @param game the current game
      * @param builder The UI builder that will be used
@@ -24,7 +24,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
     }
 
     /**
-     * Return the type of the strategy
+     * Return the type of the strategy.
      *
      * @return PLAYER strategy
      */
@@ -49,7 +49,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
     }
 
     /**
-     * Return the next move to apply
+     * Return the next move to apply.
      *
      * @return null
      */
@@ -60,7 +60,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
 
 
     /**
-     * Add keys to the player
+     * Add keys to the player.
      */
     public void executeStrategy() {
         addSinglePlayerKeys(builder, game);

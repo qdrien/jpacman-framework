@@ -5,13 +5,13 @@ import nl.tudelft.jpacman.game.Game;
 
 public abstract class PacmanStrategy {
     /**
-     * The current game
+     * The current game.
      */
     Game game;
 
 
     /**
-     * Default constructor
+     * Default constructor.
      *
      * @param game the current game
      */
@@ -20,7 +20,7 @@ public abstract class PacmanStrategy {
     }
 
     /**
-     * Return the type of the strategy
+     * Return the type of the strategy.
      *
      * @return UNKNOWN
      */
@@ -29,19 +29,19 @@ public abstract class PacmanStrategy {
     }
 
     /**
-     * Move the player to the next direction
+     * Move the player to the next direction.
      *
      * @return the direction takes by the player
      */
     public abstract Direction nextMove();
 
     /**
-     * Apply the chosen strategy
+     * Apply the chosen strategy.
      */
     public abstract void executeStrategy();
 
     /**
-     * Different type of the strategy
+     * Different type of the strategy.
      */
     public enum Type {
         UNKNOWN,

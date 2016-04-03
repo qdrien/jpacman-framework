@@ -226,7 +226,7 @@ public abstract class AStar<T> {
         }
 
         /**
-         * Set the
+         * Set the point.
          */
         public void setPoint(T p) {
             point = p;

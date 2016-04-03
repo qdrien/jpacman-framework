@@ -13,7 +13,7 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 /**
- * Human strategy test in the game
+ * Human strategy test in the game.
  */
 public class HumanControllerStrategyTest {
     private Launcher launcher;
@@ -34,7 +34,7 @@ public class HumanControllerStrategyTest {
     }
 
     /**
-     * Attribution of keys for the player to move the Pacman in the game
+     * Attribution of keys for the player to move the Pacman in the game.
      *
      * @throws AWTException if Abstract Window Toolkit has occurred
      * @throws InterruptedException if the thread is interrupted

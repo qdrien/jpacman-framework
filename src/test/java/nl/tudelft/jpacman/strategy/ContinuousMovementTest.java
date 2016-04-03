@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Class to test the continuousMovement method for the continuous movement of the player
+ * Class to test the continuousMovement method for the continuous movement of the player.
  */
 public class ContinuousMovementTest {
     private Launcher launcher;
@@ -59,7 +59,7 @@ public class ContinuousMovementTest {
     }
 
     /**
-     * A continuous movement test
+     * A continuous movement test.
      *
      * @throws InterruptedException if the thread is interrupted
      */
@@ -82,7 +82,7 @@ public class ContinuousMovementTest {
     }
 
     /**
-     * A continuous movement test
+     * A continuous movement test.
      *
      * @throws InterruptedException if the thread is interrupted
      */
@@ -111,7 +111,7 @@ public class ContinuousMovementTest {
     }
 
     /**
-     * A continuous move test
+     * A continuous move test.
      *
      * @throws InterruptedException if the thread is interrupted
      */
@@ -141,7 +141,7 @@ public class ContinuousMovementTest {
     }
 
     /**
-     * A continuous move test
+     * A continuous move test.
      *
      * @throws InterruptedException if the thread is interrupted
      */

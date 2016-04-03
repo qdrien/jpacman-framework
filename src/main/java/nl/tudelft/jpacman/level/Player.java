@@ -24,7 +24,7 @@ public class Player extends Unit {
 
     /**
      * The amount of points the player needs to get an additional life
-     * (he gets one each time he reaches a multiple of this value)
+     * (he gets one each time he reaches a multiple of this value).
      */
     private static final int NEW_LIFE_THRESHOLD = 10000;
     /**
@@ -52,7 +52,7 @@ public class Player extends Unit {
      */
     private final AnimatedSprite deathSprite;
     /**
-     * The ArrayList of listeners that will be called when a player-related event occurs
+     * The ArrayList of listeners that will be called when a player-related event occurs.
      */
     private final List<PlayerListener> listeners;
     /**
@@ -64,7 +64,7 @@ public class Player extends Unit {
      */
     private boolean alive;
     /**
-     * The number of lives left
+     * The number of lives left.
      */
     private int lives = 3;
     /**
@@ -533,7 +533,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Get the interval to move the player periodically
+     * Get the interval to move the player periodically.
      *
      * @return the player interval
      */
@@ -549,7 +549,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Removes one life from the player and check if he has none left afterwards
+     * Removes one life from the player and check if he has none left afterwards.
      *
      * @param ghost The ghost that is responsible for the player's death
      */
@@ -565,14 +565,14 @@ public class Player extends Unit {
     }
 
     /**
-     * Simply adds one life to the player
+     * Simply adds one life to the player.
      */
     public void addLife() {
         lives++;
     }
 
     /**
-     * Simple getter for the lives field
+     * Simple getter for the lives field.
      *
      * @return The amount of lives left
      */
@@ -581,7 +581,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Simple setter for the lives field
+     * Simple setter for the lives field.
      *
      * @param lives The amount of lives the player will have after the method call
      */
@@ -590,7 +590,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Registers the given Level to the player so that he can communicate with it when needed
+     * Registers the given Level to the player so that he can communicate with it when needed.
      *
      * @param level The given Level that the player is playing on
      */
@@ -599,7 +599,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Unregisters the given Level (if he was registered) so that it is no longer called when an event occurs
+     * Unregisters the given Level (if he was registered) so that it is no longer called when an event occurs.
      *
      * @param level The given Level that has to be removed
      */
@@ -608,7 +608,7 @@ public class Player extends Unit {
     }
 
     /**
-     * Resets the score (to 0)
+     * Resets the score (to 0).
      */
     public void resetScore() {
         score = 0;

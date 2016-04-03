@@ -22,7 +22,7 @@ public class SinglePlayerGameTest {
     private Player player;
 
     /**
-     * Sets up the Game and its components
+     * Sets up the Game and its components.
      */
     @Before
     public void setUp() {
@@ -33,7 +33,7 @@ public class SinglePlayerGameTest {
 
     /**
      * Tests that the score and the number of lives a player has are effectively reset to default
-     * (when #Game.reset is called)
+     * (when #Game.reset is called).
      */
     @Test
     public void resetTest() {

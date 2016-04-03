@@ -14,7 +14,7 @@ import java.util.List;
 public class Board {
 
     /**
-     * The "radius" around a ghost that prevents squares in it to be considered "safe"
+     * The "radius" around a ghost that prevents squares in it to be considered "safe".
      */
     private static final int UNSAFE_RANGE = 4;
     /**
@@ -25,7 +25,7 @@ public class Board {
     /**
      * Creates a new board.
      *
-     * @param grid The grid of squares with grid[x][y] being the square at column
+     * @param grid The grid of squares with grid[x][y] being the square at column.
      *             x, row y.
      */
     public Board(Square[][] grid) {
@@ -35,7 +35,7 @@ public class Board {
     }
 
     /**
-     * Returns the Manhattan distance between two points p0 and p1 given by their coordinates
+     * Returns the Manhattan distance between two points p0 and p1 given by their coordinates.
      *
      * @param x0 The horizontal coordinate of p0
      * @param y0 The vertical coordinate of p0
@@ -123,7 +123,7 @@ public class Board {
     }
 
     /**
-     * Determine whether a Square (given by its coordinates) is safe for the player (i.e. no ghosts are too close)
+     * Determine whether a Square (given by its coordinates) is safe for the player (i.e. no ghosts are too close).
      *
      * @param x The given horizontal coordinate of the Square we want to check
      * @param y The given vertical coordinate of the Square we want to check

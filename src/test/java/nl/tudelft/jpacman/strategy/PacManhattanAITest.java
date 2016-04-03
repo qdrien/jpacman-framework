@@ -39,7 +39,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to know if the square is safe or not for the player
+     * Test to know if the square is safe or not for the player.
      * A square is safe to more thant 14 squares about the nearest ghost
      */
     @SuppressWarnings("methodlength")
@@ -58,7 +58,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the list of valid neighbors about the player's square
+     * Test to get the list of valid neighbors about the player's square.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -94,7 +94,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the nearest safety square about the initial player position
+     * Test to get the nearest safety square about the initial player position.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -114,7 +114,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the next move about the initial player position
+     * Test to get the next move about the initial player position.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -149,7 +149,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the nearest safe square where there is a pellet about the initial player position
+     * Test to get the nearest safe square where there is a pellet about the initial player position.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -179,7 +179,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the direction about a path
+     * Test to get the direction about a path.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -219,7 +219,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test to get the direction about a path
+     * Test to get the direction about a path.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -263,7 +263,7 @@ public class PacManhattanAITest {
     }
 
     /**
-     * Test the choose of the direction in the last resort (No Best Direction found)
+     * Test the choose of the direction in the last resort (No Best Direction found).
      */
     @SuppressWarnings("methodlength")
     @Test

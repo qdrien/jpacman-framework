@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AStarPath extends AStar<Square> {
     /**
-     * Initialization of constants used to select the best move based on the current game
+     * Initialization of constants used to select the best move based on the current game.
      */
     public static final double GHOST_COST = 1000000; //The cost when you go to a square where there is a ghost
     public static final double NEAREST_GHOST_COST = 500;//The cost when you go to a square nearest to a ghost
@@ -23,13 +23,13 @@ public class AStarPath extends AStar<Square> {
     private final Board board;//The board game
     private final List<Ghost> ghosts;// The list of the ghosts
     /**
-     * The game's data
+     * The game's data.
      */
     private Square goalSquare;//The square goal
 
 
     /**
-     * Default Constructor
+     * Default Constructor.
      *
      * @param game The game
      */
@@ -39,7 +39,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Compute the manhattan distance (called taxi-distance) between a point (x,y) and a point (a,b)
+     * Compute the manhattan distance (called taxi-distance) between a point (x,y) and a point (a,b).
      *
      * @param x the x coordinate from first point
      * @param y the y coordinate from first point
@@ -52,7 +52,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Test to know if the square is the goal or not
+     * Test to know if the square is the goal or not.
      *
      * @param square The node to check.
      * @return true if it's the goal square
@@ -63,7 +63,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Determines the goal square
+     * Determines the goal square.
      *
      * @param goal the goal square
      */
@@ -73,7 +73,7 @@ public class AStarPath extends AStar<Square> {
 
 
     /**
-     * Get the list of valid neighbors (accessible to a player)
+     * Get the list of valid neighbors (accessible to a player).
      *
      * @param square the player square
      * @param player the player
@@ -106,7 +106,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Determines the cost of the square (used to define the best square)
+     * Determines the cost of the square (used to define the best square).
      *
      * @param originSquare      The square to leave.
      * @param destinationSquare The square to reach.
@@ -145,7 +145,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Determines the distance between from and to square
+     * Determines the distance between from and to square.
      *
      * @param originSquare      The square to leave.
      * @param destinationSquare The square to reach.
@@ -157,7 +157,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Check if the square is nearest to a square with a ghost
+     * Check if the square is nearest to a square with a ghost.
      *
      * @param destinationSquare the square to check
      * @return true if the square is nearest to a square with a ghost
@@ -174,7 +174,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     * Determines the square neighbors
+     * Determines the square neighbors.
      *
      * @param square The current square.
      * @return the neighbor's list of the square

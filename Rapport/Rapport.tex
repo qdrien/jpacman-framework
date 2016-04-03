@@ -6,7 +6,7 @@
 \usepackage{libertine}
 \usepackage[pdftex]{graphicx}
 \usepackage{amssymb}
-
+\usepackage{listings}
 
 
 \usepackage[colorlinks=true,linkcolor=red]{hyperref}
@@ -133,6 +133,41 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
 
 \section{Analyse statique}
+\subsection{Code dupliqué}
+Puisque nous utilisons tous les 3 IntelliJ IDEA, l'outil intégré a été utilisé dans un premier temps. La figure \ref{duplicate} montre les résultats obtenus via cette analyse.
+On peut noter que les détections ayant un \og coût \fg \, inférieur à $\sim$20 ne sont pas réellement préoccupantes. Pour exemple, les lignes suivantes, extraites de \textit{SquareCoordinateTest}, sont considérées comme dupliquées par l'outil avec un score de 10 :
+\begin{lstlisting}[language=java]
+assertEquals(square.getSquareAt(Direction.WEST).getY(), 15);
+assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
+\end{lstlisting}
+Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
+%todo: actions en réaction aux duplicats évitables et significatifs (coût > 25?)
+Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concerne la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contiennent en effet toutes deux ce bloc de code :
+\begin{lstlisting}[language=java]
+final AStarPath aStarPath = new AStarPath(game);
+
+assertNotNull(aStarPath);
+final Player player = game.getPlayers().get(0);
+final Square square = player.getSquare();
+
+assertNotNull(player);
+assertNotNull(square);
+
+final Square origin = player.getSquare();
+final Square destination = player.getSquare().getSquareAt(Direction.EAST);
+final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
+
+final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
+final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
+\end{lstlisting}
+%todo: action entreprise (extract method?)
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{Images/duplicate_analysis.JPG}
+	\caption{\label{duplicate} Recherche de code dupliqué via l'outil intégré à \textit{IntelliJ IDEA}}
+\end{figure}
+
 \subsection{IntelliJ Code inspection}
 \subsubsection{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
 %Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)

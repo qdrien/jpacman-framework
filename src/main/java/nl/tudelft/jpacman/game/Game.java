@@ -29,7 +29,7 @@ public abstract class Game implements LevelObserver {
      */
     private final Object progressLock = new Object();
     /**
-     * The current level id
+     * The current level id.
      */
     protected int currentLevel;
     /**
@@ -37,11 +37,11 @@ public abstract class Game implements LevelObserver {
      */
     private boolean inProgress, firstPass = true;
     /**
-     * The chosen strategy by the player
+     * The chosen strategy by the player.
      */
     private PacmanStrategy strategy;
     /**
-     * For the execution of the thread for the continuousMovement method
+     * For the execution of the thread for the continuousMovement method.
      */
     private PlayerMoveTask currentMoveTask;
     private ScheduledExecutorService service;
@@ -107,7 +107,7 @@ public abstract class Game implements LevelObserver {
     public abstract AILevel getLevel();
 
     /**
-     * Sets the level to the one that has the given id (calls #Game.setLevel)
+     * Sets the level to the one that has the given id (calls #Game.setLevel).
      *
      * @param levelIndex The id of the level we want to switch to
      */
@@ -180,14 +180,14 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Forces subclasses to provide a method to switch to the given Level
+     * Forces subclasses to provide a method to switch to the given Level.
      *
      * @param level The Level we want to switch to
      */
     protected abstract void setLevel(AILevel level);
 
     /**
-     * Set the Strategy
+     * Set the Strategy.
      *
      * @param strategy the strategy to set
      */
@@ -197,7 +197,7 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Forces subclasses to provide a method to reset the score and the number of lives the player has
-     * (should be called when a new level is set "manually")
+     * (should be called when a new level is set "manually").
      */
     public abstract void reset();
 
@@ -248,7 +248,7 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Simple getter for currentLevel
+     * Simple getter for currentLevel.
      *
      * @return The id of the current level
      */
@@ -257,7 +257,7 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Class representing the timer and methods to apply during the timer
+     * Class representing the timer and methods to apply during the timer.
      */
     private final class PlayerMoveTask implements Runnable {
 
@@ -272,11 +272,11 @@ public abstract class Game implements LevelObserver {
          */
         private final Player player;
         /**
-         * The direction to follow by the player
+         * The direction to follow by the player.
          */
         private final Direction dir;
         /**
-         * A boolean to know if the current task is finished or not
+         * A boolean to know if the current task is finished or not.
          */
         private boolean finished;
 
@@ -294,7 +294,7 @@ public abstract class Game implements LevelObserver {
         }
 
         /**
-         * The run method to apply periodically
+         * The run method to apply periodically.
          */
         @Override
         public void run() {
@@ -305,7 +305,7 @@ public abstract class Game implements LevelObserver {
         }
 
         /**
-         * Boolean to finish the task for the thread
+         * Boolean to finish the task for the thread.
          */
         public void setFinished() {
             this.finished = true;
@@ -313,7 +313,7 @@ public abstract class Game implements LevelObserver {
 
 
         /**
-         * Get the boolean to know if the task is finish or not
+         * Get the boolean to know if the task is finish or not.
          *
          * @return true if the task is finished, false otherwise
          */

@@ -15,7 +15,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests methods that have been added or modified in the Player class since v6.3.0
+ * Tests methods that have been added or modified in the Player class since v6.3.0.
  *
  * @author Adrien Coppens
  */
@@ -26,7 +26,7 @@ public class PlayerTest {
      */
     private static final String PATH = new File("").getAbsolutePath() + "/src/test/resources/Testy.prf";
     /**
-     * The testPlayer we are making tests on
+     * The testPlayer we are making tests on.
      */
     private Player player;
 
@@ -53,7 +53,7 @@ public class PlayerTest {
     }
 
     /**
-     * Tests that Player::addPoints(int) effectively adds points and that a life is added when the threshold is reached
+     * Tests that Player::addPoints(int) effectively adds points and that a life is added when the threshold is reached.
      */
     @Test
     public void addPoints() {
@@ -66,7 +66,7 @@ public class PlayerTest {
     }
 
     /**
-     * Tests that Player::loseLife() effectively removes one life from the testPlayer when called
+     * Tests that Player::loseLife() effectively removes one life from the testPlayer when called.
      */
     @Test
     public void loseLife() {
@@ -78,7 +78,7 @@ public class PlayerTest {
     }
 
     /**
-     * Test that a testPlayer can die "for good" when Player::loseLife() removes its last life
+     * Test that a testPlayer can die "for good" when Player::loseLife() removes its last life.
      */
     @Test
     public void dies() {
@@ -91,7 +91,7 @@ public class PlayerTest {
     }
 
     /**
-     * Tests that Player::addLife() effectively adds one life to the testPlayer when called
+     * Tests that Player::addLife() effectively adds one life to the testPlayer when called.
      */
     @Test
     public void addLife() {

@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Test for the astarPath class containing methods to calculate the best move to apply by the AI
+ * Test for the astarPath class containing methods to calculate the best move to apply by the AI.
  */
 public class AStarPathTest {
     private static final double EPSILON = .1;
@@ -36,7 +36,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test for the constructor of a astarPath object
+     * Test for the constructor of a astarPath object.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -63,7 +63,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test to compute the manhattan distance between two points
+     * Test to compute the manhattan distance between two points.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -79,7 +79,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test to the initialisation of constants in the game
+     * Test to the initialisation of constants in the game.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -105,7 +105,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test the list of valid neighbors
+     * Test the list of valid neighbors.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -155,7 +155,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test the list of valid neighbors
+     * Test the list of valid neighbors.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -227,7 +227,7 @@ public class AStarPathTest {
     }
 
     /**
-     * test to know if the square is near of a ghost or not
+     * test to know if the square is near of a ghost or not.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -263,7 +263,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test the AStar method
+     * Test the AStar method.
      */
     @SuppressWarnings("methodlength")
     @Test
@@ -302,7 +302,7 @@ public class AStarPathTest {
     }
 
     /**
-     * Test the AStar method
+     * Test the AStar method.
      */
     @SuppressWarnings("methodlength")
     @Test

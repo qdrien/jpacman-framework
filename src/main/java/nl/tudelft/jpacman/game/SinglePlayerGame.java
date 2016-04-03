@@ -45,7 +45,7 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * Simple getter for current Level
+     * Simple getter for current Level.
      *
      * @return The current Level
      */
@@ -55,7 +55,7 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * Sets the current level to the given one
+     * Sets the current level to the given one.
      *
      * @param level The Level that is to be played
      */
@@ -67,7 +67,7 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * This method deals with levelWon event by bringing the user to the next level
+     * This method deals with levelWon event by bringing the user to the next level.
      */
     @Override
     public void levelWon() {

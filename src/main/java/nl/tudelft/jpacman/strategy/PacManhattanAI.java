@@ -18,7 +18,7 @@ public class PacManhattanAI extends AIStrategy {
     private boolean[][] visitedSquare;//List to know if the square is yet visited or not
 
     /**
-     * The default constructor
+     * The default constructor.
      *
      * @param game the current game
      */
@@ -29,7 +29,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Initialise the data used to calculate the best movement to apply
+     * Initialise the data used to calculate the best movement to apply.
      *
      * @param game The current game
      */
@@ -39,7 +39,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Calculates the best move to apply according the data of the game (ghosts position, pellet nearest,...)
+     * Calculates the best move to apply according the data of the game (ghosts position, pellet nearest,...).
      *
      * @return the best move
      */
@@ -90,7 +90,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Compute a path
+     * Compute a path.
      *
      * @param square the goal square
      */
@@ -142,7 +142,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Convert a square's list to know which direction the player must follow to get the nearest safe square
+     * Convert a square's list to know which direction the player must follow to get the nearest safe square.
      *
      * @param squaresList the square's list determining the path
      * @return a queue with each direction at each step
@@ -172,7 +172,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Compute a BFS to know the nearest safety square
+     * Compute a BFS to know the nearest safety square.
      *
      * @return the nearest safety square, null if there isn't
      */
@@ -197,7 +197,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Get valid neighbors to visit
+     * Get valid neighbors to visit.
      *
      * @param square A determined square
      * @return a new list with valid neighbor
@@ -222,7 +222,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Determines if the square is safe
+     * Determines if the square is safe.
      *
      * @param square the current square
      * @return true if the square is safe
@@ -236,7 +236,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * FInd a not optimised direction in last resort (No best move found)
+     * FInd a not optimised direction in last resort (No best move found).
      *
      * @return a not optimised direction
      */
@@ -253,7 +253,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Define the Pacman Behaviour in the game
+     * Define the Pacman Behaviour in the game.
      *
      * @param pelletNbr the pellets number remaining in the game
      */
@@ -267,14 +267,14 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * No Strategy to execute for the AI
+     * No Strategy to execute for the AI.
      */
     @Override
     public void executeStrategy() {
     }
 
     /**
-     * Get the ghostDstThreshold
+     * Get the ghostDstThreshold.
      *
      * @return ghostDstThreshold
      */
@@ -283,7 +283,7 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Set the ghostDstThreshold
+     * Set the ghostDstThreshold.
      *
      * @param ghostDst the new ghostDstThreshold
      */

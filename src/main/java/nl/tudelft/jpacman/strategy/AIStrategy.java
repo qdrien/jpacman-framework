@@ -8,18 +8,18 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 import java.util.List;
 
 /**
- * Abstract class for each Artificial Intelligence strategy
+ * Abstract class for each Artificial Intelligence strategy.
  */
 public abstract class AIStrategy extends PacmanStrategy {
     /**
-     * Game data used by AI's to calculate the next move to apply
+     * Game data used by AI's to calculate the next move to apply.
      */
     private final Player player;//The player of the game
     private final Board board; // The board game
     private final List<Ghost> ghosts; //The ghosts list
 
     /**
-     * Default constructor
+     * Default constructor.
      *
      * @param game the current game
      */
@@ -31,7 +31,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     }
 
     /**
-     * Get the type of the strategy
+     * Get the type of the strategy.
      *
      * @return a AI type strategy
      */
@@ -41,7 +41,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     }
 
     /**
-     * Get the player of the game
+     * Get the player of the game.
      *
      * @return the player
      */
@@ -50,7 +50,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     }
 
     /**
-     * Get the board of the game
+     * Get the board of the game.
      *
      * @return the board
      */
@@ -59,7 +59,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     }
 
     /**
-     * Get the ghost's list of the game
+     * Get the ghost's list of the game.
      *
      * @return the ghost's list
      */

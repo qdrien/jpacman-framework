@@ -19,7 +19,7 @@ import java.util.*;
 public abstract class Level implements PlayerListener {
 
     /**
-     * If true, picking up 13 pellets is enough to win a level
+     * If true, picking up 13 pellets is enough to win a level.
      */
     private static final boolean QUICK_WIN = false; //todo
     /**
@@ -47,7 +47,7 @@ public abstract class Level implements PlayerListener {
      */
     private final List<LevelObserver> observers;
     /**
-     * The list of the ghosts in the game
+     * The list of the ghosts in the game.
      */
     protected final List<Ghost> ghostList;
     /**
@@ -61,7 +61,7 @@ public abstract class Level implements PlayerListener {
     private int startSquareIndex;
 
     /**
-     * The amount of pellets there were when the level started
+     * The amount of pellets there were when the level started.
      */
     private int initialPelletCount = -1;
 
@@ -246,7 +246,7 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-     * Get the player of the game
+     * Get the player of the game.
      *
      * @return the player
      */
@@ -256,7 +256,7 @@ public abstract class Level implements PlayerListener {
 
 
     /**
-     * Get the ghost's list
+     * Get the ghost's list.
      *
      * @return the ghost's list
      */
@@ -266,7 +266,7 @@ public abstract class Level implements PlayerListener {
 
     /**
      * Calls {@link Board#getPossibleSquares(Player)} to get the list of squares the player can move onto
-     * (such squares are accessible & have no ghost that are too close to them)
+     * (such squares are accessible & have no ghost that are too close to them).
      *
      * @return An ArrayList of Squares the player can move onto
      */

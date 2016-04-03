@@ -13,25 +13,25 @@ import java.awt.event.ActionListener;
 
 public class MyJDialogStrategy extends JDialog {
     /**
-     * Button of the window
+     * Button of the window.
      */
     private final JButton HumanController, AIController;
     /**
-     * The game
+     * The game.
      */
     private final Game game;
     /**
-     * The builder
+     * The builder.
      */
     private final PacManUiBuilder builder;
     private final PacManUI pacManUI;
     /**
-     * The strategy chosen by the player
+     * The strategy chosen by the player.
      */
     private PacmanStrategy strategy;
 
     /**
-     * Create a new window to chose the game mode (strategy,...)
+     * Create a new window to chose the game mode (strategy,...).
      *
      * @param parent   a JFrame parent
      * @param builder  the builder
@@ -91,7 +91,7 @@ public class MyJDialogStrategy extends JDialog {
     }
 
     /**
-     * An action listener to be used when an action is performed
+     * An action listener to be used when an action is performed.
      * (e.g. button is pressed)
      */
     private class MyActionListener implements ActionListener {

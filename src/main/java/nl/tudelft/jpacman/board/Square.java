@@ -24,11 +24,11 @@ public abstract class Square {
      */
     private final Map<Direction, Square> neighbours;
     /**
-     * x-coordinate of a square
+     * x-coordinate of a square.
      */
     private int x;
     /**
-     * y-coordinate of a square
+     * y-coordinate of a square.
      */
     private int y;
 
@@ -63,7 +63,7 @@ public abstract class Square {
 
     /**
      * Returns an immutable list of units occupying this square, in the order in
-     * which they occupied this square (i.e. oldest first.)
+     * which they occupied this square (i.e. oldest first.).
      *
      * @return An immutable list of units occupying this square, in the order in
      * which they occupied this square (i.e. oldest first.)
@@ -130,7 +130,7 @@ public abstract class Square {
     public abstract Sprite getSprite();
 
     /**
-     * Get the x-coordinate of a square
+     * Get the x-coordinate of a square.
      *
      * @return the x-coordinate
      */
@@ -139,7 +139,7 @@ public abstract class Square {
     }
 
     /**
-     * Set the x-coordinate
+     * Set the x-coordinate.
      *
      * @param x the x-coordinate to set
      */
@@ -148,7 +148,7 @@ public abstract class Square {
     }
 
     /**
-     * Get the y-coordinate of a square
+     * Get the y-coordinate of a square.
      *
      * @return the y-coordinate
      */
@@ -157,7 +157,7 @@ public abstract class Square {
     }
 
     /**
-     * Set the y-coordinate
+     * Set the y-coordinate.
      *
      * @param y the x-coordinate to set
      */
@@ -166,7 +166,7 @@ public abstract class Square {
     }
 
     /**
-     * Get the neighbors list of a square
+     * Get the neighbors list of a square.
      *
      * @return the neighbors list
      */
