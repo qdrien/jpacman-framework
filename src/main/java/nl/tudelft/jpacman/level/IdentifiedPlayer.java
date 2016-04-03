@@ -97,19 +97,14 @@ public class IdentifiedPlayer extends Player {
     /**
      * Displays the player's achievements, if any were obtained.
      */
-    public void displayAchievements() {
+    public void displayAchievements() throws IOException
+    {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
         if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0) return;
         String toDisplay = "<html>";
-        try
-        {
-            toDisplay = parseAchievements(toDisplay);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
         if ("<html></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
@@ -248,8 +243,7 @@ public class IdentifiedPlayer extends Player {
             String line = reader.readLine();
             while (line != null) {
                 final String split[] = line.split(" ");
-                final String login = split[0];
-                if (login.equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
+                if (split[0].equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
                 line = reader.readLine();
             }
             reader.close();
@@ -265,20 +259,17 @@ public class IdentifiedPlayer extends Player {
      *
      * @param level The id of the level that has been completed
      */
-    public void levelCompleted(int level) {
+    public void levelCompleted(int level) throws IOException
+    {
         if (playerName == null) return;
-        try {
-            final String split[] = getInfoLine();
-            final int levelsCompleted = Integer.parseInt(split[0]);
-            addAchievement(Achievement.VICTOR);
-            if (level > levelsCompleted) {
-                String result = "";
-                for (int i = 1; i < split.length; i++) result += split[i] + " ";
-                setInfoLine(level + " " + result);
-                if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        final String split[] = getInfoLine();
+        final int levelsCompleted = Integer.parseInt(split[0]);
+        addAchievement(Achievement.VICTOR);
+        if (level > levelsCompleted) {
+            String result = "";
+            for (int i = 1; i < split.length; i++) result += split[i] + " ";
+            setInfoLine(level + " " + result);
+            if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
         }
     }
 
@@ -301,30 +292,27 @@ public class IdentifiedPlayer extends Player {
      * @param killer The ghost that killed pacman.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
-    public void killedBy(final GhostColor killer) {
+    public void killedBy(final GhostColor killer) throws IOException
+    {
         if (playerName == null) return;
-        try {
-            final String split[] = getInfoLine();
-            String toWrite = "";
-            final Achievement toGrant = killer.getAchievementGranted();
-            for (int i = 0; i < split.length; i++) {
-                if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
-                else toWrite += split[i] + " ";
-            }
-            setInfoLine(toWrite);
-            if (toGrant != null) addAchievement(toGrant);
-        } catch (IOException e) {
-            e.printStackTrace();
+        final String split[] = getInfoLine();
+        String toWrite = "";
+        final Achievement toGrant = killer.getAchievementGranted();
+        for (int i = 0; i < split.length; i++) {
+            if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
+            else toWrite += split[i] + " ";
         }
+        setInfoLine(toWrite);
+        if (toGrant != null) addAchievement(toGrant);
     }
 
     /**
      * Saves the player's highest scores and checks whether it's high enough to earn him an achievement.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void saveScore() {
+    public void saveScore() throws IOException
+    {
         if (playerName == null) return;
-        try {
             final String split[] = getInfoLine();
             String toWrite = "";
             int highScore = Integer.parseInt(split[1]);
@@ -335,9 +323,6 @@ public class IdentifiedPlayer extends Player {
                 else toWrite += split[i] + " ";
             }
             setInfoLine(toWrite);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -381,7 +366,6 @@ public class IdentifiedPlayer extends Player {
             toDisplay += "<br>Times killed by Clyde: " + split[7];
             toDisplay = parseAchievements(toDisplay);
             toDisplay += "</html>";
-
             JOptionPane.showMessageDialog(null, toDisplay, "Statistics", JOptionPane.PLAIN_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
@@ -409,14 +393,8 @@ public class IdentifiedPlayer extends Player {
      *
      * @return said level.
      */
-    public int getMaxLevelReached() {
-        int i = 0;
-        try {
-            i = Integer.parseInt(getInfoLine()[0]);
-            System.out.println("max level reached: " + i);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return i;
+    public int getMaxLevelReached() throws IOException
+    {
+        return Integer.parseInt(getInfoLine()[0]);
     }
 }

@@ -162,7 +162,14 @@ public abstract class Game implements LevelObserver {
             stop();
             final IdentifiedPlayer player = getPlayers().get(0);
             HallOfFame.setIsNotATest(true);
-            player.saveScore();
+            try
+            {
+                player.saveScore();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
             new HallOfFame().handleHoF(player.getScore(), player.getPlayerName());
         }
         firstPass = false;

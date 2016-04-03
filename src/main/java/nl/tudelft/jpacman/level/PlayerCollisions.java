@@ -3,6 +3,8 @@ package nl.tudelft.jpacman.level;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
+import java.io.IOException;
+
 /**
  * A simple implementation of a collision map for the JPacman player.
  * <p>
@@ -48,10 +50,17 @@ public class PlayerCollisions implements CollisionMap {
      * @param ghost  The ghost involved in the collision.
      */
     public void playerVersusGhost(IdentifiedPlayer player, Ghost ghost) {
-        if (player.isPoweredUp()) {
-            player.addPoints(ghost.getValue());
-        } else {
-            player.killedBy(ghost.getIdentity());
+        if (player.isPoweredUp()) player.addPoints(ghost.getValue());
+        else
+        {
+            try
+            {
+                player.killedBy(ghost.getIdentity());
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
             player.loseLife();
         }
     }
