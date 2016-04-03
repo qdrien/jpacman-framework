@@ -70,7 +70,8 @@ class BoardPanel extends JPanel {
      * @param window The dimensions to scale the rendered board to.
      */
     private void render(Board board, Graphics g, Dimension window) {
-        final int cellW = window.width / board.getWidth(), cellH = window.height / board.getHeight();
+        final int cellW = window.width / board.getWidth(),
+                cellH = window.height / board.getHeight();
 
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, window.width, window.height);

@@ -192,7 +192,8 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
-     * Forces subclasses to provide a method to reset the score and the number of lives the player has
+     * Forces subclasses to provide a method allowing to
+     * reset the score and the number of lives the player has
      * (should be called when a new level is set "manually").
      */
     public abstract void reset();
@@ -236,7 +237,8 @@ public abstract class Game implements LevelObserver {
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
             //restart this last level (loop until player dies)
-            //(this level can't be finished without loosing at least one life so that there will be an end)
+            //(this level can't be finished without loosing at least one life
+            // so that there will be an end)
             level = makeLevel(--currentLevel);
         }
         assert level != null;
@@ -296,7 +298,8 @@ public abstract class Game implements LevelObserver {
         public void run() {
             if (!isFinished()) {
                 getLevel().move(player, dir);
-                scheduledExecutorService.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
+                scheduledExecutorService.schedule(this,
+                        player.getInterval(), TimeUnit.MILLISECONDS);
             }
         }
 

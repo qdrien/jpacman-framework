@@ -15,7 +15,8 @@ public class PacManhattanAI extends AIStrategy {
     public static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
     public static final int LOW_PELLET_COUNT_THRESHOLD = 7;
     public static final int LOW_GHOST_DST = 6;
-    private static int ghostDstThreshold = INITIAL_GHOST_DST;//The threshold distance between the player and a ghost
+    //The threshold distance between the player and a ghost
+    private static int ghostDstThreshold = INITIAL_GHOST_DST;
     private final Game game;
     private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
@@ -43,7 +44,8 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Calculates the best move to apply according the data of the game (ghosts position, pellet nearest,...).
+     * Calculates the best move to apply according the data of the game
+     * (ghosts position, pellet nearest,...).
      *
      * @return the best move
      */
@@ -55,7 +57,9 @@ public class PacManhattanAI extends AIStrategy {
 
         for (Ghost ghost : getGhostsList()) {
             //Test if a ghost is near of the player
-            final double distance = AStarPath.manhattanDistance(getPlayer().getSquare().getX(), getPlayer().getSquare().getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double distance = AStarPath.manhattanDistance(
+                    getPlayer().getSquare().getX(), getPlayer().getSquare().getY(),
+                    ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold) {
                 computePath(BFSNearestSafetySquare());
                 warning = true;
@@ -131,22 +135,26 @@ public class PacManhattanAI extends AIStrategy {
         }
         while (!squareQueue.isEmpty()) {
             final Square square = squareQueue.remove();
-            if (square.getOccupants().size() > 0 && square.getOccupants().get(0) instanceof Pellet) return square;
+            if (square.getOccupants().size() > 0
+                    && square.getOccupants().get(0) instanceof Pellet)
+                return square;
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
-                neighborsList.stream().filter(neighborSquare -> neighborSquare != null).forEach(neighborSquare -> {
-                    if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {
-                        squareQueue.add(neighborSquare);
-                    }
-                    visitedSquare[neighborSquare.getY()][neighborSquare.getX()] = true;
-                });
+                neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
+                        .forEach(neighborSquare -> {
+                            if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {
+                                squareQueue.add(neighborSquare);
+                            }
+                            visitedSquare[neighborSquare.getY()][neighborSquare.getX()] = true;
+                        });
             }
         }
         return null;
     }
 
     /**
-     * Convert a square's list to know which direction the player must follow to get the nearest safe square.
+     * Convert a square's list to know which direction the player must follow
+     * to get the nearest safe square.
      *
      * @param squaresList the square's list determining the path
      * @return a queue with each direction at each step
@@ -160,7 +168,8 @@ public class PacManhattanAI extends AIStrategy {
         for (int i = 1; i < squaresList.size(); ++i) {
             final Square originSquare = squaresList.get(i - 1);
             final Square destinationSquare = squaresList.get(i);
-            final int x = destinationSquare.getX() - originSquare.getX(), y = destinationSquare.getY() - originSquare.getY();
+            final int x = destinationSquare.getX() - originSquare.getX(),
+                    y = destinationSquare.getY() - originSquare.getY();
 
             if (x == 0) {
                 //Vertical situation
@@ -217,8 +226,10 @@ public class PacManhattanAI extends AIStrategy {
             boolean invalidNeighbour = false;
             if (neighbour.isAccessibleTo(getPlayer())) {
                 List<Unit> neighbours = neighbour.getOccupants();
-                if (neighbours.size() == 2) invalidNeighbour = neighbours.get(1) instanceof Ghost;
-                else if (neighbours.size() == 1) invalidNeighbour = neighbours.get(0) instanceof Ghost;
+                if (neighbours.size() == 2)
+                    invalidNeighbour = neighbours.get(1) instanceof Ghost;
+                else if (neighbours.size() == 1)
+                    invalidNeighbour = neighbours.get(0) instanceof Ghost;
             } else invalidNeighbour = true;
             if (invalidNeighbour) iterator.remove();
         }
@@ -233,7 +244,8 @@ public class PacManhattanAI extends AIStrategy {
      */
     public boolean isSafetySquare(Square square) {
         for (Ghost ghost : getGhostsList()) {
-            final double distance = AStarPath.manhattanDistance(square.getX(), square.getY(), ghost.getSquare().getX(), ghost.getSquare().getY());
+            final double distance = AStarPath.manhattanDistance(square.getX(), square.getY(),
+                    ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold) return false;
         }
         return true;
@@ -245,10 +257,12 @@ public class PacManhattanAI extends AIStrategy {
      * @return a not optimised direction
      */
     public Direction hurryMove() {
-        if (getPlayer().getSquare().getSquareAt(getPlayer().getDirection()).isAccessibleTo(getPlayer())) {
+        if (getPlayer().getSquare().getSquareAt(getPlayer().getDirection())
+                .isAccessibleTo(getPlayer())) {
             return getPlayer().getDirection();
         } else {
-            if (getPlayer().getDirection() == Direction.WEST || getPlayer().getDirection() == Direction.EAST) {
+            if (getPlayer().getDirection() == Direction.WEST
+                    || getPlayer().getDirection() == Direction.EAST) {
                 return Direction.SOUTH;
             } else {
                 return Direction.EAST;

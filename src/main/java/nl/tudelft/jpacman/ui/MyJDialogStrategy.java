@@ -85,7 +85,8 @@ public class MyJDialogStrategy extends JDialog {
                 dispose();
             }
         };
-        rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "ESCAPE");
+        rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke("ESCAPE"), "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", action);
         return rootPane;
     }

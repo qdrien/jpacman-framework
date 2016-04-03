@@ -47,7 +47,8 @@ public class AILevel extends Level
      * @param startPositions The squares on which players start on this board.
      * @param collisionMap   The collection of collisions that should be handled.
      */
-    public AILevel(Board b, List<NPC> ghosts, List<Square> startPositions, CollisionMap collisionMap)
+    public AILevel(Board b, List<NPC> ghosts,
+                   List<Square> startPositions, CollisionMap collisionMap)
     {
         super(b, ghosts, startPositions, collisionMap);
         this.npcs = new HashMap<>();
@@ -105,7 +106,9 @@ public class AILevel extends Level
         //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
         if (isInProgress()) {
-            serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)), players.get(0).getInterval(), TimeUnit.MILLISECONDS);
+            serviceAI.schedule(
+                    new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)),
+                    players.get(0).getInterval(), TimeUnit.MILLISECONDS);
         }
     }
 
@@ -194,7 +197,6 @@ public class AILevel extends Level
     /**
      * A task that moves the player used by a AI.
      *
-     *
      */
     private final class PlayerMoveTask implements Runnable {
         /**
@@ -226,7 +228,8 @@ public class AILevel extends Level
          */
         @Override
         public void run() {
-            if (nextMove == null || isIntersection(player, nextMove)) nextMove = strategy.nextMove();
+            if (nextMove == null || isIntersection(player, nextMove))
+                nextMove = strategy.nextMove();
             move(player, nextMove);
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }

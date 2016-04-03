@@ -114,7 +114,8 @@ public class NavigationTest {
         final Board b = parser
                 .parseMap(Lists.newArrayList("#####", "# ..#", "#####"))
                 .getBoard();
-        final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(2, 1), result = Navigation.findNearest(Pellet.class, s1).getSquare();
+        final Square s1 = b.squareAt(1, 1), s2 = b.squareAt(2, 1),
+                result = Navigation.findNearest(Pellet.class, s1).getSquare();
         assertEquals(s2, result);
     }
 
@@ -123,7 +124,8 @@ public class NavigationTest {
      */
     @Test
     public void testNoNearestUnit() {
-        assertNull(Navigation.findNearest(Pellet.class, parser.parseMap(Lists.newArrayList(" ")).getBoard().squareAt(0, 0)));
+        assertNull(Navigation.findNearest(Pellet.class,
+                parser.parseMap(Lists.newArrayList(" ")).getBoard().squareAt(0, 0)));
     }
 
     /**
@@ -134,6 +136,8 @@ public class NavigationTest {
      */
     @Test
     public void testFullSizedLevel() throws IOException {
-        assertNotNull(Navigation.findNearest(Ghost.class, parser.parseMap(getClass().getResourceAsStream("/board1.txt")).getBoard().squareAt(1, 1)));
+        assertNotNull(Navigation.findNearest(Ghost.class,
+                parser.parseMap(getClass().getResourceAsStream("/board1.txt"))
+                        .getBoard().squareAt(1, 1)));
     }
 }

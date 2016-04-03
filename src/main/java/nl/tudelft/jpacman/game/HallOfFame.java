@@ -16,17 +16,21 @@ public class HallOfFame {
     /**
      * Relative path of the default Hall of Fame.
      */
-    private static final String DEFAULT_HOF_PATH = new File("").getAbsolutePath() + "/src/main/resources/DefaultHoF.txt";
+    private static final String DEFAULT_HOF_PATH = new File("").getAbsolutePath()
+            + "/src/main/resources/DefaultHoF.txt";
 
     /**
      * Relative path of the running Hall of Fame.
      */
-    private static final String HOF_PATH = new File("").getAbsolutePath() + "/src/main/resources/HoF.txt";
+    private static final String HOF_PATH = new File("").getAbsolutePath()
+            + "/src/main/resources/HoF.txt";
 
     /**
-     * Whether the application is running or whether it's being tested. (ham for the launcherSmokeTest)
+     * Whether the application is running or whether it's being tested.
+     * (ham for the launcherSmokeTest)
      */
-    private static boolean isNotATest, ham; //booleans are initialised to false by default, so these can stay uninitialised.
+    private static boolean isNotATest, ham;
+    //booleans are initialised to false by default, so these can stay uninitialised.
 
     /**
      * The points scored in the game.
@@ -43,7 +47,8 @@ public class HallOfFame {
     }
 
     /**
-     * Determines if the Hall of Fame is a ham. (whether the smoke test is running or the application)
+     * Determines if the Hall of Fame is a ham.
+     * (whether the smoke test is running or the application)
      */
     public static void setHam() {
         ham = true;
@@ -146,7 +151,8 @@ public class HallOfFame {
         final JTextField userInput = new JTextField(NAME_LENGTH);
         panel.add(label);
         panel.add(userInput);
-        JOptionPane.showOptionDialog(null, panel, "New High Score!", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        JOptionPane.showOptionDialog(null, panel, "New High Score!",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         return userInput.getText();
     }
 
@@ -159,8 +165,10 @@ public class HallOfFame {
     private void displayHoF(final int bestScores[], final String... bestPlayers) {
         String text = "";
         final String options[] = {"Leave", "Reset"};
-        for (int i = 0; i < NUMBER_OF_RECORDS; i++) text += formatDisplay(bestScores[i], bestPlayers[i]);
-        final int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        for (int i = 0; i < NUMBER_OF_RECORDS; i++)
+            text += formatDisplay(bestScores[i], bestPlayers[i]);
+        final int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame",
+                JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if (buttonPressed == 1) resetHoF();
     }
 
@@ -187,7 +195,8 @@ public class HallOfFame {
     private void saveUpdatedHoF(final int bestScores[], final String... bestPlayers) {
         try {
             final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
-            for (int i = 0; i < NUMBER_OF_RECORDS; i++) writer.write(bestPlayers[i] + " " + bestScores[i] + "\n");
+            for (int i = 0; i < NUMBER_OF_RECORDS; i++) writer.write(bestPlayers[i] + " "
+                    + bestScores[i] + "\n");
             writer.close();
         } catch (IOException e) {
             System.err.println("Error whilst writing to HoF.txt " + e.getMessage());
@@ -202,14 +211,19 @@ public class HallOfFame {
         int buttonPressed = 0;
         if (isNotATest) {
             final Object options[] = {"Yes", "No"};
-            buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+            buttonPressed = JOptionPane.showOptionDialog(null,
+                    "Do you really want to erase the Hall of Fame?", "Confirmation",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                    options, options[1]);
         }
         if (buttonPressed == 0) {
             try {
-                final FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
+                final FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(),
+                        dest = new FileOutputStream(HOF_PATH).getChannel();
                 dest.transferFrom(src, 0, src.size());
                 if (isNotATest)
-                    JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset",
+                            JOptionPane.PLAIN_MESSAGE);
             } catch (IOException e) {
                 System.err.println("Error whilst writing to HoF.txt " + e.getMessage());
             }

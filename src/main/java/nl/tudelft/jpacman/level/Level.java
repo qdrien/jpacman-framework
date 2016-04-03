@@ -89,8 +89,10 @@ public abstract class Level implements PlayerListener {
         this.collisions = collisionMap;
         this.observers = new ArrayList<>();
         if (QUICK_WIN)
-            System.out.println("Warning: QUICK_WIN mode activated, the level will be considered complete if 13 pellets are picked up.\n" +
-                    "Disable this by setting QUICK_WIN to false in 'nl.tudelft.jpacman.level.Level.java'");
+            System.out.println("Warning: QUICK_WIN mode activated, the level will be " +
+                    "considered complete if 13 pellets are picked up.\n" +
+                    "Disable this by setting QUICK_WIN to false " +
+                    "in 'nl.tudelft.jpacman.level.Level.java'");
     }
 
     /**
@@ -185,7 +187,8 @@ public abstract class Level implements PlayerListener {
         if (!isAnyPlayerAlive()) {
             observers.forEach(LevelObserver::levelLost);
         }
-        if (remainingPellets() == 0 || QUICK_WIN && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
+        if (remainingPellets() == 0 ||
+                QUICK_WIN && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
             observers.forEach(LevelObserver::levelWon);
         }
     }
@@ -266,7 +269,8 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-     * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)} to get the list of squares the player can move onto
+     * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)}
+     * to get the list of squares the player can move onto
      * (such squares are accessible & have no ghost that are too close to them).
      *
      * @return An ArrayList of Squares the player can move onto

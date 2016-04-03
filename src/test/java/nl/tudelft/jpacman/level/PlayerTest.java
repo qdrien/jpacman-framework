@@ -22,9 +22,10 @@ public class PlayerTest
         player = launcher.getGame().getPlayers().get(0);
     }
 
-        /**
-     * Tests that Player::addPoints(int) effectively adds points and that a life is added when the threshold is reached.
-         */
+    /**
+     * Tests that Player::addPoints(int) effectively adds points
+     * and that a life is added when the threshold is reached.
+     */
     @Test
     public void addPoints() {
         final int score = player.getScore(), lives = player.getLives();

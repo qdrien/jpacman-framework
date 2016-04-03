@@ -247,19 +247,28 @@ public class AStarPathTest {
 
         assertFalse(aStarPath.nearestGhosts(player.getSquare()));
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
-        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare()
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare()
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH)));
 
 
         //The next north case is dangerous.
-        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
-        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
+        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH)));
+        assertTrue(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)));
 
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.EAST)));
-        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST)));
 
         assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST)));
-        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST)));
+        assertFalse(aStarPath.nearestGhosts(player.getSquare().getSquareAt(Direction.WEST)
+                .getSquareAt(Direction.WEST)));
     }
 
     /**
@@ -283,10 +292,12 @@ public class AStarPathTest {
 
         final Square origin = player.getSquare();
         final Square destination = player.getSquare().getSquareAt(Direction.EAST);
-        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
+        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST);
 
         final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
-        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
+        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST)
+                .getSquareAt(Direction.WEST);
 
         //There is only Pellet
         assertEquals(aStarPath.g(origin, destination), Double.valueOf(1.0));
@@ -296,7 +307,9 @@ public class AStarPathTest {
         assertEquals(aStarPath.g(destination, destination4), Double.valueOf(1.0));
         assertEquals(aStarPath.g(destination3, destination4), Double.valueOf(1.0));
 
-        Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
+        Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
+                .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
         assertEquals(aStarPath.g(origin, destinationNearestGhost), Double.valueOf(500.0));
 
     }
@@ -322,10 +335,12 @@ public class AStarPathTest {
 
         final Square origin = player.getSquare();
         final Square destination = player.getSquare().getSquareAt(Direction.EAST);
-        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSquareAt(Direction.EAST);
+        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST)
+                .getSquareAt(Direction.EAST);
 
         final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
-        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
+        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST)
+                .getSquareAt(Direction.WEST);
 
         assertEquals(aStarPath.h(origin, destination), Double.valueOf(1.0));
         assertEquals(aStarPath.h(origin, destination2), Double.valueOf(2.0));
