@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.level;
 
+import nl.tudelft.jpacman.FileChecker;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
@@ -22,10 +23,12 @@ public class IdentifiedPlayer extends Player {
      * The maximum size of the player's username and password.
      */
     private static final int MAX_LOGIN_LENGTH = 25, MAX_PASS_LENGTH = 15;
+
     /**
      * The path of the file containing usernames and passwords.
      */
     private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
+
     /**
      * Whether the application is running or whether it's being tested.
      */
@@ -70,7 +73,7 @@ public class IdentifiedPlayer extends Player {
             final int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if (choice != 0) return false;
             playerName = loginEntered.getText();
-        } while (!checkLoginInfo(passEntered.getPassword()));
+        } while (!FileChecker.checkLoginInfo(playerName, passEntered.getPassword()));
         setProfilePath();
         JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
@@ -186,7 +189,7 @@ public class IdentifiedPlayer extends Player {
                 if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
-            } while (checkUsername(playerName));
+            } while (FileChecker.checkUsername(playerName));
             final char pass[] = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
             writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
@@ -205,50 +208,6 @@ public class IdentifiedPlayer extends Player {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Checks whether a user already exists with the username desired by the player.
-     *
-     * @param name the name to check.
-     * @return Whether the name is already in use or not.
-     * @throws IOException If the login file cannot be found or read.
-     */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private boolean checkUsername(final String name) throws IOException {
-        String line;
-        final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
-        while ((line = reader.readLine()) != null) {
-            if (name.equals(line.split(" ")[0])) {
-                JOptionPane.showMessageDialog(null, "Profile already exists", "Error", JOptionPane.PLAIN_MESSAGE);
-                return true;
-            }
-        }
-        reader.close();
-        return false;
-    }
-
-    /**
-     * Checks whether the player correctly identified himself.
-     *
-     * @param passEntered the password entered by the player.
-     * @return Whether the identifying info is correct or not.
-     */
-    private boolean checkLoginInfo(final char... passEntered) {
-        try {
-            final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
-            String line = reader.readLine();
-            while (line != null) {
-                final String split[] = line.split(" ");
-                if (split[0].equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) return true;
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.err.println("Error whilst reading login.txt " + e.getMessage());
-        }
-        JOptionPane.showMessageDialog(null, "Username and/or password is erroneous", "Error", JOptionPane.PLAIN_MESSAGE);
-        return false;
     }
 
     /**

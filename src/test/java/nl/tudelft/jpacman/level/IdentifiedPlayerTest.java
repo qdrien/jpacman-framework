@@ -59,10 +59,10 @@ public class IdentifiedPlayerTest
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     @Test
     public void testAchievementAddition() {
-        player.addAchievement(Achievement.WON_THRICE);
         try {
             String line;
             boolean found = false;
+            player.addAchievement(Achievement.WON_THRICE);
             final BufferedReader reader = new BufferedReader(new FileReader(PATH));
             while ((line = reader.readLine()) != null) {
                 if (line.equals(Achievement.WON_THRICE.toString())) found = true;
