@@ -30,6 +30,10 @@ public class IdentifiedPlayer extends Player {
      * Whether the application is running or whether it's being tested.
      */
     private static boolean isNotATest = true;
+
+    /**
+     * Path of the player's profile file.
+     */
     protected String profilePath;
 
     /**
