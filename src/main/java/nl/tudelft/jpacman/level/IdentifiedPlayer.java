@@ -109,7 +109,7 @@ public class IdentifiedPlayer extends Player {
         String toDisplay = "<html>";
         toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
-        if ("<html></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        if ("<html><br>Achievements: <br></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
     }
 
