@@ -49,10 +49,9 @@ public class LevelTest {
      */
     @Before
     public void setUp() {
-        final long defaultInterval = 100L;
         level = new AILevel(board, Lists.newArrayList(ghost), Lists.newArrayList(
                 square1, square2), collisions);
-        when(ghost.getInterval()).thenReturn(defaultInterval);
+        when(ghost.getInterval()).thenReturn(100L);
     }
 
     /**
