@@ -11,11 +11,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PacManhattanAI extends AIStrategy {
-    public static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
-    public static final int LOW_PELLET_COUNT_THRESHOLD = 7;
-    public static final int INITIAL_GHOST_DST = 14;
-    public static final int MEDIUM_GHOST_DST = 6;
-    public static final int LOW_GHOST_DST = 3;
+    private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
+    private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
+    private static final int INITIAL_GHOST_DST = 14;
+    private static final int MEDIUM_GHOST_DST = 6;
+    private static final int LOW_GHOST_DST = 3;
     //The threshold distance between the player and a ghost
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
     private final Game game;
