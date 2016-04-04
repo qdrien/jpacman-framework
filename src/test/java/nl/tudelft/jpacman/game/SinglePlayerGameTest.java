@@ -51,7 +51,7 @@ public class SinglePlayerGameTest {
 
 
     /**
-     * Tests that the the level is successfully updated when Game#nextLevel is called
+     * Tests that the the level is successfully updated when Game#nextLevel is called.
      */
     @Test
     public void testNextLevel(){

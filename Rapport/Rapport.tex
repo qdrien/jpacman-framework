@@ -175,8 +175,10 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ réglé. 
 	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile, nous avons donc supprimé les \og warnings \fg \, pour ceux-ci.
 	\item 104 violations de type \textit{LineLength} $\rightarrow$ retours à la ligne là où c'était nécessaire.
-	\item
-	\item
+	\item 63 violations de type \textit{NeedBraces} $\rightarrow$ nous n'avons pas trouvé cette convention justifiée et donc simplement désactivé les warnings correspondants.
+	\item 35 violations de type \textit{AvoidStarImport} $\rightarrow$ encore une fois désactivés car nous utilisons la fonction \og optimize imports \fg \, d'\textit{IntelliJ IDEA} qui regroupe parfois des imports en un unique via cette notation.
+	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ ajoutés.
+	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ modifiés.
 \end{itemize}
 
 \subsection{IntelliJ Code inspection}

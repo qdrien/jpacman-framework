@@ -30,7 +30,7 @@ public abstract class Game implements LevelObserver {
     /**
      * The current level id.
      */
-    protected int currentLevel;
+    private int currentLevel;
     /**
      * <code>true</code> if the game is in progress.
      */
@@ -247,7 +247,7 @@ public abstract class Game implements LevelObserver {
      *
      * @return The id of the current level
      */
-    public int getCurrentLevel() {
+    protected int getCurrentLevel() {
         return currentLevel;
     }
 

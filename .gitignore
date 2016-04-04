@@ -20,3 +20,4 @@ doc/javadoc/
 *.aux
 javadoc/
 *.prf
+*.bbl

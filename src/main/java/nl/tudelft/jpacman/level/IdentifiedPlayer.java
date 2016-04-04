@@ -40,6 +40,11 @@ public class IdentifiedPlayer extends Player {
     private String profilePath;
 
     /**
+     * The name of the current player and the path to the file storing the player's stats.
+     */
+    private String playerName;
+
+    /**
      * Creates a new player.
      *
      * @param spriteMap      A map containing a sprite for this player for every direction.
@@ -62,7 +67,7 @@ public class IdentifiedPlayer extends Player {
      * @return Whether the identification was carried through or cancelled.
      */
     public boolean authenticate() {
-        final String options[] = {"Ok", "Cancel"};
+        final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
         final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
@@ -75,10 +80,10 @@ public class IdentifiedPlayer extends Player {
         do {
             if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if (choice != 0) return false;
-            if (isNotATest) playerName = loginEntered.getText();
-        } while (!FileChecker.checkLoginInfo(playerName, passEntered.getPassword()));
+            if (isNotATest)setPlayerName(loginEntered.getText());
+        } while (!FileChecker.checkLoginInfo(getPlayerName(), passEntered.getPassword()));
         setProfilePath();
-        if (isNotATest) JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "You are now logged in as " + getPlayerName(), "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
         return true;
@@ -88,7 +93,7 @@ public class IdentifiedPlayer extends Player {
      * Sets the path to the file storing the player's stats. (default version)
      */
     private void setProfilePath() {
-        profilePath = new File("").getAbsolutePath() + "/src/main/resources/profiles/" + playerName + ".prf";
+        profilePath = new File("").getAbsolutePath() + "/src/main/resources/profiles/" + getPlayerName() + ".prf";
     }
 
     /**
@@ -146,12 +151,12 @@ public class IdentifiedPlayer extends Player {
     public void addAchievement(final Achievement achievement) throws IOException {
         //If the achievement has already been obtained by this player
         // (or the player isn't logged in), don't add it.
-        if (playerName == null || checkAchievement(achievement)) return;
+        if (getPlayerName() == null || checkAchievement(achievement)) return;
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
         writer.write(achievement + System.getProperty("line.separator"));
         writer.close();
         final int bonus = achievement.getBonusScore();
-        score += bonus;
+        setScore(getScore() + bonus);
         if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -180,7 +185,7 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void createNewPlayer() {
-        final String options[] = {"Ok", "Cancel"};
+        final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
         final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
@@ -194,11 +199,11 @@ public class IdentifiedPlayer extends Player {
             do {
                 if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
-                if (isNotATest) playerName = loginEntered.getText();
-            } while (FileChecker.checkUsername(playerName));
-            final char pass[] = passEntered.getPassword();
+                if (isNotATest) setPlayerName(loginEntered.getText());
+            } while (FileChecker.checkUsername(getPlayerName()));
+            final char[] pass = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
-            writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
+            writer.write(getPlayerName() + " " + Arrays.hashCode(pass) + "\n");
             writer.close();
             //Creating "profiles" subdirectory if necessary.
             new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
@@ -224,8 +229,8 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("checkstyle:magicnumber")
     public void levelCompleted(final int level) throws IOException {
-        if (playerName == null) return;
-        final String split[] = getInfoLine();
+        if (getPlayerName() == null) return;
+        final String[] split = getInfoLine();
         final int levelsCompleted = Integer.parseInt(split[0]);
         addAchievement(Achievement.VICTOR);
         if (level > levelsCompleted) {
@@ -244,7 +249,7 @@ public class IdentifiedPlayer extends Player {
      */
     private String[] getInfoLine() throws IOException {
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-        final String split[] = reader.readLine().split(" ");
+        final String[] split = reader.readLine().split(" ");
         reader.close();
         return split;
     }
@@ -275,8 +280,8 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer) throws IOException {
-        if (playerName == null) return;
-        final String split[] = getInfoLine();
+        if (getPlayerName() == null) return;
+        final String[] split = getInfoLine();
         String toWrite = "";
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
@@ -292,14 +297,15 @@ public class IdentifiedPlayer extends Player {
      * whether it's high enough to earn him an achievement.
      * @throws IOException If the file was not found or is not readable.
      */
-    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"}) //the initialisations are required.
+    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"})
+    //the initialisations are required.
     public void saveScore() throws IOException {
-        if (playerName == null) return;
-        final String split[] = getInfoLine();
+        if (getPlayerName() == null) return;
+        final String[] split = getInfoLine();
         String toWrite = "";
         int highScore = Integer.parseInt(split[1]);
-        if (score > 9000) addAchievement(Achievement.OVER_9000);
-        if (score > highScore) highScore = score;
+        if (getScore() > 9000) addAchievement(Achievement.OVER_9000);
+        if (getScore() > highScore) highScore = getScore();
         for (int i = 0; i < split.length; i++) {
             if (i == 1) toWrite += highScore + " ";
             else toWrite += split[i] + " ";
@@ -312,14 +318,14 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("checkstyle:magicnumber")
     public void displayProfileStats() {
-        if (playerName == null) {
+        if (getPlayerName() == null) {
             JOptionPane.showMessageDialog(null, "You are not logged in.", "Error", JOptionPane.PLAIN_MESSAGE);
             return;
         }
         String toDisplay = "<html>";
         try {
             final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            final String split[] = reader.readLine().split(" ");
+            final String[] split = reader.readLine().split(" ");
             reader.close();
             toDisplay += "Levels completed: " + split[0];
             toDisplay += "<br>High score: " + split[1];
@@ -347,10 +353,18 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * Sets the player's name.
+     * Sets the player's name to the test value. todo: damien: might want to rename this
      */
     public void setPlayerName() {
         playerName = "Testy";
+    }
+
+    /**
+     * Sets the player's name.
+     * @param s The name we want the player to have
+     */
+    public void setPlayerName(String s){
+        playerName = s;
     }
 
     /**

@@ -89,14 +89,14 @@ public class HallOfFame {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void handleHoF(final int pointsScored, final String playerName) {
-        int bestScores[] = new int[NUMBER_OF_RECORDS];
-        String bestPlayers[] = new String[NUMBER_OF_RECORDS];
+        int[] bestScores = new int[NUMBER_OF_RECORDS];
+        String[] bestPlayers = new String[NUMBER_OF_RECORDS];
         score = pointsScored;
 
         try {
             final BufferedReader reader = new BufferedReader(new FileReader(HOF_PATH));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
-                final String split[] = reader.readLine().split(" ");
+                final String[] split = reader.readLine().split(" ");
                 bestPlayers[i] = split[0];
                 bestScores[i] = Integer.parseInt(split[1]);
             }
@@ -145,7 +145,7 @@ public class HallOfFame {
      * @return The name.
      */
     private String askName() {
-        final String options[] = {"Ok"};
+        final String[] options = {"Ok"};
         final JPanel panel = new JPanel();
         final JLabel label = new JLabel("Enter your name: ");
         final JTextField userInput = new JTextField(NAME_LENGTH);
@@ -162,9 +162,9 @@ public class HallOfFame {
      * @param bestScores  The list of high scores to display.
      * @param bestPlayers The list of players to display.
      */
-    private void displayHoF(final int bestScores[], final String... bestPlayers) {
+    private void displayHoF(final int[] bestScores, final String... bestPlayers) {
         String text = "";
-        final String options[] = {"Leave", "Reset"};
+        final String[] options = {"Leave", "Reset"};
         for (int i = 0; i < NUMBER_OF_RECORDS; i++)
             text += formatDisplay(bestScores[i], bestPlayers[i]);
         final int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame",
@@ -192,7 +192,7 @@ public class HallOfFame {
      * @param bestScores  The list of high scores to store.
      * @param bestPlayers The list of players associated to the high scores to store.
      */
-    private void saveUpdatedHoF(final int bestScores[], final String... bestPlayers) {
+    private void saveUpdatedHoF(final int[] bestScores, final String... bestPlayers) {
         try {
             final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++)
@@ -211,7 +211,7 @@ public class HallOfFame {
     public void resetHoF() {
         int buttonPressed = 0;
         if (isNotATest) {
-            final Object options[] = {"Yes", "No"};
+            final Object[] options = {"Yes", "No"};
             buttonPressed = JOptionPane.showOptionDialog(null,
                     "Do you really want to erase the Hall of Fame?", "Confirmation",
                     JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,

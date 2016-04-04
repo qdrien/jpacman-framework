@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The player, a specific kind of unit that plays the game
+ */
 public class Player extends Unit {
 
     /**
@@ -36,15 +39,11 @@ public class Player extends Unit {
     /**
      * The amount of points accumulated by this player.
      */
-    int score;
+    private int score;
     /**
      * <code>true</code> iff this player is alive.
      */
     private boolean alive;
-    /**
-     * The name of the current player and the path to the file storing the player's stats.
-     */
-    String playerName;
     /**
      * The number of lives left.
      */
@@ -56,7 +55,7 @@ public class Player extends Unit {
     private boolean poweredUp; //booleans are initialised to false by default.
 
     /**
-     * Constructor for a player
+     * Constructor for a player.
      * @param spriteMap The Map between sprites and their corresponding directions
      * @param deathAnimation The animated sprites for deaths events
      */
@@ -100,6 +99,14 @@ public class Player extends Unit {
      */
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Simple setter for the score field.
+     * @param score The score to set
+     */
+    protected void setScore(int score){
+        this.score = score;
     }
 
     @Override
@@ -206,4 +213,6 @@ public class Player extends Unit {
     public void resetScore() {
         score = 0;
     }
+
+
 }

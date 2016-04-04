@@ -54,7 +54,7 @@ public final class FileChecker {
             final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
             String line = reader.readLine();
             while (line != null) {
-                final String split[] = line.split(" ");
+                final String[] split = line.split(" ");
                 if (split[0].equals(playerName)
                         && Arrays.hashCode(passEntered) == Integer.parseInt(split[1]))
                     return true;
