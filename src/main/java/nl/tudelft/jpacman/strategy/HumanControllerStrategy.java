@@ -7,6 +7,9 @@ import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * todo: nicolas
+ */
 public class HumanControllerStrategy extends PacmanStrategy {
     private final PacManUiBuilder builder;
 

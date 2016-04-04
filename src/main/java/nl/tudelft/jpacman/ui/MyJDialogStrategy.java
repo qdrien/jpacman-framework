@@ -10,7 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * todo: nicolas
+ */
 public class MyJDialogStrategy extends JDialog {
     /**
      * Button of the window.

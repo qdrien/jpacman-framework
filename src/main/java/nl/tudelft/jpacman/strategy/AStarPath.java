@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * todo: nicolas
+ */
 public class AStarPath extends AStar<Square> {
     /**
      * Initialization of constants used to select the best move based on the current game.
@@ -25,12 +28,12 @@ public class AStarPath extends AStar<Square> {
     public static final double EMPTY_COST = 5;
     //Distance used to calculate a square cost near a ghost
     public static final int DST_THRESHOLD = 3;
-    private final Board board;//The board game
-    private final List<Ghost> ghosts;// The list of the ghosts
+    private final Board board; //The board game
+    private final List<Ghost> ghosts; // The list of the ghosts
     /**
      * The game's data.
      */
-    private Square goalSquare;//The square goal
+    private Square goalSquare; //The square goal
 
 
     /**

@@ -10,6 +10,9 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * todo: nicolas
+ */
 public class PacManhattanAI extends AIStrategy {
     private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
     private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
@@ -19,9 +22,9 @@ public class PacManhattanAI extends AIStrategy {
     //The threshold distance between the player and a ghost
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
     private final Game game;
-    private Deque<Direction> directionQueue;//Queue containing the potential directions to follow
+    private Deque<Direction> directionQueue; //Queue containing the potential directions to follow
     private AStarPath pathAStar; //The path calculates with AStar
-    private boolean[][] visitedSquare;//List to know if the square is yet visited or not
+    private boolean[][] visitedSquare; //List to know if the square is yet visited or not
 
     /**
      * The default constructor.
@@ -52,9 +55,9 @@ public class PacManhattanAI extends AIStrategy {
      */
     @Override
     public Direction nextMove() {
-        directionQueue = new ArrayDeque<>();//Initialisation of the queue containing best moves
-        boolean warning = false;//Boolean to know if a ghost is near of the player or not
-        updatePacmanBehaviour(game.getLevel().remainingPellets());//Accelerate the endgame
+        directionQueue = new ArrayDeque<>(); //Initialisation of the queue containing best moves
+        boolean warning = false; //Boolean to know if a ghost is near of the player or not
+        updatePacmanBehaviour(game.getLevel().remainingPellets()); //Accelerate the endgame
 
         for (Ghost ghost : getGhostsList()) {
             //Test if a ghost is near of the player
@@ -102,10 +105,6 @@ public class PacManhattanAI extends AIStrategy {
      * @param square the goal square
      */
     private void computePath(Square square) {
-        if (square == null) {
-            directionQueue = null;
-        }
-
         pathAStar = new AStarPath(game);
         pathAStar.setGoal(square);
 
@@ -307,6 +306,5 @@ public class PacManhattanAI extends AIStrategy {
     public void setGhostDstThreshold(int ghostDst) {
         ghostDstThreshold = ghostDst;
     }
-
 }
 

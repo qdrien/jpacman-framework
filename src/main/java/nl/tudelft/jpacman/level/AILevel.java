@@ -86,8 +86,7 @@ public class AILevel extends Level {
      *
      * @param strategy the chosen strategy
      */
-    public void startStrategy(PacmanStrategy strategy)
-    {
+    public void startStrategy(PacmanStrategy strategy) {
         this.strategy = strategy;
         strategy.executeStrategy();
     }

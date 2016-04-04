@@ -14,7 +14,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Game data used by AI's to calculate the next move to apply.
      */
-    private final IdentifiedPlayer player;//The player of the game
+    private final IdentifiedPlayer player; //The player of the game
     private final Board board; // The board game
     private final List<Ghost> ghosts; //The ghosts list
 

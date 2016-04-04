@@ -92,10 +92,10 @@ public abstract class Level implements PlayerListener {
         this.collisions = collisionMap;
         this.observers = new ArrayList<>();
         if (QUICK_WIN)
-            System.out.println("Warning: QUICK_WIN mode activated, the level will be " +
-                    "considered complete if 13 pellets are picked up.\n" +
-                    "Disable this by setting QUICK_WIN to false " +
-                    "in 'nl.tudelft.jpacman.level.Level.java'");
+            System.out.println("Warning: QUICK_WIN mode activated, the level will be "
+                    + "considered complete if 13 pellets are picked up.\n"
+                    + "Disable this by setting QUICK_WIN to false "
+                    + "in 'nl.tudelft.jpacman.level.Level.java'");
     }
 
     /**

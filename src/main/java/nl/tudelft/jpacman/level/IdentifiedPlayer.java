@@ -345,6 +345,10 @@ public class IdentifiedPlayer extends Player {
     public int getMaxLevelReached() throws IOException {
         return Integer.parseInt(getInfoLine()[0]);
     }
-
-    public String getLoginPath() {return LOGIN_PATH;}
+    /**
+     * todo: damien
+     */
+    public String getLoginPath() {
+        return LOGIN_PATH;
+    }
 }
