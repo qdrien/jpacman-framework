@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * todo: damien
+ * todo: Nicolas
  */
 public class ItemsColorTest {
 
     /**
-     * todo: damien
+     * todo: Nicolas
      */
     @Test
     @SuppressWarnings("checkstyle:magicnumber")

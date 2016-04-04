@@ -15,7 +15,7 @@ public enum ItemsColor {
     private final int value;
 
     /**
-     * todo: Damien
+     * todo: Nicolas
      * @param color
      */
     ItemsColor(final Color color) {

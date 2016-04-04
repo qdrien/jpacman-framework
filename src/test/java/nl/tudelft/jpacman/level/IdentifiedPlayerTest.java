@@ -10,7 +10,7 @@ import java.io.*;
 import static org.junit.Assert.assertTrue;
 
 /**
- * todo: damien
+ * Testing the "IdentifiedPlayer" class.
  */
 public class IdentifiedPlayerTest {
     /**
