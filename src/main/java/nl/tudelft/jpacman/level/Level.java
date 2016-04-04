@@ -21,7 +21,7 @@ import java.util.Random;
  */
 public abstract class Level implements PlayerListener {
 
-    public static final int QUICK_WIN_NEEDED_PELLETS = 13;
+    private static final int QUICK_WIN_NEEDED_PELLETS = 13;
     /**
      * If true, picking up 13 pellets is enough to win a level.
      */

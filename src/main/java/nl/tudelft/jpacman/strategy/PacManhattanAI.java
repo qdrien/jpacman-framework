@@ -11,11 +11,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PacManhattanAI extends AIStrategy {
-    public static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
-    public static final int LOW_PELLET_COUNT_THRESHOLD = 7;
-    public static final int INITIAL_GHOST_DST = 14;
-    public static final int MEDIUM_GHOST_DST = 6;
-    public static final int LOW_GHOST_DST = 3;
+    private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
+    private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
+    private static final int INITIAL_GHOST_DST = 14;
+    private static final int MEDIUM_GHOST_DST = 6;
+    private static final int LOW_GHOST_DST = 3;
     //The threshold distance between the player and a ghost
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
     private final Game game;
@@ -67,10 +67,8 @@ public class PacManhattanAI extends AIStrategy {
                 break;
             }
         }
-        if (!warning) {
-            //There is no near ghost, thus find the nearest pellet
+        if (!warning)//There is no near ghost, thus find the nearest pellet
             computePath(BFSNearestSafetyPelletSquare());
-        }
 
         if (directionQueue.isEmpty()) {
             if (warning) {
@@ -136,8 +134,9 @@ public class PacManhattanAI extends AIStrategy {
         }
         while (!squareQueue.isEmpty()) {
             final Square square = squareQueue.remove();
+
             if (square.getOccupants().size() > 0
-                    && square.getOccupants().get(0) instanceof Pellet)
+                    && square.getOccupants().get(0) instanceof Pellet & !square.equals(getPlayer().getSquare()))
                 return square;
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
@@ -150,7 +149,7 @@ public class PacManhattanAI extends AIStrategy {
                         });
             }
         }
-        return null;
+        return getPlayer().getSquare();
     }
 
     /**
@@ -195,11 +194,11 @@ public class PacManhattanAI extends AIStrategy {
 
         Queue<Square> squaresQueue = new ArrayDeque<>();
         squaresQueue.add(getPlayer().getSquare());
-
         while (!squaresQueue.isEmpty()) {
             Square square = squaresQueue.remove();
             visitedSquare[square.getY()][square.getX()] = true;
-            if (isSafetySquare(square)) return square;
+            if (isSafetySquare(square) && !square.equals(getPlayer().getSquare()))
+                return square;
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
                 squaresQueue.addAll(neighborsList.stream()
@@ -207,7 +206,7 @@ public class PacManhattanAI extends AIStrategy {
                         .collect(Collectors.toList()));
             }
         }
-        return null;
+        return getPlayer().getSquare();
     }
 
     /**
