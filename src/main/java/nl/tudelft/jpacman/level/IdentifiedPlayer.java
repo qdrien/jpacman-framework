@@ -27,8 +27,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * The path of the file containing usernames and passwords.
      */
-    private static final String LOGIN_PATH = new File("").getAbsolutePath()
-            + "/src/main/resources/login.txt";
+    private static final String LOGIN_PATH = new File("").getAbsolutePath() + "/src/main/resources/login.txt";
 
     /**
      * Whether the application is running or whether it's being tested.
@@ -46,8 +45,7 @@ public class IdentifiedPlayer extends Player {
      * @param spriteMap      A map containing a sprite for this player for every direction.
      * @param deathAnimation The sprite to be shown when this player dies.
      */
-    public IdentifiedPlayer(final Map<Direction, Sprite> spriteMap,
-                            final AnimatedSprite deathAnimation) {
+    public IdentifiedPlayer(final Map<Direction, Sprite> spriteMap, final AnimatedSprite deathAnimation) {
         super(spriteMap, deathAnimation);
     }
 
@@ -111,8 +109,7 @@ public class IdentifiedPlayer extends Player {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
-        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0)
-            return;
+        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0) return;
         String toDisplay = "<html>";
         toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
@@ -263,8 +260,7 @@ public class IdentifiedPlayer extends Player {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null)
-            toWrite += line + System.getProperty("line.separator");
+        while ((line = reader.readLine()) != null) toWrite += line + System.getProperty("line.separator");
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
@@ -317,8 +313,7 @@ public class IdentifiedPlayer extends Player {
     @SuppressWarnings("checkstyle:magicnumber")
     public void displayProfileStats() {
         if (playerName == null) {
-            JOptionPane.showMessageDialog(null, "You are not logged in.", "Error",
-                    JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You are not logged in.", "Error", JOptionPane.PLAIN_MESSAGE);
             return;
         }
         String toDisplay = "<html>";
@@ -336,8 +331,7 @@ public class IdentifiedPlayer extends Player {
             toDisplay += "<br>Times killed by Clyde: " + split[7];
             toDisplay = parseAchievements(toDisplay);
             toDisplay += "</html>";
-            JOptionPane.showMessageDialog(null, toDisplay, "Statistics",
-                    JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, toDisplay, "Statistics", JOptionPane.PLAIN_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
         }
