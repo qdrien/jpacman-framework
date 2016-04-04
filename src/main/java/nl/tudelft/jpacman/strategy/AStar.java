@@ -27,7 +27,7 @@ import java.util.*;
 @SuppressWarnings({"checkstyle:javadoctype", "checkstyle:avoidinlineconditionals",
         "checkstyle:methodlength", "checkstyle:nowhitespacebefore",
         "checkstyle:emptyforiteratorpad", "checkstyle:visibilitymodifier",
-        "checkstyle:innerassignment", "checkstyle:whitespaceafter"})
+        "checkstyle:innerassignment", "checkstyle:whitespaceafter", "checkstyle:needbraces"})
 public abstract class AStar<T> {
 
     private final PriorityQueue<Path> paths;

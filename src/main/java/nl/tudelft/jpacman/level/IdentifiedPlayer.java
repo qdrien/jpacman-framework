@@ -77,11 +77,14 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         do {
             int choice = buttonChoice(options, panel, loginEntered, "Identification");
-            if (choice != 0) return false;
+            if (choice != 0) {
+                return false;
+            }
         } while (!FileChecker.checkLoginInfo(getPlayerName(), passEntered.getPassword()));
         setProfilePath();
-        if (isNotATest)
+        if (isNotATest) {
             JOptionPane.showMessageDialog(null, "You are now logged in as " + getPlayerName(), "Login successful", JOptionPane.PLAIN_MESSAGE);
+        }
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
         return true;
@@ -121,14 +124,18 @@ public class IdentifiedPlayer extends Player {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
-        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0)
+        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0) {
             return;
+        }
         String toDisplay = "<html>";
         toDisplay = FileChecker.parseAchievements(profilePath, toDisplay);
         toDisplay += "</html>";
-        if ("<html><br>Achievements: <br></html>".equals(toDisplay))
+        if ("<html><br>Achievements: <br></html>".equals(toDisplay)) {
             JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
-        else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     /**
@@ -140,14 +147,17 @@ public class IdentifiedPlayer extends Player {
     public void addAchievement(final Achievement achievement) throws IOException {
         //If the achievement has already been obtained by this player
         // (or the player isn't logged in), don't add it.
-        if (getPlayerName() == null || FileChecker.checkAchievement(profilePath, achievement)) return;
+        if (getPlayerName() == null || FileChecker.checkAchievement(profilePath, achievement)) {
+            return;
+        }
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
         writer.write(achievement + System.getProperty("line.separator"));
         writer.close();
         final int bonus = achievement.getBonusScore();
         setScore(getScore() + bonus);
-        if (isNotATest)
+        if (isNotATest) {
             JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     /**
@@ -167,7 +177,9 @@ public class IdentifiedPlayer extends Player {
         try {
             do {
                 int choice = buttonChoice(options, panel, loginEntered, "Profile creation");
-                if (choice != 0) return;
+                if (choice != 0) {
+                    return;
+                }
             } while (FileChecker.checkUsername(getPlayerName()));
             final char[] pass = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
@@ -199,15 +211,21 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("checkstyle:magicnumber")
     public void levelCompleted(final int level) throws IOException {
-        if (getPlayerName() == null) return;
+        if (getPlayerName() == null) {
+            return;
+        }
         final String[] split = getInfoLine();
         final int levelsCompleted = Integer.parseInt(split[0]);
         addAchievement(Achievement.VICTOR);
         if (level > levelsCompleted) {
             String result = "";
-            for (int i = 1; i < split.length; i++) result += split[i] + " ";
+            for (int i = 1; i < split.length; i++) {
+                result += split[i] + " ";
+            }
             setInfoLine(level + " " + result);
-            if (levelsCompleted >= 3) addAchievement(Achievement.WON_THRICE);
+            if (levelsCompleted >= 3) {
+                addAchievement(Achievement.WON_THRICE);
+            }
         }
     }
 
@@ -235,7 +253,9 @@ public class IdentifiedPlayer extends Player {
         toWrite += System.getProperty("line.separator");
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
         String line = reader.readLine(); //ignore first line, it's already included.
-        while ((line = reader.readLine()) != null) toWrite += line + System.getProperty("line.separator");
+        while ((line = reader.readLine()) != null) {
+            toWrite += line + System.getProperty("line.separator");
+        }
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
         writer.write(toWrite);
@@ -250,16 +270,24 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer) throws IOException {
-        if (getPlayerName() == null) return;
+        if (getPlayerName() == null) {
+            return;
+        }
         final String[] split = getInfoLine();
         String toWrite = "";
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
-            if (i == killer.getIndex()) toWrite += Integer.parseInt(split[i]) + 1 + " ";
-            else toWrite += split[i] + " ";
+            if (i == killer.getIndex()) {
+                toWrite += Integer.parseInt(split[i]) + 1 + " ";
+            }
+            else {
+                toWrite += split[i] + " ";
+            }
         }
         setInfoLine(toWrite);
-        if (toGrant != null) addAchievement(toGrant);
+        if (toGrant != null) {
+            addAchievement(toGrant);
+        }
     }
 
     /**
@@ -271,15 +299,25 @@ public class IdentifiedPlayer extends Player {
     @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"})
     //the initialisations are required.
     public void saveScore() throws IOException {
-        if (getPlayerName() == null) return;
+        if (getPlayerName() == null) {
+            return;
+        }
         final String[] split = getInfoLine();
         String toWrite = "";
         int highScore = Integer.parseInt(split[1]);
-        if (getScore() > 9000) addAchievement(Achievement.OVER_9000);
-        if (getScore() > highScore) highScore = getScore();
+        if (getScore() > 9000) {
+            addAchievement(Achievement.OVER_9000);
+        }
+        if (getScore() > highScore) {
+            highScore = getScore();
+        }
         for (int i = 0; i < split.length; i++) {
-            if (i == 1) toWrite += highScore + " ";
-            else toWrite += split[i] + " ";
+            if (i == 1) {
+                toWrite += highScore + " ";
+            }
+            else {
+                toWrite += split[i] + " ";
+            }
         }
         setInfoLine(toWrite);
     }

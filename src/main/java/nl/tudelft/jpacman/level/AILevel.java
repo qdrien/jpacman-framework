@@ -105,8 +105,9 @@ public class AILevel extends Level {
      * Shutdown the thread.
      */
     private void stopAIStrategy() {
-        if (serviceAI != null)
+        if (serviceAI != null) {
             serviceAI.shutdown();
+        }
 
     }
 
@@ -181,10 +182,12 @@ public class AILevel extends Level {
          */
         @Override
         public void run() {
-            if (nextMove == null || isIntersection(player, nextMove))
+            if (nextMove == null || isIntersection(player, nextMove)) {
                 nextMove = strategy.nextMove();
-            if (player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
+            }
+            if (player.getSquare().getSquareAt(nextMove).isAccessibleTo(player)) {
                 move(player, nextMove);
+            }
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }
 

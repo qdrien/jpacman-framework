@@ -101,8 +101,12 @@ public class MyJDialogStrategy extends JDialog {
         //close and dispose of the window.
         public void actionPerformed(ActionEvent e) {
             final Object source = e.getSource();
-            if (source == HumanController) strategy = new HumanControllerStrategy(game, builder);
-            else if (source == AIController) strategy = new PacManhattanAI(game);
+            if (source == HumanController) {
+                strategy = new HumanControllerStrategy(game, builder);
+            }
+            else if (source == AIController) {
+                strategy = new PacManhattanAI(game);
+            }
             System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
             game.setStrategy(strategy);
             setVisible(false);

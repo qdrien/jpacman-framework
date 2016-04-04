@@ -117,7 +117,9 @@ public class Board {
         for (int x = 0; x < getWidth(); x++) {
             for (int y = 0; y < getHeight(); y++) {
                 final Square square = squareAt(x, y);
-                if (square.isAccessibleTo(player) && isSafe(x, y)) possibleSquares.add(square);
+                if (square.isAccessibleTo(player) && isSafe(x, y)) {
+                    possibleSquares.add(square);
+                }
             }
         }
         return possibleSquares;
@@ -145,14 +147,18 @@ public class Board {
             for (int currentY = minY; currentY < maxY; currentY++) {
                 //as we have a rectangle around the target square that contains too much squares,
                 // we need to filter (ignore) "out of range" neighbors (using manhattan distance)
-                if (manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) continue;
+                if (manhattanDistance(x, y, currentX, currentY) > UNSAFE_RANGE) {
+                    continue;
+                }
                 //If is is in "Manhattan range", we need to check whether there is a ghost on it
                 final long count = squareAt(currentX, currentY).getOccupants().stream()
                         .filter(p -> p instanceof Ghost)
                         .count();
                 //If there is at least one Ghost on that square,
                 // the original square at (x,y) is not safe
-                if (count != 0) return false;
+                if (count != 0) {
+                    return false;
+                }
             }
         }
         return true;

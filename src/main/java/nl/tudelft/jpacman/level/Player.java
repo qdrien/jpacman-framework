@@ -131,7 +131,9 @@ public class Player extends Unit {
         //Simply uses integer division (if we have different results, a threshold has been reached)
         //Note that this can only work if the amount of points a player
         // can get in one go is < the threshold
-        if (score / NEW_LIFE_THRESHOLD != (score + points) / NEW_LIFE_THRESHOLD) addLife();
+        if (score / NEW_LIFE_THRESHOLD != (score + points) / NEW_LIFE_THRESHOLD) {
+            addLife();
+        }
         score += points;
     }
 

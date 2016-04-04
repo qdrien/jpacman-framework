@@ -70,8 +70,10 @@ public class PacManhattanAI extends AIStrategy {
                 break;
             }
         }
-        if (!warning)//There is no near ghost, thus find the nearest pellet
+        if (!warning) {
+            //There is no near ghost, thus find the nearest pellet
             computePath(BFSNearestSafetyPelletSquare());
+        }
 
         if (directionQueue.isEmpty()) {
             if (warning) {
@@ -124,7 +126,9 @@ public class PacManhattanAI extends AIStrategy {
      * @return the nearest safe square where there is a pellet, null if no safe pellet found
      */
     public Square BFSNearestSafetyPelletSquare() {
-        for (int i = 0; i < getBoard().getHeight(); ++i) Arrays.fill(visitedSquare[i], false);
+        for (int i = 0; i < getBoard().getHeight(); ++i) {
+            Arrays.fill(visitedSquare[i], false);
+        }
 
         Queue<Square> squareQueue = new ArrayDeque<>();
         squareQueue.add(getPlayer().getSquare());
@@ -135,8 +139,9 @@ public class PacManhattanAI extends AIStrategy {
             final Square square = squareQueue.remove();
 
             if (square.getOccupants().size() > 0
-                    && square.getOccupants().get(0) instanceof Pellet & !square.equals(getPlayer().getSquare()))
+                    && square.getOccupants().get(0) instanceof Pellet & !square.equals(getPlayer().getSquare())) {
                 return square;
+            }
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
@@ -163,7 +168,9 @@ public class PacManhattanAI extends AIStrategy {
         Deque<Direction> directions = new ArrayDeque<>();
 
         //Direction can't calculate if path has not at least 2 squares
-        if (squaresList == null || squaresList.size() < 2) return directions;
+        if (squaresList == null || squaresList.size() < 2) {
+            return directions;
+        }
         for (int i = 1; i < squaresList.size(); ++i) {
             final Square originSquare = squaresList.get(i - 1);
             final Square destinationSquare = squaresList.get(i);
@@ -172,12 +179,20 @@ public class PacManhattanAI extends AIStrategy {
 
             if (x == 0) {
                 //Vertical situation
-                if (y == 1 || y < -1) directions.add(Direction.SOUTH);
-                else directions.add(Direction.NORTH);
+                if (y == 1 || y < -1) {
+                    directions.add(Direction.SOUTH);
+                }
+                else {
+                    directions.add(Direction.NORTH);
+                }
             } else {
                 //Horizontal situation
-                if (x == 1 || x < -1) directions.add(Direction.EAST);
-                else directions.add(Direction.WEST);
+                if (x == 1 || x < -1) {
+                    directions.add(Direction.EAST);
+                }
+                else {
+                    directions.add(Direction.WEST);
+                }
             }
         }
         return directions;
@@ -189,15 +204,18 @@ public class PacManhattanAI extends AIStrategy {
      * @return the nearest safety square, null if there isn't
      */
     public Square BFSNearestSafetySquare() {
-        for (int i = 0; i < getBoard().getHeight(); ++i) Arrays.fill(visitedSquare[i], false);
+        for (int i = 0; i < getBoard().getHeight(); ++i) {
+            Arrays.fill(visitedSquare[i], false);
+        }
 
         Queue<Square> squaresQueue = new ArrayDeque<>();
         squaresQueue.add(getPlayer().getSquare());
         while (!squaresQueue.isEmpty()) {
             Square square = squaresQueue.remove();
             visitedSquare[square.getY()][square.getX()] = true;
-            if (isSafetySquare(square) && !square.equals(getPlayer().getSquare()))
+            if (isSafetySquare(square) && !square.equals(getPlayer().getSquare())) {
                 return square;
+            }
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
                 squaresQueue.addAll(neighborsList.stream()
@@ -225,12 +243,18 @@ public class PacManhattanAI extends AIStrategy {
             boolean invalidNeighbour = false;
             if (neighbour.isAccessibleTo(getPlayer())) {
                 List<Unit> neighbours = neighbour.getOccupants();
-                if (neighbours.size() == 2)
+                if (neighbours.size() == 2) {
                     invalidNeighbour = neighbours.get(1) instanceof Ghost;
-                else if (neighbours.size() == 1)
+                }
+                else if (neighbours.size() == 1) {
                     invalidNeighbour = neighbours.get(0) instanceof Ghost;
-            } else invalidNeighbour = true;
-            if (invalidNeighbour) iterator.remove();
+                }
+            } else {
+                invalidNeighbour = true;
+            }
+            if (invalidNeighbour) {
+                iterator.remove();
+            }
         }
         return validNeighbours;
     }
@@ -245,7 +269,9 @@ public class PacManhattanAI extends AIStrategy {
         for (Ghost ghost : getGhostsList()) {
             final double distance = AStarPath.manhattanDistance(square.getX(), square.getY(),
                     ghost.getSquare().getX(), ghost.getSquare().getY());
-            if (distance < ghostDstThreshold) return false;
+            if (distance < ghostDstThreshold) {
+                return false;
+            }
         }
         return true;
     }
@@ -277,10 +303,16 @@ public class PacManhattanAI extends AIStrategy {
     private void updatePacmanBehaviour(int pelletNbr) {
         if (pelletNbr <= HIGH_PELLET_COUNT_THRESHOLD) {
             //Pacman must recover the last pellets to finish
-            if (pelletNbr <= LOW_PELLET_COUNT_THRESHOLD) setGhostDstThreshold(LOW_GHOST_DST);
+            if (pelletNbr <= LOW_PELLET_COUNT_THRESHOLD) {
+                setGhostDstThreshold(LOW_GHOST_DST);
+            }
                 //The pacman play safety and recover pellets if he can
-            else setGhostDstThreshold(MEDIUM_GHOST_DST);
-        } else setGhostDstThreshold(INITIAL_GHOST_DST); //Pacman play safety
+            else {
+                setGhostDstThreshold(MEDIUM_GHOST_DST);
+            }
+        } else {
+            setGhostDstThreshold(INITIAL_GHOST_DST); //Pacman play safety
+        }
     }
 
     /**

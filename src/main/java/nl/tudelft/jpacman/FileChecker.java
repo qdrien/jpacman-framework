@@ -61,8 +61,9 @@ public final class FileChecker {
             while (line != null) {
                 final String[] split = line.split(" ");
                 if (split[0].equals(playerName)
-                        && Arrays.hashCode(passEntered) == Integer.parseInt(split[1]))
+                        && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) {
                     return true;
+                }
                 line = reader.readLine();
             }
             reader.close();
@@ -77,7 +78,9 @@ public final class FileChecker {
      * Checks whether an achievement has already been earned by the player.
      *
      * @param achievement the achievement to check.
+     * @param profilePath The path to the profile file
      * @return Whether the achievement has already been earned or not.
+     * @throws IOException If the file was not found or is not readable.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public static boolean checkAchievement(final String profilePath, final Achievement achievement) throws IOException {
@@ -87,7 +90,9 @@ public final class FileChecker {
         while ((line = reader.readLine()) != null) {
             //Removing whitespace just in case the file has been manually edited.
             line = line.replaceAll("\\s+", "");
-            if (line.equals(achievement.toString())) return true;
+            if (line.equals(achievement.toString())) {
+                return true;
+            }
         }
         reader.close();
         return false;
@@ -97,6 +102,7 @@ public final class FileChecker {
      * Reads the player's achievements from file.
      *
      * @param achievements the list of achievements.
+     * @param profilePath The path to the profile file
      * @return The updated list of achievements.
      * @throws IOException If the file was not found or is not readable.
      */

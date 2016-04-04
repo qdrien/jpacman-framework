@@ -20,7 +20,7 @@ public class PlayerTest {
 
     /**
      * Instantiate a launcher and gets a reference to the player
-     * on which the test will be executed
+     * on which the test will be executed.
      */
     @BeforeClass
     public static void init() {

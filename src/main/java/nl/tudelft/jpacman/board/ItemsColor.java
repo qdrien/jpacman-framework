@@ -31,7 +31,9 @@ public enum ItemsColor {
      */
     public static ItemsColor getItemByRGBValue(final int rgbValue) {
         for (final ItemsColor c : ItemsColor.values()) {
-            if (rgbValue == c.value) return c;
+            if (rgbValue == c.value) {
+                return c;
+            }
         }
         System.err.println("Unknown color " + rgbValue);
         return null;
