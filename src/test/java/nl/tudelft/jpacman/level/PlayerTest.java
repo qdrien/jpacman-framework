@@ -4,13 +4,14 @@ import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * Test class for the Player class.
@@ -48,8 +49,8 @@ public class PlayerTest
     /**
      * Deletes the file used to test profiles after all tests have run.
      */
-    @AfterClass
-    public static void cleanup()
+    @After
+    public void cleanup()
     {
         new File(PATH).delete();
     }
@@ -93,5 +94,66 @@ public class PlayerTest
         before = System.currentTimeMillis();
         testPlayer.levelCompleted();
         assertTrue("Achievement not added to file.", new File(PATH).lastModified() > before);
+    }
+
+    /**
+     * Tests player creation.
+     */
+    @Test
+    public void testCreatePlayer() throws IOException
+    {
+        testPlayer.createNewPlayer();
+        //Checking that the profile file was created.
+        assertTrue(new File(PATH).exists());
+        //Checking that the login file contains the test player's name (Testy).
+        assertTrue(cleanLoginFile());
+
+    }
+
+    /**
+     * Helper method to locate the test player within the login file and then remove it.
+     * @return Whether the test player's info was found within the login file.
+     */
+    private Boolean cleanLoginFile()
+    {
+        Boolean found = false;
+        String loginPath = testPlayer.getLoginPath(), line, toWrite = "";
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(loginPath));
+            while ((line = reader.readLine()) != null)
+            {
+                if (line.split(" ")[0].equals("Testy")) found = true;
+                else toWrite += line + System.getProperty("line.separator");
+            }
+            reader.close();
+            //Putting the login file back in order.
+            BufferedWriter writer = new BufferedWriter(new FileWriter(loginPath));
+            writer.write(toWrite);
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return found;
+    }
+
+    /**
+     * Tests identification of an existing player.
+     */
+    @Test
+    public void authenticationTest()
+    {
+        //Create the player to authenticate.
+        testPlayer.createNewPlayer();
+        //Check that the authentication worked.
+        assertTrue(testPlayer.authenticate());
+        /*
+        This might seem like a cheap/meaningless test at first glance, but it DOES check if "Testy" is located in the login file.
+        If it wasn't, it would trigger an endless loop.
+        */
+        //Putting the login file back in order.
+        cleanLoginFile();
     }
 }

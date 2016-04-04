@@ -104,14 +104,15 @@ public class Player extends Unit {
         panel.add(loginEntered);
         panel.add(passLabel);
         panel.add(passEntered);
+        int choice = 0;
         do
         {
-            final int choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if (choice != 0) return false;
-            playerName = loginEntered.getText();
+            if (isNotATest) playerName = loginEntered.getText();
         }while(!checkLoginInfo(passEntered.getPassword()));
         setProfilePath();
-        JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
         return true;
@@ -264,11 +265,11 @@ public class Player extends Unit {
             {
                 if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
-                playerName = loginEntered.getText();
+                if (isNotATest) playerName = loginEntered.getText();
             }while (checkUsername(playerName));
             final char pass[] = passEntered.getPassword();
             createProfile(pass);
-            JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
+            if (isNotATest) JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             //Security precaution
             Arrays.fill(pass, '0');
         }
@@ -291,7 +292,7 @@ public class Player extends Unit {
         //Creating "profiles" subdirectory if necessary.
         new File(new File("").getAbsolutePath()+"/src/main/resources/profiles").mkdir();
         //Creating the profile file for the new user.
-        setProfilePath();
+        if (profilePath == null) setProfilePath();
         writer = new BufferedWriter(new FileWriter(profilePath));
         //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
