@@ -104,9 +104,9 @@ public class IdentifiedPlayerTest {
     public void testCreatePlayer() throws IOException {
         player.createNewPlayer();
         //Checking that the profile file was created.
-        assertTrue(new File(PATH).exists());
+        assertTrue("Profile file not created.", new File(PATH).exists());
         //Checking that the login file contains the test player's name (Testy).
-        assertTrue(cleanLoginFile());
+        assertTrue("Login file does not contain test value", cleanLoginFile());
 
     }
 
@@ -114,7 +114,6 @@ public class IdentifiedPlayerTest {
      * Helper method to locate the test player within the login file and then remove it.
      *
      * @return Whether the test player's info was found within the login file.
-     * @throws IOException todo: damien
      */
     private Boolean cleanLoginFile() {
         Boolean found = false;
@@ -144,7 +143,7 @@ public class IdentifiedPlayerTest {
         //Create the player to authenticate.
         player.createNewPlayer();
         //Check that the authentication worked.
-        assertTrue(player.authenticate());
+        assertTrue("Player not authenticated", player.authenticate());
         /*
         This might seem like a cheap/meaningless test at first glance, but it DOES check if "Testy" is located in the login file.
         If it wasn't, it would trigger an endless loop.
