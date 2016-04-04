@@ -73,16 +73,14 @@ public class IdentifiedPlayer extends Player {
         panel.add(loginEntered);
         panel.add(passLabel);
         panel.add(passEntered);
+        int choice = 0;
         do {
-            final int choice = JOptionPane.showOptionDialog(null, panel, "Identification",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[0]);
+            if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Identification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if (choice != 0) return false;
-            playerName = loginEntered.getText();
+            if (isNotATest) playerName = loginEntered.getText();
         } while (!FileChecker.checkLoginInfo(playerName, passEntered.getPassword()));
         setProfilePath();
-        JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName,
-                "Login successful", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "You are now logged in as " + playerName, "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
         return true;
@@ -92,8 +90,7 @@ public class IdentifiedPlayer extends Player {
      * Sets the path to the file storing the player's stats. (default version)
      */
     private void setProfilePath() {
-        profilePath = new File("").getAbsolutePath() +
-                "/src/main/resources/profiles/" + playerName + ".prf";
+        profilePath = new File("").getAbsolutePath() + "/src/main/resources/profiles/" + playerName + ".prf";
     }
 
     /**
@@ -112,19 +109,13 @@ public class IdentifiedPlayer extends Player {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
-        if (JOptionPane.showOptionDialog(
-                null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, options, options[0]) != 0)
+        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0)
             return;
         String toDisplay = "<html>";
         toDisplay = parseAchievements(toDisplay);
         toDisplay += "</html>";
-        if ("<html><br>Achievements: <br></html>".equals(toDisplay))
-            JOptionPane.showMessageDialog(null, "No achievements earned yet.",
-                    "Awww", JOptionPane.PLAIN_MESSAGE);
-        else
-            JOptionPane.showMessageDialog(null, toDisplay, "Achievements",
-                    JOptionPane.PLAIN_MESSAGE);
+        if ("<html><br>Achievements: <br></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -141,8 +132,7 @@ public class IdentifiedPlayer extends Player {
         String achievementName = reader.readLine();
         achievements += "<br>Achievements: <br>";
         while ((achievementName = reader.readLine()) != null) {
-            achievements += achievementName + ": " +
-                    Achievement.parseAchievement(achievementName).getDescription() + "<br>";
+            achievements += achievementName + ": " + Achievement.parseAchievement(achievementName).getDescription() + "<br>";
         }
         reader.close();
         return achievements;
@@ -162,10 +152,7 @@ public class IdentifiedPlayer extends Player {
         writer.close();
         final int bonus = achievement.getBonusScore();
         score += bonus;
-        if (isNotATest)
-            JOptionPane.showMessageDialog(null,
-                    "Achievement unlocked: " + achievement + ", gained " + bonus + " points.",
-                    "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -205,12 +192,9 @@ public class IdentifiedPlayer extends Player {
         try {
             int choice = 0;
             do {
-                if (isNotATest)
-                    choice = JOptionPane.showOptionDialog(null, panel, "Profile creation",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                            options, options[0]);
+                if (isNotATest) choice = JOptionPane.showOptionDialog(null, panel, "Profile creation", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if (choice != 0) return;
-                playerName = loginEntered.getText();
+                if (isNotATest) playerName = loginEntered.getText();
             } while (FileChecker.checkUsername(playerName));
             final char pass[] = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
@@ -219,15 +203,12 @@ public class IdentifiedPlayer extends Player {
             //Creating "profiles" subdirectory if necessary.
             new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
             //Creating the profile file for the new user.
-            setProfilePath();
+            if (isNotATest) setProfilePath();
             writer = new BufferedWriter(new FileWriter(profilePath));
-            //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed,
-            // 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky,
-            // 0 times killed by Clyde.
+            //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
             writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
             writer.close();
-            JOptionPane.showMessageDialog(null, "Profile created", "Success",
-                    JOptionPane.PLAIN_MESSAGE);
+            if (isNotATest) JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             //Security precaution
             Arrays.fill(pass, '0');
         } catch (IOException e) {

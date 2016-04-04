@@ -3,6 +3,7 @@ package nl.tudelft.jpacman.level;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,8 +31,8 @@ public class IdentifiedPlayerTest {
     /**
      * Deletes the file used to test profiles after all tests have run.
      */
-    @AfterClass
-    public static void cleanup() {
+    @After
+    public void cleanup() {
         new File(PATH).delete();
     }
 
