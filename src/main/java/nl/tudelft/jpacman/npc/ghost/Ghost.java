@@ -17,8 +17,14 @@ import java.util.Random;
  */
 public abstract class Ghost extends NPC {
 
+    /**
+     * The point value granted when eating a ghost.
+     */
     private static final int VALUE = 10;
 
+    /**
+     * The identity of the ghost (as defined by its colour)
+     */
     private final GhostColor identity;
 
     /**
@@ -63,16 +69,16 @@ public abstract class Ghost extends NPC {
     }
 
     /**
-     * todo: damien?
-     * @return
+     * Returns the point value granted when eating a ghost.
+     * @return Said point value.
      */
     public int getValue() {
         return VALUE;
     }
 
     /**
-     * todo: damien?
-     * @return
+     * Returns the identity of the ghost (as defined by its colour)
+     * @return Said identity
      */
     public GhostColor getIdentity() {
         return identity;
