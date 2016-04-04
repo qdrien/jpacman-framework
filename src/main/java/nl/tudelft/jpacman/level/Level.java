@@ -203,7 +203,8 @@ public abstract class Level implements PlayerListener {
             observers.forEach(LevelObserver::levelLost);
         }
         if (remainingPellets() == 0
-                || QUICK_WIN && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
+                || QUICK_WIN
+                    && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
             observers.forEach(LevelObserver::levelWon);
         }
     }
