@@ -111,14 +111,6 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-     * Setter for the inProgress field.
-     * @param inProgress Whether the game has to be set to "in progress"
-     */
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
-    }
-
-    /**
      * Registers a player on this level, assigning him to a starting position. A
      * player can only be registered once, registering a player again will have
      * no effect.
@@ -188,6 +180,15 @@ public abstract class Level implements PlayerListener {
      */
     public boolean isInProgress() {
         return inProgress;
+    }
+
+    /**
+     * Setter for the inProgress field.
+     *
+     * @param inProgress Whether the game has to be set to "in progress"
+     */
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
     }
 
     /**

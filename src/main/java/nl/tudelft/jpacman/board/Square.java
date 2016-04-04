@@ -186,8 +186,10 @@ public abstract class Square {
         }
         return neighboursList;
     }
+
     /**
      * Equality test between two squares
+     *
      * @param square todo: nicolas
      * @return true if squares are equals, false otherwise
      */

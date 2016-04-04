@@ -106,6 +106,13 @@ public abstract class Game implements LevelObserver {
     public abstract AILevel getLevel();
 
     /**
+     * Forces subclasses to provide a method to switch to the given Level.
+     *
+     * @param level The Level we want to switch to
+     */
+    protected abstract void setLevel(AILevel level);
+
+    /**
      * Sets the level to the one that has the given id (calls #Game.setLevel).
      *
      * @param levelIndex The id of the level we want to switch to
@@ -116,13 +123,6 @@ public abstract class Game implements LevelObserver {
         setLevel(level);
         currentLevel = levelIndex;
     }
-
-    /**
-     * Forces subclasses to provide a method to switch to the given Level.
-     *
-     * @param level The Level we want to switch to
-     */
-    protected abstract void setLevel(AILevel level);
 
     /**
      * Moves the specified player until the next cross in the given direction.

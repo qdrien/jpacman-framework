@@ -70,6 +70,7 @@ public abstract class Ghost extends NPC {
 
     /**
      * Returns the point value granted when eating a ghost.
+     *
      * @return Said point value.
      */
     public int getValue() {
@@ -78,6 +79,7 @@ public abstract class Ghost extends NPC {
 
     /**
      * Returns the identity of the ghost (as defined by its colour)
+     *
      * @return Said identity
      */
     public GhostColor getIdentity() {

@@ -16,6 +16,7 @@ public enum ItemsColor {
 
     /**
      * todo: Nicolas
+     *
      * @param color
      */
     ItemsColor(final Color color) {

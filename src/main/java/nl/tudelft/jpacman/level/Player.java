@@ -58,7 +58,8 @@ public class Player extends Unit {
 
     /**
      * Constructor for a player.
-     * @param spriteMap The Map between sprites and their corresponding directions
+     *
+     * @param spriteMap      The Map between sprites and their corresponding directions
      * @param deathAnimation The animated sprites for deaths events
      */
     public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
@@ -105,9 +106,10 @@ public class Player extends Unit {
 
     /**
      * Simple setter for the score field.
+     *
      * @param score The score to set
      */
-    protected void setScore(int score){
+    protected void setScore(int score) {
         this.score = score;
     }
 

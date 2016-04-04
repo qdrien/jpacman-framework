@@ -53,6 +53,7 @@ public enum GhostColor {
 
     /**
      * Returns the index of the "player killed by specific ghost" in the profile files.
+     *
      * @return Said index.
      */
     public int getIndex() {
@@ -61,6 +62,7 @@ public enum GhostColor {
 
     /**
      * Returns the eventual achievement granted whenever the player is killed by a specific ghost.
+     *
      * @return The Achievement.
      */
     public Achievement getAchievementGranted() {
