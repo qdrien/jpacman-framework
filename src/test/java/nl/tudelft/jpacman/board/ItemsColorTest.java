@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * todo: Nicolas
+ * todo: Nicolas + don't forget the ending period
  */
 public class ItemsColorTest {
 
     /**
-     * todo: Nicolas
+     * todo: Nicolas + don't forget the ending period
      *
      * @throws Exception todo : Nicolas
      */

@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
 /**
- * todo: nicolas
+ * todo: nicolas + don't forget the ending period
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class PacManhattanAITest {
@@ -51,6 +51,7 @@ public class PacManhattanAITest {
     public void safetySquareTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
         assertFalse(AI.isSafetySquare(player.getSquare()));
         assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -77,6 +78,7 @@ public class PacManhattanAITest {
     public void getValidNeighborsTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         List<Square> neighborsList = AI.getValidNeighbors(player.getSquare());
@@ -110,12 +112,14 @@ public class PacManhattanAITest {
      */
     @SuppressWarnings("methodlength")
     @Test
+    //todo: nicolas: rename (a method name cannot start with a capital letter)
     public void BFSNearestSafetySquareTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         final Square square = AI.BFSNearestSafetySquare();
@@ -136,6 +140,7 @@ public class PacManhattanAITest {
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         Direction nextMove = AI.nextMove();
@@ -172,6 +177,7 @@ public class PacManhattanAITest {
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         Square safetyPelletSquare = AI.BFSNearestSafetyPelletSquare();
@@ -287,6 +293,7 @@ public class PacManhattanAITest {
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
 
+        //todo: nicolas: rename (a variable name cannot start with a capital letter)
         final PacManhattanAI AI = new PacManhattanAI(game);
 
         assertEquals(AI.hurryMove(), Direction.EAST);

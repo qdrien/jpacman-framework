@@ -34,7 +34,7 @@ public class IdentifiedPlayerTest {
     }
 
     /**
-     * Resets the test profile and load resources for this test suite
+     * Resets the test profile and load resources for this test suite.
      *
      * @throws IOException If the file was not found or is not readable.
      */
@@ -105,6 +105,7 @@ public class IdentifiedPlayerTest {
 
     /**
      * Tests player creation.
+     * @throws IOException if a problem happens while reading the file
      */
     @Test
     public void testCreatePlayer() throws IOException {
@@ -155,7 +156,8 @@ public class IdentifiedPlayerTest {
         //Check that the authentication worked.
         assertTrue("Player not authenticated", player.authenticate());
         /*
-        This might seem like a cheap/meaningless test at first glance, but it DOES check if "Testy" is located in the login file.
+        This might seem like a cheap/meaningless test at first glance,
+        but it DOES check if "Testy" is located in the login file.
         If it wasn't, it would trigger an endless loop.
         */
         //Putting the login file back in order.

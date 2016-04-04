@@ -11,12 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * todo: nicolas
+ * todo: nicolas + don't forget the ending period
  */
 public class MyJDialogStrategy extends JDialog {
     /**
      * Button of the window.
      */
+    //todo: nicolas: rename <<BOTH>> (a field name cannot start with a capital letter)
     private final JButton HumanController, AIController;
     /**
      * The game.
@@ -41,6 +42,7 @@ public class MyJDialogStrategy extends JDialog {
      * @param pacManUI the pacManUI
      */
     public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI) {
+        //todo: nicolas: Method length is 31 lines (max allowed is 30).
         super(parent, "Strategy selection");
         this.builder = builder;
         this.game = game;

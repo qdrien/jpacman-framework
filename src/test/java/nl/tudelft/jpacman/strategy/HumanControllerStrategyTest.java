@@ -19,7 +19,7 @@ public class HumanControllerStrategyTest {
     private Launcher launcher;
 
     /**
-     * todo: nicolas
+     * todo: nicolas + don't forget the ending period
      */
     @Before
     public void setUpPacman() {

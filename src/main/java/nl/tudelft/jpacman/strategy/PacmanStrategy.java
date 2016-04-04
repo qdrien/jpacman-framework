@@ -4,7 +4,7 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 
 /**
- * todo: nicolas
+ * todo: nicolas + don't forget the ending period
  */
 public abstract class PacmanStrategy {
     /**

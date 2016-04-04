@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * todo: nicolas
+ * todo: nicolas + don't forget the ending period
  */
 public class AStarPath extends AStar<Square> {
     /**
@@ -123,7 +123,7 @@ public class AStarPath extends AStar<Square> {
      */
     @Override
     public Double g(Square originSquare, Square destinationSquare) {
-
+//todo: nicolas: Method length is 32 lines (max allowed is 30).
         if (originSquare.getX() == destinationSquare.getX()
                 && originSquare.getY() == destinationSquare.getY()) {
             return 0.0;

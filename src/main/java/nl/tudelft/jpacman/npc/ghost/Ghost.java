@@ -23,7 +23,7 @@ public abstract class Ghost extends NPC {
     private static final int VALUE = 10;
 
     /**
-     * The identity of the ghost (as defined by its colour)
+     * The identity of the ghost (as defined by its colour).
      */
     private final GhostColor identity;
 
@@ -78,7 +78,7 @@ public abstract class Ghost extends NPC {
     }
 
     /**
-     * Returns the identity of the ghost (as defined by its colour)
+     * Returns the identity of the ghost (as defined by its colour).
      *
      * @return Said identity
      */

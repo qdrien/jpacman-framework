@@ -53,7 +53,8 @@ public class AILevel extends Level {
         for (NPC g : ghosts) {
             npcs.put(g, null);
             if (g instanceof Ghost) {
-                getGhostList().add((Ghost) g); //TODO: might cause issues (automatic refactoring suggested that)
+                getGhostList().add((Ghost) g);
+                //TODO: previous line might cause issues (automatic refactoring suggested the change)
             }
         }
     }
@@ -112,7 +113,7 @@ public class AILevel extends Level {
     }
 
     /**
-     * todo: nicolas
+     * todo: nicolas + don't forget the ending period
      */
     public void start() {
         synchronized (startStopLock) {
@@ -200,11 +201,11 @@ public class AILevel extends Level {
          */
         public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
             if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
-                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
+                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player)
+                        || player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
             } else {
-                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
+                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player)
+                        || player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
             }
         }
     }

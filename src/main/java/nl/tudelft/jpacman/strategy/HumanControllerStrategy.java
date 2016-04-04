@@ -8,7 +8,7 @@ import nl.tudelft.jpacman.ui.PacManUiBuilder;
 import java.awt.event.KeyEvent;
 
 /**
- * todo: nicolas
+ * todo: nicolas + don't forget the ending period
  */
 public class HumanControllerStrategy extends PacmanStrategy {
     private final PacManUiBuilder builder;

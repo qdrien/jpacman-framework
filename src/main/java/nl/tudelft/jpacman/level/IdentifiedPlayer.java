@@ -164,7 +164,7 @@ public class IdentifiedPlayer extends Player {
      * Creates new player profile.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void createNewPlayer() {
+    public void createNewPlayer() { //todo: damien: Method length is 38 lines (max allowed is 30).
         final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");

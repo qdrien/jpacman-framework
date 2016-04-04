@@ -15,9 +15,9 @@ public enum ItemsColor {
     private final int value;
 
     /**
-     * todo: Nicolas
+     * todo: Nicolas + don't forget the ending period
      *
-     * @param color
+     * @param color todo: nicolas
      */
     ItemsColor(final Color color) {
         this.value = color.getRGB();
