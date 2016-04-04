@@ -50,7 +50,9 @@ public class PlayerCollisions implements CollisionMap {
      * @param ghost  The ghost involved in the collision.
      */
     public void playerVersusGhost(IdentifiedPlayer player, Ghost ghost) {
-        if (player.isPoweredUp()) player.addPoints(ghost.getValue());
+        if (player.isPoweredUp()) {
+            player.addPoints(ghost.getValue());
+        }
         else {
             try {
                 player.killedBy(ghost.getIdentity());

@@ -207,7 +207,9 @@ public abstract class Game implements LevelObserver {
         final String file = "/board" + id + ".txt";
         try (InputStream boardStream = Launcher.class
                 .getResourceAsStream(file)) {
-            if (boardStream == null) return null;
+            if (boardStream == null) {
+                return null;
+            }
             currentLevel = id;
             return parser.parseMap(boardStream);
         } catch (IOException e) {

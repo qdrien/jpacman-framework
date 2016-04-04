@@ -64,7 +64,9 @@ public class IdentifiedPlayerTest {
             player.addAchievement(Achievement.WON_THRICE);
             final BufferedReader reader = new BufferedReader(new FileReader(PATH));
             while ((line = reader.readLine()) != null) {
-                if (line.equals(Achievement.WON_THRICE.toString())) found = true;
+                if (line.equals(Achievement.WON_THRICE.toString())) {
+                    found = true;
+                }
             }
             assertTrue("WON_THRICE wasn't found in the test testPlayer's achievement file", found);
             reader.close();
@@ -88,8 +90,12 @@ public class IdentifiedPlayerTest {
         boolean speedyFound = false, victorFound = false;
         final BufferedReader reader = new BufferedReader(new FileReader(PATH));
         while ((line = reader.readLine()) != null) {
-            if (line.equals(Achievement.SPEEDY_DEATH.toString())) speedyFound = true;
-            if (line.equals(Achievement.VICTOR.toString())) victorFound = true;
+            if (line.equals(Achievement.SPEEDY_DEATH.toString())) {
+                speedyFound = true;
+            }
+            if (line.equals(Achievement.VICTOR.toString())) {
+                victorFound = true;
+            }
         }
         reader.close();
 
@@ -122,8 +128,12 @@ public class IdentifiedPlayerTest {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(loginPath));
             while ((line = reader.readLine()) != null) {
-                if (line.split(" ")[0].equals("Testy")) found = true;
-                else toWrite += line + System.getProperty("line.separator");
+                if (line.split(" ")[0].equals("Testy")) {
+                    found = true;
+                }
+                else {
+                    toWrite += line + System.getProperty("line.separator");
+                }
             }
             reader.close();
             //Putting the login file back in order.
