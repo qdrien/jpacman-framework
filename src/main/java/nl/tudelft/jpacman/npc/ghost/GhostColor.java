@@ -41,20 +41,27 @@ public enum GhostColor {
         ORANGE.achievementGranted = null;
     }
 
+    /**
+     * The index of the "player killed by specific ghost" in the profile files.
+     */
     private int index;
+
+    /**
+     * The eventual achievement granted whenever the player is killed by a specific ghost.
+     */
     private Achievement achievementGranted;
 
     /**
-     * todo: damien
-     * @return
+     * Returns the index of the "player killed by specific ghost" in the profile files.
+     * @return Said index.
      */
     public int getIndex() {
         return index;
     }
 
     /**
-     * todo: damien
-     * @return
+     * Returns the eventual achievement granted whenever the player is killed by a specific ghost.
+     * @return The Achievement.
      */
     public Achievement getAchievementGranted() {
         return achievementGranted;

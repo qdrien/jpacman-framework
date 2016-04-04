@@ -101,11 +101,8 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param square the goal square
      */
-    private void computePath(Square square) {
-        if (square == null) {
-            directionQueue = null;
-        }
-
+    private void computePath(Square square)
+    {
         pathAStar = new AStarPath(game);
         pathAStar.setGoal(square);
 
@@ -307,6 +304,5 @@ public class PacManhattanAI extends AIStrategy {
     public void setGhostDstThreshold(int ghostDst) {
         ghostDstThreshold = ghostDst;
     }
-
 }
 

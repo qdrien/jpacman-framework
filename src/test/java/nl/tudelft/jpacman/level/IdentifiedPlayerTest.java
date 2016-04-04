@@ -3,17 +3,14 @@ package nl.tudelft.jpacman.level;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.*;
 
 import static org.junit.Assert.assertTrue;
 
 /**
- * todo: damien
+ * Testing the "IdentifiedPlayer" class.
  */
 public class IdentifiedPlayerTest {
     /**
@@ -38,8 +35,8 @@ public class IdentifiedPlayerTest {
      * Resets the test profile and load resources for this test suite
      * @throws IOException If the file was not found or is not readable.
      */
-    @BeforeClass
-    public static void setUp() throws IOException {
+    @Before
+    public void setUp() throws IOException {
         final Launcher launcher = new Launcher();
         launcher.launch();
         player = launcher.getGame().getPlayers().get(0);

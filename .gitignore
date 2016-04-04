@@ -21,3 +21,4 @@ doc/javadoc/
 javadoc/
 *.prf
 *.bbl
+*.orig
