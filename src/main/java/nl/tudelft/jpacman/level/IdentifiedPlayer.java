@@ -80,17 +80,16 @@ public class IdentifiedPlayer extends Player {
             if (choice != 0) return false;
         } while (!FileChecker.checkLoginInfo(getPlayerName(), passEntered.getPassword()));
         setProfilePath();
-        if (isNotATest) JOptionPane.showMessageDialog(null, "You are now logged in as " + getPlayerName(), "Login successful", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest)
+            JOptionPane.showMessageDialog(null, "You are now logged in as " + getPlayerName(), "Login successful", JOptionPane.PLAIN_MESSAGE);
         //Security precaution
         Arrays.fill(passEntered.getPassword(), '0');
         return true;
     }
 
-    private int buttonChoice(String[] options, JPanel panel, JTextField loginEntered, String title)
-    {
+    private int buttonChoice(String[] options, JPanel panel, JTextField loginEntered, String title) {
         int choice = 0;
-        if (isNotATest)
-        {
+        if (isNotATest) {
             choice = JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             setPlayerName(loginEntered.getText());
         }
@@ -122,11 +121,13 @@ public class IdentifiedPlayer extends Player {
         final String[] options = new String[]{"Yes", "No"};
         final JPanel panel = new JPanel();
         panel.add(new JLabel("Display Achievements?"));
-        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0) return;
+        if (JOptionPane.showOptionDialog(null, panel, "Query", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) != 0)
+            return;
         String toDisplay = "<html>";
         toDisplay = FileChecker.parseAchievements(profilePath, toDisplay);
         toDisplay += "</html>";
-        if ("<html><br>Achievements: <br></html>".equals(toDisplay)) JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
+        if ("<html><br>Achievements: <br></html>".equals(toDisplay))
+            JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
         else JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -145,7 +146,8 @@ public class IdentifiedPlayer extends Player {
         writer.close();
         final int bonus = achievement.getBonusScore();
         setScore(getScore() + bonus);
-        if (isNotATest) JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+        if (isNotATest)
+            JOptionPane.showMessageDialog(null, "Achievement unlocked: " + achievement + ", gained " + bonus + " points.", "Congratulations", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -174,8 +176,7 @@ public class IdentifiedPlayer extends Player {
             //Creating "profiles" subdirectory if necessary.
             new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
             //Creating the profile file for the new user.
-            if (isNotATest)
-            {
+            if (isNotATest) {
                 setProfilePath();
                 JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             }
@@ -264,6 +265,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Saves the player's highest scores and checks
      * whether it's high enough to earn him an achievement.
+     *
      * @throws IOException If the file was not found or is not readable.
      */
     @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"})
@@ -322,18 +324,19 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
+     * Sets the player's name.
+     *
+     * @param s The name we want the player to have
+     */
+    public void setPlayerName(String s) {
+        playerName = s;
+    }
+
+    /**
      * Sets the player's name to the test value.
      */
     public void setPlayerName() {
         playerName = "Testy";
-    }
-
-    /**
-     * Sets the player's name.
-     * @param s The name we want the player to have
-     */
-    public void setPlayerName(String s){
-        playerName = s;
     }
 
     /**
@@ -345,6 +348,7 @@ public class IdentifiedPlayer extends Player {
     public int getMaxLevelReached() throws IOException {
         return Integer.parseInt(getInfoLine()[0]);
     }
+
     /**
      * todo: damien
      */

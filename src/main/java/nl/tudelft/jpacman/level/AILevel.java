@@ -98,7 +98,7 @@ public class AILevel extends Level {
         //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
         serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, getPlayer()),
-                    getPlayer().getInterval() /2, TimeUnit.MILLISECONDS);
+                getPlayer().getInterval() / 2, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -162,6 +162,7 @@ public class AILevel extends Level {
         private final AIStrategy strategy;
         private final IdentifiedPlayer player;
         private Direction nextMove;
+
         /**
          * Creates a new task.
          *
@@ -182,7 +183,7 @@ public class AILevel extends Level {
         public void run() {
             if (nextMove == null || isIntersection(player, nextMove))
                 nextMove = strategy.nextMove();
-            if(player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
+            if (player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
                 move(player, nextMove);
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
         }

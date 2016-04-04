@@ -3,7 +3,9 @@ package nl.tudelft.jpacman.level;
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.*;
 
@@ -33,6 +35,7 @@ public class IdentifiedPlayerTest {
 
     /**
      * Resets the test profile and load resources for this test suite
+     *
      * @throws IOException If the file was not found or is not readable.
      */
     @Before
@@ -109,6 +112,7 @@ public class IdentifiedPlayerTest {
 
     /**
      * Helper method to locate the test player within the login file and then remove it.
+     *
      * @return Whether the test player's info was found within the login file.
      * @throws IOException todo: damien
      */
@@ -126,8 +130,7 @@ public class IdentifiedPlayerTest {
             BufferedWriter writer = new BufferedWriter(new FileWriter(loginPath));
             writer.write(toWrite);
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return found;

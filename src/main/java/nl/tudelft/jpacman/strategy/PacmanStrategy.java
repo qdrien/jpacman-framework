@@ -45,6 +45,7 @@ public abstract class PacmanStrategy {
 
     /**
      * Getter for the game field.
+     *
      * @return The Game
      */
     Game getGame() {
@@ -53,6 +54,7 @@ public abstract class PacmanStrategy {
 
     /**
      * Setter for the game field.
+     *
      * @param game The Game
      */
     void setGame(Game game) {
