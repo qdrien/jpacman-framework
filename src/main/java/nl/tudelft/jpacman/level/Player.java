@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The player, a specific kind of unit that plays the game
+ * A player operated unit in our game.
+ *
+ * @author Jeroen Roosen
  */
 public class Player extends Unit {
 
