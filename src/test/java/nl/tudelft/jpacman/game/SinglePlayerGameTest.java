@@ -16,6 +16,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Adrien Coppens
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class SinglePlayerGameTest {
 
     private SinglePlayerGame game;

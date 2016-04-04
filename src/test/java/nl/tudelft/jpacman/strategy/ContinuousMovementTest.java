@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 /**
  * Class to test the continuousMovement method for the continuous movement of the player.
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class ContinuousMovementTest {
     private Launcher launcher;
 

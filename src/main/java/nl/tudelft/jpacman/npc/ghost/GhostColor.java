@@ -7,6 +7,7 @@ import nl.tudelft.jpacman.game.Achievement;
  *
  * @author Jeroen Roosen
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public enum GhostColor {
     /**
      * Shadow, a.k.a. Blinky.

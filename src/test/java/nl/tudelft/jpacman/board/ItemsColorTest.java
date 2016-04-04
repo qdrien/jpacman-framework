@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class ItemsColorTest {
 
     @Test
+    @SuppressWarnings("checkstyle:magicnumber")
     public void testGetItemByRGBValue() throws Exception {
         assertEquals(ItemsColor.WALL, ItemsColor.getItemByRGBValue(-16776961));
         assertEquals(ItemsColor.PACMAN, ItemsColor.getItemByRGBValue(-256));

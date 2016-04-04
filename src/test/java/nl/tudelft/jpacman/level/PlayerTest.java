@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+@SuppressWarnings("checkstyle:magicnumber")
 public class PlayerTest {
     /**
      * Player with which to run tests.

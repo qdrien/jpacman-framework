@@ -16,6 +16,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Jeroen Roosen
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class LevelTest {
 
     /**

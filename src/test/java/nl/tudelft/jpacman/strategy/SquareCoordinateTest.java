@@ -12,6 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Class to test coordinates of a square in the board.
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class SquareCoordinateTest {
     private Launcher launcher;
 

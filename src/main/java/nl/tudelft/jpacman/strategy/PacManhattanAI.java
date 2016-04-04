@@ -11,10 +11,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PacManhattanAI extends AIStrategy {
-    public static final int INITIAL_GHOST_DST = 14;
     public static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
     public static final int LOW_PELLET_COUNT_THRESHOLD = 7;
-    public static final int LOW_GHOST_DST = 6;
+    public static final int INITIAL_GHOST_DST = 14;
+    public static final int MEDIUM_GHOST_DST = 6;
+    public static final int LOW_GHOST_DST = 3;
     //The threshold distance between the player and a ghost
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
     private final Game game;
@@ -278,9 +279,9 @@ public class PacManhattanAI extends AIStrategy {
     private void updatePacmanBehaviour(int pelletNbr) {
         if (pelletNbr <= HIGH_PELLET_COUNT_THRESHOLD) {
             //Pacman must recover the last pellets to finish
-            if (pelletNbr <= LOW_PELLET_COUNT_THRESHOLD) setGhostDstThreshold(3);
+            if (pelletNbr <= LOW_PELLET_COUNT_THRESHOLD) setGhostDstThreshold(LOW_GHOST_DST);
                 //The pacman play safety and recover pellets if he can
-            else setGhostDstThreshold(LOW_GHOST_DST);
+            else setGhostDstThreshold(MEDIUM_GHOST_DST);
         } else setGhostDstThreshold(INITIAL_GHOST_DST); //Pacman play safety
     }
 

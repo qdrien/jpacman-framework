@@ -240,6 +240,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @param level The id of the level that has been completed
      */
+    @SuppressWarnings("checkstyle:magicnumber")
     public void levelCompleted(final int level) throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
@@ -308,7 +309,7 @@ public class IdentifiedPlayer extends Player {
      * Saves the player's highest scores and checks
      * whether it's high enough to earn him an achievement.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"}) //the initialisations are required.
     public void saveScore() throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
@@ -326,6 +327,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Displays the player's stats.
      */
+    @SuppressWarnings("checkstyle:magicnumber")
     public void displayProfileStats() {
         if (playerName == null) {
             JOptionPane.showMessageDialog(null, "You are not logged in.", "Error",
