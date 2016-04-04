@@ -53,7 +53,7 @@ public class AILevel extends Level {
         for (NPC g : ghosts) {
             npcs.put(g, null);
             if (g instanceof Ghost) {
-                ghostList.add((Ghost) g);
+                getGhostList().add((Ghost) g); //TODO: might cause issues (automatic refactoring suggested that)
             }
         }
     }
@@ -98,8 +98,8 @@ public class AILevel extends Level {
     private void startAIStrategy() {
         //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
-        serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)),
-                    players.get(0).getInterval() /2, TimeUnit.MILLISECONDS);
+        serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, getPlayer()),
+                    getPlayer().getInterval() /2, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -125,7 +125,7 @@ public class AILevel extends Level {
             }
             startNPCs();
 
-            inProgress = true;
+            setInProgress(true);
             updateObservers();
         }
     }
@@ -143,7 +143,7 @@ public class AILevel extends Level {
             if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                 stopAIStrategy();
             }
-            inProgress = false;
+            setInProgress(false);
         }
     }
 

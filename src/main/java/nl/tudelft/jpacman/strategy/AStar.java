@@ -24,6 +24,8 @@ import java.util.*;
  *
  * @author Giuseppe Scrivano
  */
+@SuppressWarnings({"JavadocType","AvoidInlineConditionals","MethodLength","NoWhitespaceBefore",
+        "EmptyForIteratorPad","VisibilityModifier", "InnerAssignment"})
 public abstract class AStar<T> {
 
     private final PriorityQueue<Path> paths;

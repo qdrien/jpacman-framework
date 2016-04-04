@@ -19,7 +19,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
      */
     public HumanControllerStrategy(Game game, PacManUiBuilder builder) {
         super(game);
-        this.game = game;
+        this.setGame(game);
         this.builder = builder;
     }
 
@@ -63,6 +63,6 @@ public class HumanControllerStrategy extends PacmanStrategy {
      * Add keys to the player.
      */
     public void executeStrategy() {
-        addSinglePlayerKeys(builder, game);
+        addSinglePlayerKeys(builder, getGame());
     }
 }

@@ -7,7 +7,7 @@ public abstract class PacmanStrategy {
     /**
      * The current game.
      */
-    Game game;
+    private Game game;
 
 
     /**
@@ -39,6 +39,22 @@ public abstract class PacmanStrategy {
      * Apply the chosen strategy.
      */
     public abstract void executeStrategy();
+
+    /**
+     * Getter for the game field.
+     * @return The Game
+     */
+    Game getGame() {
+        return game;
+    }
+
+    /**
+     * Setter for the game field.
+     * @param game The Game
+     */
+    void setGame(Game game) {
+        this.game = game;
+    }
 
     /**
      * Different type of the strategy.

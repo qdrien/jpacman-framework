@@ -29,11 +29,11 @@ public abstract class Level implements PlayerListener {
     /**
      * The players on this level.
      */
-    protected final List<IdentifiedPlayer> players;
+    private final List<IdentifiedPlayer> players;
     /**
      * The list of the ghosts in the game.
      */
-    protected final List<Ghost> ghostList;
+    private final List<Ghost> ghostList;
     /**
      * The board of this level.
      */
@@ -58,7 +58,7 @@ public abstract class Level implements PlayerListener {
      * <code>true</code> iff this level is currently in progress, i.e. players
      * and NPCs can move.
      */
-    protected boolean inProgress;
+    private boolean inProgress;
     /**
      * The start current selected starting square.
      */
@@ -108,6 +108,14 @@ public abstract class Level implements PlayerListener {
             return;
         }
         observers.add(observer);
+    }
+
+    /**
+     * Setter for the inProgress field.
+     * @param inProgress Whether the game has to be set to "in progress"
+     */
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
     }
 
     /**
