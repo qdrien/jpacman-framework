@@ -55,6 +55,11 @@ public class Player extends Unit {
      */
     private boolean poweredUp; //booleans are initialised to false by default.
 
+    /**
+     * Constructor for a player
+     * @param spriteMap The Map between sprites and their corresponding directions
+     * @param deathAnimation The animated sprites for deaths events
+     */
     public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.alive = true;
         listeners = new ArrayList<>();

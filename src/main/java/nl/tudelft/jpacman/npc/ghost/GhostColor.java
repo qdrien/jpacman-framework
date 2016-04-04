@@ -44,10 +44,18 @@ public enum GhostColor {
     private int index;
     private Achievement achievementGranted;
 
+    /**
+     * todo: damien
+     * @return
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * todo: damien
+     * @return
+     */
     public Achievement getAchievementGranted() {
         return achievementGranted;
     }

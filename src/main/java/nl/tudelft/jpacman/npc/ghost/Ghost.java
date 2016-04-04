@@ -62,10 +62,18 @@ public abstract class Ghost extends NPC {
         return directions.get(new Random().nextInt(directions.size()));
     }
 
+    /**
+     * todo: damien?
+     * @return
+     */
     public int getValue() {
         return VALUE;
     }
 
+    /**
+     * todo: damien?
+     * @return
+     */
     public GhostColor getIdentity() {
         return identity;
     }

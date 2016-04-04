@@ -21,7 +21,9 @@ public class AStarPathTest {
     private static final double EPSILON = .1;
     private Launcher launcher;
 
-
+    /**
+     * todo: nicolas
+     */
     @Before
     public void setUpPacman() {
         launcher = new Launcher();

@@ -118,6 +118,9 @@ public class AILevel extends Level {
         }
     }
 
+    /**
+     * todo: nicolas
+     */
     public void start() {
         synchronized (startStopLock) {
             if (isInProgress()) {
