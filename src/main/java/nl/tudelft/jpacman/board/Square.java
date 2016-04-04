@@ -192,6 +192,6 @@ public abstract class Square {
      * @return true if squares are equals, false otherwise
      */
     public boolean equals(Square square) {
-        return (this.getX() == square.getX() && this.getY()==square.getY());
+        return this.getX() == square.getX() && this.getY()==square.getY();
     }
 }

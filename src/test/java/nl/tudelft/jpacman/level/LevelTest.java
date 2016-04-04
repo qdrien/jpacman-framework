@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Jeroen Roosen
  */
-@SuppressWarnings("checkstyle:magicnumber")
+@SuppressWarnings({"checkstyle:magicnumber", "PMD.JUnitTestsShouldIncludeAssert"})
 public class LevelTest {
 
     /**
@@ -96,7 +96,6 @@ public class LevelTest {
      * square.
      */
     @Test
-    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerPlayer() {
         final IdentifiedPlayer p = mock(IdentifiedPlayer.class);
         level.registerPlayer(p);
@@ -107,7 +106,6 @@ public class LevelTest {
      * Verifies registering a player twice does not do anything.
      */
     @Test
-    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerPlayerTwice() {
         final IdentifiedPlayer p = mock(IdentifiedPlayer.class);
         level.registerPlayer(p);
@@ -120,7 +118,6 @@ public class LevelTest {
      * starting square.
      */
     @Test
-    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerSecondPlayer() {
         final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class), p2 = mock(IdentifiedPlayer.class);
         level.registerPlayer(p1);
@@ -133,7 +130,6 @@ public class LevelTest {
      * starting square.
      */
     @Test
-    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     public void registerThirdPlayer() {
         final IdentifiedPlayer p1 = mock(IdentifiedPlayer.class),
                 p2 = mock(IdentifiedPlayer.class), p3 = mock(IdentifiedPlayer.class);

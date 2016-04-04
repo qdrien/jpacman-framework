@@ -18,6 +18,7 @@ import java.util.Map;
  *
  * @author Jeroen Roosen
  */
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class LevelFactory {
 
     private static final int GHOSTS = 4;

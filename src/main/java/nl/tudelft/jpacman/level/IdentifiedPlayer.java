@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * An identified player - i.e. a player that has been logged in and therefore has a profile.
  */
-@SuppressWarnings("checkstyle:linelength") // because that's just completely silly. We're not coding on phone screens.
+@SuppressWarnings({"checkstyle:linelength", "PMD.AvoidDuplciateLiterals"})
 public class IdentifiedPlayer extends Player {
 
     /**

@@ -42,7 +42,7 @@ public class PacManUiBuilder {
     /**
      * Way to format the score.
      */
-    private ScoreFormatter scoreFormatter = null;
+    private ScoreFormatter scoreFormatter;
 
     /**
      * Creates a new Pac-Man UI builder without any mapped keys or buttons.
