@@ -141,14 +141,12 @@ public class BoardFactory {
      * @param img The image used for generating the level
      * @return a List of Strings containing lines in pacman's format
      */
-    @SuppressWarnings("checkstyle:methodlength")
     private List<String> convertImageToTxt(final BufferedImage img) {
         final List<String> lines = new ArrayList<>();
         for (int y = 0; y < img.getHeight(); y++) {
             StringBuilder line = new StringBuilder();
             for (int x = 0; x < img.getWidth(); x++) {
-                final int rgbValue = img.getRGB(x, y);
-                final ItemsColor item = ItemsColor.getItemByRGBValue(rgbValue);
+                final ItemsColor item = ItemsColor.getItemByRGBValue(img.getRGB(x, y));
                 if (item != null) {
                     switch (item) {
                         case PACMAN:
