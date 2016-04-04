@@ -112,13 +112,13 @@ public class Inky extends Ghost {
             playerDestination = playerDestination.getSquareAt(targetDirection);
         }
 
-        Square destination = playerDestination;
         List<Direction> firstHalf = Navigation.shortestPath(blinky.getSquare(),
                 playerDestination, null);
         if (firstHalf == null) {
             return randomMove();
         }
 
+        Square destination = playerDestination;
         for (Direction d : firstHalf) {
             destination = playerDestination.getSquareAt(d);
         }

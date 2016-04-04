@@ -23,7 +23,7 @@ public class PlayerTest {
      * on which the test will be executed
      */
     @BeforeClass
-    public static void setUp() {
+    public static void init() {
         final Launcher launcher = new Launcher();
         launcher.launch();
         player = launcher.getGame().getPlayers().get(0);
