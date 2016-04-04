@@ -98,8 +98,7 @@ public class IdentifiedPlayerTest {
      * Tests player creation.
      */
     @Test
-    public void testCreatePlayer() throws IOException
-    {
+    public void testCreatePlayer() throws IOException {
         player.createNewPlayer();
         //Checking that the profile file was created.
         assertTrue(new File(PATH).exists());
@@ -111,16 +110,14 @@ public class IdentifiedPlayerTest {
     /**
      * Helper method to locate the test player within the login file and then remove it.
      * @return Whether the test player's info was found within the login file.
+     * @throws IOException todo: damien
      */
-    private Boolean cleanLoginFile()
-    {
+    private Boolean cleanLoginFile() {
         Boolean found = false;
         String loginPath = player.getLoginPath(), line, toWrite = "";
-        try
-        {
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(loginPath));
-            while ((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 if (line.split(" ")[0].equals("Testy")) found = true;
                 else toWrite += line + System.getProperty("line.separator");
             }
@@ -130,8 +127,7 @@ public class IdentifiedPlayerTest {
             writer.write(toWrite);
             writer.close();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
         return found;
@@ -141,8 +137,7 @@ public class IdentifiedPlayerTest {
      * Tests identification of an existing player.
      */
     @Test
-    public void authenticationTest()
-    {
+    public void authenticationTest() {
         //Create the player to authenticate.
         player.createNewPlayer();
         //Check that the authentication worked.

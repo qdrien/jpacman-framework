@@ -188,11 +188,10 @@ public abstract class Square {
     }
     /**
      * Equality test between two squares
-     *
+     * @param square todo: nicolas
      * @return true if squares are equals, false otherwise
      */
-    public boolean equals(Square square)
-    {
+    public boolean equals(Square square) {
         return (this.getX() == square.getX() && this.getY()==square.getY());
     }
 }

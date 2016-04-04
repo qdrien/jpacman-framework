@@ -3,6 +3,9 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 
+/**
+ * todo: nicolas
+ */
 public abstract class PacmanStrategy {
     /**
      * The current game.

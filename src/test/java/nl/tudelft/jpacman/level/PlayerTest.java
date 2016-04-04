@@ -18,8 +18,12 @@ public class PlayerTest {
      */
     private static Player player;
 
+    /**
+     * Instantiate a launcher and gets a reference to the player
+     * on which the test will be executed
+     */
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         final Launcher launcher = new Launcher();
         launcher.launch();
         player = launcher.getGame().getPlayers().get(0);

@@ -10,6 +10,9 @@ import nl.tudelft.jpacman.npc.ghost.Ghost;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * todo: nicolas
+ */
 public class PacManhattanAI extends AIStrategy {
     private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
     private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
@@ -101,8 +104,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param square the goal square
      */
-    private void computePath(Square square)
-    {
+    private void computePath(Square square) {
         pathAStar = new AStarPath(game);
         pathAStar.setGoal(square);
 

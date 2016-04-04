@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * todo: damien
+ */
 public final class FileChecker {
     /**
      * The path of the file containing usernames and passwords.

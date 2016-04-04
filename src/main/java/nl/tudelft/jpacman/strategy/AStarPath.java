@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * todo: nicolas
+ */
 public class AStarPath extends AStar<Square> {
     /**
      * Initialization of constants used to select the best move based on the current game.

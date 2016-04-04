@@ -11,6 +11,7 @@ public class ItemsColorTest {
 
     /**
      * todo: Nicolas
+     * @throws Exception todo : Nicolas
      */
     @Test
     @SuppressWarnings("checkstyle:magicnumber")
