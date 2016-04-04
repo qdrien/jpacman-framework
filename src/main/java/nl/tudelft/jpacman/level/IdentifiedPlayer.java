@@ -383,5 +383,7 @@ public class IdentifiedPlayer extends Player {
         return Integer.parseInt(getInfoLine()[0]);
     }
 
-    public String getLoginPath() {return LOGIN_PATH;}
+    public String getLoginPath() {
+        return LOGIN_PATH;
+    }
 }

@@ -25,12 +25,12 @@ public class AStarPath extends AStar<Square> {
     public static final double EMPTY_COST = 5;
     //Distance used to calculate a square cost near a ghost
     public static final int DST_THRESHOLD = 3;
-    private final Board board;//The board game
-    private final List<Ghost> ghosts;// The list of the ghosts
+    private final Board board; //The board game
+    private final List<Ghost> ghosts; // The list of the ghosts
     /**
      * The game's data.
      */
-    private Square goalSquare;//The square goal
+    private Square goalSquare; //The square goal
 
 
     /**
