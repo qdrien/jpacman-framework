@@ -16,6 +16,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Adrien Coppens
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class SinglePlayerGameTest {
 
     private SinglePlayerGame game;
@@ -49,8 +50,11 @@ public class SinglePlayerGameTest {
     }
 
 
+    /**
+     * Tests that the the level is successfully updated when Game#nextLevel is called
+     */
     @Test
-    public void testNextLevel() throws Exception {
+    public void testNextLevel(){
         final int initialLevel = game.getCurrentLevel();
         game.nextLevel();
         assertEquals("current level hasn't been correctly updated",

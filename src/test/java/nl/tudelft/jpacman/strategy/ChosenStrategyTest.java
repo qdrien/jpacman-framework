@@ -17,6 +17,9 @@ import static org.junit.Assert.*;
 public class ChosenStrategyTest {
     private Launcher launcher;
 
+    /**
+     * todo: nicolas
+     */
     @Before
     public void setUpPacman() {
         launcher = new Launcher();

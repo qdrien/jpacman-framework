@@ -173,8 +173,10 @@ Egalement intégré dans la suite d'analyses à effectuer via \textit{Maven}, \t
 Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cependant présents (plus de 500). Par ordre de nombre de \og violations \fg :
 \begin{itemize}
 	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ réglé. 
-	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile.
+	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile, nous avons donc supprimé les \og warnings \fg \, pour ceux-ci.
 	\item 104 violations de type \textit{LineLength} $\rightarrow$ retours à la ligne là où c'était nécessaire.
+	\item
+	\item
 \end{itemize}
 
 \subsection{IntelliJ Code inspection}

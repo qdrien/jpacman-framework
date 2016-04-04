@@ -16,11 +16,14 @@ import static org.junit.Assert.*;
 /**
  * Test for the astarPath class containing methods to calculate the best move to apply by the AI.
  */
+@SuppressWarnings("checkstyle:magicnumber")
 public class AStarPathTest {
     private static final double EPSILON = .1;
     private Launcher launcher;
 
-
+    /**
+     * todo: nicolas
+     */
     @Before
     public void setUpPacman() {
         launcher = new Launcher();

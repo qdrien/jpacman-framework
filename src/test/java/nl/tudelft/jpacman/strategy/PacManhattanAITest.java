@@ -18,6 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("checkstyle:magicnumber")
 public class PacManhattanAITest {
     private Launcher launcher;
 

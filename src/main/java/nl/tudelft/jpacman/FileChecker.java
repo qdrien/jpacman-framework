@@ -45,6 +45,7 @@ public final class FileChecker {
     /**
      * Checks whether the player correctly identified himself.
      *
+     * @param playerName The name of the player
      * @param passEntered the password entered by the player.
      * @return Whether the identifying info is correct or not.
      */

@@ -13,9 +13,7 @@ import java.io.*;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests methods that have been added or modified in the Player class since v6.3.0.
- *
- * @author Adrien Coppens
+ * todo: damien
  */
 public class IdentifiedPlayerTest {
     /**
@@ -36,6 +34,10 @@ public class IdentifiedPlayerTest {
         new File(PATH).delete();
     }
 
+    /**
+     * Resets the test profile and load resources for this test suite
+     * @throws IOException If the file was not found or is not readable.
+     */
     @BeforeClass
     public static void setUp() throws IOException {
         final Launcher launcher = new Launcher();

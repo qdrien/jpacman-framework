@@ -7,6 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+/**
+ * Tests methods that have been added or modified in the Player class since v6.3.0.
+ * (points/lives-related methods)
+ */
+@SuppressWarnings("checkstyle:magicnumber")
 public class PlayerTest {
     /**
      * Player with which to run tests.

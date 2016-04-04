@@ -104,6 +104,8 @@ public class IdentifiedPlayer extends Player {
 
     /**
      * Displays the player's achievements, if any were obtained.
+     *
+     * @throws IOException If the file was not found or is not readable.
      */
     public void displayAchievements() throws IOException {
         final String[] options = new String[]{"Yes", "No"};
@@ -142,6 +144,7 @@ public class IdentifiedPlayer extends Player {
      * Adds an achievement to the player's profile file.
      *
      * @param achievement The achievement to add.
+     * @throws IOException If the file was not found or is not readable.
      */
     public void addAchievement(final Achievement achievement) throws IOException {
         //If the achievement has already been obtained by this player
@@ -220,7 +223,9 @@ public class IdentifiedPlayer extends Player {
      * Triggered whenever the player completes a game.
      *
      * @param level The id of the level that has been completed
+     * @throws IOException If the file was not found or is not readable.
      */
+    @SuppressWarnings("checkstyle:magicnumber")
     public void levelCompleted(final int level) throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
@@ -270,6 +275,7 @@ public class IdentifiedPlayer extends Player {
      * Triggered whenever the player dies.
      *
      * @param killer The ghost that killed pacman.
+     * @throws IOException If the file was not found or is not readable.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer) throws IOException {
@@ -288,8 +294,9 @@ public class IdentifiedPlayer extends Player {
     /**
      * Saves the player's highest scores and checks
      * whether it's high enough to earn him an achievement.
+     * @throws IOException If the file was not found or is not readable.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"}) //the initialisations are required.
     public void saveScore() throws IOException {
         if (playerName == null) return;
         final String split[] = getInfoLine();
@@ -307,6 +314,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Displays the player's stats.
      */
+    @SuppressWarnings("checkstyle:magicnumber")
     public void displayProfileStats() {
         if (playerName == null) {
             JOptionPane.showMessageDialog(null, "You are not logged in.", "Error",
@@ -355,6 +363,7 @@ public class IdentifiedPlayer extends Player {
      * Returns the highest level ever reached by the player.
      *
      * @return said level.
+     * @throws IOException If the file was not found or is not readable.
      */
     public int getMaxLevelReached() throws IOException {
         return Integer.parseInt(getInfoLine()[0]);

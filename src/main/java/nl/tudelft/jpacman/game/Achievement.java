@@ -3,6 +3,8 @@ package nl.tudelft.jpacman.game;
 /**
  * The list of possible achievements.
  */
+
+@SuppressWarnings("checkstyle:magicnumber")
 public enum Achievement {
     VICTOR, WON_THRICE, SPEEDY_DEATH, AMBUSHED, OVER_9000;
 
