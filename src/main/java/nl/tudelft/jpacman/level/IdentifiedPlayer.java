@@ -64,7 +64,7 @@ public class IdentifiedPlayer extends Player {
      * @return Whether the identification was carried through or cancelled.
      */
     public boolean authenticate() {
-        final String options[] = {"Ok", "Cancel"};
+        final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
         final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
@@ -196,7 +196,7 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public void createNewPlayer() {
-        final String options[] = {"Ok", "Cancel"};
+        final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
         final JTextField loginEntered = new JTextField(MAX_LOGIN_LENGTH);
@@ -215,7 +215,7 @@ public class IdentifiedPlayer extends Player {
                 if (choice != 0) return;
                 playerName = loginEntered.getText();
             } while (FileChecker.checkUsername(playerName));
-            final char pass[] = passEntered.getPassword();
+            final char[] pass = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
             writer.write(playerName + " " + Arrays.hashCode(pass) + "\n");
             writer.close();
@@ -247,7 +247,7 @@ public class IdentifiedPlayer extends Player {
     @SuppressWarnings("checkstyle:magicnumber")
     public void levelCompleted(final int level) throws IOException {
         if (playerName == null) return;
-        final String split[] = getInfoLine();
+        final String[] split = getInfoLine();
         final int levelsCompleted = Integer.parseInt(split[0]);
         addAchievement(Achievement.VICTOR);
         if (level > levelsCompleted) {
@@ -266,7 +266,7 @@ public class IdentifiedPlayer extends Player {
      */
     private String[] getInfoLine() throws IOException {
         final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-        final String split[] = reader.readLine().split(" ");
+        final String[] split = reader.readLine().split(" ");
         reader.close();
         return split;
     }
@@ -299,7 +299,7 @@ public class IdentifiedPlayer extends Player {
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the DU anomaly warning makes no sense.
     public void killedBy(final GhostColor killer) throws IOException {
         if (playerName == null) return;
-        final String split[] = getInfoLine();
+        final String[] split = getInfoLine();
         String toWrite = "";
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
@@ -315,10 +315,11 @@ public class IdentifiedPlayer extends Player {
      * whether it's high enough to earn him an achievement.
      * @throws IOException If the file was not found or is not readable.
      */
-    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"}) //the initialisations are required.
+    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:magicnumber"})
+    //the initialisations are required.
     public void saveScore() throws IOException {
         if (playerName == null) return;
-        final String split[] = getInfoLine();
+        final String[] split = getInfoLine();
         String toWrite = "";
         int highScore = Integer.parseInt(split[1]);
         if (score > 9000) addAchievement(Achievement.OVER_9000);
@@ -343,7 +344,7 @@ public class IdentifiedPlayer extends Player {
         String toDisplay = "<html>";
         try {
             final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            final String split[] = reader.readLine().split(" ");
+            final String[] split = reader.readLine().split(" ");
             reader.close();
             toDisplay += "Levels completed: " + split[0];
             toDisplay += "<br>High score: " + split[1];
