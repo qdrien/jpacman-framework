@@ -388,7 +388,8 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * todo: damien
+     * Returns the path of the login file.
+     * @return The path of the login file.
      */
     public String getLoginPath() {
         return LOGIN_PATH;
