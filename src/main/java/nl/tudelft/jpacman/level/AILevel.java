@@ -86,14 +86,10 @@ public class AILevel extends Level {
      *
      * @param strategy the chosen strategy
      */
-    public void startStrategy(PacmanStrategy strategy) {
+    public void startStrategy(PacmanStrategy strategy)
+    {
         this.strategy = strategy;
-        synchronized (startStopLock) {
-            if (isInProgress()) {
-                return;
-            }
-            strategy.executeStrategy();
-        }
+        strategy.executeStrategy();
     }
 
     /**
@@ -102,20 +98,17 @@ public class AILevel extends Level {
     private void startAIStrategy() {
         //Start the main thread for the AI
         serviceAI = Executors.newSingleThreadScheduledExecutor();
-        if (isInProgress()) {
-            serviceAI.schedule(
-                    new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)),
-                    players.get(0).getInterval(), TimeUnit.MILLISECONDS);
-        }
+        serviceAI.schedule(new PlayerMoveTask(serviceAI, (AIStrategy) strategy, players.get(0)),
+                    players.get(0).getInterval() /2, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Shutdown the thread.
      */
     private void stopAIStrategy() {
-        if (serviceAI != null) {
+        if (serviceAI != null)
             serviceAI.shutdown();
-        }
+
     }
 
     /**
@@ -127,11 +120,12 @@ public class AILevel extends Level {
                 return;
             }
 
-            startNPCs();
-            inProgress = true;
             if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                 startAIStrategy();
             }
+            startNPCs();
+
+            inProgress = true;
             updateObservers();
         }
     }
@@ -150,6 +144,65 @@ public class AILevel extends Level {
                 stopAIStrategy();
             }
             inProgress = false;
+        }
+    }
+
+
+    /**
+     * A task that moves the player used by a AI.
+     */
+    private final class PlayerMoveTask implements Runnable {
+        /**
+         * The service executing the task.
+         */
+        private final ScheduledExecutorService service;
+
+        /**
+         * The Player to move.
+         */
+        private final AIStrategy strategy;
+        private final IdentifiedPlayer player;
+        private Direction nextMove;
+        /**
+         * Creates a new task.
+         *
+         * @param s        The service that executes the task.
+         * @param strategy The chosen strategy by the player
+         * @param p        The player of the game
+         */
+        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, IdentifiedPlayer p) {
+            this.service = s;
+            this.strategy = strategy;
+            this.player = p;
+        }
+
+        /**
+         * The run method called periodically.
+         */
+        @Override
+        public void run() {
+            if (nextMove == null || isIntersection(player, nextMove))
+                nextMove = strategy.nextMove();
+            if(player.getSquare().getSquareAt(nextMove).isAccessibleTo(player))
+                move(player, nextMove);
+            service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
+        }
+
+        /**
+         * Test if the player is at an intersection in the game.
+         *
+         * @param player    the player of the game
+         * @param direction the current direction
+         * @return true if the player is in a intersection, false otherwise
+         */
+        public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
+            if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
+                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
+            } else {
+                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
+                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
+            }
         }
     }
 
@@ -191,65 +244,6 @@ public class AILevel extends Level {
                 move(npc, nextMove);
             }
             service.schedule(this, npc.getInterval(), TimeUnit.MILLISECONDS);
-        }
-    }
-
-
-    /**
-     * A task that moves the player used by a AI.
-     */
-    private final class PlayerMoveTask implements Runnable {
-        /**
-         * The service executing the task.
-         */
-        private final ScheduledExecutorService service;
-
-        /**
-         * The Player to move.
-         */
-        private final AIStrategy strategy;
-        private final IdentifiedPlayer player;
-        private Direction nextMove;
-
-        /**
-         * Creates a new task.
-         *
-         * @param s        The service that executes the task.
-         * @param strategy The chosen strategy by the player
-         * @param p        The player of the game
-         */
-        PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, IdentifiedPlayer p) {
-            this.service = s;
-            this.strategy = strategy;
-            this.player = p;
-        }
-
-        /**
-         * The run method called periodically.
-         */
-        @Override
-        public void run() {
-            if (nextMove == null || isIntersection(player, nextMove))
-                nextMove = strategy.nextMove();
-            move(player, nextMove);
-            service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
-        }
-
-        /**
-         * Test if the player is at an intersection in the game.
-         *
-         * @param player    the player of the game
-         * @param direction the current direction
-         * @return true if the player is in a intersection, false otherwise
-         */
-        public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
-            if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
-                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
-            } else {
-                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player) ||
-                        player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
-            }
         }
     }
 }
