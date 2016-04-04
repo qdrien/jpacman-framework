@@ -304,6 +304,5 @@ public class PacManhattanAI extends AIStrategy {
     public void setGhostDstThreshold(int ghostDst) {
         ghostDstThreshold = ghostDst;
     }
-
 }
 
