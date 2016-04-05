@@ -179,6 +179,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item 35 violations de type \textit{AvoidStarImport} $\rightarrow$ encore une fois désactivés car nous utilisons la fonction \og optimize imports \fg \, d'\textit{IntelliJ IDEA} qui regroupe parfois des imports en un unique via cette notation.
 	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ ajoutés.
 	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ modifiés.
+	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
 
 \subsection{IntelliJ Code inspection}
@@ -197,10 +198,16 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 %2.	Level accède à des attributs appartenant à trop de classes étrangères, encore une fois, peu de changements à ce niveau là par rapport à la version de base
 %3.	Level est \og trop complexe par rapport à sa taille \fg : le problème ici semble venir de PMD qui, d’après la règle définie sur https://pmd.github.io/pmd-5.4.1/pmd-java/xref/net/sourceforge/pmd/lang/java/rule/design/GodClassRule.html attribue effectivement une valeur de complexité mais à aucun moment ne prend en compte la \og taille \fg de la classe.
 %Etant donné que Level comprend beaucoup de méthodes, la complexité est naturellement élevée.
-
-
+%todo: couplage/cohésion plus en détail? 
+%todo: matrice de dépendance?
+%todo: autres choses ? taille/complexité en fonction des classes ? (check si pas déjà fait dans les rapports maven d'abord)
 \section{Analyse dynamique}
-\section{Mesure de la qualité du logiciel}
+%todo: couverture code
+%todo: couverture tests
+%todo: profilage (CPU/RAM)
+\section{Mesure de la qualité du logiciel} 
+%todo: ? différence avec analyse de qualité ? voulais-tu créer ici la section "analyse de la qualité dans le temps" (régression avec par ex. R, comme en TP) ?
+%todo: lier "analyse dans le temps" avec les lois vues en cours
 \section{Conclusion de l'analyse}
 
 
