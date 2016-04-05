@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
  * This class implements a strategy to clean the board and avoid the ghosts with AI.
  */
 public class PacManhattanAI extends AIStrategy {
+    /**
+     * Constant value to calculate the next move.
+     */
     private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
     private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
     private static final int INITIAL_GHOST_DST = 14;
@@ -20,10 +23,22 @@ public class PacManhattanAI extends AIStrategy {
     private static final int LOW_GHOST_DST = 3;
     //The threshold distance between the player and a ghost
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
+    /**
+     * The pacman game.
+     */
     private final Game game;
-    private Deque<Direction> directionQueue; //Queue containing the potential directions to follow
-    private AStarPath pathAStar; //The path calculates with AStar
-    private boolean[][] visitedSquare; //List to know if the square is yet visited or not
+    /**
+     * Queue containing the potential directions to follow.
+     */
+    private Deque<Direction> directionQueue;
+    /**
+     * The path calculates with AStar.
+     */
+    private AStarPath pathAStar;
+    /**
+     * List to know if the square is yet visited or not.
+     */
+    private boolean[][] visitedSquare;
 
     /**
      * The default constructor.
