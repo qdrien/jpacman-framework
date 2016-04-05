@@ -285,6 +285,15 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
+    * Adds the given ghost to the list of ghosts.
+     *
+     * @param g The ghost to add
+     */
+    public void addToGhostList(Ghost g) {
+        ghostList.add(g);
+    }
+
+    /**
      * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)}
      * to get the list of squares the player can move onto
      * (such squares are accessible & have no ghost that are too close to them).
