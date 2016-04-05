@@ -53,8 +53,7 @@ public class AILevel extends Level {
         for (NPC g : ghosts) {
             npcs.put(g, null);
             if (g instanceof Ghost) {
-                getGhostList().add((Ghost) g);
-                //TODO: previous line might cause issues (automatic refactoring suggested the change)
+                addToGhostList((Ghost)g);
             }
         }
     }
@@ -113,7 +112,8 @@ public class AILevel extends Level {
     }
 
     /**
-     * todo: nicolas + don't forget the ending period
+     * Starts or resumes the level.
+     * Start NPC and AI.
      */
     public void start() {
         synchronized (startStopLock) {
