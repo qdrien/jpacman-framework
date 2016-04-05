@@ -32,7 +32,6 @@ public class SquareCoordinateTest {
     public void tearDown() {
         launcher.dispose();
     }
-
     /**
      * Launch the game, and imitate what would happen in a typical game.
      * The test is only a smoke test, and not a focused small test.

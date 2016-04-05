@@ -138,7 +138,6 @@ public class ContinuousMovementTest {
         //wait 1000 ms
         Thread.sleep(800);
         assertEquals(80, player.getScore());
-
     }
 
     /**

@@ -18,7 +18,7 @@ public class ChosenStrategyTest {
     private Launcher launcher;
 
     /**
-     * todo: nicolas + don't forget the ending period
+     * Launch the user interface.
      */
     @Before
     public void setUpPacman() {
@@ -63,8 +63,7 @@ public class ChosenStrategyTest {
      */
     @SuppressWarnings("methodlength")
     @Test
-    //todo: nicolas: rename (a method cannot start with a capital letter)
-    public void AIStrategyTest1() {
+    public void aiStrategyTest1() {
         final Game game = launcher.getGame();
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
@@ -88,8 +87,7 @@ public class ChosenStrategyTest {
      */
     @SuppressWarnings("methodlength")
     @Test
-    //todo: nicolas: rename (a method cannot start with a capital letter)
-    public void OtherStrategyAITest1() throws InterruptedException {
+    public void otherStrategyAITest1() throws InterruptedException {
         final Game game = launcher.getGame();
         // start cleanly.
         assertFalse(game.isInProgress());

@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * AI test in the game.
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class PacManhattanAITest {
@@ -51,17 +51,16 @@ public class PacManhattanAITest {
     public void safetySquareTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
-        assertFalse(AI.isSafetySquare(player.getSquare()));
-        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+        final PacManhattanAI ai = new PacManhattanAI(game);
+        assertFalse(ai.isSafetySquare(player.getSquare()));
+        assertFalse(ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse(ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH)));
-        assertFalse(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+        assertFalse(ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
 
         //Safety Square more than 14 squares about the nearest ghost
-        assertTrue(AI.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+        assertTrue(ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST)
                 .getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)
@@ -78,10 +77,9 @@ public class PacManhattanAITest {
     public void getValidNeighborsTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI ai = new PacManhattanAI(game);
 
-        List<Square> neighborsList = AI.getValidNeighbors(player.getSquare());
+        List<Square> neighborsList = ai.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
@@ -97,7 +95,7 @@ public class PacManhattanAITest {
         game.move(player, Direction.EAST);
         game.move(player, Direction.EAST);
 
-        List<Square> neighborsList2 = AI.getValidNeighbors(player.getSquare());
+        List<Square> neighborsList2 = ai.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -112,17 +110,15 @@ public class PacManhattanAITest {
      */
     @SuppressWarnings("methodlength")
     @Test
-    //todo: nicolas: rename (a method name cannot start with a capital letter)
-    public void BFSNearestSafetySquareTest() {
+    public void bfsNearestSafetySquareTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI ai = new PacManhattanAI(game);
 
-        final Square square = AI.BFSNearestSafetySquare();
+        final Square square = ai.bfsNearestSafetySquare();
 
         assertNotNull(square);
         assertSame(square.getX(), 19);
@@ -140,10 +136,9 @@ public class PacManhattanAITest {
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI ai = new PacManhattanAI(game);
 
-        Direction nextMove = AI.nextMove();
+        Direction nextMove = ai.nextMove();
         assertEquals(nextMove, Direction.EAST);
 
         game.start();
@@ -155,7 +150,7 @@ public class PacManhattanAITest {
         assertEquals(player.getSquare().getX(), 12);
         assertEquals(player.getSquare().getY(), 15);
 
-        assertEquals(AI.nextMove(), Direction.EAST);
+        assertEquals(ai.nextMove(), Direction.EAST);
 
         game.move(player, nextMove);
 
@@ -177,10 +172,10 @@ public class PacManhattanAITest {
         assertNotNull(player.getSquare());
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
 
-        Square safetyPelletSquare = AI.BFSNearestSafetyPelletSquare();
+        final PacManhattanAI ai = new PacManhattanAI(game);
+
+        Square safetyPelletSquare = ai.bfsNearestSafetyPelletSquare();
         assertTrue(safetyPelletSquare.getOccupants().get(0) instanceof Pellet);
 
         assertEquals(player.getSquare().getSquareAt(Direction.EAST), safetyPelletSquare);
@@ -293,13 +288,12 @@ public class PacManhattanAITest {
         assertEquals(player.getSquare().getX(), 11);
         assertEquals(player.getSquare().getY(), 15);
 
-        //todo: nicolas: rename (a variable name cannot start with a capital letter)
-        final PacManhattanAI AI = new PacManhattanAI(game);
+        final PacManhattanAI ai = new PacManhattanAI(game);
 
-        assertEquals(AI.hurryMove(), Direction.EAST);
+        assertEquals(ai.hurryMove(), Direction.EAST);
 
-        assertEquals(AI.getGhostDstThreshold(), 14);
-        AI.setGhostDstThreshold(7);
-        assertEquals(AI.getGhostDstThreshold(), 7);
+        assertEquals(ai.getGhostDstThreshold(), 14);
+        ai.setGhostDstThreshold(7);
+        assertEquals(ai.getGhostDstThreshold(), 7);
     }
 }
