@@ -11,14 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * Class that creates a selection window to chose the strategy to apply in game.
  */
 public class MyJDialogStrategy extends JDialog {
     /**
      * Button of the window.
      */
-    //todo: nicolas: rename <<BOTH>> (a field name cannot start with a capital letter)
-    private final JButton HumanController, AIController;
+    private final JButton humanController, aiController;
     /**
      * The game.
      */
@@ -42,32 +41,27 @@ public class MyJDialogStrategy extends JDialog {
      * @param pacManUI the pacManUI
      */
     public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI) {
-        //todo: nicolas: Method length is 31 lines (max allowed is 30).
         super(parent, "Strategy selection");
         this.builder = builder;
         this.game = game;
         this.pacManUI = pacManUI;
-        // set the position of the window
         final Point p = new Point(100, 100);
-        setLocation(p.x, p.y);
-
+        setLocation(p.x, p.y);// set the position of the window
         // Create a message
         final JPanel messagePane = new JPanel();
         messagePane.add(new JLabel("Choose a game mode and then click to start"));
         // get content pane, which is usually the
         // Container of all the dialog's components.
         getContentPane().add(messagePane);
-
         // Create a button
         final JPanel buttonPane = new JPanel();
-        HumanController = new JButton("Control Pacman");
-        AIController = new JButton("Be spectator");
-        buttonPane.add(HumanController);
-        buttonPane.add(AIController);
+        humanController = new JButton("Control Pacman");
+        aiController = new JButton("Be spectator");
+        buttonPane.add(humanController);
+        buttonPane.add(aiController);
         // set action listener on the button
-        HumanController.addActionListener(new MyActionListener());
-        AIController.addActionListener(new MyActionListener());
-
+        humanController.addActionListener(new MyActionListener());
+        aiController.addActionListener(new MyActionListener());
         getContentPane().add(buttonPane, BorderLayout.PAGE_END);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
@@ -103,13 +97,12 @@ public class MyJDialogStrategy extends JDialog {
         //close and dispose of the window.
         public void actionPerformed(ActionEvent e) {
             final Object source = e.getSource();
-            if (source == HumanController) {
+            if (source == humanController) {
                 strategy = new HumanControllerStrategy(game, builder);
             }
-            else if (source == AIController) {
+            else if (source == aiController) {
                 strategy = new PacManhattanAI(game);
             }
-            System.out.println("The chosen strategy is : " + strategy.getTypeStrategy());
             game.setStrategy(strategy);
             setVisible(false);
             dispose();
