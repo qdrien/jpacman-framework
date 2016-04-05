@@ -88,7 +88,7 @@ public class AStarPath extends AStar<Square> {
      * @param player the player
      * @return the neighbor's list
      */
-    public List<Square> getValidNeighbors(Square square, IdentifiedPlayer player) {
+    public static List<Square> getValidNeighbors(Square square, IdentifiedPlayer player) {
         List<Square> neighborsList = square.getNeighbours();
         List<Square> validNeighbors = new ArrayList<>(neighborsList);
         Iterator<Square> iterator = validNeighbors.iterator();
