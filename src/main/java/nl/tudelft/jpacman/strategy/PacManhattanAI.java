@@ -10,18 +10,36 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * This class implements a strategy to clean the board and avoid the ghosts with AI.
+ * This class implements a strategy
+ * to clean the board and avoid the ghosts with AI.
  */
 public class PacManhattanAI extends AIStrategy {
+
     /**
-     * Constant value to calculate the next move.
+     * The remaining pellet threshold to change
+     * the behavior of the AI.
      */
-    private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
-    private static final int LOW_PELLET_COUNT_THRESHOLD = 7;
+    private static final int HIGH_PELLET_COUNT = 30;
+    /**
+     * The remaining pellet threshold to change
+     * the behavior of the AI.
+     */
+    private static final int LOW_PELLET_COUNT = 7;
+    /**
+     * The safe distance between the Pacman and ghosts.
+     */
     private static final int INITIAL_GHOST_DST = 14;
+    /**
+     * The medium safe distance between the Pacman and ghosts.
+     */
     private static final int MEDIUM_GHOST_DST = 6;
+    /**
+     * The low safe distance between the Pacman and ghosts.
+     */
     private static final int LOW_GHOST_DST = 3;
-    //The threshold distance between the player and a ghost
+    /**
+     * The threshold distance between the player and a ghost.
+     */
     private static int ghostDstThreshold = INITIAL_GHOST_DST;
     /**
      * The pacman game.
@@ -56,7 +74,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param game The current game
      */
-    private void init(Game game) {
+    private void init(final Game game) {
         visitedSquare = new boolean[getBoard().getHeight()][getBoard().getWidth()];
         pathAStar = new AStarPath(game);
     }
@@ -74,7 +92,7 @@ public class PacManhattanAI extends AIStrategy {
         boolean warning = false; //Boolean to know if a ghost is near of the player or not
         updatePacmanBehaviour(game.getLevel().remainingPellets()); //Accelerate the endgame
 
-        for (Ghost ghost : getGhostsList()) {
+        for (final Ghost ghost : getGhostsList()) {
             //Test if a ghost is near of the player
             final double distance = AStarPath.manhattanDistance(
                     getPlayer().getSquare().getX(), getPlayer().getSquare().getY(),
@@ -120,7 +138,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param square the goal square
      */
-    private void computePath(Square square) {
+    private void computePath(final Square square) {
         pathAStar = new AStarPath(game);
         pathAStar.setGoal(square);
 
@@ -134,17 +152,19 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
-     * Search the nearest safe square where there is a pellet on the board.
-     * The search used is the Breadth First Search
+     * Search the nearest safe square where there
+     * is a pellet on the board.
+     * The search used is the Breadth First Search.
      *
-     * @return the nearest safe square where there is a pellet, null if no safe pellet found
+     * @return the nearest safe square where
+     * there is a pellet, null if no safe pellet found.
      */
     public Square bfsNearestSafetyPelletSquare() {
         for (int i = 0; i < getBoard().getHeight(); ++i) {
             Arrays.fill(visitedSquare[i], false);
         }
 
-        Queue<Square> squareQueue = new ArrayDeque<>();
+        final Queue<Square> squareQueue = new ArrayDeque<>();
         squareQueue.add(getPlayer().getSquare());
         if (getPlayer().getSquare() != null) {
             visitedSquare[getPlayer().getSquare().getY()][getPlayer().getSquare().getX()] = true;
@@ -158,7 +178,7 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                List<Square> neighborsList = AStarPath.getValidNeighbors(square,getPlayer());
+                final List<Square> neighborsList = AStarPath.getValidNeighbors(square,getPlayer());
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
                         .forEach(neighborSquare -> {
                             if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {
@@ -179,8 +199,8 @@ public class PacManhattanAI extends AIStrategy {
      * @return a queue with each direction at each step
      */
     @SuppressWarnings("checkstyle:methodlength")
-    public Deque<Direction> convertPathToDirection(List<Square> squaresList) {
-        Deque<Direction> directions = new ArrayDeque<>();
+    public Deque<Direction> convertPathToDirection(final List<Square> squaresList) {
+        final Deque<Direction> directions = new ArrayDeque<>();
 
         //Direction can't calculate if path has not at least 2 squares
         if (squaresList == null || squaresList.size() < 2) {
@@ -222,16 +242,16 @@ public class PacManhattanAI extends AIStrategy {
             Arrays.fill(visitedSquare[i], false);
         }
 
-        Queue<Square> squaresQueue = new ArrayDeque<>();
+        final Queue<Square> squaresQueue = new ArrayDeque<>();
         squaresQueue.add(getPlayer().getSquare());
         while (!squaresQueue.isEmpty()) {
-            Square square = squaresQueue.remove();
+            final Square square = squaresQueue.remove();
             visitedSquare[square.getY()][square.getX()] = true;
             if (isSafetySquare(square) && !square.equals(getPlayer().getSquare())) {
                 return square;
             }
             else {
-                List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
+                final List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
                 squaresQueue.addAll(neighborsList.stream()
                         .filter(neighbor -> !visitedSquare[neighbor.getY()][neighbor.getX()])
                         .collect(Collectors.toList()));
@@ -246,8 +266,8 @@ public class PacManhattanAI extends AIStrategy {
      * @param square the current square
      * @return true if the square is safe
      */
-    public boolean isSafetySquare(Square square) {
-        for (Ghost ghost : getGhostsList()) {
+    public boolean isSafetySquare(final Square square) {
+        for (final Ghost ghost : getGhostsList()) {
             final double distance = AStarPath.manhattanDistance(square.getX(), square.getY(),
                     ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold) {
@@ -281,10 +301,10 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param pelletNbr the pellets number remaining in the game
      */
-    private void updatePacmanBehaviour(int pelletNbr) {
-        if (pelletNbr <= HIGH_PELLET_COUNT_THRESHOLD) {
+    private void updatePacmanBehaviour(final int pelletNbr) {
+        if (pelletNbr <= HIGH_PELLET_COUNT) {
             //Pacman must recover the last pellets to finish
-            if (pelletNbr <= LOW_PELLET_COUNT_THRESHOLD) {
+            if (pelletNbr <= LOW_PELLET_COUNT) {
                 setGhostDstThreshold(LOW_GHOST_DST);
             }
                 //The pacman play safety and recover pellets if he can
@@ -316,7 +336,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param ghostDst the new ghostDstThreshold
      */
-    public void setGhostDstThreshold(int ghostDst) {
+    public void setGhostDstThreshold(final int ghostDst) {
         ghostDstThreshold = ghostDst;
     }
 }

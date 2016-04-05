@@ -11,12 +11,19 @@ import java.util.List;
  * Abstract class for each Artificial Intelligence strategy.
  */
 public abstract class AIStrategy extends PacmanStrategy {
+
     /**
-     * Game data used by AI's to calculate the next move to apply.
+     * The player of the game.
      */
-    private final IdentifiedPlayer player; //The player of the game
-    private final Board board; // The board game
-    private final List<Ghost> ghosts; //The ghosts list
+    private final IdentifiedPlayer player;
+    /**
+     * The board game
+     */
+    private final Board board;
+    /**
+     * The ghosts list
+     */
+    private final List<Ghost> ghosts;
 
     /**
      * Default constructor.
@@ -45,7 +52,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the player
      */
-    final IdentifiedPlayer getPlayer() {
+    protected IdentifiedPlayer getPlayer() {
         return this.player;
     }
 
@@ -54,7 +61,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the board
      */
-    final Board getBoard() {
+    protected final Board getBoard() {
         return this.board;
     }
 
@@ -63,7 +70,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the ghost's list
      */
-    final List<Ghost> getGhostsList() {
+    protected List<Ghost> getGhostsList() {
         return this.ghosts;
     }
 }
