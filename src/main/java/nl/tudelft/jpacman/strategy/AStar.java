@@ -91,7 +91,7 @@ public abstract class AStar<T> {
      * @param from The node we are leaving.
      * @param to   The node we are reaching.
      */
-    private void f(Path p, T from, T to) {
+    private void f(final Path p, final T from, final T to) {
         final Double g = g(from, to) + ((p.parent == null) ? 0.0 : p.parent.g);
 
         p.g = g;
@@ -103,7 +103,7 @@ public abstract class AStar<T> {
      *
      * @param path The path to expand.
      */
-    private void expand(Path path) {
+    private void expand(final Path path) {
         final Double min = mindists.get(path.getPoint());
 
 				/*
@@ -120,9 +120,9 @@ public abstract class AStar<T> {
         }
 
         final T p = path.getPoint();
-        List<T> successors = generateSuccessors(p);
+        final List<T> successors = generateSuccessors(p);
 
-        for (T t : successors) {
+        for (final T t : successors) {
             final Path newPath = new Path(path);
             newPath.setPoint(t);
             f(newPath, path.getPoint(), t);
@@ -147,7 +147,7 @@ public abstract class AStar<T> {
      * @return A list of nodes from the initial point to a goal,
      * <code>null</code> if a path doesn't exist.
      */
-    public List<T> compute(T start) {
+    public List<T> compute(final T start) {
 
         final Path root = new Path();
         root.setPoint(start);
@@ -170,7 +170,7 @@ public abstract class AStar<T> {
             lastCost = p.g;
 
             if (isGoal(last)) {
-                LinkedList<T> retPath = new LinkedList<>();
+                final LinkedList<T> retPath = new LinkedList<>();
 
                 for (Path i = p; i != null; i = i.parent) {
                     retPath.addFirst(i.getPoint());
@@ -202,7 +202,7 @@ public abstract class AStar<T> {
          *
          * @param p The path object to clone.
          */
-        public Path(Path p) {
+        public Path(final Path p) {
             this();
             parent = p;
             g = p.g;
@@ -218,10 +218,10 @@ public abstract class AStar<T> {
          * a number > 0 if this object is bigger
          */
         @Override
-        public int compareTo(Object o) {
+        public int compareTo(final Object o) {
 
             @SuppressWarnings("unchecked")
-            Path p = (Path) o;
+            final Path p = (Path) o;
             return (int) (f - p.f);
         }
 
@@ -237,7 +237,7 @@ public abstract class AStar<T> {
         /**
          * Set the point.
          */
-        public void setPoint(T p) {
+        public void setPoint(final T p) {
             point = p;
         }
     }
