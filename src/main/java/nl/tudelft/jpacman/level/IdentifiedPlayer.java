@@ -164,7 +164,7 @@ public class IdentifiedPlayer extends Player {
      * Creates new player profile.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public void createNewPlayer() { //todo: damien: Method length is 38 lines (max allowed is 30).
+    public void createNewPlayer() {
         final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
         final JLabel loginLabel = new JLabel("Login: "), passLabel = new JLabel("Password: ");
@@ -176,18 +176,12 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         try {
             do {
-                int choice = buttonChoice(options, panel, loginEntered, "Profile creation");
-                if (choice != 0) {
-                    return;
-                }
+                if (buttonChoice(options, panel, loginEntered, "Profile creation") != 0) return;
             } while (FileChecker.checkUsername(getPlayerName()));
-            final char[] pass = passEntered.getPassword();
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
-            writer.write(getPlayerName() + " " + Arrays.hashCode(pass) + "\n");
+            writer.write(getPlayerName() + " " + Arrays.hashCode(passEntered.getPassword()) + "\n");
             writer.close();
-            //Creating "profiles" subdirectory if necessary.
             new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
-            //Creating the profile file for the new user.
             if (isNotATest) {
                 setProfilePath();
                 JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
@@ -196,8 +190,6 @@ public class IdentifiedPlayer extends Player {
             //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
             writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
             writer.close();
-            //Security precaution
-            Arrays.fill(pass, '0');
         } catch (IOException e) {
             e.printStackTrace();
         }
