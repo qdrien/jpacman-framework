@@ -111,8 +111,13 @@ public abstract class AStar<T> {
 				 * don't expand it.
 				 */
         if (min == null || min > path.f)
+        {
             mindists.put(path.getPoint(), path.f);
-        else return;
+        }
+        else
+        {
+            return;
+        }
 
         final T p = path.getPoint();
         List<T> successors = generateSuccessors(p);

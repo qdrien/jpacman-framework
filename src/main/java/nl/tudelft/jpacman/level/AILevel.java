@@ -112,7 +112,8 @@ public class AILevel extends Level {
     }
 
     /**
-     * todo: nicolas + don't forget the ending period
+     * Starts or resumes the level.
+     * Start NPC and AI.
      */
     public void start() {
         synchronized (startStopLock) {
