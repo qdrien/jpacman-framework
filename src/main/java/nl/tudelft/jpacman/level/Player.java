@@ -161,7 +161,7 @@ public class Player extends Unit {
      */
     public void loseLife() {
         lives--;
-        System.out.println("lost one life, remaining; " + lives);
+        System.out.println("lost one life, remaining: " + lives);
         if (lives == 0) {
             setAlive(false);
         } else {

@@ -206,6 +206,7 @@ public abstract class Level implements PlayerListener {
                 || QUICK_WIN
                     && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
             observers.forEach(LevelObserver::levelWon);
+            observers.clear(); //make sure the observers do not get called multiple times
         }
     }
 
