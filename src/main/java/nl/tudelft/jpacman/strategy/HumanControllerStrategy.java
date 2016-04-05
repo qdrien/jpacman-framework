@@ -8,7 +8,7 @@ import nl.tudelft.jpacman.ui.PacManUiBuilder;
 import java.awt.event.KeyEvent;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * Class that represents the strategy where a player controls the pacman.
  */
 public class HumanControllerStrategy extends PacmanStrategy {
     private final PacManUiBuilder builder;

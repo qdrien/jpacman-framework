@@ -4,7 +4,8 @@ import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Game;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * Abstract class for pacman strategy.
+ * A strategy is a game mode.
  */
 public abstract class PacmanStrategy {
     /**

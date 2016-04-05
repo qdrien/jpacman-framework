@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * A* algorithm implementation to compute the shortest path.
  */
 public class AStarPath extends AStar<Square> {
     /**
@@ -121,10 +121,9 @@ public class AStarPath extends AStar<Square> {
      * @param destinationSquare The square to reach.
      * @return the cost of the square
      */
+    @SuppressWarnings("checkstyle:methodlength")
     @Override
-    public Double g(Square originSquare, Square destinationSquare) {
-//todo: nicolas: Method length is 32 lines (max allowed is 30).
-        if (originSquare.getX() == destinationSquare.getX()
+    public Double g(Square originSquare, Square destinationSquare) {        if (originSquare.getX() == destinationSquare.getX()
                 && originSquare.getY() == destinationSquare.getY()) {
             return 0.0;
         } else {

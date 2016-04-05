@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * todo: nicolas + don't forget the ending period
+ * This class implements a strategy to clean the board and avoid the ghosts with AI.
  */
 public class PacManhattanAI extends AIStrategy {
     private static final int HIGH_PELLET_COUNT_THRESHOLD = 30;
@@ -53,8 +53,9 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @return the best move
      */
+    @SuppressWarnings("checkstyle:methodlength")
     @Override
-    public Direction nextMove() { //todo: nicolas: Method length is 46 lines (max allowed is 30).
+    public Direction nextMove() {
         directionQueue = new ArrayDeque<>(); //Initialisation of the queue containing best moves
         boolean warning = false; //Boolean to know if a ghost is near of the player or not
         updatePacmanBehaviour(game.getLevel().remainingPellets()); //Accelerate the endgame
@@ -65,20 +66,19 @@ public class PacManhattanAI extends AIStrategy {
                     getPlayer().getSquare().getX(), getPlayer().getSquare().getY(),
                     ghost.getSquare().getX(), ghost.getSquare().getY());
             if (distance < ghostDstThreshold) {
-                computePath(BFSNearestSafetySquare());
+                computePath(bfsNearestSafetySquare());
                 warning = true;
                 break;
             }
         }
         if (!warning) {
             //There is no near ghost, thus find the nearest pellet
-            computePath(BFSNearestSafetyPelletSquare());
+            computePath(bfsNearestSafetyPelletSquare());
         }
-
         if (directionQueue.isEmpty()) {
             if (warning) {
                 //No safe square found, find the nearest pellet
-                computePath(BFSNearestSafetyPelletSquare());
+                computePath(bfsNearestSafetyPelletSquare());
                 if (directionQueue.isEmpty()) {
                     //No path found, find a other direction
                     return hurryMove();
@@ -87,7 +87,7 @@ public class PacManhattanAI extends AIStrategy {
                 }
             } else {
                 //No path found to a nearest pellet, find a safe square
-                computePath(BFSNearestSafetySquare());
+                computePath(bfsNearestSafetySquare());
                 if (directionQueue.isEmpty()) {
                     //No path found, find a other direction
                     return hurryMove();
@@ -125,8 +125,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @return the nearest safe square where there is a pellet, null if no safe pellet found
      */
-    //todo: nicolas: rename (a method cannot start with a capital letter)
-    public Square BFSNearestSafetyPelletSquare() {
+    public Square bfsNearestSafetyPelletSquare() {
         for (int i = 0; i < getBoard().getHeight(); ++i) {
             Arrays.fill(visitedSquare[i], false);
         }
@@ -140,10 +139,9 @@ public class PacManhattanAI extends AIStrategy {
             final Square square = squareQueue.remove();
 
             if (square.getOccupants().size() > 0
-                    && square.getOccupants().get(0) instanceof Pellet & !square.equals(getPlayer().getSquare())) {
+                    && square.getOccupants().get(0) instanceof Pellet
+                    && !square.equals(getPlayer().getSquare())) {
                 return square;
-                //todo: nicolas: did you really mean the single '&' above ?
-                //todo: nicolas: anyway, 'Line is longer than 100 characters (found 114).'
             }
             else {
                 List<Square> neighborsList = getValidNeighbors(square);
@@ -166,8 +164,8 @@ public class PacManhattanAI extends AIStrategy {
      * @param squaresList the square's list determining the path
      * @return a queue with each direction at each step
      */
+    @SuppressWarnings("checkstyle:methodlength")
     public Deque<Direction> convertPathToDirection(List<Square> squaresList) {
-        //todo: nicolas: Method length is 34 lines (max allowed is 30).
         Deque<Direction> directions = new ArrayDeque<>();
 
         //Direction can't calculate if path has not at least 2 squares
@@ -179,7 +177,6 @@ public class PacManhattanAI extends AIStrategy {
             final Square destinationSquare = squaresList.get(i);
             final int x = destinationSquare.getX() - originSquare.getX(),
                     y = destinationSquare.getY() - originSquare.getY();
-
             if (x == 0) {
                 //Vertical situation
                 if (y == 1 || y < -1) {
@@ -206,8 +203,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @return the nearest safety square, null if there isn't
      */
-    //todo: nicolas: rename (a method cannot start with a capital letter)
-    public Square BFSNearestSafetySquare() {
+    public Square bfsNearestSafetySquare() {
         for (int i = 0; i < getBoard().getHeight(); ++i) {
             Arrays.fill(visitedSquare[i], false);
         }
