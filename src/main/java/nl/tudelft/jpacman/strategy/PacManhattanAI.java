@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.strategy;
 
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
-import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
@@ -144,7 +143,7 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                List<Square> neighborsList = getValidNeighbors(square);
+                List<Square> neighborsList = AStarPath.getValidNeighbors(square,getPlayer());
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
                         .forEach(neighborSquare -> {
                             if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {
@@ -217,46 +216,13 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                List<Square> neighborsList = getValidNeighbors(square);
+                List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
                 squaresQueue.addAll(neighborsList.stream()
                         .filter(neighbor -> !visitedSquare[neighbor.getY()][neighbor.getX()])
                         .collect(Collectors.toList()));
             }
         }
         return getPlayer().getSquare();
-    }
-
-    /**
-     * Get valid neighbors to visit.
-     *
-     * @param square A determined square
-     * @return a new list with valid neighbor
-     */
-    public List<Square> getValidNeighbors(Square square) {
-        List<Square> neighbors = square.getNeighbours();
-
-        List<Square> validNeighbours = new ArrayList<>(neighbors);
-        Iterator<Square> iterator = validNeighbours.iterator();
-
-        while (iterator.hasNext()) {
-            final Square neighbour = iterator.next();
-            boolean invalidNeighbour = false;
-            if (neighbour.isAccessibleTo(getPlayer())) {
-                List<Unit> neighbours = neighbour.getOccupants();
-                if (neighbours.size() == 2) {
-                    invalidNeighbour = neighbours.get(1) instanceof Ghost;
-                }
-                else if (neighbours.size() == 1) {
-                    invalidNeighbour = neighbours.get(0) instanceof Ghost;
-                }
-            } else {
-                invalidNeighbour = true;
-            }
-            if (invalidNeighbour) {
-                iterator.remove();
-            }
-        }
-        return validNeighbours;
     }
 
     /**
