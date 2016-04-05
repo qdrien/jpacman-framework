@@ -280,6 +280,7 @@ public class Level implements PlayerListener {
 			for (LevelObserver o : observers) {
 				o.levelWon();
 			}
+			observers.clear();
 		}
 	}
 
