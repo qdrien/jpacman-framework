@@ -11,6 +11,9 @@ import java.awt.event.KeyEvent;
  * Class that represents the strategy where a player controls the pacman.
  */
 public class HumanControllerStrategy extends PacmanStrategy {
+    /**
+     * The builder.
+     */
     private final PacManUiBuilder builder;
 
 
