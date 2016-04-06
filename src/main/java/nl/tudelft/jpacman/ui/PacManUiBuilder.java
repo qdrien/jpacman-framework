@@ -1,7 +1,7 @@
 package nl.tudelft.jpacman.ui;
 
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
+import nl.tudelft.jpacman.ui.PlayerInfosPanel.ScoreFormatter;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

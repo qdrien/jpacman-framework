@@ -10,11 +10,11 @@ import java.util.Map;
 
 /**
  * A panel consisting of a column for each player, with the numbered players on
- * top and their respective scores underneath.
+ * top and their respective scores/lives underneath.
  *
  * @author Jeroen Roosen
  */
-public class ScorePanel extends JPanel {
+public class PlayerInfosPanel extends JPanel {
 
 
     /**
@@ -37,34 +37,43 @@ public class ScorePanel extends JPanel {
      */
     private final Map<IdentifiedPlayer, JLabel> scoreLabels;
     /**
+     * The map of players and the labels their lives are on.
+     */
+    private final Map<IdentifiedPlayer, JLabel> livesLabels;
+    /**
      * The way to format the score information.
      */
     private ScoreFormatter scoreFormatter = DEFAULT_SCORE_FORMATTER;
 
     /**
-     * Creates a new score panel with a column for each player.
+     * Creates a new player infos panel with a column for each player.
      *
-     * @param players The players to display the scores of.
+     * @param players The players to display the infos of.
      */
-    public ScorePanel(List<IdentifiedPlayer> players) {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public PlayerInfosPanel(List<IdentifiedPlayer> players) {
         super();
         assert players != null;
 
-        setLayout(new GridLayout(2, players.size()));
+        setLayout(new GridLayout(3, players.size()));
 
         for (int i = 1; i <= players.size(); i++) {
             add(new JLabel("Player " + i, JLabel.CENTER));
         }
         scoreLabels = new LinkedHashMap<>();
+        livesLabels = new LinkedHashMap<>();
         for (IdentifiedPlayer p : players) {
             final JLabel scoreLabel = new JLabel("0", JLabel.CENTER);
             scoreLabels.put(p, scoreLabel);
             add(scoreLabel);
+            final JLabel livesLabel = new JLabel("Lives: 3", JLabel.CENTER);
+            livesLabels.put(p, livesLabel);
+            add(livesLabel);
         }
     }
 
     /**
-     * Refreshes the scores of the players.
+     * Refreshes the scores and the lives of the players.
      */
     protected void refresh() {
         for (IdentifiedPlayer p : scoreLabels.keySet()) {
@@ -74,11 +83,12 @@ public class ScorePanel extends JPanel {
             }
             score += scoreFormatter.format(p);
             scoreLabels.get(p).setText(score);
+            livesLabels.get(p).setText("Lives: " + p.getLives());
         }
     }
 
     /**
-     * Let the score panel use a dedicated score formatter.
+     * Let the player infos panel use a dedicated score formatter.
      *
      * @param sf Score formatter to be used.
      */
