@@ -15,27 +15,52 @@ public enum ItemsColor {
     private final int value;
 
     /**
-     * todo: Nicolas + don't forget the ending period
+     * Constructor for the ItemsColor enum.
      *
-     * @param color todo: nicolas
+     * @param color The given colour that has to be mapped to its corresponding RGB int value
      */
     ItemsColor(final Color color) {
         this.value = color.getRGB();
     }
 
     /**
-     * Returns the type of item that matches the given RGB value.
+     * Returns the letter that corresponds to the item whose colour matches the given RGB value.
      *
      * @param rgbValue The int representing a RGB value
-     * @return The corresponding "pacman object" enum type or null if none matches
+     * @return A letter representing the game object that matches the given RGB value
+     *          or null if none matches
      */
-    public static ItemsColor getItemByRGBValue(final int rgbValue) {
+    public static Character getLetterByRGBValue(final int rgbValue) {
         for (final ItemsColor c : ItemsColor.values()) {
             if (rgbValue == c.value) {
-                return c;
+                return correspondingLetter(c);
             }
         }
-        System.err.println("Unknown color " + rgbValue);
+        System.err.println("Unknown color: " + rgbValue);
         return null;
+    }
+
+    /**
+     * Retrieves the letter that corresponds to the given item colour.
+     * @param item The given item's colour
+     * @return A Character representing the item's type for the map parser
+     *          or null if the item is of unknown type
+     */
+    public static Character correspondingLetter(ItemsColor item) {
+        switch (item) {
+            case PACMAN:
+                return 'P';
+            case GHOST:
+                return 'G';
+            case WALL:
+                return '#';
+            case SQUARE:
+                return ' ';
+            case PELLET:
+                return '.';
+            default:
+                System.err.println("Unknown item: " + item);
+                return null;
+        }
     }
 }

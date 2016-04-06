@@ -143,29 +143,15 @@ public class BoardFactory {
      */
     private List<String> convertImageToTxt(final BufferedImage img) {
         final List<String> lines = new ArrayList<>();
+        //For each line of pixels
         for (int y = 0; y < img.getHeight(); y++) {
             StringBuilder line = new StringBuilder();
+            //For each pixel in this line
             for (int x = 0; x < img.getWidth(); x++) {
-                final ItemsColor item = ItemsColor.getItemByRGBValue(img.getRGB(x, y));
-                if (item != null) {
-                    switch (item) {
-                        case PACMAN:
-                            line.append('P');
-                            break;
-                        case GHOST:
-                            line.append('G');
-                            break;
-                        case WALL:
-                            line.append('#');
-                            break;
-                        case SQUARE:
-                            line.append(' ');
-                            break;
-                        case PELLET:
-                            line.append('.');
-                            break;
-                        default:
-                    }
+                //Get the corresponding letter
+                Character c = ItemsColor.getLetterByRGBValue(img.getRGB(x, y));
+                if (c != null) {
+                    line.append(c);
                 }
             }
             lines.add(line.toString());

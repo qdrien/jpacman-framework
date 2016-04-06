@@ -53,7 +53,7 @@ public class AILevel extends Level {
         for (NPC g : ghosts) {
             npcs.put(g, null);
             if (g instanceof Ghost) {
-                addToGhostList((Ghost)g);
+                addToGhostList((Ghost) g);
             }
         }
     }

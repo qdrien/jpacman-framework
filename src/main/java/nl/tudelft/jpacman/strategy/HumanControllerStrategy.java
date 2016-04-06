@@ -23,7 +23,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
      * @param game    the current game
      * @param builder The UI builder that will be used
      */
-    public HumanControllerStrategy(Game game, PacManUiBuilder builder) {
+    public HumanControllerStrategy(final Game game, final PacManUiBuilder builder) {
         super(game);
         this.setGame(game);
         this.builder = builder;
@@ -46,11 +46,11 @@ public class HumanControllerStrategy extends PacmanStrategy {
      * @param game    The game that will process the events.
      */
     private void addSinglePlayerKeys(final PacManUiBuilder builder, final Game game) {
-        final IdentifiedPlayer p1 = game.getPlayers().get(0);
-        builder.addKey(KeyEvent.VK_UP, () -> game.continousMovement(p1, Direction.NORTH))
-                .addKey(KeyEvent.VK_DOWN, () -> game.continousMovement(p1, Direction.SOUTH))
-                .addKey(KeyEvent.VK_LEFT, () -> game.continousMovement(p1, Direction.WEST))
-                .addKey(KeyEvent.VK_RIGHT, () -> game.continousMovement(p1, Direction.EAST));
+        final IdentifiedPlayer player = game.getPlayers().get(0);
+        builder.addKey(KeyEvent.VK_UP, () -> game.continousMovement(player, Direction.NORTH))
+                .addKey(KeyEvent.VK_DOWN, () -> game.continousMovement(player, Direction.SOUTH))
+                .addKey(KeyEvent.VK_LEFT, () -> game.continousMovement(player, Direction.WEST))
+                .addKey(KeyEvent.VK_RIGHT, () -> game.continousMovement(player, Direction.EAST));
 
     }
 

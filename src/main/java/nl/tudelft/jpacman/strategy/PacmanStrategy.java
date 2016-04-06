@@ -58,7 +58,7 @@ public abstract class PacmanStrategy {
      *
      * @param game The Game
      */
-    void setGame(Game game) {
+    void setGame(final Game game) {
         this.game = game;
     }
 

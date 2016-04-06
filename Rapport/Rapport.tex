@@ -67,23 +67,23 @@
 
 \newpage
 
-
+	\renewcommand{\thesection}{\arabic{section}}
 	\tableofcontents
 	\newpage
 	\setcounter{secnumdepth}{3}
 	\setcounter{tocdepth}{4}
 	
 
-\chapter{Introduction}
+\section{Introduction}
 
-Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par Monsieur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielles vus au cours théorique. Il consiste à analyser et à étendre un projet pour ensuite l'évoluer à l'aide de \textit{"refactorings"}. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du professeur Arie van Deursen, Delft University of Technology (Pays-Bas).
+Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par Monsieur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielles vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du professeur Arie van Deursen, Delft University of Technology (Pays-Bas).
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
  Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
  
-\chapter{Extension du projet et ajout de tests unitaires pour cette extension }
+\section{Extension du projet et ajout de tests unitaires pour cette extension }
 
-\section{Extension du logiciel}
+\subsection{Extension du logiciel}
 
 La première partie de ce projet consistait à étendre la version initial de JPacman en ajoutant de nouvelles fonctionnalités et en suivant un processus de développement dirigé par les tests. De nouveaux tests unitaires ont donc été ajoutés pour chaque fonctionnalité afin de vérifier que le comportement initial du logiciel n’a pas été altéré. 
 
@@ -96,9 +96,11 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 
 \end{itemize}
 
-\subsection{Fonctionnalité "Score"}
-\subsection{Fonctionnalité "Série de labyrinthes"}
-\subsection{Fonctionnalité "IA pour Pacman"}
+\subsubsection{Fonctionnalité "Score"}
+\subsubsection{Fonctionnalité "Série de labyrinthes"}
+\subsubsection{Fonctionnalité "IA pour Pacman"}
+
+L'objectif de cette fonctionnalité est d'intégrer, au code existant, une intelligence artificielle pour Pacman afin qu'il puisse jouer de façon autonome tout en optimisant son score. En début de partie, le joueur doit pouvoir choisir entre contrôler Pacman manuellement ou être un spectateur passif de la partie en choisissant l'intelligence artificielle qui contrôlera Pacman à la place du joueur. Pour mettre en place cela, il a été recommandé d'utiliser un design pattern nommé "Strategy". Le design pattern "Strategy" consiste à définir un comportement (appelée "strategie") qui va permettre de différencier l'utilisation entre l'IA ou le contrôle manuel. Ce design pattern offre également une flexibilité pour modifier la stratégie suivie très facilement.
 
 
 
@@ -110,14 +112,14 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 
 
 
-\chapter{Refactorings avant analyse}
+\section{Refactorings avant analyse}
 %todo: ce qui était prévu juste après merge, qu'on avait laissé tel quel ds les parties individuelles pr éviter au maximum les conflits lors de l'intégration des PR
 
-\subsubsection{Fusion des tests sur \og Player \fg}
+\subsection{Fusion des tests sur \og Player \fg}
 %Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \og Ghost#getIdentity() \fg.
-\subsubsection{Déplacement de la variable retenant le niveau courant de \og Level \fg vers \og Game \fg}
+\subsection{Déplacement de la variable retenant le niveau courant de \og Level \fg vers \og Game \fg}
 %Plus logique et évite un problème de \og feature envy \fg 
-\subsubsection{Déplacement des méthodes concernant le \og map parser \fg de \og Launcher \fg vers \og Game \fg}
+\subsection{Déplacement des méthodes concernant le \og map parser \fg de \og Launcher \fg vers \og Game \fg}
 %Plus logique et évite que \og Game \fg doive avoir une référence vers le \og Launcher \fg qui l’a créé (pour pouvoir charger le niveau suivant en cas de \og victoire \fg)
 %A nécessité de passer des méthodes/variables en \og static \fg (une partie des accesseurs aux \og Factories \fg de \og Launcher \fg puisque \og MapParser \fg en a besoin) mais cela reste logique puisque ces méthodes/variables sont en effet uniques au runtime.
 
@@ -129,7 +131,7 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 
 
 
-\chapter{Analyse de la qualité du code source}
+\section{Analyse de la qualité du code source}
 
 Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
 
@@ -193,7 +195,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \subsection{PMD}
 \subsubsection{Déplacement des méthodes liées à la récupération des cases \og safe \fg pour téléporter le joueur de Level vers Board}
 %Plus logique et évite un problème de \og feature envy \fg desdites méthodes
-\subsubsection{Problème détecté par PMD : Level == godclass}
+\subsubsection{Problème détecté par PMD : Level == godclass et PacManhatanAI aussi}
 %Signifie que :
 %1.	Level a une \og cohésion interne \fg faible, nous sommes en effet très loin du seuil de 1/3 mais cela devait également être le cas dans la version de base
 %2.	Level accède à des attributs appartenant à trop de classes étrangères, encore une fois, peu de changements à ce niveau là par rapport à la version de base

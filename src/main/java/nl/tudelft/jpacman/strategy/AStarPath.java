@@ -16,24 +16,42 @@ import java.util.List;
  */
 public class AStarPath extends AStar<Square> {
     /**
-     * Initialization of constants used to select the best move based on the current game.
+     * Initialization of constants used
+     * to select the best move based on the current game.
      */
-    //The cost when you go to a square where there is a ghost
+    /**
+     * The cost when you go to a square where there is a ghost.
+     */
     public static final double GHOST_COST = 1000000;
-    //The cost when you go to a square nearest to a ghost
+    /**
+     * The cost when you go to a square nearest to a ghost.
+     */
     public static final double NEAREST_GHOST_COST = 500;
-    //The cost when you go to a square where there is a pellet
+    /**
+     * The cost when you go to a square where there is a pellet.
+     */
     public static final double PELLET_COST = 1;
-    //The cost when you go to empty square (no pellet)
+    /**
+     * The cost when you go to empty square (no pellet).
+     */
     public static final double EMPTY_COST = 5;
-    //Distance used to calculate a square cost near a ghost
+    /**
+     * Distance used to calculate a square cost near a ghost.
+     */
     public static final int DST_THRESHOLD = 3;
-    private final Board board; //The board game
-    private final List<Ghost> ghosts; // The list of the ghosts
+    /**
+     * The board game.
+     */
+    private final Board board;
+    /**
+     * The list of the ghosts
+     */
+    private final List<Ghost> ghosts;
     /**
      * The game's data.
+     * The square goal.
      */
-    private Square goalSquare; //The square goal
+    private Square goalSquare;
 
 
     /**
@@ -49,14 +67,13 @@ public class AStarPath extends AStar<Square> {
     /**
      * Compute the manhattan distance (called taxi-distance)
      * between a point (x,y) and a point (a,b).
-     *
      * @param x the x coordinate from first point
      * @param y the y coordinate from first point
      * @param a the x coordinate from second point
      * @param b the y coordinate from second point
      * @return the value of the distance
      */
-    public static double manhattanDistance(double x, double y, double a, double b) {
+    public final static double manhattanDistance(final double x, final double y, final double a, final double b) {
         return Math.abs(a - x) + Math.abs(b - y);
     }
 
@@ -67,7 +84,7 @@ public class AStarPath extends AStar<Square> {
      * @return true if it's the goal square
      */
     @Override
-    public boolean isGoal(Square square) {
+    public final boolean isGoal(final Square square) {
         return square.getX() == goalSquare.getX() && square.getY() == goalSquare.getY();
     }
 
@@ -76,7 +93,7 @@ public class AStarPath extends AStar<Square> {
      *
      * @param goal the goal square
      */
-    public void setGoal(Square goal) {
+    public void setGoal(final Square goal) {
         this.goalSquare = goal;
     }
 
@@ -88,10 +105,10 @@ public class AStarPath extends AStar<Square> {
      * @param player the player
      * @return the neighbor's list
      */
-    public static List<Square> getValidNeighbors(Square square, IdentifiedPlayer player) {
-        List<Square> neighborsList = square.getNeighbours();
-        List<Square> validNeighbors = new ArrayList<>(neighborsList);
-        Iterator<Square> iterator = validNeighbors.iterator();
+    public final static List<Square> getValidNeighbors(final Square square, final IdentifiedPlayer player) {
+        final List<Square> neighborsList = square.getNeighbours();
+        final List<Square> validNeighbors = new ArrayList<>(neighborsList);
+        final Iterator<Square> iterator = validNeighbors.iterator();
 
         while (iterator.hasNext()) {
             final Square neighborSquare = iterator.next();
@@ -123,7 +140,7 @@ public class AStarPath extends AStar<Square> {
      */
     @SuppressWarnings("checkstyle:methodlength")
     @Override
-    public Double g(Square originSquare, Square destinationSquare) {        if (originSquare.getX() == destinationSquare.getX()
+    public final Double g(final Square originSquare, final Square destinationSquare) {        if (originSquare.getX() == destinationSquare.getX()
                 && originSquare.getY() == destinationSquare.getY()) {
             return 0.0;
         } else {
@@ -162,7 +179,7 @@ public class AStarPath extends AStar<Square> {
      * @return the manhattan distance between two squares
      */
     @Override
-    public Double h(Square originSquare, Square destinationSquare) {
+    public final Double h(final Square originSquare, final Square destinationSquare) {
         return manhattanDistance(originSquare.getX(), originSquare.getY(),
                 destinationSquare.getX(), destinationSquare.getY());
     }
@@ -173,9 +190,9 @@ public class AStarPath extends AStar<Square> {
      * @param destinationSquare the square to check
      * @return true if the square is nearest to a square with a ghost
      */
-    public boolean nearestGhosts(Square destinationSquare) {
+    public final boolean nearestGhosts(final Square destinationSquare) {
 
-        for (Ghost ghost : ghosts) {
+        for (final Ghost ghost : ghosts) {
             final double dst =
                     manhattanDistance(destinationSquare.getX(), destinationSquare.getY(),
                             ghost.getSquare().getX(), ghost.getSquare().getY());
@@ -193,7 +210,7 @@ public class AStarPath extends AStar<Square> {
      * @return the neighbor's list of the square
      */
     @Override
-    protected List<Square> generateSuccessors(Square square) {
+    protected final List<Square> generateSuccessors(final Square square) {
         return getValidNeighbors(square, null);
     }
 
