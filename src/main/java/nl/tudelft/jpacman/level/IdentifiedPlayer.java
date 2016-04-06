@@ -76,8 +76,7 @@ public class IdentifiedPlayer extends Player {
         panel.add(passLabel);
         panel.add(passEntered);
         do {
-            int choice = buttonChoice(options, panel, loginEntered, "Identification");
-            if (choice != 0) {
+            if (buttonChoice(options, panel, loginEntered, "Identification") != 0) {
                 return false;
             }
         } while (!FileChecker.checkLoginInfo(getPlayerName(), passEntered.getPassword()));
