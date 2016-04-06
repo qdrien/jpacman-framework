@@ -40,7 +40,7 @@ public class PacManhattanAI extends AIStrategy {
     /**
      * The threshold distance between the player and a ghost.
      */
-    private static int ghostDstThreshold = INITIAL_GHOST_DST;
+    private int ghostDstThreshold = INITIAL_GHOST_DST;
     /**
      * The pacman game.
      */
