@@ -3,10 +3,8 @@ package nl.tudelft.jpacman;
 import nl.tudelft.jpacman.game.Achievement;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
@@ -35,7 +33,7 @@ public final class FileChecker {
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public static boolean checkUsername(final String name) throws IOException {
         String line;
-        final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(LOGIN_PATH), Charset.defaultCharset()));
         while ((line = reader.readLine()) != null) {
             if (name.equals(line.split(" ")[0])) {
                 JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
@@ -57,7 +55,7 @@ public final class FileChecker {
      */
     public static boolean checkLoginInfo(final String playerName, final char... passEntered) {
         try {
-            final BufferedReader reader = new BufferedReader(new FileReader(LOGIN_PATH));
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(LOGIN_PATH), Charset.defaultCharset()));
             String line = reader.readLine();
             while (line != null) {
                 final String[] split = line.split(" ");
@@ -86,7 +84,7 @@ public final class FileChecker {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public static boolean checkAchievement(final String profilePath, final Achievement achievement) throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         //the first line is ignored, since it contains other information.
         String line = reader.readLine();
         while ((line = reader.readLine()) != null) {
@@ -111,7 +109,7 @@ public final class FileChecker {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     public static String parseAchievements(final String profilePath, String achievements) throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         //first line ignored, it contains other other information
         String achievementName = reader.readLine();
         achievements += "<br>Achievements: <br>";

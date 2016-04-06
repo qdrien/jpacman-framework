@@ -3,6 +3,7 @@ package nl.tudelft.jpacman.game;
 import javax.swing.*;
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 /**
  * The Hall of Fame.
@@ -95,7 +96,7 @@ public class HallOfFame {
         score = pointsScored;
 
         try {
-            final BufferedReader reader = new BufferedReader(new FileReader(HOF_PATH));
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(HOF_PATH), Charset.defaultCharset()));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
                 final String[] split = reader.readLine().split(" ");
                 bestPlayers[i] = split[0];
@@ -167,7 +168,7 @@ public class HallOfFame {
      */
     private void saveUpdatedHoF(final int[] bestScores, final String... bestPlayers) {
         try {
-            final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
+            final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(HOF_PATH), Charset.defaultCharset()));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
                 writer.write(bestPlayers[i] + " " + bestScores[i] + "\n");
             }
