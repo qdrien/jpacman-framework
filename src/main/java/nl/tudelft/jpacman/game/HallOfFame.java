@@ -7,6 +7,7 @@ import java.nio.channels.FileChannel;
 /**
  * The Hall of Fame.
  */
+@SuppressWarnings("checkstyle:linelength")
 public class HallOfFame {
     /**
      * Number of best scores stored in the hall of fame and longest names allowed in hall of fame.
@@ -151,29 +152,11 @@ public class HallOfFame {
         String text = "";
         final String[] options = {"Leave", "Reset"};
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
-            text += formatDisplay(bestScores[i], bestPlayers[i]);
+            text += bestPlayers[i] + " " + bestScores[i] + "\n\n";
         }
-        final int buttonPressed = JOptionPane.showOptionDialog(null, text, "Hall of Fame",
-                JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (buttonPressed == 1) {
+        if (JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) == 1) {
             resetHoF();
         }
-    }
-
-    /**
-     * Formats the Hall of Fame's display.
-     *
-     * @param score  A score.
-     * @param player A player name.
-     * @return A formatted display.
-     */
-    //Trying to align the displays in 2 columns.
-    private String formatDisplay(final int score, final String player) {
-        String padding = "";
-        for (int i = NAME_LENGTH; i > player.length(); i--) {
-            padding += " ";
-        }
-        return player + padding + score + "\n\n";
     }
 
     /**
@@ -186,8 +169,7 @@ public class HallOfFame {
         try {
             final BufferedWriter writer = new BufferedWriter(new FileWriter(HOF_PATH));
             for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
-                writer.write(bestPlayers[i] + " "
-                        + bestScores[i] + "\n");
+                writer.write(bestPlayers[i] + " " + bestScores[i] + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -203,19 +185,14 @@ public class HallOfFame {
         int buttonPressed = 0;
         if (isNotATest) {
             final Object[] options = {"Yes", "No"};
-            buttonPressed = JOptionPane.showOptionDialog(null,
-                    "Do you really want to erase the Hall of Fame?", "Confirmation",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[1]);
+            buttonPressed = JOptionPane.showOptionDialog(null, "Do you really want to erase the Hall of Fame?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
         }
         if (buttonPressed == 0) {
             try {
-                final FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(),
-                        dest = new FileOutputStream(HOF_PATH).getChannel();
+                final FileChannel src = new FileInputStream(DEFAULT_HOF_PATH).getChannel(), dest = new FileOutputStream(HOF_PATH).getChannel();
                 dest.transferFrom(src, 0, src.size());
                 if (isNotATest) {
-                    JOptionPane.showMessageDialog(null, "Hall of Fame reset!", "Reset",
-                            JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Hall of Fame reset!");
                 }
             } catch (IOException e) {
                 System.err.println("Error whilst writing to HoF.txt " + e.getMessage());
