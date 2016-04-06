@@ -150,7 +150,7 @@ public class IdentifiedPlayer extends Player {
         if (getPlayerName() == null || FileChecker.checkAchievement(profilePath, achievement)) {
             return;
         }
-        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath), Charset.defaultCharset()));
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath, true), Charset.defaultCharset()));
         writer.write(achievement + System.getProperty("line.separator"));
         writer.close();
         final int bonus = achievement.getBonusScore();
