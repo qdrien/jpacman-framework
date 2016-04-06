@@ -15,7 +15,7 @@ public enum ItemsColor {
     private final int value;
 
     /**
-     * Constructor for the ItemsColor enum
+     * Constructor for the ItemsColor enum.
      *
      * @param color The given colour that has to be mapped to its corresponding RGB int value
      */
@@ -27,7 +27,8 @@ public enum ItemsColor {
      * Returns the letter that corresponds to the item whose colour matches the given RGB value.
      *
      * @param rgbValue The int representing a RGB value
-     * @return A letter representing the game object that matches the given RGB value or null if none matches
+     * @return A letter representing the game object that matches the given RGB value
+     *          or null if none matches
      */
     public static Character getLetterByRGBValue(final int rgbValue) {
         for (final ItemsColor c : ItemsColor.values()) {
