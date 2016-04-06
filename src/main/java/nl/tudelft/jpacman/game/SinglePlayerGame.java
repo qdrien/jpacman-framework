@@ -83,34 +83,6 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * Moves the player one square to the north if possible.
-     */
-    public void moveUp() {
-        move(player, Direction.NORTH);
-    }
-
-    /**
-     * Moves the player one square to the south if possible.
-     */
-    public void moveDown() {
-        move(player, Direction.SOUTH);
-    }
-
-    /**
-     * Moves the player one square to the west if possible.
-     */
-    public void moveLeft() {
-        move(player, Direction.WEST);
-    }
-
-    /**
-     * Moves the player one square to the east if possible.
-     */
-    public void moveRight() {
-        move(player, Direction.EAST);
-    }
-
-    /**
      * Resets the score (to 0) and the number of player lives (to 3)
      * (should be called when a new level is set "manually" i.e. using "level choice" radio buttons)
      */
