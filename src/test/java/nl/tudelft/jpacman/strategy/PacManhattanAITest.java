@@ -77,7 +77,6 @@ public class PacManhattanAITest {
     public void getValidNeighborsTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
-        final PacManhattanAI ai = new PacManhattanAI(game);
 
         List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare(), player);
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
