@@ -150,12 +150,12 @@ public class HallOfFame {
      * @param bestPlayers The list of players to display.
      */
     private void displayHoF(final int[] bestScores, final String... bestPlayers) {
-        String text = "";
+        StringBuilder builder = new StringBuilder();
         final String[] options = {"Leave", "Reset"};
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
-            text += bestPlayers[i] + " " + bestScores[i] + "\n\n";
+            builder.append(bestPlayers[i]).append(" ").append(bestScores[i]).append("\n\n");
         }
-        if (JOptionPane.showOptionDialog(null, text, "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) == 1) {
+        if (JOptionPane.showOptionDialog(null, builder.toString(), "Hall of Fame", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]) == 1) {
             resetHoF();
         }
     }
