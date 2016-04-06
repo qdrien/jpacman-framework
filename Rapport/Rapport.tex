@@ -89,15 +89,24 @@ La première partie de ce projet consistait à étendre la version initial de JP
 
 Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \begin{itemize}
-\item L'implémentation d'un score (réalisé par Damien Legay)
-\item L'implémentation d'une série de labyrinthes (réalisé par Adrien Coppens)
+\item L'implémentation d'un score (réalisée par Damien Legay)
+\item L'implémentation d'une série de labyrinthes (réalisée par Adrien Coppens)
 %todo: level <=> player <= pour pouvoir se téléporter puisque c'est level qui a le "board"
-\item L'implémentation d'une intelligence artificielle pour pacman (réalisé par Nicolas Leemans)
+\item L'implémentation d'une intelligence artificielle pour pacman (réalisée par Nicolas Leemans)
 
 \end{itemize}
 
 \subsubsection{Fonctionnalité "Score"}
 \subsubsection{Fonctionnalité "Série de labyrinthes"}
+Les ajouts à effectuer pour cette extension sont :
+\begin{enumerate}
+	\item Système de vies pour Pac-man, au nombre de 3 initialement,
+	\item Gain d'une vie supplémentaire tous les 10000 points,
+	\item Téléportation de Pac-man lorsqu'il est tué par un fantôme (et qu'il lui reste au moins une vie),
+	\item Ajouts d'autres niveaux en préservant la vie et le score de Pac-man lors du passage au niveau suivant (ce qui se produit lorsque toutes les gommes ont été ramassées),
+	\item Sauvegarde du \og meilleur \fg \, niveau atteint pour pouvoir, par la suite, débuter directement à un niveau précédemment accédé.
+\end{enumerate}
+%todo: comment? (check commits)
 \subsubsection{Fonctionnalité "IA pour Pacman"}
 
 L'objectif de cette fonctionnalité est d'intégrer, au code existant, une intelligence artificielle pour Pacman afin qu'il puisse jouer de façon autonome tout en optimisant son score. En début de partie, le joueur doit pouvoir choisir entre contrôler Pacman manuellement ou être un spectateur passif de la partie en choisissant l'intelligence artificielle qui contrôlera Pacman à la place du joueur. Pour mettre en place cela, il a été recommandé d'utiliser un design pattern nommé "Strategy". Le design pattern "Strategy" consiste à définir un comportement (appelée "strategie") qui va permettre de différencier l'utilisation entre l'IA ou le contrôle manuel. Ce design pattern offre également une flexibilité pour modifier la stratégie suivie très facilement.
@@ -212,6 +221,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 %todo: ? différence avec analyse de qualité ? voulais-tu créer ici la section "analyse de la qualité dans le temps" (régression avec par ex. R, comme en TP) ?
 %todo: lier "analyse dans le temps" avec les lois vues en cours
 \section{Notes diverses et guide d'utilisation}
+\subsection{Maven}
 Le projet utilisant Maven\footnote{\url{https://maven.apache.org/}}, il est très facile de compiler le code, de l'analyser avec les outils prévus ou d'exécuter la suite de tests.
 En considérant que cet outil est correctement installé sur votre machine et en plaçant un terminal (une invite de commande ou autre terme décrivant une \og console \fg \, sur votre système d'exploitation) à la racine du projet (l'endroit où se trouve le fichier "pom.xml"), vous pouvez :
 \begin{itemize}
@@ -230,8 +240,16 @@ En considérant que cet outil est correctement installé sur votre machine et en
 	\item D'autres commandes sont évidemment disponibles pour, par exemple, générer la javadoc séparément mais ne sont pas reprises ici.
 \end{itemize}
 
+\subsection{Travis}
+Puisque le projet JPacman dans son état \og initial \fg \, (avant modifications de notre part) intégrait déjà le fichier de configuration Travis\footnote{\url{https://travis-ci.org/}}, nous l'avons utilisé sur nos différents \og forks \fg .
+L'historique des \og builds \fg \, (avec leurs logs) est disponible à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
 
-%todo: "build state" travis dispo
+\subsection{Spécificités des ajouts individuels}
+\subsubsection{Fonctionnalité "Série de labyrinthes"}
+\begin{itemize}
+	\item %todo: spécificités de config en référançant la section de début
+\end{itemize}
+
 %todo: note sur QUICK_WIN + "level generator" + convention de nommage des fichiers de level
 %todo: note sur les branches git
 %todo: note sur les tags des releases (+tagger la release finale!!!)
