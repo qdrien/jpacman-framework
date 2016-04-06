@@ -46,7 +46,7 @@ public class MyJDialogStrategy extends JDialog {
         this.game = game;
         this.pacManUI = pacManUI;
         final Point p = new Point(100, 100);
-        setLocation(p.x, p.y);// set the position of the window
+        setLocation(p.x, p.y); // set the position of the window
         // Create a message
         final JPanel messagePane = new JPanel();
         messagePane.add(new JLabel("Choose a game mode and then click to start"));

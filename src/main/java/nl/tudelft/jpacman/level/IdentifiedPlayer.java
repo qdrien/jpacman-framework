@@ -162,7 +162,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Creates new player profile.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
+    @SuppressWarnings({"PMD.DataFlowAnomalyAnalysis", "checkstyle:methodlength"}) //the initialisations are required.
     public void createNewPlayer() {
         final String[] options = {"Ok", "Cancel"};
         final JPanel panel = new JPanel();
