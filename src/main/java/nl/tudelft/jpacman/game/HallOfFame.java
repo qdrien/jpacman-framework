@@ -129,7 +129,7 @@ public class HallOfFame {
                 }
                 //In case the player isn't logged in.
                 if (playerName == null && !ham) {
-                    bestPlayers[i] = askName();
+                    bestPlayers[i] = JOptionPane.showInputDialog("Enter your name: ").substring(0, NAME_LENGTH);
                 } else {
                     bestPlayers[i] = playerName;
                 }
@@ -139,23 +139,6 @@ public class HallOfFame {
                 break;
             }
         }
-    }
-
-    /**
-     * Asks the player's name to store in the Hall of Fame is the player is not logged in.
-     *
-     * @return The name.
-     */
-    private String askName() {
-        final String[] options = {"Ok"};
-        final JPanel panel = new JPanel();
-        final JLabel label = new JLabel("Enter your name: ");
-        final JTextField userInput = new JTextField(NAME_LENGTH);
-        panel.add(label);
-        panel.add(userInput);
-        JOptionPane.showOptionDialog(null, panel, "New High Score!",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        return userInput.getText();
     }
 
     /**
