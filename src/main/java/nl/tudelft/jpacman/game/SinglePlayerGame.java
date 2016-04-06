@@ -71,7 +71,6 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
-        System.out.println("Just won level: " + getCurrentLevel());
         try {
             player.levelCompleted(getCurrentLevel());
         } catch (IOException e) {
