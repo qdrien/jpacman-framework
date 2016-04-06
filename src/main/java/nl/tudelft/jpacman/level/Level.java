@@ -232,7 +232,7 @@ public abstract class Level implements PlayerListener {
      * @return The amount of pellets remaining on the board or 0 if 'finished' is true.
      */
     public int remainingPellets() {
-        if(finished) {
+        if (finished) {
             return 0;
         }
         Board b = getBoard();
