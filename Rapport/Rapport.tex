@@ -212,11 +212,29 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 %todo: ? différence avec analyse de qualité ? voulais-tu créer ici la section "analyse de la qualité dans le temps" (régression avec par ex. R, comme en TP) ?
 %todo: lier "analyse dans le temps" avec les lois vues en cours
 \section{Notes diverses et guide d'utilisation}
+Le projet utilisant Maven\footnote{\url{https://maven.apache.org/}}, il est très facile de compiler le code, de l'analyser avec les outils prévus ou d'exécuter la suite de tests.
+En considérant que cet outil est correctement installé sur votre machine et en plaçant un terminal (une invite de commande ou autre terme décrivant une \og console \fg \, sur votre système d'exploitation) à la racine du projet (l'endroit où se trouve le fichier "pom.xml"), vous pouvez :
+\begin{itemize}
+	\item Exécuter les tests via :
+	\begin{lstlisting}[language=bash]
+	$ mvn test
+	\end{lstlisting}
+	\item Compiler le projet en produisant une archive "jar" exécutable (inclus l'exécution des tests) via :
+	\begin{lstlisting}[language=bash]
+	$ mvn package
+	\end{lstlisting}
+	\item Générer le site Maven (inclus les étapes précédentes, la javadoc et des rapports d'analyse; le site généré étant accessible en ouvrant \nolinkurl{target/site/index.html}) via :
+	\begin{lstlisting}[language=bash]
+	$ mvn site
+	\end{lstlisting}
+	\item D'autres commandes sont évidemment disponibles pour, par exemple, générer la javadoc séparément mais ne sont pas reprises ici.
+\end{itemize}
+
+
 %todo: "build state" travis dispo
 %todo: note sur QUICK_WIN + "level generator" + convention de nommage des fichiers de level
 %todo: note sur les branches git
 %todo: note sur les tags des releases (+tagger la release finale!!!)
-%todo: maven, build/test/site
 %todo: build la javadoc et l'ajouter au repo!!!
 %todo: optimize imports/reformat code!!!
 \section{Conclusion de l'analyse}
