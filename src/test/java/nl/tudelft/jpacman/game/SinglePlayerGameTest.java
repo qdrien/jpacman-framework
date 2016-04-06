@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.game;
 
+import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import org.junit.Before;
@@ -59,6 +60,22 @@ public class SinglePlayerGameTest {
         game.nextLevel();
         assertEquals("current level hasn't been correctly updated",
                 initialLevel + 1, game.getCurrentLevel());
+    }
+
+    /**
+     * This is a regression test that aims to reproduce a bug that appeared
+     * when multiple calls to the level's observers were made from a "level won" state.
+     */
+    @Test
+    public void multipleCallsToObservers() {
+        game.setLevel(1);
+        int startingLevel = game.getCurrentLevel();
+        AILevel level = game.getLevel();
+        level.addObserver(game);
+        level.setFinished();
+        level.updateObservers();
+        level.updateObservers(); //without the fix, this would get the user to level 3 directly
+        assertEquals("", startingLevel + 1, game.getCurrentLevel());
     }
 
 }

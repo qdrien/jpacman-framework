@@ -68,6 +68,7 @@ public abstract class Level implements PlayerListener {
      * The amount of pellets there were when the level started.
      */
     private int initialPelletCount = -1;
+    private boolean finished;
 
     /**
      * Creates a new level for the board.
@@ -195,7 +196,7 @@ public abstract class Level implements PlayerListener {
     /**
      * Updates the observers about the state of this level.
      */
-    protected void updateObservers() {
+    public void updateObservers() {
         if (initialPelletCount == -1) {
             initialPelletCount = remainingPellets();
         }
@@ -228,9 +229,12 @@ public abstract class Level implements PlayerListener {
     /**
      * Counts the pellets remaining on the board.
      *
-     * @return The amount of pellets remaining on the board.
+     * @return The amount of pellets remaining on the board or 0 if 'finished' is true.
      */
     public int remainingPellets() {
+        if(finished) {
+            return 0;
+        }
         Board b = getBoard();
         int pellets = 0;
         for (int x = 0; x < b.getWidth(); x++) {
@@ -304,6 +308,15 @@ public abstract class Level implements PlayerListener {
     private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
         return board.getPossibleSquares(players.get(0));
+    }
+
+    /**
+     * Simple setter for the 'finished' field that allows a level
+     * to be considered finished for testing purposes.
+     * (remainingPellets should therefore return 0 in all circumstances)
+     */
+    public void setFinished() {
+        finished = true;
     }
 
     /**
