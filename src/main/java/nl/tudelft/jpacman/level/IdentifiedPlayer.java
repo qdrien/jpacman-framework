@@ -325,9 +325,7 @@ public class IdentifiedPlayer extends Player {
         }
         String toDisplay = "<html>";
         try {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
-            final String[] split = reader.readLine().split(" ");
-            reader.close();
+            final String[] split = getInfoLine();
             toDisplay += "Levels completed: " + split[0];
             toDisplay += "<br>High score: " + split[1];
             toDisplay += "<br>Ghosts killed: " + split[2];
