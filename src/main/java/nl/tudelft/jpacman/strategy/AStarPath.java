@@ -44,7 +44,7 @@ public class AStarPath extends AStar<Square> {
      */
     private final Board board;
     /**
-     * The list of the ghosts
+     * The list of the ghosts.
      */
     private final List<Ghost> ghosts;
     /**
@@ -65,6 +65,7 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
+     *
      * Compute the manhattan distance (called taxi-distance)
      * between a point (x,y) and a point (a,b).
      * @param x the x coordinate from first point
@@ -73,7 +74,8 @@ public class AStarPath extends AStar<Square> {
      * @param b the y coordinate from second point
      * @return the value of the distance
      */
-    public final static double manhattanDistance(final double x, final double y, final double a, final double b) {
+    @SuppressWarnings("checkstyle:linelength")
+    public static double manhattanDistance(final double x, final double y, final double a, final double b) {
         return Math.abs(a - x) + Math.abs(b - y);
     }
 
@@ -105,7 +107,8 @@ public class AStarPath extends AStar<Square> {
      * @param player the player
      * @return the neighbor's list
      */
-    public final static List<Square> getValidNeighbors(final Square square, final IdentifiedPlayer player) {
+    @SuppressWarnings("checkstyle:linelength")
+    public static List<Square> getValidNeighbors(final Square square, final IdentifiedPlayer player) {
         final List<Square> neighborsList = square.getNeighbours();
         final List<Square> validNeighbors = new ArrayList<>(neighborsList);
         final Iterator<Square> iterator = validNeighbors.iterator();
@@ -140,7 +143,8 @@ public class AStarPath extends AStar<Square> {
      */
     @SuppressWarnings("checkstyle:methodlength")
     @Override
-    public final Double g(final Square originSquare, final Square destinationSquare) {        if (originSquare.getX() == destinationSquare.getX()
+    public final Double g(final Square originSquare, final Square destinationSquare) {
+        if (originSquare.getX() == destinationSquare.getX()
                 && originSquare.getY() == destinationSquare.getY()) {
             return 0.0;
         } else {

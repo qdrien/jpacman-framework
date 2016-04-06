@@ -17,11 +17,11 @@ public abstract class AIStrategy extends PacmanStrategy {
      */
     private final IdentifiedPlayer player;
     /**
-     * The board game
+     * The board game.
      */
     private final Board board;
     /**
-     * The ghosts list
+     * The ghosts list.
      */
     private final List<Ghost> ghosts;
 

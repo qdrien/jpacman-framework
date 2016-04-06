@@ -40,7 +40,8 @@ public class PacManhattanAI extends AIStrategy {
     /**
      * The threshold distance between the player and a ghost.
      */
-    private static int ghostDstThreshold = INITIAL_GHOST_DST;
+    @SuppressWarnings("checkstyle:magicnumber")
+    private static int ghostDstThreshold = 14;
     /**
      * The pacman game.
      */
@@ -159,6 +160,7 @@ public class PacManhattanAI extends AIStrategy {
      * @return the nearest safe square where
      * there is a pellet, null if no safe pellet found.
      */
+    @SuppressWarnings("checkstyle:methodlength")
     public Square bfsNearestSafetyPelletSquare() {
         for (int i = 0; i < getBoard().getHeight(); ++i) {
             Arrays.fill(visitedSquare[i], false);
@@ -178,7 +180,7 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                final List<Square> neighborsList = AStarPath.getValidNeighbors(square,getPlayer());
+                final List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
                         .forEach(neighborSquare -> {
                             if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {

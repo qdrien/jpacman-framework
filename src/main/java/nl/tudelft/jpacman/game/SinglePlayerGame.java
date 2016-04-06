@@ -1,10 +1,8 @@
 package nl.tudelft.jpacman.game;
 
 import com.google.common.collect.ImmutableList;
-import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -73,7 +71,6 @@ public class SinglePlayerGame extends Game {
     @Override
     public void levelWon() {
         super.levelWon();
-        System.out.println("Just won level: " + getCurrentLevel());
         try {
             player.levelCompleted(getCurrentLevel());
         } catch (IOException e) {

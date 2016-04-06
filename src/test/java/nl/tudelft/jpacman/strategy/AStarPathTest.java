@@ -280,7 +280,7 @@ public class AStarPathTest {
      */
     @SuppressWarnings("methodlength")
     @Test
-    public void gTest() {
+    public void ghTest() {
         final Game game = launcher.getGame();
         assertFalse(game.isInProgress());
         assertNotNull(game);
@@ -316,6 +316,15 @@ public class AStarPathTest {
                 .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
         assertEquals(aStarPath.g(origin, destinationNearestGhost), Double.valueOf(500.0));
 
+        assertEquals(aStarPath.h(origin, destination), Double.valueOf(1.0));
+        assertEquals(aStarPath.h(origin, destination2), Double.valueOf(2.0));
+
+        assertEquals(aStarPath.h(origin, destination3), Double.valueOf(1.0));
+        assertEquals(aStarPath.h(origin, destination4), Double.valueOf(2.0));
+
+        assertEquals(aStarPath.h(destination, destination4), Double.valueOf(3.0));
+        assertEquals(aStarPath.h(destination3, destination4), Double.valueOf(1.0));
+
     }
 
     /**
@@ -338,21 +347,9 @@ public class AStarPathTest {
         assertNotNull(square);
 
         final Square origin = player.getSquare();
-        final Square destination = player.getSquare().getSquareAt(Direction.EAST);
-        final Square destination2 = player.getSquare().getSquareAt(Direction.EAST)
-                .getSquareAt(Direction.EAST);
-
-        final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
-        final Square destination4 = player.getSquare().getSquareAt(Direction.WEST)
-                .getSquareAt(Direction.WEST);
+        final Square destination = player.getSquare().
+                getSquareAt(Direction.SOUTH);
 
         assertEquals(aStarPath.h(origin, destination), Double.valueOf(1.0));
-        assertEquals(aStarPath.h(origin, destination2), Double.valueOf(2.0));
-
-        assertEquals(aStarPath.h(origin, destination3), Double.valueOf(1.0));
-        assertEquals(aStarPath.h(origin, destination4), Double.valueOf(2.0));
-
-        assertEquals(aStarPath.h(destination, destination4), Double.valueOf(3.0));
-        assertEquals(aStarPath.h(destination3, destination4), Double.valueOf(1.0));
     }
 }

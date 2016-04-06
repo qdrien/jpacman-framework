@@ -1,7 +1,7 @@
 package nl.tudelft.jpacman.ui;
 
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
+import nl.tudelft.jpacman.ui.PlayerInfosPanel.ScoreFormatter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ public class PacManUI extends JFrame {
     /**
      * The panel displaying the player scores.
      */
-    private final ScorePanel scorePanel;
+    private final PlayerInfosPanel playerInfosPanel;
 
     /**
      * The panel displaying the game.
@@ -76,9 +76,9 @@ public class PacManUI extends JFrame {
         buttonPanel = new ButtonPanel(buttons, this);
         addLevelChoiceButtons(game);
 
-        scorePanel = new ScorePanel(game.getPlayers());
+        playerInfosPanel = new PlayerInfosPanel(game.getPlayers());
         if (sf != null) {
-            scorePanel.setScoreFormatter(sf);
+            playerInfosPanel.setScoreFormatter(sf);
         }
 
         boardPanel = new BoardPanel(game);
@@ -86,7 +86,7 @@ public class PacManUI extends JFrame {
         final Container contentPanel = getContentPane();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-        contentPanel.add(scorePanel, BorderLayout.NORTH);
+        contentPanel.add(playerInfosPanel, BorderLayout.NORTH);
         contentPanel.add(boardPanel, BorderLayout.CENTER);
 
         pack();
@@ -140,7 +140,7 @@ public class PacManUI extends JFrame {
      */
     private void nextFrame() {
         boardPanel.repaint();
-        scorePanel.refresh();
+        playerInfosPanel.refresh();
     }
 
     /**
