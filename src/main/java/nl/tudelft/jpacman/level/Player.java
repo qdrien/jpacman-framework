@@ -161,7 +161,6 @@ public class Player extends Unit {
      */
     public void loseLife() {
         lives--;
-        //todo: update lives count in the UI
         if (lives == 0) {
             setAlive(false);
         } else {
