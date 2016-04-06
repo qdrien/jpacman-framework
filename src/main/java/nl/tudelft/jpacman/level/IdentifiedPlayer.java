@@ -175,7 +175,9 @@ public class IdentifiedPlayer extends Player {
         panel.add(passEntered);
         try {
             do {
-                if (buttonChoice(options, panel, loginEntered, "Profile creation") != 0) return;
+                if (buttonChoice(options, panel, loginEntered, "Profile creation") != 0) {
+                    return;
+                }
             } while (FileChecker.checkUsername(getPlayerName()));
             BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
             writer.write(getPlayerName() + " " + Arrays.hashCode(passEntered.getPassword()) + "\n");
