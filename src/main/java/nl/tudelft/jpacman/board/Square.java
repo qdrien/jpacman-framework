@@ -193,6 +193,7 @@ public abstract class Square {
      * @param square todo: nicolas
      * @return true if squares are equals, false otherwise
      */
+//TODO nicolas:Covariant equals() method defined, Object.equals() inherited: class should probably define a boolean equals(Object) method
     public boolean equals(Square square) { //todo: nicolas: Definition of 'equals()' without corresponding definition of 'hashCode()'.
         return this.getX() == square.getX() && this.getY() == square.getY();
     }
