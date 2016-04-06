@@ -12,8 +12,11 @@ import static org.junit.Assert.assertNotNull;
  * Class to test the creation of window
  * to chose strategy in the game.
  */
-public class MyJDialogStrategyTest
-{
+public class MyJDialogStrategyTest {
+    /**
+     * Test the creation of the dialog.
+     */
+    @SuppressWarnings("checkstyle:magicnumber")
     @Test
     public void chosenStrategyDialogTest() {
         final MyJDialogStrategy dialog =
@@ -23,8 +26,6 @@ public class MyJDialogStrategyTest
         assertNotNull(dialog);
         assertEquals(dialog.getY(), 100);
         assertEquals(dialog.getX(), 100);
-
-
     }
 
 }
