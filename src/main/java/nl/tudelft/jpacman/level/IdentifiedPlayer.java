@@ -9,6 +9,7 @@ import nl.tudelft.jpacman.sprite.Sprite;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -149,7 +150,7 @@ public class IdentifiedPlayer extends Player {
         if (getPlayerName() == null || FileChecker.checkAchievement(profilePath, achievement)) {
             return;
         }
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath, true));
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath, true), Charset.defaultCharset()));
         writer.write(achievement + System.getProperty("line.separator"));
         writer.close();
         final int bonus = achievement.getBonusScore();
@@ -177,7 +178,7 @@ public class IdentifiedPlayer extends Player {
             do {
                 if (buttonChoice(options, panel, loginEntered, "Profile creation") != 0) return;
             } while (FileChecker.checkUsername(getPlayerName()));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(LOGIN_PATH, true));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(LOGIN_PATH, true), Charset.defaultCharset()));
             writer.write(getPlayerName() + " " + Arrays.hashCode(passEntered.getPassword()) + "\n");
             writer.close();
             new File(new File("").getAbsolutePath() + "/src/main/resources/profiles").mkdir();
@@ -185,7 +186,7 @@ public class IdentifiedPlayer extends Player {
                 setProfilePath();
                 JOptionPane.showMessageDialog(null, "Profile created", "Success", JOptionPane.PLAIN_MESSAGE);
             }
-            writer = new BufferedWriter(new FileWriter(profilePath));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath), Charset.defaultCharset()));
             //0 levels completed, 0 high score achieved, 0 fruits eaten, 0 ghosts killed, 0 times killed by Blinky, 0 times killed by Pinky, 0 times killed by Inky, 0 times killed by Clyde.
             writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
             writer.close();
@@ -209,11 +210,11 @@ public class IdentifiedPlayer extends Player {
         final int levelsCompleted = Integer.parseInt(split[0]);
         addAchievement(Achievement.VICTOR);
         if (level > levelsCompleted) {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (int i = 1; i < split.length; i++) {
-                result += split[i] + " ";
+                result.append(split[i]).append(" ");
             }
-            setInfoLine(level + " " + result);
+            setInfoLine(level + " " + result.toString());
             if (levelsCompleted >= 3) {
                 addAchievement(Achievement.WON_THRICE);
             }
@@ -227,7 +228,7 @@ public class IdentifiedPlayer extends Player {
      * @throws IOException If the file cannot be found or read.
      */
     private String[] getInfoLine() throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         final String[] split = reader.readLine().split(" ");
         reader.close();
         return split;
@@ -241,15 +242,15 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private void setInfoLine(String toWrite) throws IOException {
-        toWrite += System.getProperty("line.separator");
-        final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
+        StringBuilder bs = new StringBuilder().append(System.getProperty("line.separator"));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         String line = reader.readLine(); //ignore first line, it's already included.
         while ((line = reader.readLine()) != null) {
-            toWrite += line + System.getProperty("line.separator");
+            bs.append(line).append(System.getProperty("line.separator"));
         }
         reader.close();
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(profilePath));
-        writer.write(toWrite);
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath), Charset.defaultCharset()));
+        writer.write(toWrite.toString());
         writer.close();
     }
 
@@ -265,17 +266,17 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        String toWrite = "";
+        StringBuilder bs = new StringBuilder();
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
             if (i == killer.getIndex()) {
-                toWrite += Integer.parseInt(split[i]) + 1 + " ";
+                bs.append(Integer.parseInt(split[i]) + 1).append(" ");
             }
             else {
-                toWrite += split[i] + " ";
+                bs.append(split[i]).append(" ");
             }
         }
-        setInfoLine(toWrite);
+        setInfoLine(bs.toString());
         if (toGrant != null) {
             addAchievement(toGrant);
         }
@@ -294,7 +295,7 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        String toWrite = "";
+        StringBuilder bs = new StringBuilder();
         int highScore = Integer.parseInt(split[1]);
         if (getScore() > 9000) {
             addAchievement(Achievement.OVER_9000);
@@ -304,13 +305,13 @@ public class IdentifiedPlayer extends Player {
         }
         for (int i = 0; i < split.length; i++) {
             if (i == 1) {
-                toWrite += highScore + " ";
+                bs.append(highScore).append(" ");
             }
             else {
-                toWrite += split[i] + " ";
+                bs.append(split[i]).append(" ");
             }
         }
-        setInfoLine(toWrite);
+        setInfoLine(bs.toString());
     }
 
     /**
@@ -324,9 +325,7 @@ public class IdentifiedPlayer extends Player {
         }
         String toDisplay = "<html>";
         try {
-            final BufferedReader reader = new BufferedReader(new FileReader(profilePath));
-            final String[] split = reader.readLine().split(" ");
-            reader.close();
+            final String[] split = getInfoLine();
             toDisplay += "Levels completed: " + split[0];
             toDisplay += "<br>High score: " + split[1];
             toDisplay += "<br>Ghosts killed: " + split[2];
