@@ -119,6 +119,7 @@ public class Launcher {
 
     /**
      * Creates and starts a JPac-Man game.
+     * @param test a boolean set to true if called by unit test, false otherwise
      */
     public void launch(boolean test) {
         game = makeGame();
@@ -140,8 +141,7 @@ public class Launcher {
         builder.addButton("Stats", () -> game.getPlayers().get(0).displayProfileStats());
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
-        if(!test)
-        {
+        if (!test) {
             final MyJDialogStrategy dialog =
                     new MyJDialogStrategy(new JFrame(), builder, game, pacManUI);
             dialog.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
