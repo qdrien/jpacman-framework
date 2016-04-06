@@ -67,11 +67,11 @@ public class Launcher {
      * @throws IOException When a resource could not be read.
      */
     public static void main(String[] args) throws IOException {
-        new Launcher().launch();
+        new Launcher().launch(false);
     }
 
     /**
-     * @return The game object this launcher will start when {@link #launch()}
+     * @return The game object this launcher will start when launch
      * is called.
      */
     public Game getGame() {
@@ -120,7 +120,7 @@ public class Launcher {
     /**
      * Creates and starts a JPac-Man game.
      */
-    public void launch() {
+    public void launch(boolean test) {
         game = makeGame();
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         builder.addButton("Identification", () ->
@@ -140,11 +140,14 @@ public class Launcher {
         builder.addButton("Stats", () -> game.getPlayers().get(0).displayProfileStats());
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
-        final MyJDialogStrategy dialog =
-                new MyJDialogStrategy(new JFrame(), builder, game, pacManUI);
-        dialog.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
-        //prevents the user from closing the dialog via the upper-right corner "X"
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        if(!test)
+        {
+            final MyJDialogStrategy dialog =
+                    new MyJDialogStrategy(new JFrame(), builder, game, pacManUI);
+            dialog.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+            //prevents the user from closing the dialog via the upper-right corner "X"
+            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
     }
 
     /**

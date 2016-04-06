@@ -41,7 +41,7 @@ public class IdentifiedPlayerTest {
     @Before
     public void setUp() throws IOException {
         final Launcher launcher = new Launcher();
-        launcher.launch();
+        launcher.launch(true);
         player = launcher.getGame().getPlayers().get(0);
         IdentifiedPlayer.setIsNotATest();
         player.setProfilePath(PATH);

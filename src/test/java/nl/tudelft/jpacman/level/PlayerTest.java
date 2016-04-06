@@ -25,7 +25,7 @@ public class PlayerTest {
     @BeforeClass
     public static void init() {
         final Launcher launcher = new Launcher();
-        launcher.launch();
+        launcher.launch(true);
         player = launcher.getGame().getPlayers().get(0);
     }
 

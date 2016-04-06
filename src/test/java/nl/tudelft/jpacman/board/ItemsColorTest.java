@@ -5,16 +5,16 @@ import org.junit.Test;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
- * Tests methods that deal with translating colours to game objects or their corresponding letters.
+ * Tests methods that deal with translating colours to game objects.
  */
 public class ItemsColorTest {
 
     /**
-     * Tests that getLetterByRGBValue returns correct characters for some colours.
-     * Note that this test depends on {@link ItemsColor#correspondingLetter(ItemsColor)}
-     * which means it isn't really a unit test (but one cannot mock an enum apparently)
+     * Tests that getLetterByRGBValue returns correct characters for some colours
+     * and null for an 'unknown' colour.
      */
     @Test
     public void testGetLetterByRGBValue() {
@@ -22,16 +22,7 @@ public class ItemsColorTest {
                 Character.valueOf('#'), ItemsColor.getLetterByRGBValue(Color.BLUE.getRGB()));
         assertEquals("A yellow colour should have returned the letter 'P' for pacman",
                 Character.valueOf('P'), ItemsColor.getLetterByRGBValue(Color.YELLOW.getRGB()));
-    }
-
-    /**
-     * Tests that correspondingLetters returns the corresponding characters.
-     */
-    @Test
-    public void testCorrespondingLetter() {
-        assertEquals("A ghost item should have returned the letter 'G'",
-                Character.valueOf('G'), ItemsColor.correspondingLetter(ItemsColor.GHOST));
-        assertEquals("A square item should have returned a whitespace",
-                Character.valueOf(' '), ItemsColor.correspondingLetter(ItemsColor.SQUARE));
+        assertNull("A yellow colour should have returned the letter 'P' for pacman",
+                ItemsColor.getLetterByRGBValue(Color.CYAN.getRGB()));
     }
 }

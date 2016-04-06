@@ -3,24 +3,27 @@ package nl.tudelft.jpacman.board;
 import java.awt.*;
 
 /**
- * Contains the mapping between pacman items and their corresponding color.
+ * Contains the mapping between pacman items and their corresponding color/letter.
  */
 public enum ItemsColor {
-    PACMAN(Color.YELLOW),
-    GHOST(Color.RED),
-    WALL(Color.BLUE),
-    SQUARE(Color.BLACK),
-    PELLET(Color.WHITE);
+    PACMAN(Color.YELLOW, 'P'),
+    GHOST(Color.RED, 'G'),
+    WALL(Color.BLUE, '#'),
+    SQUARE(Color.BLACK, ' '),
+    PELLET(Color.WHITE, '.');
 
-    private final int value;
+    private final int color;
+    private final char character;
 
     /**
      * Constructor for the ItemsColor enum.
      *
-     * @param color The given colour that has to be mapped to its corresponding RGB int value
+     * @param color The colour of the game object in the "image" map format
+     * @param character The character corresponding to the game object in the map parser format
      */
-    ItemsColor(final Color color) {
-        this.value = color.getRGB();
+    ItemsColor(final Color color, char character) {
+        this.color = color.getRGB();
+        this.character = character;
     }
 
     /**
@@ -32,35 +35,11 @@ public enum ItemsColor {
      */
     public static Character getLetterByRGBValue(final int rgbValue) {
         for (final ItemsColor c : ItemsColor.values()) {
-            if (rgbValue == c.value) {
-                return correspondingLetter(c);
+            if (rgbValue == c.color) {
+                return c.character;
             }
         }
         System.err.println("Unknown color: " + rgbValue);
         return null;
-    }
-
-    /**
-     * Retrieves the letter that corresponds to the given item colour.
-     * @param item The given item's colour
-     * @return A Character representing the item's type for the map parser
-     *          or null if the item is of unknown type
-     */
-    public static Character correspondingLetter(ItemsColor item) {
-        switch (item) {
-            case PACMAN:
-                return 'P';
-            case GHOST:
-                return 'G';
-            case WALL:
-                return '#';
-            case SQUARE:
-                return ' ';
-            case PELLET:
-                return '.';
-            default:
-                System.err.println("Unknown item: " + item);
-                return null;
-        }
     }
 }

@@ -24,7 +24,7 @@ public class HumanControllerStrategyTest {
     @Before
     public void setUpPacman() {
         launcher = new Launcher();
-        launcher.launch();
+        launcher.launch(true);
     }
 
     /**
