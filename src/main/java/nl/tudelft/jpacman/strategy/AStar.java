@@ -222,6 +222,7 @@ public abstract class AStar<T> {
         public int compareTo(final Object o) {
 
             @SuppressWarnings("unchecked")
+            //TODO seriously, neither Intellij code inspection, nor PMD, nor findbugs are happy with this.
             final Path p = (Path) o;
             return (int) (f - p.f);
         }

@@ -40,6 +40,7 @@ public final class FileChecker {
             if (name.equals(line.split(" ")[0])) {
                 JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
                         JOptionPane.PLAIN_MESSAGE);
+                reader.close();
                 return true;
             }
         }
@@ -62,6 +63,7 @@ public final class FileChecker {
                 final String[] split = line.split(" ");
                 if (split[0].equals(playerName)
                         && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) {
+                    reader.close();
                     return true;
                 }
                 line = reader.readLine();
@@ -91,6 +93,7 @@ public final class FileChecker {
             //Removing whitespace just in case the file has been manually edited.
             line = line.replaceAll("\\s+", "");
             if (line.equals(achievement.toString())) {
+                reader.close();
                 return true;
             }
         }
