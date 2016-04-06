@@ -93,7 +93,7 @@ public class IdentifiedPlayerTest {
             if (line.equals(Achievement.SPEEDY_DEATH.toString())) {
                 speedyFound = true;
             }
-            if (line.equals(Achievement.VICTOR.toString())) {
+            else if (line.equals(Achievement.VICTOR.toString())) {
                 victorFound = true;
             }
         }
