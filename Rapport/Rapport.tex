@@ -96,7 +96,8 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 
 \end{itemize}
 
-\subsubsection{Fonctionnalité "Score"}
+
+\subsubsection{Fonctionnalité "Score"}\label{score}
 \subsubsection{Fonctionnalité "Série de labyrinthes"}
 Les ajouts à effectuer pour cette extension sont :
 \begin{enumerate}
@@ -106,30 +107,45 @@ Les ajouts à effectuer pour cette extension sont :
 	\item Ajouts d'autres niveaux en préservant la vie et le score de Pac-man lors du passage au niveau suivant (ce qui se produit lorsque toutes les gommes ont été ramassées),
 	\item Sauvegarde du \og meilleur \fg \, niveau atteint pour pouvoir, par la suite, débuter directement à un niveau précédemment accédé.
 \end{enumerate} 
-%todo: formater ce texte pour le rendre lisible
 
 $(1)$ a simplement été réalisé par l'ajout d'un champ \mbox{\textit{lives}} dans la classe \mbox{\textit{Player}} et en faisant en sorte que, lors de la collision avec un fantôme, Pac-man perde une vie plutôt que de mourir (appel à \mbox{\textit{Player\#loseLife}} plutôt qu'à \mbox{\textit{Player\#setAlive(false)}}).
 
 De la même manière, la réalisation de $(2)$ a pu se faire rapidement, en ajoutant une méthode \mbox{\textit{Player\#checkNewLifeThreshold(int)}}, appelée à chaque fois que le joueur reçoit des points. Cette méthode se contente de vérifier si le seuil a été dépassé et ajoute une vie au joueur le cas échéant.
 
 L'ajout $(3)$ a demandé plus de réflexion quant à la manière de l'implémenter. En effet, pour permettre une téléportation \og safe \fg , il est nécessaire d'avoir connaissance du niveau (le \mbox{\textit{Board}}), alors que le joueur est, en l'état, le seul à être au courant de sa mort.
+
 Il a été choisi ici d'implémenter un design pattern \mbox{\textit{Observer}}, via une interface \mbox{\textit{PlayerListener}}, qui ne contient qu'une méthode \mbox{\textit{onPlayerLoseLife(Player)}} mais qui pourrait être facilement étendue (pour par exemple permettre l'affichage d'une notification lorsque le joueur reçoit une vie).
-Via l'implémentation de \mbox{\textit{PlayerListener}}, \mbox{\textit{Level}} est capable de réagir à la mort du joueur et, puisqu'il possède une référence vers le \mbox{\textit{Board}}, de le téléporter. L'énoncé demande une téléportation \textit{aléatoire} à une distance de 4 cases de tout fantôme, il sera fait utilisation de la distance Manhattan\footnote{\url{https://en.wiktionary.org/wiki/Manhattan_distance}}. Lorsque Pac-man meurt, une liste des cases \og possibles \fg \, est récupérée via la méthode \mbox{\textit{Level\#getPossibleSquares()}} et le joueur est effectivement transporté aléatoirement sur l'une de celles-ci. Afin de déterminer si une case est \og possible \fg , on s'assure qu'elle soit accessible (qu'elle ne corresponde pas à un mur par exemple) et \og safe \fg , c'est-à-dire qu'aucun fantôme ne soit à portée.
-Pour ce faire, pour toute case accessible, on vérifie les occupants des cases \og voisines \fg \, en s'assurant qu'elles ne contiennent pas de fantôme. En réalité, puisque les cases situées à une distance Manhattan d'une case donnée forment une sorte de losange, on itère sur le rectangle des cases situées à une distance horizontale et verticale inférieure à 4, en filtrant ensuite les cases trop éloignées en distance Manhattan. Cette situation est représentée à la figure \ref{manhattan}, dans laquelle on s'intéresse à une distance Manhattan de 4 cases à partir de la case {\color{blue}{bleue}}. Les cases à une telle distance sont en {\color{green}{vert}} alors que les cases filtrées sont en {\color{red}{rouge}} (les cases noires ne sont pas du tout prises en compte).
+
+Via l'implémentation de \mbox{\textit{PlayerListener}}, \mbox{\textit{Level}} est capable de réagir à la mort du joueur et, puisqu'il possède une référence vers le \mbox{\textit{Board}}, de le téléporter. L'énoncé demande une téléportation \textit{aléatoire} à une distance de 4 cases de tout fantôme, il sera fait utilisation de la distance Manhattan\footnote{\url{https://en.wiktionary.org/wiki/Manhattan_distance}}.
+
+Lorsque Pac-man meurt, une liste des cases \og possibles \fg \, est récupérée via la méthode \mbox{\textit{Level\#getPossibleSquares()}} et le joueur est effectivement transporté aléatoirement sur l'une de celles-ci. Afin de déterminer si une case est \og possible \fg , on s'assure qu'elle soit accessible (qu'elle ne corresponde pas à un mur par exemple) et \og safe \fg , c'est-à-dire qu'aucun fantôme ne soit à portée.
+
+Pour ce faire, pour toute case accessible, on vérifie les occupants des cases \og voisines \fg \, en s'assurant qu'elles ne contiennent pas de fantôme. En réalité, puisque les cases situées à une distance Manhattan d'une case donnée forment une sorte de losange, on itère sur le rectangle des cases situées à une distance horizontale et verticale inférieure à 4, en filtrant ensuite les cases trop éloignées en distance Manhattan. 
+
+Cette situation est représentée à la figure \ref{manhattan}, dans laquelle on s'intéresse à une distance Manhattan de 4 cases à partir de la case {\color{blue}{bleue}}. Les cases à une telle distance sont en {\color{green}{vert}} alors que les cases filtrées sont en {\color{red}{rouge}} (les cases noires ne sont pas du tout prises en compte).
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=6cm]{Images/manhattan.jpg}
 	\caption{\label{manhattan} Cases à une distance Manhattan de 4}
 \end{figure}
 
-$(4)$ était également problématique puisque \mbox{\textit{Level}} et \mbox{\textit{Game}} étaient les seuls à être au courant de la réussite d'un niveau, alors que les méthodes permettant le chargement d'un niveau (via \mbox{\textit{MapParser}}) se trouvaient dans \mbox{\textit{Launcher}}. La solution logique semblait être de déplacer les méthodes appelant \mbox{\textit{MapParser}} de \mbox{\textit{Launcher}} vers \mbox{\textit{Game}} mais il a été décidé d'attendre la fusion des différentes extensions individuelles pour réaliser ce changement. Nous voulions en réalité éviter les conflits potentiels lors de la fusion puisque ce \og transfert \fg de méthodes demande un nombre important de modifications dans le code d'origine. En attendant la fusion, on a simplement fait en sorte que \mbox{\textit{Game}} aie la référence vers une instance de \mbox{\textit{Launcher}}.
+$(4)$ était également problématique puisque \mbox{\textit{Level}} et \mbox{\textit{Game}} étaient les seuls à être au courant de la réussite d'un niveau, alors que les méthodes permettant le chargement d'un niveau (via \mbox{\textit{MapParser}}) se trouvaient dans \mbox{\textit{Launcher}}. 
 
-$(5)$ posait également problème, non pas sur sa réalisation en soi mais, ici, sur la redondance et la future intégration avec le système de profil de l'extension \og Score \fg . Pour cette fonctionnalité, il a été choisi de simuler l'authentification en respectant des conventions de nommage communes. On fournira ici les méthodes permettant, une fois qu'a été récupéré le niveau maximum atteint par un joueur, d'ajouter des boutons de sélection/chargement de niveau tout en réinitialisant le score et les vies du joueur.
-Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image. En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le \og remplissage \fg d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). La figure \ref{map_generator} montre un exemple de résultat de conversion d'une image en son niveau équivalent dans JPacman.
+La solution logique semblait être de déplacer les méthodes appelant \mbox{\textit{MapParser}} de \mbox{\textit{Launcher}} vers \mbox{\textit{Game}} mais il a été décidé d'attendre la fusion des différentes extensions individuelles pour réaliser ce changement. Nous voulions en réalité éviter les conflits potentiels lors de la fusion puisque ce \og transfert \fg de méthodes demande un nombre important de modifications dans le code d'origine. En attendant la fusion, on a donc simplement fait en sorte que \mbox{\textit{Game}} aie la référence vers une instance de \mbox{\textit{Launcher}}.
+
+$(5)$ posait lui aussi quelques difficultés, non pas sur sa réalisation en soi mais bien sur la redondance potentielle et la future intégration avec le système de profil de l'extension \og Score \fg \, (section \ref{score}) . 
+
+Pour cette fonctionnalité, il a été choisi de simuler l'authentification en respectant des conventions de nommage communes. On fournira ici les méthodes permettant, une fois qu'a été récupéré le niveau maximum atteint par un joueur, d'ajouter des boutons de sélection/chargement de niveau tout en réinitialisant le score et les vies du joueur.
+
+Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image. \label{map_generator_txt}
+
+En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le \og remplissage \fg d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). 
+
+La figure \ref{map_generator_img} montre un exemple de résultat de conversion d'une image en son niveau équivalent dans JPacman.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=13cm]{Images/mapgenerator.jpg}
-	\caption{\label{map_generator} Génération d'un niveau à partir d'une image}
+	\caption{\label{map_generator_img} Génération d'un niveau à partir d'une image}
 \end{figure}
 
 \subsubsection{Fonctionnalité "IA pour Pacman"}
@@ -254,7 +270,12 @@ En considérant que cet outil est correctement installé sur votre machine et en
 	\begin{lstlisting}[language=bash]
 	$ mvn test
 	\end{lstlisting}
-	\item Compiler le projet en produisant une archive "jar" exécutable (inclus l'exécution des tests) via :
+	\item Lancer le jeu via :
+	\begin{lstlisting}[language=bash]
+	$ mvn exec:java -Dexec.mainClass=
+		"nl.tudelft.jpacman.Launcher"
+	\end{lstlisting}
+	\item Compiler le projet en produisant une archive "jar" exécutable (inclus l'exécution des tests) via : %todo: fix or don't put it here
 	\begin{lstlisting}[language=bash]
 	$ mvn package
 	\end{lstlisting}
@@ -269,17 +290,29 @@ En considérant que cet outil est correctement installé sur votre machine et en
 Puisque le projet JPacman dans son état \og initial \fg \, (avant modifications de notre part) intégrait déjà le fichier de configuration Travis\footnote{\url{https://travis-ci.org/}}, nous l'avons utilisé sur nos différents \og forks \fg .
 L'historique des \og builds \fg \, (avec leurs logs) est disponible à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
 
-\subsection{Spécificités des ajouts individuels}
-\subsubsection{Fonctionnalité "Série de labyrinthes"}
-\begin{itemize}
-	\item %todo: spécificités de config en référançant la section de début
-\end{itemize}
 
-%todo: note sur QUICK_WIN + "level generator" + convention de nommage des fichiers de level
 %todo: note sur les branches git
 %todo: note sur les tags des releases (+tagger la release finale!!!)
 %todo: build la javadoc et l'ajouter au repo!!!
 %todo: optimize imports/reformat code!!!
+
+
+\subsection{Spécificités des ajouts individuels}
+\subsubsection{Fonctionnalité "Série de labyrinthes"}
+\begin{itemize}
+	\item Afin de pouvoir tester différents niveaux plus aisément, un booléen \mbox{\textbf{QUICK\_WIN}} est configurable dans la classe \mbox{\textit{Level}}.
+	Si on lui affecte la valeur \textit{true}, récupérer 13 gommes est suffisant pour réussir un niveau (et passer au suivant).
+	\item Les fichiers correspondants aux niveaux disponibles en jeu se trouvent dans le répertoire \nolinkurl{target/classes} à condition d'avoir au moins \og compilé \fg la solution via la commande :
+	\begin{lstlisting}[language=bash]
+	$ mvn compile
+	\end{lstlisting}
+	(Toute commande permettant l'exécution d'une étape postérieure du cycle Maven\footnote{\url{https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html}} est également recevable)
+	
+	Avant compilation, ces mêmes fichiers se trouvent dans \nolinkurl{src/main/resources}.
+	\item Un niveau numéroté $n$ est considéré comme partie intégrante du jeu si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est présent et si les fichiers des niveaux $1...n-1$ le sont également.
+	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le convertisseur mentionné à la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
+\end{itemize}
+
 \section{Conclusion de l'analyse}
 
 
