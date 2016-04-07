@@ -76,7 +76,7 @@
 	
 
 \section{Introduction}
-
+%todo: uniformiser : \textit{Class#Method} ? (==javadoc) + préciser convention au début du rapport
 Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par Monsieur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielles vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du professeur Arie van Deursen, Delft University of Technology (Pays-Bas).
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
@@ -92,7 +92,6 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \begin{itemize}
 \item L'implémentation d'un score (réalisée par Damien Legay)
 \item L'implémentation d'une série de labyrinthes (réalisée par Adrien Coppens)
-%todo: level <=> player <= pour pouvoir se téléporter puisque c'est level qui a le "board"
 \item L'implémentation d'une intelligence artificielle pour pacman (réalisée par Nicolas Leemans)
 
 \end{itemize}
@@ -106,7 +105,8 @@ Les ajouts à effectuer pour cette extension sont :
 	\item Téléportation de Pac-man lorsqu'il est tué par un fantôme (et qu'il lui reste au moins une vie),
 	\item Ajouts d'autres niveaux en préservant la vie et le score de Pac-man lors du passage au niveau suivant (ce qui se produit lorsque toutes les gommes ont été ramassées),
 	\item Sauvegarde du \og meilleur \fg \, niveau atteint pour pouvoir, par la suite, débuter directement à un niveau précédemment accédé.
-\end{enumerate} %todo: uniformiser : \textit{Class#Method} ? (==javadoc) + préciser convention au début du rapport
+\end{enumerate} 
+%todo: formater ce texte pour le rendre lisible
 
 $(1)$ a simplement été réalisé par l'ajout d'un champ \mbox{\textit{lives}} dans la classe \mbox{\textit{Player}} et en faisant en sorte que, lors de la collision avec un fantôme, Pac-man perde une vie plutôt que de mourir (appel à \mbox{\textit{Player\#loseLife}} plutôt qu'à \mbox{\textit{Player\#setAlive(false)}}).
 
@@ -178,7 +178,7 @@ assertEquals(square.getSquareAt(Direction.WEST).getY(), 15);
 assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
 \end{lstlisting}
 Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
-%todo: actions en réaction aux duplicats évitables et significatifs (coût > 25?)
+%todo: actions en réaction aux duplicats évitables et significatifs (coût > 25? CPD?)
 Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concerne la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contiennent en effet toutes deux ce bloc de code :
 \begin{lstlisting}[language=java]
 final AStarPath aStarPath = new AStarPath(game);
@@ -197,7 +197,7 @@ final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSq
 final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
 final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 \end{lstlisting}
-%todo: action entreprise (extract method?)
+%todo: nicolas: action entreprise (extract method?)
 
 \begin{figure}[h]
 	\centering
