@@ -194,7 +194,7 @@ assertEquals(square.getSquareAt(Direction.WEST).getY(), 15);
 assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
 \end{lstlisting}
 Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
-%todo: actions en réaction aux duplicats évitables et significatifs (coût > 25? CPD?)
+%todo: actions en réaction aux duplicats évitables et significatifs (outil intellij avec coût > 25? résultats de CPD?)
 Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concerne la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contiennent en effet toutes deux ce bloc de code :
 \begin{lstlisting}[language=java]
 final AStarPath aStarPath = new AStarPath(game);
@@ -290,11 +290,33 @@ En considérant que cet outil est correctement installé sur votre machine et en
 Puisque le projet JPacman dans son état \og initial \fg \, (avant modifications de notre part) intégrait déjà le fichier de configuration Travis\footnote{\url{https://travis-ci.org/}}, nous l'avons utilisé sur nos différents \og forks \fg .
 L'historique des \og builds \fg \, (avec leurs logs) est disponible à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
 
+\subsection{Organisation des dépots Git(Hub)}
+Les versions correspondant à la phase individuelle sont disponibles aux adresses suivantes :
+\begin{itemize}
+	\item Adrien Coppens (extension \og Série de labyrinthes \fg ) : 
+	
+	\url{https://github.com/qdrien/jpacman-framework}
+	
+	Tag de la release : \nolinkurl{individual-coppens-series-of-mazes-v7.0.0}
+	
+	(sur la branche \nolinkurl{series-of-maze})
+	\item Damien Legay (extension \og Score \fg ) : 
+	
+	\url{https://github.com/DamienLegay/jpacman-framework}
+	
+	Tag de la release : \nolinkurl{}%todo: damien
+	\item Nicolas Leemans (extension \og IA pour Pacman \fg ) : 
+	
+	\url{https://github.com/NicolasLeemans7/jpacman-framework}
+	
+	Tag de la release : \nolinkurl{}%todo nicolas
+\end{itemize}
 
-%todo: note sur les branches git
-%todo: note sur les tags des releases (+tagger la release finale!!!)
+Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la release finale étant taggée \nolinkurl{}. %todo
+
 %todo: build la javadoc et l'ajouter au repo!!!
 %todo: optimize imports/reformat code!!!
+%todo: + tagger la release finale
 
 
 \subsection{Spécificités des ajouts individuels}
