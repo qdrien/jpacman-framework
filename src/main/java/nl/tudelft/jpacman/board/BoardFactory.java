@@ -6,14 +6,15 @@ import nl.tudelft.jpacman.sprite.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A factory that creates {@link Board} objects from 2-dimensional arrays of
@@ -119,7 +120,7 @@ public class BoardFactory {
      *
      * @param file  The image file to generate the level from
      * @param level The level id of this level
-     * @throws IOException
+     * @throws IOException If there is a problem with reading or writing the corresponding files
      */
     private void createBoardFileFromImage(final File file, final int level) throws IOException {
         final BufferedImage img = ImageIO.read(file);
@@ -131,8 +132,24 @@ public class BoardFactory {
         final List<String> lines = convertImageToTxt(img);
         final Path newFile = Paths.get(file.getParent() + File.separator
                 + "board" + level + ".txt");
-        System.err.println("Creating file for level " + level + " from an image.");
-        Files.write(newFile, lines, Charset.forName("UTF-8"));
+        System.out.println("Creating file for level " + level + " from an image.");
+
+        // The following code is a very slightly modified version of Files#write()
+        // that does not add a line.separator after the last element
+
+        // ensure lines is not null before opening file
+        Objects.requireNonNull(lines);
+        CharsetEncoder encoder = Charset.forName("UTF-8").newEncoder();
+        OutputStream out = Files.newOutputStream(newFile);
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, encoder))) {
+            for (int i = 0; i < lines.size(); i++) {
+                CharSequence line = lines.get(i);
+                writer.append(line);
+                if (i != lines.size() - 1) {
+                    writer.newLine();
+                }
+            }
+        }
     }
 
     /**
