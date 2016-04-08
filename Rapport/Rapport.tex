@@ -264,31 +264,43 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \section{Notes diverses et guide d'utilisation}
 \subsection{Maven}
 Le projet utilisant Maven\footnote{\url{https://maven.apache.org/}}, il est très facile de compiler le code, de l'analyser avec les outils prévus ou d'exécuter la suite de tests.
-En considérant que cet outil est correctement installé sur votre machine et en plaçant un terminal (une invite de commande ou autre terme décrivant une \og console \fg \, sur votre système d'exploitation) à la racine du projet (l'endroit où se trouve le fichier "pom.xml"), vous pouvez :
+On peut noter que la configuration originale du projet ne permettait pas l'exécution de l'archive jar produite, cela a été corrigé pour notre version (en reproduisant simplement les dépendances externes dans l'archive générée, via un plugin).
+
+En considérant que Maven est correctement installé sur votre machine et en plaçant un terminal (une invite de commande ou autre terme décrivant une \og console \fg \, sur votre système d'exploitation) à la racine du projet (c'est-à-dire l'endroit où se trouve le fichier \nolinkurl{pom.xml}), vous pouvez :
 \begin{itemize}
 	\item Exécuter les tests via :
 	\begin{lstlisting}[language=bash]
 	$ mvn test
 	\end{lstlisting}
-	\item Lancer le jeu via :
+	\item Compiler le projet (inclus l'exécution des tests) via :
+	\begin{lstlisting}[language=bash]
+	$ mvn compile
+	\end{lstlisting}
+	\item Lancer le jeu via (après avoir compilé) via :
 	\begin{lstlisting}[language=bash]
 	$ mvn exec:java -Dexec.mainClass=
 		"nl.tudelft.jpacman.Launcher"
 	\end{lstlisting}
-	\item Compiler le projet en produisant une archive "jar" exécutable (inclus l'exécution des tests) via : %todo: fix or don't put it here
+	\item Compiler le projet et produire une archive "jar" exécutable via :
 	\begin{lstlisting}[language=bash]
 	$ mvn package
 	\end{lstlisting}
-	\item Générer le site Maven (inclus les étapes précédentes, la javadoc et des rapports d'analyse; le site généré étant accessible en ouvrant \nolinkurl{target/site/index.html}) via :
+	L'archive est ensuite exécutable via :
+	\begin{lstlisting}[language=bash]
+	$ java -jar target/jpacman-framework-7.3.0.jar
+	\end{lstlisting}
+	\item Générer le site Maven (inclus les étapes précédentes, la javadoc et des rapports d'analyse) via :
 	\begin{lstlisting}[language=bash]
 	$ mvn site
 	\end{lstlisting}
+	(le site généré étant accessible en ouvrant \nolinkurl{target/site/index.html})
 	\item D'autres commandes sont évidemment disponibles pour, par exemple, générer la javadoc séparément mais ne sont pas reprises ici.
 \end{itemize}
 
 \subsection{Travis}
 Puisque le projet JPacman dans son état \og initial \fg \, (avant modifications de notre part) intégrait déjà le fichier de configuration Travis\footnote{\url{https://travis-ci.org/}}, nous l'avons utilisé sur nos différents \og forks \fg .
-L'historique des \og builds \fg \, (avec leurs logs) est disponible à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
+
+Les historiques des \og builds \fg \, (avec leurs logs) de la version d'intégration et de la version individuelle d'Adrien Coppens sont disponibles à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
 
 \subsection{Organisation des dépots Git(Hub)}
 Les versions correspondant à la phase individuelle sont disponibles aux adresses suivantes :
