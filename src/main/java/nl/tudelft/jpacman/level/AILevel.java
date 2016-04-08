@@ -81,15 +81,6 @@ public class AILevel extends Level {
         }
     }
 
-    /**
-     * Starts or resumes the AI.
-     *
-     * @param strategy the chosen strategy
-     */
-    public void startStrategy(PacmanStrategy strategy) {
-        this.strategy = strategy;
-        strategy.executeStrategy();
-    }
 
     /**
      * Start or create a thread for the AI.
@@ -124,6 +115,11 @@ public class AILevel extends Level {
             if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                 startAIStrategy();
             }
+            else
+            {
+                if(strategy != null)
+                    strategy.executeStrategy();
+            }
             startNPCs();
 
             setInProgress(true);
@@ -146,6 +142,10 @@ public class AILevel extends Level {
             }
             setInProgress(false);
         }
+    }
+
+    public void setStrategy(PacmanStrategy strategy) {
+        this.strategy = strategy;
     }
 
 

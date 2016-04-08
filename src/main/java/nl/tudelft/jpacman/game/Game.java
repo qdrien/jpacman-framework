@@ -8,7 +8,6 @@ import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
-import nl.tudelft.jpacman.strategy.PacmanStrategy;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,10 +34,7 @@ public abstract class Game implements LevelObserver {
      * <code>true</code> if the game is in progress.
      */
     private boolean inProgress, firstPass = true;
-    /**
-     * The chosen strategy by the player.
-     */
-    private PacmanStrategy strategy;
+
     /**
      * For the execution of the thread for the continuousMovement method.
      */
@@ -59,9 +55,6 @@ public abstract class Game implements LevelObserver {
         synchronized (progressLock) {
             if (isInProgress()) {
                 return;
-            }
-            if (strategy != null) {
-                getLevel().startStrategy(strategy);
             }
             if (getLevel().isAnyPlayerAlive()
                     && getLevel().remainingPellets() > 0) {
@@ -177,15 +170,6 @@ public abstract class Game implements LevelObserver {
             new HallOfFame().handleHoF(player.getScore(), player.getPlayerName());
         }
         firstPass = false;
-    }
-
-    /**
-     * Set the Strategy.
-     *
-     * @param strategy the strategy to set
-     */
-    public void setStrategy(PacmanStrategy strategy) {
-        this.strategy = strategy;
     }
 
     /**

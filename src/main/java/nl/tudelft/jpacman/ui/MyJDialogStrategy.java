@@ -103,7 +103,7 @@ public class MyJDialogStrategy extends JDialog {
             else if (source == aiController) {
                 strategy = new PacManhattanAI(game);
             }
-            game.setStrategy(strategy);
+            game.getLevel().setStrategy(strategy);
             setVisible(false);
             dispose();
             pacManUI.start();
