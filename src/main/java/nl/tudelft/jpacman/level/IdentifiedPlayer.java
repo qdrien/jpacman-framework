@@ -54,6 +54,16 @@ public class IdentifiedPlayer extends Player {
         super(spriteMap, deathAnimation);
     }
 
+
+    /**
+     * Returns the path of the player's profile file.
+     * @return The path of the player's profile file.
+     */
+    public String getProfilePath()
+    {
+        return profilePath;
+    }
+
     /**
      * Sets whether the application is running or being tested.
      */
@@ -90,6 +100,14 @@ public class IdentifiedPlayer extends Player {
         return true;
     }
 
+    /**
+     * Helper method to avoid code duplication.
+     * @param options The buttons that can be clicked.
+     * @param panel The JPanel displaying the choice.
+     * @param loginEntered The name entered by the player.
+     * @param title The title of the dialog box.
+     * @return The identifier of the button clicked.
+     */
     private int buttonChoice(String[] options, JPanel panel, JTextField loginEntered, String title) {
         int choice = 0;
         if (isNotATest) {
@@ -316,30 +334,30 @@ public class IdentifiedPlayer extends Player {
 
     /**
      * Displays the player's stats.
+     * @return Whether the player is logged in or not.
      */
     @SuppressWarnings("checkstyle:magicnumber")
-    public void displayProfileStats() {
+    public boolean displayProfileStats() throws IOException {
         if (getPlayerName() == null) {
             JOptionPane.showMessageDialog(null, "You are not logged in.", "Error", JOptionPane.PLAIN_MESSAGE);
-            return;
+            return false;
         }
         String toDisplay = "<html>";
-        try {
-            final String[] split = getInfoLine();
-            toDisplay += "Levels completed: " + split[0];
-            toDisplay += "<br>High score: " + split[1];
-            toDisplay += "<br>Ghosts killed: " + split[2];
-            toDisplay += "<br>Fruits eaten: " + split[3];
-            toDisplay += "<br>Times killed by Blinky: " + split[4];
-            toDisplay += "<br>Times killed by Pinky: " + split[5];
-            toDisplay += "<br>Times killed by Inky: " + split[6];
-            toDisplay += "<br>Times killed by Clyde: " + split[7];
-            toDisplay = FileChecker.parseAchievements(profilePath, toDisplay);
-            toDisplay += "</html>";
-            JOptionPane.showMessageDialog(null, toDisplay, "Statistics", JOptionPane.PLAIN_MESSAGE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        final String[] split = getInfoLine();
+        toDisplay += "Levels completed: " + split[0];
+        toDisplay += "<br>High score: " + split[1];
+        toDisplay += "<br>Ghosts killed: " + split[2];
+        toDisplay += "<br>Fruits eaten: " + split[3];
+        toDisplay += "<br>Times killed by Blinky: " + split[4];
+        toDisplay += "<br>Times killed by Pinky: " + split[5];
+        toDisplay += "<br>Times killed by Inky: " + split[6];
+        toDisplay += "<br>Times killed by Clyde: " + split[7];
+        toDisplay = FileChecker.parseAchievements(profilePath, toDisplay);
+        toDisplay += "</html>";
+        JOptionPane.showMessageDialog(null, toDisplay, "Statistics", JOptionPane.PLAIN_MESSAGE);
+
+        return true;
     }
 
     /**
