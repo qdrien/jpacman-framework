@@ -23,7 +23,7 @@ public enum Achievement {
     /**
      * The maximum number of achievements that can be recommended to the player.
      */
-    public static final int MAX_RECOMMENDATIONS = 3;
+    private static final int MAX_RECOMMENDATIONS = 3;
 
     static {
         VICTOR.description = "Won a level!";
