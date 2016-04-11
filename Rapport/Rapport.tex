@@ -216,15 +216,15 @@ Les ajouts à effectuer pour cette extension sont les suivantes :
 	
 \end{enumerate} 
 
-L'ajout de la fonctionnalité $(1)$ a été réalisé en ajoutant une méthode \mbox{\textit{Game\#continousMovement()}}, appelée à chaque fois que le joueur appuie sur une touche directionnelle, qui va manipuler un unique \textit{thread} qui va appeler, de façon périodique, la méthode \mbox{\textit{Game\#move()}}. A chaque fois que le joueur appuiera sur une touche directionnelle, la méthode \mbox{\textit{Game\#continousMovement()}} va tester si la case voulant être accédée par le joueur est accessible à Pacman. Si c'est le cas, la tâche courante du \textit{thread} sera mis à jour et Pacman avancera dans une nouvelle direction. Par contre, si ce n'est pas le cas, l'instruction sera simplement ignorée et Pacman conservera son ancienne direction. 
+L'ajout de la fonctionnalité $(1)$ a été réalisé en ajoutant une méthode \mbox{\textit{Game\#continousMovement()}}, appelée à chaque fois que le joueur appuie sur une touche directionnelle, qui va manipuler un unique \textit{thread} qui va appeler, de façon périodique, la méthode \mbox{\textit{Game\#move()}}. A chaque fois que le joueur appuiera sur une touche directionnelle, la méthode \mbox{\textit{Game\#continousMovement()}} va tester si la case voulant être accédée par le joueur est accessible à Pacman. Si c'est le cas, la tâche courante du \textit{thread} est mis à jour et Pacman avance alors dans une nouvelle direction. Par contre, si ce n'est pas le cas, l'instruction est simplement ignorée et Pacman conserve alors son ancienne direction. 
 
 Remarque : Pour cette fonctionnalité, il est supposé qu'il suffit d'appuyer une fois sur la touche pour conduire le Pacman dans la direction désirée ce qui veut dire que l'appui abusif d'une même touche directionnelle provoquera un ralentissement voir un arrêt du Pacman.
 
-L'ajout de la fonctionnalité $(2)$ concerne l'implémentation d'un intelligence artificielle manipulant Pacman et qui optimise son score. Le comportement de l'IA est défini dans la classe\\
+L'ajout de la fonctionnalité $(2)$ concerne l'implémentation d'une intelligence artificielle manipulant Pacman et qui optimise son score. Le comportement de l'IA est défini dans la classe\\
  \mbox{\textit{PacManhatanAI\#nextMove()}}. Ce comportement est calculé grâce à une recherche en largeur qui permet de déterminer la gomme la plus proche (\mbox{\textit{PacManhatanAI\#bfsNearestSafetyPelletSquare()}}). Une fois la case déterminée, il a été choisi d'utiliser un algorithme de type $A^*$ (classe \mbox{\textit{AStarPath}}
 ) afin de déterminer le chemin le plus court et le plus sûr en appliquant un système de poids aux cases de la carte en fonction de la présence d'une gomme, d'un fantôme ou de la proximité d'un fantôme. L'algorithme $A^*$ a été implémenté grâce à une classe template open-source fournie par Giuseppe Scrivano\footnote{http://a-star.googlecode.com/svn/trunk/java/AStar.java}
 (classe \mbox{\textit{AStar}}
-). Cet algorithme permet de se focaliser sur la direction du chemin en privilégiant toute direction se rapprochant de la destination par opposition à l'algorithme Dijkstra qui calcule tous les chemins possibles, ce qui est en général moins performant que l'algorithme $A^*$ car celui-ci évite autant que possible les chemins s'éloignant de la destination. Une fois un chemin déterminé, il est stocké sous forme de direction qui sera suivie par Pacman si aucun danger ne se présente (\mbox{\textit{PacManhatanAI\#convertPathToDirection()}}
+). Cet algorithme permet de se focaliser sur la direction du chemin en privilégiant toute direction se rapprochant de la destination par opposition à l'algorithme Dijkstra qui calcule tous les chemins possibles, ce qui est en général moins performant que l'algorithme $A^*$ car celui-ci évite autant que possible les chemins s'éloignant de la destination. Une fois un chemin déterminé, il est stocké dans une collection \textit{ArrayDeque} sous forme d'un ensemble de directions qui sera suivie par Pacman si aucun danger ne se présente (\mbox{\textit{PacManhatanAI\#convertPathToDirection()}}
 ). Avant de choisir le prochain mouvement, l'IA détermine si Pacman est dans une zone sûre ou non (\mbox{\textit{PacManhatanAI\#bfsNearestSafetySquare()}}
 ). S'il est trop proche d'un fantôme, alors l'IA choisit de prendre une nouvelle destination qui est la case sûre la plus proche. Le seuil initial pour déterminer si Pacman est proche d'un fantôme est de 14 cases, dans l'implémentation, ce qui permet de jouer un début de partie de façon très sûre. Ce seuil diminuera au cours de la partie en fonction des gommes restantes pour se focaliser sur les gommes en fin de partie (\mbox{\textit{PacManhatanAI\#updatePacmanbehaviour()}}
 ). Le fait d'avoir un seuil dynamique offre de bons résultats en pratique. Une fois que Pacman est dans une zone sûre, il recommence à chasser les gommes. Pour finir, pour avoir la certitude que l'IA renvoie une direction à suivre peu importe où le Pacman se trouve sur le plateau de jeu, une méthode \mbox{\textit{PacManhatanAI\#hurryMove()}}
@@ -352,6 +352,37 @@ En regardant dans le code de PMD \footnote{\url{https://pmd.github.io/pmd-5.4.1/
 Les classes qui contiennent beaucoup de méthodes sont donc naturellement sujettes à un signalement de type \og god class \fg.
 
 Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous avons choisi de réagir pour éviter qu'une classe n'aie trop de méthodes. Les changements effectués ont effectivement permis de supprimer les avertissements en question tout en permettant probablement à notre code d'être plus \og maintenable \fg \, puisque les classes sont globalement moins volumineuses.
+
+%Player:
+% Regroupait l'implémentation de deux fonctionnalités séparées (score & labyrinthe) en plus des services de base. -> Comportement lié à la fonctionnalité "score" déplaçé dans la classe descendante "IdentifiedPlayer" et de méthodes de vérification de contenu de fichiers verfs "FileChecker.
+%A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
+
+
+\paragraph{Taille de code}
+Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque possible.
+
+La classe (\mbox{\textit{PacManhattanAI}} et \mbox{\textit{PacManhattanAI}}) et la méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg() afin de réduire celle-ci.
+
+\paragraph{Loi de Demeter}
+PMD détecten nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
+Pour ce qui est des autres violations, le code existant force largement à les commettre.
+
+\paragraph{Avertissements mineurs}
+\begin{itemize}
+	\item Deux \og if \fg{} imbriqués dans \mbox{\textit{PlayerMoveTask\#run()}} furent intégrés en un seul,
+	\item 9 Arraylists furent convertis en List et une Hasmap en Map,
+	\item 4 \og varargs \fg{} furent introduits là où c'était possible,
+	\item 5 déclarations d'attributs de classe furent déplaçés à la tête de leur classe,
+	\item 15 \og assert \fg{} furent modifiés pour éviter la surdépendance à \og assertTrue() \fg{},
+	\item 251 messages d'erreur furent ajoutés aux \og assert \fg{} qui en étaient privés,
+	\item Certaines variables au nom trop court furent renommées, d' autres non (variable à l'étendue fort restreinte ou correspondant à des coordonnées cartésiennes),
+	\item Des méthodes, variables, classes et constantes ont été renommées pour correspondre aux conventions du langage,
+	\item De nombreuses variables et paramètres furent déclarés \og final \fg{},
+	\item L'initialisation superflue de \mbox{\textit{PlayerMoveTask\#finished}} a été ôtée.
+\end{itemize}
+
+\subsubsection{FindBugs}
+%Me souviens plus de combien de cas (6?), mais de mon côté 1) les lectures et écritures fichier spécifient maintenant le charSet utilisé et 2) concaténation avec strings dans boucle -> usage de StringBuilder.append(). 4 instances, je crois.
 
 \subsubsection{Métriques}
 %todo: overview pyramid?
