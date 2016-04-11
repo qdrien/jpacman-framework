@@ -94,11 +94,64 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \item L'implémentation d'un score (réalisée par Damien Legay)
 \item L'implémentation d'une série de labyrinthes (réalisée par Adrien Coppens)
 \item L'implémentation d'une intelligence artificielle pour pacman (réalisée par Nicolas Leemans)
-
 \end{itemize}
 
 
 \subsubsection{Fonctionnalité "Score"}\label{score}
+Cette fontionalité requièrt l'implémentation de de deux sous-fonctionalités:
+
+La première fonctionalité (Hall of Fame) consiste à maintenir une liste de hauts scores. Si un joueur dépasse l'un des dix meilleurs scores, son nom doit être inséré dans le Hall of Fame.
+Ceci peut être réalisé de deux manières différentes: si le joueur est identifié, son nom de joueur sera automatiquement entré, si ce n'est pas le cas, il lui sera demandé de fournir un nom à la fin de la partie.
+Le score du joueur est affecté par le nombre de gommes, phantômes et fruits consommés par Pacman, ainsi que par les hauts faits réalisés (voir ci-bas).
+
+Lorsque la partie est terminée, le Hall of Fame est affiché et le joueur a l'option de le réinitialiser à ses valeurs par défaut. Pour éviter que celle-ci ne se fasse par mégarde, une confirmation est demandée.
+
+La deuxième fonctionalité (Achievements) implique d'implémenter un système de gestion de hauts faits. 
+Pour ce faire, un système de profils doit être mis en place, permettant au joueur la possibilité de s'identifier et ainsi réaliser des hauts faits qui sont mémorisés.
+Ces hauts faits peuvent être accomplis sur plusieurs parties indépendentes.
+Le joueur doit avoir la possibilité de visualiser les hauts faits qu'il a accompli avant de commençer à jouer, à la suite de quoi le jeu proposera de nouveaux haut faits à réaliser, au maximum de trois.
+Lorsque le joueur obtient un haut fait, il reçoit un bonus de score.
+
+Pour réaliser ces fonctionnalités, il a d'abord convenu d'associer à chaque élément pouvant être consommé par Pacman une valeur numérique à ajouter au score, même pour les éléments que Pacman ne peut pas manger à ce stade puisque dépendants de fonctionnalités non implémentées (fruits, supergomme pour manger les phantômes).
+Ces valeurs sont localisées dans les classes \mbox{\textit{LevelFactory}} (gommes et fruits) et \mbox{\textit{Ghost}} (phantômes).
+
+Ensuite, un système de Hall of Fame a été mis en place à l'aide de la classe \mbox{\textit{HallOfFame}} qui offre les services suivants:
+
+\begin{enumerate}
+\item La méthode \mbox{\textit{HallOfFame\#handleHoF()}} se charge de mettre à jour le Hall of Fame si nécessaire, c'est à dire si le score du joueur excède l'un des scores sauvegardés dans le fichier \mbox{\textit{resources\\HoF.txt}}, et de l'afficher qu'il ait été mis à jour ou non.
+\item La méthode \mbox{\textit{HallOfFame\#resetHoF()}}, quant à elle, a pour rôle de réinitialiser le Hall of Fame aux valeurs par défaut telles que définies dans le fichier \mbox{\textit{resources\\DefaultHoF.txt}}.
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=6cm]{Images/HoF.png}
+	\caption{\label{hof} Le Hall of Fame après que le joueur "NotMe" a terminé une partie}
+\end{figure}
+
+
+Enfin, un système de gestion des hauts faits a été réalisé. Pour cela, il a été nécessaire de mettre un oeuvre un système d'authentification du joueur.
+Ce système se repose sur les éléments qui voici:
+
+\begin{enumerate}
+\item Le fichier \mbox{\textit{resources\\login.txt}}, dans lequel sont stockés les identifiants et mots de passes (non en clair) des joueurs ;
+\item Le répertoire \mbox{\textit{resources\\profiles\\}}, qui contient les profils des joueurs ayant créé un compte.
+Le format des fichiers .prf contenus dans ce répertoire est tel que suit: 
+\begin{itemize}
+\item La première ligne contient des informations diverses : score maximal atteint par le joueur, nombre fois qu'il a été tué par tel phantôme, niveau maximum que le joueur a complété,...
+\item Les lignes suivantes contiennent le nom d'un haut fait accompli par le joueur.
+\end{itemize}
+\item La méthode \mbox{\textit{IdentifiedPlayer\#createNewPlayer()}}, qui permet à un joueur de créér un nouveau profil joueur, et, si besoin est, le répertoire ci-dessus ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#authenticate()}}, qui vérifie que l'identifiant et le mot de passe entrés par le joueur correspondent bien à des données situées dans \mbox{\textit{resources\\login.txt}} et, si le joueur le désire, affiche les hauts faits qu'il a déjà obtenus ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#addAchievement()}}, servant à ajouter un haut fait que le joueur a obtenu dans son fichier profil, si celui-ci ne s' y trouve déjà ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#saveScore()}}, qui met à jour le score maximal du joueur et lui accorde les hauts faits liés à celui-ci ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#killedBy()}}, mettant à jour les informations liées au fait de s'être fait tuer par un phantôme et affectant les hauts faits correspondants ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#levelCompleted()}} en fait de même pour le niveau maximal atteint ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#displayProfileStats()}}, qui affiche les informations concernant le joueur, s'il est identifié, et lui propose d'en accomplir d'autres, s'il n'a pas accompli tous les hauts faits disponibles ;
+\item La classe utilitaire \mbox{\textit{FileChecker}} qui effectue certaines opérations de vérification sur les fichiers susnommés ;
+\item L'énumération \mbox{\textit{Achievement}} dans laquelle sont stockés les hauts faits, le score qu'ils accordent lorsqu'accomplis, une description définissant comment les obtenir et le haut fait à recommender après leur obtention.
+\end{enumerate}
+
+
 \subsubsection{Fonctionnalité "Série de labyrinthes"}
 Les ajouts à effectuer pour cette extension sont :
 \begin{enumerate}
@@ -264,9 +317,25 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \subsubsection{IntelliJ Code inspection}
 \paragraph{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
 %Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)
-\paragraph{Changements mineurs (\og scope \fg de méthodes/variables, variables qui peuvent être \og final \fg)}
+\paragraph{Mineures altérations diverses}
+\begin{itemize}
+	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
+	\item 4 booléens n'avaient aucun intérêt et furent donc ôtés,
+	\item 6 paramètres avaient toujours la même valeur et furent donc remplaçés par celle-ci,
+	\item 14 accès furent rendus plus restrictifs,
+	\item La valeur de retour de la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}} n'était pas utilisée et cette méthode a donc été convertie en \og void \fg{},
+	\item 8 variables ont été déclarées \og final \fg{},
+	\item 11 éléments étaient reportés inutilisés, ceux qui n'avaient pas d'usage ont été enlevés (les autres sont suite à la gestion du score de fonctionnalités non implémentées),
+	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
+	\item 7 types anonymes ont été remplaçés par des expressions lambda,
+	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
+	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
+	\item Intellij a soulévé 3 erreurs dans la Javadoc, qui furent corrigées,
+	\item 6 \og asserts \fg{} étaient toujours vrais, ils ne le sont plus.
+\end{itemize}
 \paragraph{Dans le code de base, beaucoup de \og warnings \fg sur des \og problèmes de modernité \fg}
 %for indexé plutôt que foreach, méthode anonyme classique plutôt que lambda, etc
+
 
 \subsubsection{PMD}
 \paragraph{Déplacement des méthodes liées à la récupération des cases \og safe \fg pour téléporter le joueur de Level vers Board}
@@ -381,7 +450,7 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 \subsubsection{Fonctionnalité "Série de labyrinthes"}
 \begin{itemize}
 	\item Afin de pouvoir tester différents niveaux plus aisément, un booléen \mbox{\textbf{QUICK\_WIN}} est configurable dans la classe \mbox{\textit{Level}}.
-	Si on lui affecte la valeur \textit{true}, récupérer 13 gommes est suffisant pour réussir un niveau (et passer au suivant).
+	Si on lui affecte la valeur \textit{true}, récupérer treize gommes est suffisant pour réussir un niveau (et passer au suivant).
 	\item Les fichiers correspondants aux niveaux disponibles en jeu se trouvent dans le répertoire \nolinkurl{target/classes} à condition d'avoir au moins \og compilé \fg la solution via la commande :
 	\begin{lstlisting}[language=bash]
 	$ mvn compile
