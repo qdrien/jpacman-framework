@@ -319,7 +319,8 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg} 
 Puisque la variable \textbf{QUICK\_WIN} est mise à \og true \fg \, ou \og false \fg \, dans le code et pas par un paramètre pouvant varier au runtime, la version compilée contient effectivement une (partie de ) condition qui n'a pas vraiment de sens (toujours vraie ou fausse).
 Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiquement \fg \, (par un paramètre optionnel au lancement du programme par exemple), nous n'avons pas jugé utile d'implémenter une telle fonctionnalité. En effet, il s'agit surtout d'une option de développement permettant de tester une suite de niveau, pas d'une \og feature \fg \, destinée aux utilisateurs (sa présence dans le code au stade de la release ayant pour but de faciliter le travail des \og évaluateurs \fg).
-\paragraph{Mineures altérations diverses}
+\paragraph{Altérations mineures diverses}
+
 \begin{itemize}
 	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
 	\item 4 booléens n'avaient aucun intérêt et furent donc ôtés,
@@ -359,15 +360,18 @@ Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous av
 
 
 \paragraph{Taille de code}
+
 Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque possible.
 
 La classe (\mbox{\textit{PacManhattanAI}} et \mbox{\textit{PacManhattanAI}}) et la méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg() afin de réduire celle-ci.
 
 \paragraph{Loi de Demeter}
-PMD détecten nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
+
+PMD détecte nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
 Pour ce qui est des autres violations, le code existant force largement à les commettre.
 
 \paragraph{Avertissements mineurs}
+
 \begin{itemize}
 	\item Deux \og if \fg{} imbriqués dans \mbox{\textit{PlayerMoveTask\#run()}} furent intégrés en un seul,
 	\item 9 Arraylists furent convertis en List et une Hasmap en Map,
