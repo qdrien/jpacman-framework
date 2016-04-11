@@ -3,10 +3,12 @@ package nl.tudelft.jpacman;
 
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.LevelFactory;
+import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
@@ -138,7 +140,15 @@ public class Launcher {
             }
         });
         builder.addButton("New player", () -> game.getPlayers().get(0).createNewPlayer());
-        builder.addButton("Stats", () -> game.getPlayers().get(0).displayProfileStats());
+        builder.addButton("Stats", () ->
+        {
+            try {
+                final IdentifiedPlayer player = game.getPlayers().get(0);
+                if (player.displayProfileStats()) Achievement.offerAchievements(player);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
         if (!test) {

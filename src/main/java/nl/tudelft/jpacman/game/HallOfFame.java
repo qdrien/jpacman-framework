@@ -66,7 +66,7 @@ public class HallOfFame {
     }
 
     /**
-     * Get relative path of the running Hall of Fame.
+     * Get relative path of the default Hall of Fame.
      *
      * @return The String corresponding to the path where the default HoF file is stored
      */
