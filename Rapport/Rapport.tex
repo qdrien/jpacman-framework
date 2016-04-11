@@ -334,7 +334,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item La valeur de retour de la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}} n'était pas utilisée et cette méthode a donc été convertie en \og void \fg{},
 	\item 8 variables ont été déclarées \og final \fg{},
 	\item 11 éléments étaient reportés inutilisés, ceux qui n'avaient pas d'usage ont été enlevés (les autres sont suite à la gestion du score de fonctionnalités non implémentées),
-	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
+	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest\#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
 	\item 7 types anonymes ont été remplaçés par des expressions lambda,
 	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
 	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
@@ -348,12 +348,44 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \subsubsection{PMD}
 \paragraph{Déplacement des méthodes liées à la récupération des cases \og safe \fg pour téléporter le joueur de Level vers Board}
 %Plus logique et évite un problème de \og feature envy \fg desdites méthodes
-\paragraph{Problème détecté par PMD : Level == godclass et PacManhatanAI aussi}
+\paragraph{Problème détecté par PMD : Level == godclass, PacManhatanAI et Player aussi}
 %Signifie que :
 %1.	Level a une \og cohésion interne \fg faible, nous sommes en effet très loin du seuil de 1/3 mais cela devait également être le cas dans la version de base
 %2.	Level accède à des attributs appartenant à trop de classes étrangères, encore une fois, peu de changements à ce niveau là par rapport à la version de base
 %3.	Level est \og trop complexe par rapport à sa taille \fg : le problème ici semble venir de PMD qui, d’après la règle définie sur https://pmd.github.io/pmd-5.4.1/pmd-java/xref/net/sourceforge/pmd/lang/java/rule/design/GodClassRule.html attribue effectivement une valeur de complexité mais à aucun moment ne prend en compte la \og taille \fg de la classe.
 %Etant donné que Level comprend beaucoup de méthodes, la complexité est naturellement élevée.
+
+%Player:
+% Regroupait l'implémentation de deux fonctionnalités séparées (score & labyrinthe) en plus des services de base. -> Comportement lié à la fonctionnalité "score" déplaçé dans la classe descendante "IdentifiedPlayer" et de méthodes de vérification de contenu de fichiers verfs "FileChecker.
+
+A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
+
+
+\paragraph{Taille de code}
+Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque possible.
+
+La classe (\mbox{\textit{PacManhattanAI}} et \mbox{\textit{PacManhattanAI}}) et la méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg() afin de réduire celle-ci.
+
+\paragraph{Loi de Demeter}
+PMD détecten nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
+Pour ce qui est des autres violations, le code existant force largement à les commettre.
+
+\paragraph{Avertissements mineurs}
+\begin{itemize}
+	\item Deux \og if \fg{} imbriqués dans \mbox{\textit{PlayerMoveTask\#run()}} furent intégrés en un seul,
+	\item 9 Arraylists furent convertis en List et une Hasmap en Map,
+	\item 4 \og varargs \fg{} furent introduits là où c'était possible,
+	\item 5 déclarations d'attributs de classe furent déplaçés à la tête de leur classe,
+	\item 15 \og assert \fg{} furent modifiés pour éviter la surdépendance à \og assertTrue() \fg{},
+	\item 251 messages d'erreur furent ajoutés aux \og assert \fg{} qui en étaient privés,
+	\item Certaines variables au nom trop court furent renommées, d' autres non (variable à l'étendue fort restreinte ou correspondant à des coordonnées cartésiennes),
+	\item Des méthodes, variables, classes et constantes ont été renommées pour correspondre aux conventions du langage,
+	\item De nombreuses variables et paramètres furent déclarés \og final \fg{},
+	\item L'initialisation superflue de \mbox{\textit{PlayerMoveTask\#finished}} a été ôtée.
+\end{itemize}
+
+\subsubsection{FindBugs}
+%Me souviens plus de combien de cas (6?), mais de mon côté 1) les lectures et écritures fichier spécifient maintenant le charSet utilisé et 2) concaténation avec strings dans boucle -> usage de StringBuilder.append(). 4 instances, je crois.
 
 \subsubsection{Métriques}
 %todo: overview pyramis?
