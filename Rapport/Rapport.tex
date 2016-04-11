@@ -325,9 +325,25 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \subsubsection{IntelliJ Code inspection}
 \paragraph{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
 %Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)
-\paragraph{Changements mineurs (\og scope \fg de méthodes/variables, variables qui peuvent être \og final \fg)}
+\paragraph{Mineures altérations diverses}
+\begin{itemize}
+	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
+	\item 4 booléens n'avaient aucun intérêt et furent donc ôtés,
+	\item 6 paramètres avaient toujours la même valeur et furent donc remplaçés par celle-ci,
+	\item 14 accès furent rendus plus restrictifs,
+	\item La valeur de retour de la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}} n'était pas utilisée et cette méthode a donc été convertie en \og void \fg{},
+	\item 8 variables ont été déclarées \og final \fg{},
+	\item 11 éléments étaient reportés inutilisés, ceux qui n'avaient pas d'usage ont été enlevés (les autres sont suite à la gestion du score de fonctionnalités non implémentées),
+	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
+	\item 7 types anonymes ont été remplaçés par des expressions lambda,
+	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
+	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
+	\item Intellij a soulévé 3 erreurs dans la Javadoc, qui furent corrigées,
+	\item 6 \og asserts \fg{} étaient toujours vrais, ils ne le sont plus.
+\end{itemize}
 \paragraph{Dans le code de base, beaucoup de \og warnings \fg sur des \og problèmes de modernité \fg}
 %for indexé plutôt que foreach, méthode anonyme classique plutôt que lambda, etc
+
 
 \subsubsection{PMD}
 \paragraph{Déplacement des méthodes liées à la récupération des cases \og safe \fg pour téléporter le joueur de Level vers Board}
@@ -442,7 +458,7 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 \subsubsection{Fonctionnalité "Série de labyrinthes"}
 \begin{itemize}
 	\item Afin de pouvoir tester différents niveaux plus aisément, un booléen \mbox{\textbf{QUICK\_WIN}} est configurable dans la classe \mbox{\textit{Level}}.
-	Si on lui affecte la valeur \textit{true}, récupérer 13 gommes est suffisant pour réussir un niveau (et passer au suivant).
+	Si on lui affecte la valeur \textit{true}, récupérer treize gommes est suffisant pour réussir un niveau (et passer au suivant).
 	\item Les fichiers correspondants aux niveaux disponibles en jeu se trouvent dans le répertoire \nolinkurl{target/classes} à condition d'avoir au moins \og compilé \fg la solution via la commande :
 	\begin{lstlisting}[language=bash]
 	$ mvn compile
