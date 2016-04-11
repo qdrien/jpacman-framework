@@ -198,21 +198,13 @@ La fonctionnalité $(5)$ concerne le fait de pouvoir ajouter facilement des stra
 \section{Refactorings avant analyse}
 %todo: ce qui était prévu juste après merge, qu'on avait laissé tel quel ds les parties individuelles pr éviter au maximum les conflits lors de l'intégration des PR
 
-\subsection{Fusion des tests sur \og Player \fg}
-%Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \og Ghost#getIdentity() \fg.
-\subsection{Déplacement de la variable retenant le niveau courant de \og Level \fg vers \og Game \fg}
-%Plus logique et évite un problème de \og feature envy \fg 
-\subsection{Déplacement des méthodes concernant le \og map parser \fg de \og Launcher \fg vers \og Game \fg}
-%Plus logique et évite que \og Game \fg doive avoir une référence vers le \og Launcher \fg qui l’a créé (pour pouvoir charger le niveau suivant en cas de \og victoire \fg)
-%A nécessité de passer des méthodes/variables en \og static \fg (une partie des accesseurs aux \og Factories \fg de \og Launcher \fg puisque \og MapParser \fg en a besoin) mais cela reste logique puisque ces méthodes/variables sont en effet uniques au runtime.
-
-
-
-
-
-
-
-
+\paragraph{Fusion des tests sur \textit{Player}}
+Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \mbox{\textit{Ghost\#getIdentity()}}.
+\paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game}}
+Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
+\paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game}}
+Cette nouvelle organisation semble plus logique et évite que \mbox{\textit{Game}} ne doive avoir une référence vers le \mbox{\textit{Launcher}} qui l’a créé (pour pouvoir charger le niveau suivant en cas de victoire).
+Cela a cependant nécessité de passer des méthodes/variables en \og static \fg \, : une partie des \og accesseurs \fg \, aux \og Factories \fg \, de \mbox{\textit{Launcher}}, puisque \mbox{\textit{MapParser}} en a besoin. Cela reste malgré tout logique puisque ces méthodes/variables sont en effet uniques au runtime.
 
 \section{Analyse de la qualité du code source}
 
@@ -287,7 +279,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 %Etant donné que Level comprend beaucoup de méthodes, la complexité est naturellement élevée.
 
 \subsubsection{Métriques}
-%todo: overview pyramis?
+%todo: overview pyramid?
 
 %todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
 
