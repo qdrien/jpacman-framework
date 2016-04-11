@@ -257,7 +257,7 @@ Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, no
 Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
 \paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game}}
 Cette nouvelle organisation semble plus logique et évite que \mbox{\textit{Game}} ne doive avoir une référence vers le \mbox{\textit{Launcher}} qui l’a créé (pour pouvoir charger le niveau suivant en cas de victoire).
-Cela a cependant nécessité de passer des méthodes/variables en \og static \fg \, : une partie des \og accesseurs \fg \, aux \og Factories \fg \, de \mbox{\textit{Launcher}}, puisque \mbox{\textit{MapParser}} en a besoin. Cela reste malgré tout logique puisque ces méthodes/variables sont en effet uniques au runtime.
+Cela a cependant nécessité de passer des méthodes/variables en \og static \fg \, : une partie des \og accesseurs \fg \, aux \og Factories \fg \, de \mbox{\textit{Launcher}}, puisque \mbox{\textit{MapParser}} en a besoin. Cette modification reste malgré tout logique puisque ces méthodes/variables sont en effet uniques au runtime.
 
 \section{Analyse de la qualité du code source}
 
@@ -326,7 +326,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item La valeur de retour de la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}} n'était pas utilisée et cette méthode a donc été convertie en \og void \fg{},
 	\item 8 variables ont été déclarées \og final \fg{},
 	\item 11 éléments étaient reportés inutilisés, ceux qui n'avaient pas d'usage ont été enlevés (les autres sont suite à la gestion du score de fonctionnalités non implémentées),
-	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
+	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest\#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
 	\item 7 types anonymes ont été remplaçés par des expressions lambda,
 	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
 	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
