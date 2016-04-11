@@ -317,7 +317,8 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 \subsubsection{IntelliJ Code inspection}
 \paragraph{IntelliJ dit que la condition impliquant QUICK\_WIN est \og pointless \fg} 
 %Puisque la variable mise à true ou false dans le code, c’est effectivement le cas sur le code compilé, pas dans le code source puisqu’on veut pouvoir le changer. Note qu’on pourrait aussi permettre de set ça en paramètre au lancement du prog (option type \og --quick \fg)
-\paragraph{Mineures altérations diverses}
+\paragraph{Altérations mineures diverses}
+
 \begin{itemize}
 	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
 	\item 4 booléens n'avaient aucun intérêt et furent donc ôtés,
@@ -354,15 +355,18 @@ A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
 
 
 \paragraph{Taille de code}
+
 Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque possible.
 
 La classe (\mbox{\textit{PacManhattanAI}} et \mbox{\textit{PacManhattanAI}}) et la méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg() afin de réduire celle-ci.
 
 \paragraph{Loi de Demeter}
-PMD détecten nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
+
+PMD détecte nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
 Pour ce qui est des autres violations, le code existant force largement à les commettre.
 
 \paragraph{Avertissements mineurs}
+
 \begin{itemize}
 	\item Deux \og if \fg{} imbriqués dans \mbox{\textit{PlayerMoveTask\#run()}} furent intégrés en un seul,
 	\item 9 Arraylists furent convertis en List et une Hasmap en Map,
