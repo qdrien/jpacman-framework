@@ -264,8 +264,102 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
 
-\section{Analyse statique}
-\subsection{Code dupliqué}
+\subsection{Analyse statique}
+
+\subsubsection{Métriques}
+
+Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1). 
+
+\subsubsection*{Nombre de classes}
+
+Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{classMetrics1} et \ref{classMetrics2}) où la colonne \textit{C} représente le nombre de classes et d'interfaces dans chaque package et la colonne \textit{C(rec)} représente le nombre de classes et d'interfaces dans chaque package en incluant les sous-classes. Les autres colonnes concernent la distribution des classes au sein du code produit et du code de test.
+
+\textbf{Logiciel initial}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/classMetrics1.png} 
+	\caption{Nombre de classes et d'interfaces dans chaque package}
+	\label{classMetrics1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.7]{Images/classMetrics2.png} 
+	\caption{Répartition graphique des classes au sein des packages}
+	\label{classMetrics2}
+\end{figure}
+
+\textbf{Logiciel final}
+
+Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui contient la version après intégration des fonctionnalités.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/classMetrics3.png} 
+	\caption{Nombre de classes et d'interfaces dans chaque package}
+	\label{classMetrics1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.7]{Images/classMetrics4.png} 
+	\caption{Répartition graphique des classes au sein des packages}
+	\label{classMetrics2}
+\end{figure}
+
+Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package.
+
+\newpage
+
+\subsubsection*{Lignes de codes}
+
+Cette métrique appartient à la catégorie des métriques de taille qui permettent de déterminer la taille de certains composants du logiciels. En particulier, celle-ci permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
+
+\textbf{Logiciel initial}
+Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}). On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes, ce qui est très important par rapport aux autres packages.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOC.png} 
+	\caption{Nombre de lignes de code dans chaque package}
+	\label{locinit}
+\end{figure}
+\newpage
+Analysons à présent les classes les plus volumineuses au sein de ce projet (Figure~\ref{locinit}).
+
+
+
+\textbf{Logiciel final}
+
+
+\subsubsection*{Complexité}
+
+Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemin d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci.
+
+\textbf{Logiciel initial}
+
+\textbf{Logiciel final}
+
+%todo: overview pyramid?
+
+%todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
+
+\subsubsection*{Dépendances}
+\textbf{Logiciel initial}
+
+\textbf{Logiciel final}
+%todo: couplage/cohésion => matrice de dépendance?
+%todo: JDepend?
+
+%todo: X-ray ? (see p21 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
+
+%todo: autres choses ? taille/complexité en fonction des classes ? blueprint ? (=> codecrawler?)
+
+
+
+
+\subsubsection{Code dupliqué}
 Puisque nous utilisons tous les 3 IntelliJ IDEA, l'outil intégré a été utilisé dans un premier temps. La figure \ref{duplicate} montre les résultats obtenus via cette analyse.
 On peut noter que les détections ayant un \og coût \fg \, inférieur à $\sim$20 ne sont pas réellement préoccupantes. Pour exemple, les lignes suivantes, extraites de \textit{SquareCoordinateTest}, sont considérées comme dupliquées par l'outil avec un score de 10 :
 \begin{lstlisting}[language=java]
@@ -300,8 +394,8 @@ final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSq
 	\caption{\label{duplicate} Recherche de code dupliqué via l'outil intégré à \textit{IntelliJ IDEA}}
 \end{figure}
 
-\subsection{Audit de code}
-\subsubsection{CheckStyle}
+\subsubsection{Audit de code}
+\subsubsection*{CheckStyle}
 Egalement intégré dans la suite d'analyses à effectuer via \textit{Maven}, \textit{CheckStyle} a été utilisé avec le \og ruleset \fg \, présent dans la version du code d'origine.
 Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cependant présents (plus de 500). Par ordre de nombre de \og violations \fg :
 \begin{itemize}
@@ -315,7 +409,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
 
-\subsubsection{IntelliJ Code inspection}
+\subsubsection*{IntelliJ Code inspection}
 \paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg} 
 Puisque la variable \textbf{QUICK\_WIN} est mise à \og true \fg \, ou \og false \fg \, dans le code et pas par un paramètre pouvant varier au runtime, la version compilée contient effectivement une (partie de ) condition qui n'a pas vraiment de sens (toujours vraie ou fausse).
 Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiquement \fg \, (par un paramètre optionnel au lancement du programme par exemple), nous n'avons pas jugé utile d'implémenter une telle fonctionnalité. En effet, il s'agit surtout d'une option de développement permettant de tester une suite de niveau, pas d'une \og feature \fg \, destinée aux utilisateurs (sa présence dans le code au stade de la release ayant pour but de faciliter le travail des \og évaluateurs \fg).
@@ -339,7 +433,7 @@ Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiqu
 \paragraph{\og Warnings \fg \, sur des \og problèmes de modernité \fg}
 Ces signalements, surtout liés au code dans sa version de base (avant nos changements individuels), se présentaient par exemple aux endroits où un \og for indexé \fg \, pouvait être remplacé par un \og foreach \fg \, ou bien lorsqu'une classe anonyme \og classique \fg \, pouvait disparaitre au profit d'une expression lambda. Les \og modernisations \fg \, ont donc été effectuées (pour la plupart grâce à des \og refactorings \fg \, automatiques d'\textit{IntelliJ IDEA}).
 
-\subsubsection{PMD}
+\subsubsection*{PMD}
 \paragraph{\og Feature envy \fg \, potentiel lié à la récupération des cases \og safe \fg}
 Lorsque le joueur doit être téléporté vers une case à l'écart des fantômes, il est nécessaire de regarder le contenu du \textit{Board}. Il est donc logique que ce soit celui-ci qui se charge de récupérer la liste des cases \og safe \fg . De fait, pour éviter un problème potentiel de \og feature envy \fg , cette récupération a été déplacée de \textit{Level} vers \textit{Board}.
 \paragraph{Détection de \og God classes \fg}
@@ -385,22 +479,11 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 	\item L'initialisation superflue de \mbox{\textit{PlayerMoveTask\#finished}} a été ôtée.
 \end{itemize}
 
-\subsubsection{FindBugs}
+\subsubsection*{FindBugs}
 %Me souviens plus de combien de cas (6?), mais de mon côté 1) les lectures et écritures fichier spécifient maintenant le charSet utilisé et 2) concaténation avec strings dans boucle -> usage de StringBuilder.append(). 4 instances, je crois.
+\subsection{Analyse dynamique}
 
-\subsubsection{Métriques}
-%todo: overview pyramid?
 
-%todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
-
-\subsection{Analyse de dépendances}
-%todo: couplage/cohésion => matrice de dépendance?
-%todo: JDepend?
-
-%todo: X-ray ? (see p21 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
-
-%todo: autres choses ? taille/complexité en fonction des classes ? blueprint ? (=> codecrawler?)
-\section{Analyse dynamique}
 \subsection{Couverture du code}
 %todo: Inclus dans maven:site? (cobertura?)
 \subsection{Couverture des tests}
@@ -413,8 +496,7 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 %todo: régression @ R ??? sur quoi ? LOC ou quoi pour vérifier les lois vues au cours ?
 %todo: check SonarQube or Codacy? (all in one + integrated regression apparently)
 
-\section{Mesure de la qualité du logiciel} 
-%todo: ? différence avec analyse de qualité ? voulais-tu créer ici la section "analyse de la qualité dans le temps" (régression avec par ex. R, comme en TP) ?
+
 
 \section{Notes diverses et guide d'utilisation}
 \subsection{Maven}
