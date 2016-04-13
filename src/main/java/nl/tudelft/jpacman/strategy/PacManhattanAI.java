@@ -92,7 +92,6 @@ public class PacManhattanAI extends AIStrategy {
         directionQueue = new ArrayDeque<>(); //Initialisation of the queue containing best moves
         boolean warning = false; //Boolean to know if a ghost is near of the player or not
         updatePacmanBehaviour(game.getLevel().remainingPellets()); //Accelerate the endgame
-
         for (final Ghost ghost : getGhostsList()) {
             //Test if a ghost is near of the player
             final double distance = AStarPath.manhattanDistance(

@@ -8,6 +8,10 @@ import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
+import nl.tudelft.jpacman.strategy.HumanControllerStrategy;
+import nl.tudelft.jpacman.strategy.PacManhattanAI;
+import nl.tudelft.jpacman.strategy.PacmanStrategy;
+import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +44,10 @@ public abstract class Game implements LevelObserver {
      */
     private PlayerMoveTask currentMoveTask;
     private ScheduledExecutorService service;
+    /**
+     * The chosen strategy by the player.
+     */
+    private PacmanStrategy strategy;
 
     /**
      * Creates a new game.
@@ -115,6 +123,10 @@ public abstract class Game implements LevelObserver {
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
+        if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+            getLevel().setStrategy(new PacManhattanAI(this));
+        else
+            getLevel().setStrategy(new HumanControllerStrategy(this, MyJDialogStrategy.getBuilder()));
     }
 
     /**
@@ -217,6 +229,7 @@ public abstract class Game implements LevelObserver {
      */
     public AILevel nextLevel() {
         AILevel level = makeLevel(++currentLevel);
+        level.setStrategy(strategy);
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
             //restart this last level (loop until player dies)
@@ -236,6 +249,16 @@ public abstract class Game implements LevelObserver {
     protected int getCurrentLevel() {
         return currentLevel;
     }
+
+    /**
+     * Set the strategy.
+     * @param strategy chosen by the player
+     */
+    public void setStrategy(PacmanStrategy strategy) {
+        getLevel().setStrategy(strategy);
+        this.strategy = strategy;
+    }
+
 
     /**
      * Class representing the timer and methods to apply during the timer.

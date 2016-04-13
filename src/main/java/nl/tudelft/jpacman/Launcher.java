@@ -8,7 +8,6 @@ import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.LevelFactory;
-import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
@@ -149,7 +148,6 @@ public class Launcher {
                 e.printStackTrace();
             }
         });
-        addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
         if (!test) {
             final MyJDialogStrategy dialog =
