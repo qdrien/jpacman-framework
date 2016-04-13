@@ -143,7 +143,9 @@ public class Launcher {
         {
             try {
                 final IdentifiedPlayer player = game.getPlayers().get(0);
-                if (player.displayProfileStats()) Achievement.offerAchievements(player);
+                if (player.displayProfileStats()) {
+                    Achievement.offerAchievements(player);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
