@@ -302,7 +302,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param pelletNbr the pellets number remaining in the game
      */
-    private void updatePacmanBehaviour(final int pelletNbr) {
+    private static void updatePacmanBehaviour(final int pelletNbr) {
         if (pelletNbr <= HIGH_PELLET_COUNT) {
             //Pacman must recover the last pellets to finish
             if (pelletNbr <= LOW_PELLET_COUNT) {
@@ -337,7 +337,7 @@ public class PacManhattanAI extends AIStrategy {
      *
      * @param ghostDst the new ghostDstThreshold
      */
-    public void setGhostDstThreshold(final int ghostDst) {
+    public static void setGhostDstThreshold(final int ghostDst) {
         ghostDstThreshold = ghostDst;
     }
 }
