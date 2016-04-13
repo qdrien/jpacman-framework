@@ -112,12 +112,12 @@ public final class FileChecker {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         //first line ignored, it contains other other information
         String achievementName = reader.readLine();
-        StringBuilder bs = new StringBuilder();
-        bs.append(achievements).append("<br>Achievements: <br>");
+        StringBuilder builder = new StringBuilder();
+        builder.append(achievements).append("<br>Achievements: <br>");
         while ((achievementName = reader.readLine()) != null) {
-            bs.append(achievementName).append(": ").append(Achievement.parseAchievement(achievementName).getDescription()).append("<br>");
+            builder.append(achievementName).append(": ").append(Achievement.parseAchievement(achievementName).getDescription()).append("<br>");
         }
         reader.close();
-        return bs.toString();
+        return builder.toString();
     }
 }

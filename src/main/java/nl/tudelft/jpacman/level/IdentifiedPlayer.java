@@ -260,15 +260,15 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private void setInfoLine(String toWrite) throws IOException {
-        StringBuilder bs = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
+        StringBuilder toWrite = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         String line = reader.readLine(); //ignore first line, it's already included.
         while ((line = reader.readLine()) != null) {
-            bs.append(line).append(System.getProperty("line.separator"));
+            toWrite.append(line).append(System.getProperty("line.separator"));
         }
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath), Charset.defaultCharset()));
-        writer.write(bs.toString());
+        writer.write(toWrite.toString());
         writer.close();
     }
 
@@ -284,17 +284,17 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        StringBuilder bs = new StringBuilder();
+        StringBuilder toWrite = new StringBuilder();
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
             if (i == killer.getIndex()) {
-                bs.append(Integer.parseInt(split[i]) + 1).append(" ");
+                toWrite.append(Integer.parseInt(split[i]) + 1).append(" ");
             }
             else {
-                bs.append(split[i]).append(" ");
+                toWrite.append(split[i]).append(" ");
             }
         }
-        setInfoLine(bs.toString());
+        setInfoLine(toWrite.toString());
         if (toGrant != null) {
             addAchievement(toGrant);
         }
@@ -313,7 +313,7 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        StringBuilder bs = new StringBuilder();
+        StringBuilder toUpdate = new StringBuilder();
         int highScore = Integer.parseInt(split[1]);
         if (getScore() > 9000) {
             addAchievement(Achievement.OVER_9000);
@@ -323,13 +323,13 @@ public class IdentifiedPlayer extends Player {
         }
         for (int i = 0; i < split.length; i++) {
             if (i == 1) {
-                bs.append(highScore).append(" ");
+                toUpdate.append(highScore).append(" ");
             }
             else {
-                bs.append(split[i]).append(" ");
+                toUpdate.append(split[i]).append(" ");
             }
         }
-        setInfoLine(bs.toString());
+        setInfoLine(toUpdate.toString());
     }
 
     /**
