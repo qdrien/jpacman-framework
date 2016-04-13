@@ -229,7 +229,6 @@ public abstract class Game implements LevelObserver {
      */
     public AILevel nextLevel() {
         AILevel level = makeLevel(++currentLevel);
-        level.setStrategy(strategy);
         if (level == null) {
             //the level could not be loaded, this means that the previous one was the final level
             //restart this last level (loop until player dies)
@@ -238,6 +237,7 @@ public abstract class Game implements LevelObserver {
             level = makeLevel(--currentLevel);
         }
         assert level != null;
+        level.setStrategy(strategy);
         return level;
     }
 
