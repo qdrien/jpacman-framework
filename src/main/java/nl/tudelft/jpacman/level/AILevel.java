@@ -118,8 +118,9 @@ public class AILevel extends Level {
             }
             else
             {
-                if(strategy != null)
+                if(strategy != null) {
                     strategy.executeStrategy();
+                }
             }
             startNPCs();
             setInProgress(true);

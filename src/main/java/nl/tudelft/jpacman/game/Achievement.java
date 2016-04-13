@@ -104,20 +104,23 @@ public enum Achievement {
             while ((line = reader.readLine()) != null)
             {
                 Achievement currentAchievement = valueOf(line);
-                if (!obtained.contains(currentAchievement)) obtained.add(currentAchievement);
+                if (!obtained.contains(currentAchievement)) {
+                    obtained.add(currentAchievement);
+                }
             }
 
             for (int i = 0; i < obtained.size() && recommendations.size() <= MAX_RECOMMENDATIONS; i++)
             {
                 Achievement recommended = obtained.get(i).recommended;
-                if (!recommendations.contains(recommended) && !obtained.contains(recommended))
-                {
+                if (!recommendations.contains(recommended) && !obtained.contains(recommended)) {
                     recommendations.add(recommended);
                     toDisplay +=  recommended + ": " + recommended.getDescription() + System.getProperty("line.separator");
                 }
             }
             //VICTOR is the default recommended achievement.
-            if (toDisplay.equals("") && !obtained.contains(VICTOR)) toDisplay = VICTOR + ": " + VICTOR.getDescription();
+            if (toDisplay.equals("") && !obtained.contains(VICTOR)) {
+                toDisplay = VICTOR + ": " + VICTOR.getDescription();
+            }
             reader.close();
             JOptionPane.showMessageDialog(null, toDisplay, "Recommended achievements.", JOptionPane.PLAIN_MESSAGE);
         }

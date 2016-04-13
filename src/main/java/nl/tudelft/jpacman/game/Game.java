@@ -123,10 +123,12 @@ public abstract class Game implements LevelObserver {
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
-        if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+        if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
             getLevel().setStrategy(new PacManhattanAI(this));
-        else
+        }
+        else {
             getLevel().setStrategy(new HumanControllerStrategy(this, MyJDialogStrategy.getBuilder()));
+        }
     }
 
     /**
