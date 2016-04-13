@@ -260,15 +260,15 @@ public class IdentifiedPlayer extends Player {
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
     private void setInfoLine(String toWrite) throws IOException {
-        StringBuilder toWrite = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
+        StringBuilder builder = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         String line = reader.readLine(); //ignore first line, it's already included.
         while ((line = reader.readLine()) != null) {
-            toWrite.append(line).append(System.getProperty("line.separator"));
+            builder.append(line).append(System.getProperty("line.separator"));
         }
         reader.close();
         final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath), Charset.defaultCharset()));
-        writer.write(toWrite.toString());
+        writer.write(builder.toString());
         writer.close();
     }
 
