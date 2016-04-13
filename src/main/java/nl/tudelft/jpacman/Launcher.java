@@ -161,6 +161,12 @@ public class Launcher {
     }
 
     /**
+     * Returns the UI.
+     * @return The UI.
+     */
+    public PacManUI getPacManUI() {return pacManUI;}
+
+    /**
      * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
      */
     public void dispose() {
