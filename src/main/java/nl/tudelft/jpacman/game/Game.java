@@ -172,8 +172,8 @@ public abstract class Game implements LevelObserver {
 
     @Override
     public void levelLost() {
+        stop();
         if (firstPass) {
-            stop();
             final IdentifiedPlayer player = getPlayers().get(0);
             HallOfFame.setIsNotATest(true);
             try {

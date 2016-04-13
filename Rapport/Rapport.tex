@@ -272,9 +272,11 @@ Dans cette section, nous allons analyser la qualité du logiciel initial ainsi q
 
 \subsubsection*{Nombre de classes}
 
-Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{classMetrics1} et \ref{classMetrics2}) où la colonne \textit{C} représente le nombre de classes et d'interfaces dans chaque package et la colonne \textit{C(rec)} représente le nombre de classes et d'interfaces dans chaque package en incluant les sous-classes. Les autres colonnes concernent la distribution des classes au sein du code produit et du code de test.
+Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. 
 
 \textbf{Logiciel initial}
+
+Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{classMetrics1} et \ref{classMetrics2}) où la colonne \textit{C} représente le nombre de classes et d'interfaces dans chaque package et la colonne \textit{C(rec)} représente le nombre de classes et d'interfaces dans chaque package en incluant les sous-classes. Les autres colonnes concernent la distribution des classes au sein du code produit et du code de test.
 
 \begin{figure}[!h]
 	\centering
@@ -317,7 +319,8 @@ Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on const
 Cette métrique appartient à la catégorie des métriques de taille qui permettent de déterminer la taille de certains composants du logiciels. En particulier, celle-ci permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
 \textbf{Logiciel initial}
-Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}). On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes").
+
+Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}) en ne considérant pas les classes de tests. On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes"). On peut aussi observer qu'il y a, au total, 3860 lignes de codes et 1905 lignes de commentaires (Figure~\ref{locinit2}).
 
 \begin{figure}[!h]
 	\centering
@@ -326,18 +329,32 @@ Dans un premier temps, on peut analyser le nombre de lignes de code à l'intéri
 	\label{locinit}
 \end{figure}
 
-La figure suivante reprend les classes les plus importantes du projet :
 
 
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOC2.png} 
+	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\label{locinit2}
+\end{figure}
 
 \newpage
+Ensuite, grâce au plugin "Statistic" de l'IDE Intellij Idea, on peut afficher plus en détail les statistiques concernant les lignes de code dans le projet (en prenant en compte les classes de tests). Dans les résultats dans la figure~\ref{locinit3}, on constate que la classe la plus volumineuse est la classe \mbox{\textit{Level}}.
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.29]{Images/SizeMetricsLOC3.png} 
+	\caption{Statistiques sur les lignes de codes}
+	\label{locinit3}
+\end{figure}
 
 
 
 \textbf{Logiciel final}
 
-Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans la figure~\ref{locfinal}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487.
+Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans les figure~\ref{locfinal} et \ref{locfinal2}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487 et de 1905 à 3503 pour les commentaires.
 
 \begin{figure}[!h]
 	\centering
@@ -345,8 +362,24 @@ Concernant la version finale, les résultats de la distribution des lignes de co
 	\caption{Nombre de lignes de code dans chaque package}
 	\label{locfinal}
 \end{figure}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOCFinal2.png} 
+	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\label{locfinal2}
+\end{figure}
+\newpage
+Quant aux statistiques (Figure~\ref{locfinal3}), on constate que les deux classes les plus volumineuses sont \mbox{\textit{IdentifiedPlayer}} et  \mbox{\textit{Level}}. On constate également que la plupart des valeurs totales des statistiques ont été doublées par rapport à la version originale.
 
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.29]{Images/SizeMetricsLOCFinal3.png} 
+	\caption{Statistiques sur les lignes de codes}
+	\label{locfinal3}
+\end{figure}
+
+\newpage
 
 \subsubsection*{Complexité}
 
@@ -354,14 +387,96 @@ Cette métrique permet de calculer la complexité cyclomatique des différentes 
 
 \textbf{Logiciel initial}
 
+Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles seront donc surveillées tout au long de cette analyse afin de voir les évolutions apportées.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics1.png} 
+	\caption{Métrique de complexité pour les méthodes}
+	\label{ComplexityMetrics1}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics2.png} 
+	\caption{Métrique de complexité pour les classes}
+	\label{ComplexityMetrics2}
+\end{figure}
+
 \textbf{Logiciel final}
+
+Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics3.png} 
+	\caption{Métrique de complexité pour les méthodes}
+	\label{ComplexityMetrics3}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics4.png} 
+	\caption{Métrique de complexité pour les classes}
+	\label{ComplexityMetrics4}
+\end{figure}
 
 %todo: overview pyramid?
 
 %todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
+\newpage
 
 \subsubsection*{Dépendances}
+
+Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
+
 \textbf{Logiciel initial}
+
+La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyMetrics1.png}
+	\includegraphics[scale=0.6]{Images/DependencyMetricsBis1.png}  
+	\caption{Métrique de dépendance}
+	\label{DependencyMetrics1}
+\end{figure}
+\newpage
+ On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
+
+
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle1.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle2.png}  
+	\label{DependencyCycle1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle3.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle4.png}  
+	\label{DependencyCycle1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle5.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle6.png} 
+		\caption{Dépendance cyclique}
+ 
+	\label{DependencyCycle1}
+\end{figure}
+
+\newpage
+
+La matrice de dépendance qui est représentée par la figure~\ref{ComplexityMetrics1} permet de mieux visualiser ces dépendances entre classes. 
+
 
 \textbf{Logiciel final}
 %todo: couplage/cohésion => matrice de dépendance?
