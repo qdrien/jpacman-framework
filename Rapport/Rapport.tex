@@ -262,7 +262,7 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code. 
 
 \subsection{Analyse statique}
 
@@ -298,17 +298,17 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 	\centering
 	\includegraphics[scale=0.6]{Images/classMetrics3.png} 
 	\caption{Nombre de classes et d'interfaces dans chaque package}
-	\label{classMetrics1}
+	\label{classMetrics3}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.7]{Images/classMetrics4.png} 
 	\caption{Répartition graphique des classes au sein des packages}
-	\label{classMetrics2}
+	\label{classMetrics4}
 \end{figure}
 
-Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package.
+Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).
 
 \newpage
 
@@ -317,7 +317,7 @@ Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on const
 Cette métrique appartient à la catégorie des métriques de taille qui permettent de déterminer la taille de certains composants du logiciels. En particulier, celle-ci permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
 \textbf{Logiciel initial}
-Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}). On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes, ce qui est très important par rapport aux autres packages.
+Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}). On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes").
 
 \begin{figure}[!h]
 	\centering
@@ -325,12 +325,26 @@ Dans un premier temps, on peut analyser le nombre de lignes de code à l'intéri
 	\caption{Nombre de lignes de code dans chaque package}
 	\label{locinit}
 \end{figure}
+
+La figure suivante reprend les classes les plus importantes du projet :
+
+
 \newpage
-Analysons à présent les classes les plus volumineuses au sein de ce projet (Figure~\ref{locinit}).
+
 
 
 
 \textbf{Logiciel final}
+
+Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans la figure~\ref{locfinal}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOCFinal.png} 
+	\caption{Nombre de lignes de code dans chaque package}
+	\label{locfinal}
+\end{figure}
+
 
 
 \subsubsection*{Complexité}
