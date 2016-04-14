@@ -103,22 +103,6 @@ public class Launcher {
     }
 
     /**
-     * Adds key events UP, DOWN, LEFT and RIGHT to a game.
-     *
-     * @param builder The {@link PacManUiBuilder} that will provide the UI.
-     * @param game    The game that will process the events.
-     */
-    protected void addSinglePlayerKeys(final PacManUiBuilder builder,
-                                       final Game game) {
-        final IdentifiedPlayer p1 = game.getPlayers().get(0);
-
-        builder.addKey(KeyEvent.VK_UP, () -> game.move(p1, Direction.NORTH))
-                .addKey(KeyEvent.VK_DOWN, () -> game.move(p1, Direction.SOUTH))
-                .addKey(KeyEvent.VK_LEFT, () -> game.move(p1, Direction.WEST))
-                .addKey(KeyEvent.VK_RIGHT, () -> game.move(p1, Direction.EAST));
-    }
-
-    /**
      * Creates and starts a JPac-Man game.
      * @param test a boolean set to true if called by unit test, false otherwise
      */
