@@ -92,7 +92,7 @@ public enum Achievement {
      * @param player The player currently logged in.
      */
     @SuppressWarnings("checkstyle:linelength")
-    public static void offerAchievements(IdentifiedPlayer player)
+    public static String offerAchievements(IdentifiedPlayer player)
     {
         List<Achievement> recommendations = new ArrayList<>();
         try
@@ -103,7 +103,7 @@ public enum Achievement {
             String toDisplay = "", line = reader.readLine();
             while ((line = reader.readLine()) != null)
             {
-                Achievement currentAchievement = valueOf(line);
+                Achievement currentAchievement = parseAchievement(line);
                 if (!obtained.contains(currentAchievement)) {
                     obtained.add(currentAchievement);
                 }
@@ -122,11 +122,12 @@ public enum Achievement {
                 toDisplay = VICTOR + ": " + VICTOR.getDescription();
             }
             reader.close();
-            JOptionPane.showMessageDialog(null, toDisplay, "Recommended achievements.", JOptionPane.PLAIN_MESSAGE);
+            return toDisplay;
         }
         catch (IOException e)
         {
             e.printStackTrace();
+            return "Error!";
         }
     }
 }

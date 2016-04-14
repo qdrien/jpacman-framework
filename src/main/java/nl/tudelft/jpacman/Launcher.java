@@ -122,6 +122,7 @@ public class Launcher {
      * Creates and starts a JPac-Man game.
      * @param test a boolean set to true if called by unit test, false otherwise
      */
+    @SuppressWarnings("checkstyle:linelength")
     public void launch(boolean test) {
         game = makeGame();
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
@@ -144,7 +145,7 @@ public class Launcher {
             try {
                 final IdentifiedPlayer player = game.getPlayers().get(0);
                 if (player.displayProfileStats()) {
-                    Achievement.offerAchievements(player);
+                    JOptionPane.showMessageDialog(null, Achievement.offerAchievements(player), "Recommended achievements.", JOptionPane.PLAIN_MESSAGE);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
