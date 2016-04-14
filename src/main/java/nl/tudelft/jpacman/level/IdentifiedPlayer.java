@@ -168,7 +168,7 @@ public class IdentifiedPlayer extends Player {
         if (getPlayerName() == null || FileChecker.checkAchievement(profilePath, achievement)) {
             return;
         }
-        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(profilePath, true), Charset.defaultCharset()));
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getProfilePath(), true), Charset.defaultCharset()));
         writer.write(achievement + System.getProperty("line.separator"));
         writer.close();
         final int bonus = achievement.getBonusScore();
@@ -376,13 +376,6 @@ public class IdentifiedPlayer extends Player {
      */
     public void setPlayerName(String s) {
         playerName = s;
-    }
-
-    /**
-     * Sets the player's name to the test value.
-     */
-    public void setPlayerName() {
-        playerName = "Testy";
     }
 
     /**
