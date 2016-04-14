@@ -111,7 +111,7 @@ public class MyJDialogStrategy extends JDialog {
     }
 
     /**
-     * Get tge builder of the game
+     * Get the builder of the game
      * @return the builder
      */
     public static PacManUiBuilder getBuilder() {
