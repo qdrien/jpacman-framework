@@ -191,7 +191,8 @@ $(5)$ posait lui aussi quelques difficultés, non pas sur sa réalisation en soi
 
 Pour cette fonctionnalité, il a été choisi de simuler l'authentification en respectant des conventions de nommage communes. On fournira ici les méthodes permettant, une fois qu'a été récupéré le niveau maximum atteint par un joueur, d'ajouter des boutons de sélection/chargement de niveau tout en réinitialisant le score et les vies du joueur.
 
-Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image. \label{map_generator_txt}
+\paragraph{Convertisseur de cartes} \label{map_generator_txt}
+Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image.
 
 En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le \og remplissage \fg d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). 
 
@@ -619,7 +620,37 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \subsubsection{Couverture des tests}
 %todo: Inclus dans maven:site (cobertura?)
 \subsubsection{Profilage}
-%todo: YourKit, JProfiler
+Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
+On réalisera 2 scénarios :
+\begin{itemize}
+	\item Jeu en mode "IA" qu'on laisse tourner jusqu'à la mort définitive de Pac-man
+	\item Jeu en mode "Joueur" pour lequel on crée un compte, on s'y connecte et, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
+\end{itemize}
+\paragraph{Processeur et threads}
+Pour les deux scénarios susmentionnés, l'analyse montre que la méthode \mbox{\textit{Navigation\#shortestPath(Square, Square, Unit)}} et en particulier l'appel à \mbox{\textit{HashSet.add(Object)}} prend l'écrasante majorité du temps CPU. La figure \ref{hotspot} montre le résultat de l'analyse \og Hot spots \fg \, de \textit{Yourkit} sur le scénario "Joueur" (les résultats sur l'autre scénario étant similaires).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/hotspot.JPG}
+	\caption{\label{hotspot} Recherche d' \og Hot spots \fg \, CPU avec \textit{Yourkit}}
+\end{figure}
+
+On constate donc que l'intelligence artificielle des fantômes (qui était présente dans la version originale du jeu) est gourmande en ressources par rapport au reste du programme, il serait donc intéressant de s'assurer que son comportement est optimisé. Cependant, il nous semble l'être et il n'est pas étonnant que le comportement d'intelligences artificielles prenne du temps CPU. On note également que des méthodes liées à l'affichage et à la gestion des entrées/sorties sont détectées comme \og Hot spots \fg \, bien que leur impact soit négligeable en comparaison.
+
+De manière générale, on peut voir l'évolution au cours du temps de l'utilisation du processeur et du nombre de threads sur les graphes de la figure \ref{cpu-threads}. Toujours rien d'anormal à ce stade.
+\begin{figure}[h]
+	\centering
+	\includegraphics{Images/cpu-threads.JPG}
+	\caption{\label{cpu-threads} Evolution de l'utilisation CPU et du nombre de threads avec \textit{Yourkit}}
+\end{figure}
+\paragraph{Mémoire}
+Pour les deux scénarios considérés, on constate que la mémoire utilisée reste assez constante, tout comme le nombre de passages du \og Garbage Collector \fg. La figure \ref{memory} rend compte des principaux résultats obtenus pour le scénario "IA".
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/memory.JPG}
+	\caption{\label{memory} Utilisation mémoire avec \textit{Yourkit}}
+\end{figure}
+
+On ne constate donc toujours pas de problème pour cette partie ci de l'analyse. On notera, comme le montre l'image, qu'il a été choisi de ne montrer que la mémoire utilisée en terme de \og metaspace \fg \, pour la mémoire \og non-heap \fg. Cela vient du fait que \textit{Yourkit} analyse également le \og Code Cache \fg, qui augmente continuellement (comportement de Java qui garde en cache du code) et donne donc une fausse impression d'augmentation.
 
 \section{Evolution du code au cours du temps}
 %todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
@@ -712,7 +743,7 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 	
 	Avant compilation, ces mêmes fichiers se trouvent dans \nolinkurl{src/main/resources}.
 	\item Un niveau numéroté $n$ est considéré comme partie intégrante du jeu si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est présent et si les fichiers des niveaux $1...n-1$ le sont également.
-	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le convertisseur mentionné à la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
+	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le \og convertisseur de carte \fg \,  mentionné au paragraphe ad hoc de la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
 \end{itemize}
 
 \section{Conclusion de l'analyse}
