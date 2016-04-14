@@ -450,7 +450,7 @@ Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous av
 
 %Player:
 % Regroupait l'implémentation de deux fonctionnalités séparées (score & labyrinthe) en plus des services de base. -> Comportement lié à la fonctionnalité "score" déplaçé dans la classe descendante "IdentifiedPlayer" et de méthodes de vérification de contenu de fichiers verfs "FileChecker.
-%A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
+A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
 
 
 \paragraph{Taille de code}
@@ -485,9 +485,69 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 
 
 \subsection{Couverture du code}
-%todo: Inclus dans maven:site? (cobertura?)
-\subsection{Couverture des tests}
-%todo: Inclus dans maven:site (cobertura?)
+\paragraph{Couverture globale}
+
+Avant l'ajout de nos fonctionnalités, le pourcentage de code couvert par des tests était comme suit: 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/InitialCoverage}
+	\caption{\label{InitialCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA sur le code initial}}
+\end{figure}
+
+
+Actuellement, ces pourcentages ont évolué de la manière suivante:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/MergedCoverage}
+	\caption{\label{MergedCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA sur notre code}}
+\end{figure}
+
+Comme on peut le voir (en zoomant quelque peu), la couverture globale a non seulement été maintenue dans l'ensemble, mais a significativement augmenté au niveau du nombre de méthodes couvertes.
+Si le nombre de lignes couvertes n'a pas augmenté en concordance, c'est essentiellement parce que les fonctionnalités que nous avons ajoutées impliquent un nombre non négligeable d' éléments d' interface graphique style boutons ou \og dialogs \fg(), qui sont délicats et peu intéressants à tester.
+
+
+\paragraph{Classes où la couverture de code a diminué significativement}
+
+\begin{itemize}
+	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 13,3\% au niveau des méthodes et 38,3\% au niveau des lignes au vu du fait que la génération de niveaux à partir d'une image n' est pas testée. %todo Adrien: justify maybe?
+	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 4\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
+	\item La classe \mbox{\textit{PacmManUI}} a perdu 12,1\% de couverture de lignes du fait que la création de boutons radios n'est pas testée.
+\end{itemize}
+
+Dans le cas des préexistantes classes non mentionnées ci-haut, la couverture s'est soit maintenue, soit a été accrue, parfois fortement.
+
+\paragraph{Classes et packages ajoutés}
+
+\begin{itemize}
+	\item La classe \mbox{\textit{MyJDialog}} a une couverture de 100\% au niveau des classes, 75\% au niveau des méthodes et 70.5\% au niveau des lignes. Les méthodes et lignes non testées dépendent d' une action du joueur.
+	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 81.8\% au niveau des méthodes et 64.8\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
+	\item La classe \mbox{\textit{IdentifiedPlayer}} jouit d' une couverture de 66.7\% au niveau des classes, 61.5\% au niveau des méthodes et 64.4\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91.7\% au niveau des méthodes et 72.7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
+	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92.9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
+	\item L' énumération \mbox{\textit{ItemsColor}} est entièrement couverte.
+	item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66.7\% au niveau des méthodes et 44.2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
+	\item Le package \mbox{\textit{AIStrategy}} est couvert pour 100\% au niveau des classes, 95.9\% au niveau des méthodes et 87.8\% au niveau des lignes. Les classes ci-dessous appartiennent à ce package.
+	\item Les classes \mbox{\textit{AIStrategy}} et \mbox{\textit{HumanControllerStrategy}} sont entièrement couvertes.
+	%Note: ici, je suis tombé à court de façons différentes de dire "à une couverture de".
+	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96.4\% au niveau des lignes.
+	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.6\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.9\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92.9\% au niveau des méthodes et 79.5\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+\end{itemize}
+
+
+\paragraph{Mesures prises pour améliorer la couverture de code}
+%Je n'inclus évidemment pas les petites manips artificiels qui nous ont bien fait gagner quelques pourcents...
+
+L'analyse de couverture du code a révélé deux problèmes.
+
+%Note: Latex indiqué que "réinstauré" est fautif: il n'en est rien.  Pour court-circuité, pê trouver un remplaçement.
+En premier lieu, nous avions \og court-circuité \fg() les tests de l' interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
+
+En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n' était pas testée, le testé a donc été rajouté.
+
 \subsection{Profilage}
 %todo: YourKit, JProfiler
 
