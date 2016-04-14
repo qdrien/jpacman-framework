@@ -28,7 +28,7 @@ public class Launcher {
     public static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
-    private PacManUI pacManUI;
+    public static PacManUI pacManUI;
     private Game game;
 
     /**

@@ -168,6 +168,7 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
+        Launcher.pacManUI.refreshLevelChoices(currentLevel);
     }
 
     @Override
