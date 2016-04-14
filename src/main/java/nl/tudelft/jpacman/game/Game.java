@@ -8,6 +8,10 @@ import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.MapParser;
+import nl.tudelft.jpacman.strategy.HumanControllerStrategy;
+import nl.tudelft.jpacman.strategy.PacManhattanAI;
+import nl.tudelft.jpacman.strategy.PacmanStrategy;
+import nl.tudelft.jpacman.ui.MyJDialogStrategy;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +44,10 @@ public abstract class Game implements LevelObserver {
      */
     private PlayerMoveTask currentMoveTask;
     private ScheduledExecutorService service;
+    /**
+     * The chosen strategy by the player.
+     */
+    private PacmanStrategy strategy;
 
     /**
      * Creates a new game.
@@ -115,6 +123,12 @@ public abstract class Game implements LevelObserver {
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
+        if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
+            getLevel().setStrategy(new PacManhattanAI(this));
+        }
+        else {
+            getLevel().setStrategy(new HumanControllerStrategy(this, MyJDialogStrategy.getBuilder()));
+        }
     }
 
     /**
@@ -154,12 +168,28 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
+        final IdentifiedPlayer player = getPlayers().get(0);
+        int maxLevelReached = currentLevel;
+        //If identified
+        if (player.getProfilePath() != null) {
+            try {
+                //Check if next level is better than the previous "maxLevelReached"
+                maxLevelReached = Math.max(maxLevelReached, player.getMaxLevelReached());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!isAvailable(maxLevelReached + 1)) {
+            //Make sure to avoid adding a button for a non-existing level
+            maxLevelReached--;
+        }
+        Launcher.pacManUI.refreshLevelChoices(maxLevelReached);
     }
 
     @Override
     public void levelLost() {
+        stop();
         if (firstPass) {
-            stop();
             final IdentifiedPlayer player = getPlayers().get(0);
             HallOfFame.setIsNotATest(true);
             try {
@@ -202,6 +232,22 @@ public abstract class Game implements LevelObserver {
     }
 
     /**
+     * Test whether the given level is available.
+     * @param id The id of the level
+     * @return true if available, false otherwise
+     */
+    private boolean isAvailable(final int id) {
+        final String file = "/board" + id + ".txt";
+        try (InputStream boardStream = Launcher.class
+                .getResourceAsStream(file)) {
+            return boardStream != null;
+        } catch (IOException e) {
+            throw new PacmanConfigurationException("Unable to create level.", e);
+        }
+    }
+
+
+    /**
      * @return A new map parser object using the factories from
      * {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
      */
@@ -225,6 +271,7 @@ public abstract class Game implements LevelObserver {
             level = makeLevel(--currentLevel);
         }
         assert level != null;
+        level.setStrategy(strategy);
         return level;
     }
 
@@ -236,6 +283,16 @@ public abstract class Game implements LevelObserver {
     protected int getCurrentLevel() {
         return currentLevel;
     }
+
+    /**
+     * Set the strategy.
+     * @param strategy chosen by the player
+     */
+    public void setStrategy(PacmanStrategy strategy) {
+        getLevel().setStrategy(strategy);
+        this.strategy = strategy;
+    }
+
 
     /**
      * Class representing the timer and methods to apply during the timer.

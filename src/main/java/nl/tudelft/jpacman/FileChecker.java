@@ -36,8 +36,7 @@ public final class FileChecker {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(LOGIN_PATH), Charset.defaultCharset()));
         while ((line = reader.readLine()) != null) {
             if (name.equals(line.split(" ")[0])) {
-                JOptionPane.showMessageDialog(null, "Profile already exists", "Error",
-                        JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Profile already exists", "Error", JOptionPane.PLAIN_MESSAGE);
                 reader.close();
                 return true;
             }
@@ -59,8 +58,7 @@ public final class FileChecker {
             String line = reader.readLine();
             while (line != null) {
                 final String[] split = line.split(" ");
-                if (split[0].equals(playerName)
-                        && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) {
+                if (split[0].equals(playerName) && Arrays.hashCode(passEntered) == Integer.parseInt(split[1])) {
                     reader.close();
                     return true;
                 }
@@ -112,12 +110,12 @@ public final class FileChecker {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         //first line ignored, it contains other other information
         String achievementName = reader.readLine();
-        StringBuilder bs = new StringBuilder();
-        bs.append(achievements).append("<br>Achievements: <br>");
+        StringBuilder builder = new StringBuilder(50);
+        builder.append(achievements).append("<br>Achievements: <br>");
         while ((achievementName = reader.readLine()) != null) {
-            bs.append(achievementName).append(": ").append(Achievement.parseAchievement(achievementName).getDescription()).append("<br>");
+            builder.append(achievementName).append(": ").append(Achievement.parseAchievement(achievementName).getDescription()).append("<br>");
         }
         reader.close();
-        return bs.toString();
+        return builder.toString();
     }
 }

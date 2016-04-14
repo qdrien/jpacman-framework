@@ -8,7 +8,6 @@ import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.LevelFactory;
-import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
@@ -29,7 +28,7 @@ public class Launcher {
     public static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
-    private PacManUI pacManUI;
+    public static PacManUI pacManUI;
     private Game game;
 
     /**
@@ -104,25 +103,10 @@ public class Launcher {
     }
 
     /**
-     * Adds key events UP, DOWN, LEFT and RIGHT to a game.
-     *
-     * @param builder The {@link PacManUiBuilder} that will provide the UI.
-     * @param game    The game that will process the events.
-     */
-    protected void addSinglePlayerKeys(final PacManUiBuilder builder,
-                                       final Game game) {
-        final IdentifiedPlayer p1 = game.getPlayers().get(0);
-
-        builder.addKey(KeyEvent.VK_UP, () -> game.move(p1, Direction.NORTH))
-                .addKey(KeyEvent.VK_DOWN, () -> game.move(p1, Direction.SOUTH))
-                .addKey(KeyEvent.VK_LEFT, () -> game.move(p1, Direction.WEST))
-                .addKey(KeyEvent.VK_RIGHT, () -> game.move(p1, Direction.EAST));
-    }
-
-    /**
      * Creates and starts a JPac-Man game.
      * @param test a boolean set to true if called by unit test, false otherwise
      */
+    @SuppressWarnings("checkstyle:linelength")
     public void launch(boolean test) {
         game = makeGame();
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
@@ -144,12 +128,13 @@ public class Launcher {
         {
             try {
                 final IdentifiedPlayer player = game.getPlayers().get(0);
-                if (player.displayProfileStats()) Achievement.offerAchievements(player);
+                if (player.displayProfileStats()) {
+                    JOptionPane.showMessageDialog(null, Achievement.offerAchievements(player), "Recommended achievements.", JOptionPane.PLAIN_MESSAGE);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        addSinglePlayerKeys(builder, game);
         pacManUI = builder.build(game);
         if (!test) {
             final MyJDialogStrategy dialog =
@@ -159,6 +144,12 @@ public class Launcher {
             dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
     }
+
+    /**
+     * Returns the UI.
+     * @return The UI.
+     */
+    public PacManUI getPacManUI() {return pacManUI;}
 
     /**
      * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.

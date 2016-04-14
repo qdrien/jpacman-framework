@@ -74,6 +74,7 @@ public class LauncherSmokeTest {
         HallOfFame.setHam();
         final IdentifiedPlayer player = game.getPlayers().get(0);
         player.setLives(1);
+        launcher.getPacManUI().start();
 
         // start cleanly.
         assertFalse(game.isInProgress());

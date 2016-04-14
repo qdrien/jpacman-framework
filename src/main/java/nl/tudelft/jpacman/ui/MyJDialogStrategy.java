@@ -25,7 +25,7 @@ public class MyJDialogStrategy extends JDialog {
     /**
      * The builder.
      */
-    private final PacManUiBuilder builder;
+    public static  PacManUiBuilder builder=null;
     private final PacManUI pacManUI;
     /**
      * The strategy chosen by the player.
@@ -103,10 +103,18 @@ public class MyJDialogStrategy extends JDialog {
             else if (source == aiController) {
                 strategy = new PacManhattanAI(game);
             }
-            game.getLevel().setStrategy(strategy);
+            game.setStrategy(strategy);
             setVisible(false);
             dispose();
             pacManUI.start();
         }
+    }
+
+    /**
+     * Get the builder of the game
+     * @return the builder
+     */
+    public static PacManUiBuilder getBuilder() {
+        return builder;
     }
 }

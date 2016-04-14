@@ -191,7 +191,8 @@ $(5)$ posait lui aussi quelques difficultés, non pas sur sa réalisation en soi
 
 Pour cette fonctionnalité, il a été choisi de simuler l'authentification en respectant des conventions de nommage communes. On fournira ici les méthodes permettant, une fois qu'a été récupéré le niveau maximum atteint par un joueur, d'ajouter des boutons de sélection/chargement de niveau tout en réinitialisant le score et les vies du joueur.
 
-Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image. \label{map_generator_txt}
+\paragraph{Convertisseur de cartes} \label{map_generator_txt}
+Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image.
 
 En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le \og remplissage \fg d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). 
 
@@ -262,7 +263,7 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en trois étapes : une analyse statique et dynamique du code ainsi qu'une analyse de la qualité par plusieurs métriques logicielles qui peuvent aider à déceler de mauvaises pratiques. 
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code. 
 
 \subsection{Analyse statique}
 
@@ -272,20 +273,22 @@ Dans cette section, nous allons analyser la qualité du logiciel initial ainsi q
 
 \subsubsection*{Nombre de classes}
 
-Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{classMetrics1} et \ref{classMetrics2}) où la colonne \textit{C} représente le nombre de classes et d'interfaces dans chaque package et la colonne \textit{C(rec)} représente le nombre de classes et d'interfaces dans chaque package en incluant les sous-classes. Les autres colonnes concernent la distribution des classes au sein du code produit et du code de test.
+Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. 
 
 \textbf{Logiciel initial}
 
+Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{classMetrics1} et \ref{classMetrics2}) où la colonne \textit{C} représente le nombre de classes et d'interfaces dans chaque package et la colonne \textit{C(rec)} représente le nombre de classes et d'interfaces dans chaque package en incluant les sous-classes. Les autres colonnes concernent la distribution des classes au sein du code produit et du code de test.
+
 \begin{figure}[!h]
 	\centering
-%	\includegraphics[scale=0.6]{Images/classMetrics1.png} 
+	\includegraphics[scale=0.6]{Images/classMetrics1.png} 
 	\caption{Nombre de classes et d'interfaces dans chaque package}
 	\label{classMetrics1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-%	\includegraphics[scale=0.7]{Images/classMetrics2.png} 
+	\includegraphics[scale=0.7]{Images/classMetrics2.png} 
 	\caption{Répartition graphique des classes au sein des packages}
 	\label{classMetrics2}
 \end{figure}
@@ -296,19 +299,19 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 
 \begin{figure}[!h]
 	\centering
-%	\includegraphics[scale=0.6]{Images/classMetrics3.png} 
+	\includegraphics[scale=0.6]{Images/classMetrics3.png} 
 	\caption{Nombre de classes et d'interfaces dans chaque package}
-	\label{classMetrics1}
+	\label{classMetrics3}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-%	\includegraphics[scale=0.7]{Images/classMetrics4.png} 
+	\includegraphics[scale=0.7]{Images/classMetrics4.png} 
 	\caption{Répartition graphique des classes au sein des packages}
-	\label{classMetrics2}
+	\label{classMetrics4}
 \end{figure}
 
-Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package.
+Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).
 
 \newpage
 
@@ -317,21 +320,67 @@ Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on const
 Cette métrique appartient à la catégorie des métriques de taille qui permettent de déterminer la taille de certains composants du logiciels. En particulier, celle-ci permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
 \textbf{Logiciel initial}
-Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}). On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes, ce qui est très important par rapport aux autres packages.
+
+Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}) en ne considérant pas les classes de tests. On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes"). On peut aussi observer qu'il y a, au total, 3860 lignes de codes et 1905 lignes de commentaires (Figure~\ref{locinit2}).
 
 \begin{figure}[!h]
 	\centering
-%	\includegraphics[scale=0.6]{Images/SizeMetricsLOC.png} 
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOC.png} 
 	\caption{Nombre de lignes de code dans chaque package}
 	\label{locinit}
 \end{figure}
+
+
+
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOC2.png} 
+	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\label{locinit2}
+\end{figure}
+
 \newpage
-Analysons à présent les classes les plus volumineuses au sein de ce projet (Figure~\ref{locinit}).
+Ensuite, grâce au plugin "Statistic" de l'IDE Intellij Idea, on peut afficher plus en détail les statistiques concernant les lignes de code dans le projet (en prenant en compte les classes de tests). Dans les résultats dans la figure~\ref{locinit3}, on constate que la classe la plus volumineuse est la classe \mbox{\textit{Level}}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.29]{Images/SizeMetricsLOC3.png} 
+	\caption{Statistiques sur les lignes de codes}
+	\label{locinit3}
+\end{figure}
 
 
 
 \textbf{Logiciel final}
 
+Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans les figure~\ref{locfinal} et \ref{locfinal2}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487 et de 1905 à 3503 pour les commentaires.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOCFinal.png} 
+	\caption{Nombre de lignes de code dans chaque package}
+	\label{locfinal}
+\end{figure}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/SizeMetricsLOCFinal2.png} 
+	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\label{locfinal2}
+\end{figure}
+\newpage
+Quant aux statistiques (Figure~\ref{locfinal3}), on constate que les deux classes les plus volumineuses sont \mbox{\textit{IdentifiedPlayer}} et  \mbox{\textit{Level}}. On constate également que la plupart des valeurs totales des statistiques ont été doublées par rapport à la version originale.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.29]{Images/SizeMetricsLOCFinal3.png} 
+	\caption{Statistiques sur les lignes de codes}
+	\label{locfinal3}
+\end{figure}
+
+\newpage
 
 \subsubsection*{Complexité}
 
@@ -339,14 +388,96 @@ Cette métrique permet de calculer la complexité cyclomatique des différentes 
 
 \textbf{Logiciel initial}
 
+Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles seront donc surveillées tout au long de cette analyse afin de voir les évolutions apportées.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics1.png} 
+	\caption{Métrique de complexité pour les méthodes}
+	\label{ComplexityMetrics1}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics2.png} 
+	\caption{Métrique de complexité pour les classes}
+	\label{ComplexityMetrics2}
+\end{figure}
+
 \textbf{Logiciel final}
+
+Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics3.png} 
+	\caption{Métrique de complexité pour les méthodes}
+	\label{ComplexityMetrics3}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/ComplexityMetrics4.png} 
+	\caption{Métrique de complexité pour les classes}
+	\label{ComplexityMetrics4}
+\end{figure}
 
 %todo: overview pyramid?
 
 %todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
+\newpage
 
 \subsubsection*{Dépendances}
+
+Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
+
 \textbf{Logiciel initial}
+
+La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyMetrics1.png}
+	\includegraphics[scale=0.6]{Images/DependencyMetricsBis1.png}  
+	\caption{Métrique de dépendance}
+	\label{DependencyMetrics1}
+\end{figure}
+\newpage
+ On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
+
+
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle1.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle2.png}  
+	\label{DependencyCycle1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle3.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle4.png}  
+	\label{DependencyCycle1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/DependencyCycle5.png}
+	\includegraphics[scale=0.6]{Images/DependencyCycle6.png} 
+		\caption{Dépendance cyclique}
+ 
+	\label{DependencyCycle1}
+\end{figure}
+
+\newpage
+
+La matrice de dépendance qui est représentée par la figure~\ref{ComplexityMetrics1} permet de mieux visualiser ces dépendances entre classes. 
+
 
 \textbf{Logiciel final}
 %todo: couplage/cohésion => matrice de dépendance?
@@ -484,10 +615,42 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \subsection{Analyse dynamique}
 
 
-\subsection{Couverture du code}
+\subsubsection{Couverture du code}
 \paragraph{Couverture globale}
 
 Avant l'ajout de nos fonctionnalités, le pourcentage de code couvert par des tests était comme suit: 
+\subsubsection{Profilage}
+Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
+On réalisera 2 scénarios :
+\begin{itemize}
+	\item Jeu en mode "IA" qu'on laisse tourner jusqu'à la mort définitive de Pac-man
+	\item Jeu en mode "Joueur" pour lequel on crée un compte, on s'y connecte et, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
+\end{itemize}
+\paragraph{Processeur et threads}
+Pour les deux scénarios susmentionnés, l'analyse montre que la méthode \mbox{\textit{Navigation\#shortestPath(Square, Square, Unit)}} et en particulier l'appel à \mbox{\textit{HashSet.add(Object)}} prend l'écrasante majorité du temps CPU. La figure \ref{hotspot} montre le résultat de l'analyse \og Hot spots \fg \, de \textit{Yourkit} sur le scénario "Joueur" (les résultats sur l'autre scénario étant similaires).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/hotspot.JPG}
+	\caption{\label{hotspot} Recherche d' \og Hot spots \fg \, CPU avec \textit{Yourkit}}
+\end{figure}
+
+On constate donc que l'intelligence artificielle des fantômes (qui était présente dans la version originale du jeu) est gourmande en ressources par rapport au reste du programme, il serait donc intéressant de s'assurer que son comportement est optimisé. Cependant, il nous semble l'être et il n'est pas étonnant que le comportement d'intelligences artificielles prenne du temps CPU. On note également que des méthodes liées à l'affichage et à la gestion des entrées/sorties sont détectées comme \og Hot spots \fg \, bien que leur impact soit négligeable en comparaison.
+
+De manière générale, on peut voir l'évolution au cours du temps de l'utilisation du processeur et du nombre de threads sur les graphes de la figure \ref{cpu-threads}. Toujours rien d'anormal à ce stade.
+\begin{figure}[h]
+	\centering
+	\includegraphics{Images/cpu-threads.JPG}
+	\caption{\label{cpu-threads} Evolution de l'utilisation CPU et du nombre de threads avec \textit{Yourkit}}
+\end{figure}
+\paragraph{Mémoire}
+Pour les deux scénarios considérés, on constate que la mémoire utilisée reste assez constante, tout comme le nombre de passages du \og Garbage Collector \fg. La figure \ref{memory} rend compte des principaux résultats obtenus pour le scénario "IA".
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/memory.JPG}
+	\caption{\label{memory} Utilisation mémoire avec \textit{Yourkit}}
+\end{figure}
+
+On ne constate donc toujours pas de problème pour cette partie ci de l'analyse. On notera, comme le montre l'image, qu'il a été choisi de ne montrer que la mémoire utilisée en terme de \og metaspace \fg \, pour la mémoire \og non-heap \fg. Cela vient du fait que \textit{Yourkit} analyse également le \og Code Cache \fg, qui augmente continuellement (comportement de Java qui garde en cache du code) et donne donc une fausse impression d'augmentation.
 
 \begin{figure}[h]
 	\centering
@@ -548,8 +711,6 @@ En premier lieu, nous avions \og court-circuité \fg() les tests de l' interface
 
 En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n' était pas testée, le testé a donc été rajouté.
 
-\subsection{Profilage}
-%todo: YourKit, JProfiler
 
 \section{Evolution du code au cours du temps}
 %todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
@@ -642,7 +803,7 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 	
 	Avant compilation, ces mêmes fichiers se trouvent dans \nolinkurl{src/main/resources}.
 	\item Un niveau numéroté $n$ est considéré comme partie intégrante du jeu si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est présent et si les fichiers des niveaux $1...n-1$ le sont également.
-	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le convertisseur mentionné à la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
+	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le \og convertisseur de carte \fg \,  mentionné au paragraphe ad hoc de la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
 \end{itemize}
 
 \section{Conclusion de l'analyse}

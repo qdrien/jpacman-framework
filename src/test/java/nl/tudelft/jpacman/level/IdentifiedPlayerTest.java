@@ -14,12 +14,12 @@ import static org.junit.Assert.assertTrue;
 /**
  * Testing the "IdentifiedPlayer" class.
  */
+@SuppressWarnings("checkstyle:linelength")
 public class IdentifiedPlayerTest {
     /**
      * The path of the file that will be used to test the testPlayer's profile.
      */
-    private static final String PATH = new File("").getAbsolutePath()
-            + "/src/test/resources/Testy.prf";
+    private static final String PATH = new File("").getAbsolutePath() + "/src/test/resources/Testy.prf";
     /**
      * The player we are making tests on.
      */
@@ -45,7 +45,7 @@ public class IdentifiedPlayerTest {
         player = launcher.getGame().getPlayers().get(0);
         IdentifiedPlayer.setIsNotATest();
         player.setProfilePath(PATH);
-        player.setPlayerName();
+        player.setPlayerName("Testy");
 
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
