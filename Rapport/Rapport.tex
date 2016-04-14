@@ -619,7 +619,37 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \subsubsection{Couverture des tests}
 %todo: Inclus dans maven:site (cobertura?)
 \subsubsection{Profilage}
-%todo: YourKit, JProfiler
+Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
+On réalisera 2 scénarios :
+\begin{itemize}
+	\item Jeu en mode "IA" qu'on laisse tourner jusqu'à la mort définitive de Pac-man
+	\item Jeu en mode "Joueur" pour lequel on crée un compte, on s'y connecte et, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
+\end{itemize}
+\paragraph{Processeur et threads}
+Pour les deux scénarios susmentionnés, l'analyse montre que la méthode \mbox{\textit{Navigation\#shortestPath(Square, Square, Unit)}} et en particulier l'appel à \mbox{\textit{HashSet.add(Object)}} prend l'écrasante majorité du temps CPU. La figure \ref{hotspot} montre le résultat de l'analyse \og Hot spots \fg \, de \textit{Yourkit} sur le scénario "Joueur" (les résultats sur l'autre scénario étant similaires).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/hotspot.JPG}
+	\caption{\label{hotspot} Recherche d' \og Hot spots \fg \, CPU avec \textit{Yourkit}}
+\end{figure}
+
+On constate donc que l'intelligence artificielle des fantômes (qui était présente dans la version originale du jeu) est gourmande en ressources par rapport au reste du programme, il serait donc intéressant de s'assurer que son comportement est optimisé. Cependant, il nous semble l'être et il n'est pas étonnant que le comportement d'intelligences artificielles prenne du temps CPU. On note également que des méthodes liées à l'affichage et à la gestion des entrées/sorties sont détectées comme \og Hot spots \fg \, bien que leur impact soit négligeable en comparaison.
+
+De manière générale, on peut voir l'évolution au cours du temps de l'utilisation du processeur et du nombre de threads sur les graphes de la figure \ref{cpu-threads}. Toujours rien d'anormal à ce stade.
+\begin{figure}[h]
+	\centering
+	\includegraphics{Images/cpu-threads.JPG}
+	\caption{\label{cpu-threads} Evolution de l'utilisation CPU et du nombre de threads avec \textit{Yourkit}}
+\end{figure}
+\paragraph{Mémoire}
+Pour les deux scénarios considérés, on constate que la mémoire utilisée reste assez constante, tout comme le nombre de passages du \og Garbage Collector \fg. La figure \ref{memory} rend compte des principaux résultats obtenus pour le scénario "IA".
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{Images/memory.JPG}
+	\caption{\label{memory} Utilisation mémoire avec \textit{Yourkit}}
+\end{figure}
+
+On ne constate donc toujours pas de problème pour cette partie ci de l'analyse. On notera, comme le montre l'image, qu'il a été choisi de ne montrer que la mémoire utilisée en terme de \og metaspace \fg \, pour la mémoire \og non-heap \fg. Cela vient du fait que \textit{Yourkit} analyse également le \og Code Cache \fg, qui augmente continuellement (comportement de Java qui garde en cache du code) et donne donc une fausse impression d'augmentation.
 
 \section{Evolution du code au cours du temps}
 %todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
