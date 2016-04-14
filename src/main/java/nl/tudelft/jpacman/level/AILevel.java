@@ -112,13 +112,14 @@ public class AILevel extends Level {
             if (isInProgress()) {
                 return;
             }
-            if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+            if (strategy != null)
             {
-                startAIStrategy();
-            }
-            else
-            {
-                if(strategy != null) {
+                if (strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
+                {
+                    startAIStrategy();
+                }
+                else
+                {
                     strategy.executeStrategy();
                 }
             }

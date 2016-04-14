@@ -136,15 +136,4 @@ public class PacManUiBuilder {
         buttons.put(STOP_CAPTION, null);
         return this;
     }
-
-    /**
-     * Provide formatter for the score.
-     *
-     * @param sf The score formatter to be used.
-     * @return The builder.
-     */
-    public PacManUiBuilder withScoreFormatter(ScoreFormatter sf) {
-        scoreFormatter = sf;
-        return this;
-    }
 }
