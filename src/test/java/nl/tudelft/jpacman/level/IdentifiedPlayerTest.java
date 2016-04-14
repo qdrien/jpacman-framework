@@ -45,7 +45,7 @@ public class IdentifiedPlayerTest {
         player = launcher.getGame().getPlayers().get(0);
         IdentifiedPlayer.setIsNotATest();
         player.setProfilePath(PATH);
-        player.setPlayerName();
+        player.setPlayerName("Testy");
 
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
