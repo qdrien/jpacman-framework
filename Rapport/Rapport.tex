@@ -263,7 +263,7 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code. 
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.
 
 \subsection{Analyse statique}
 
@@ -315,7 +315,7 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 	\caption{Répartition graphique des classes au sein des packages}
 	\label{classMetrics4}
 \end{figure}
-
+\newpage
 Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).
 
 
@@ -438,26 +438,67 @@ Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évi
 
 
 
-\subsection*{Métrique de couplage}
+\subsection*{Métrique de couplage et de cohésion}
 
 Les métriques de couplage décrivent les dépendances entre les composants du système. Plus le couplage entre deux composants est fort, plus le système est compliqué à comprendre, modifier ou corriger.
 
+
+Les métriques de cohésion décrivent le taux de connectivité au sein d’un composant du
+logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible, ce qui signifie que les deux métriques sont donc corrélées entre elles.
+
+\subsubsection*{Couplage et cohésion}
+
+L'analyse de couplage peut se faire via la métrique CBO (coupling between object classes) qui permet de mesurer le nombre d'autres classes couplées à une classe donnée. En effet, CBO représente le couplage en comptant le nombre de classes différentes rattachées à une classe précise autant en entrée qu'en sortie.
+
+En ce qui concerne l'analyse de la cohésion des classes, la métrique LCOM (\textit{Lack of Cohesion in Methods}) peut être utilisée pour mesurer la cohésion entre les méthodes d'une classe. Cette métrique représente le manque de cohésion au sein d'une classe (une grande valeur pour cette métrique représente un manque de cohésion dans cette classe).
+
+\textbf{Logiciel initial}
+
+Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie des classes du projet pour visualiser leurs couplages et leurs cohésions. La figure~\ref{MetricsCohesion1} affiche une moyenne de $8.78$ pour la métrique CBO et $1.58$ pour la métrique LCOM du projet. 
+
+
+On constate également une valeur moyenne de $2.02$ pour la métrique DIT (\textit{Depth Inheritence Tree}) qui sert de mesure structurelle sur la hiérarchie des classes du systèmes. Pour une classe donnée, DIT représente la longueur du chemin pour se rendre de la racine à cette classe en passant par les liens d'héritage.
+
+Et pour finir, on observe une valeur moyenne de $7.73$ pour la métrique WMC (\textit{Weighted Methods per Class}) qui sert de mesure de taille et de complexité puisqu'elle additionne le nombre de méthodes d'une classe pondéré par un facteur de complexité quelconque.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsCohesion1.png} 
+	\caption{Métriques de cohesion et couplage}
+	\label{MetricsCohesion1}
+\end{figure}
+
+\newpage
+\textbf{Logiciel final}
+
+Effectuons cette même analyse sur la version finale où les résultats sont reportés dans la figure~\ref{MetricsCohesion2}. On observe que la moyenne de la métrique CBO du projet est désormais de $10.63$ contre $8.78$ dans la version initiale. La valeur moyenne de la métrique LCOM du projet est maintenant de $1.83$ contre $1.58$ précédemment. La métrique DIT atteint la valeur moyenne de $1.98$ contre $2.02$. Pour terminer, la moyenne de la métrique WMC du projet est désormais de $10.14$ contre $7.73$ dans la version initiale.
+
+Mise à part la métrique DIT, on constate que les métriques de cohésion et de couplage ont légèrement augmenté par rapport à la version initiale.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsCohesion2.png} 
+	\caption{Métriques de cohesion et couplage}
+	\label{MetricsCohesion2}
+\end{figure}
+
+\newpage
 \subsubsection*{Dépendance}
 
 Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
 
 \textbf{Logiciel initial}
 
-La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
+Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie des classes du projet pour visualiser leurs dépendances. La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyMetrics1.png}
-	\includegraphics[scale=0.6]{Images/DependencyMetricsBis1.png}  
+	\includegraphics[scale=0.5]{Images/DependencyMetrics1.png}
+	\includegraphics[scale=0.5]{Images/DependencyMetricsBis1.png}  
 	\caption{Métrique de dépendance}
 	\label{DependencyMetrics1}
 \end{figure}
-
+\newpage
  On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
 
 
@@ -465,22 +506,22 @@ La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle1.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle2.png}  
+	\includegraphics[scale=0.5]{Images/DependencyCycle1.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle2.png}  
 	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle3.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle4.png}  
+	\includegraphics[scale=0.5]{Images/DependencyCycle3.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle4.png}  
 	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle5.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle6.png} 
+	\includegraphics[scale=0.4]{Images/DependencyCycle5.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle6.png} 
 		\caption{Dépendance cyclique}
  
 	\label{DependencyCycle1}
@@ -488,10 +529,106 @@ La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement
 
 \newpage
 
-La matrice de dépendance qui est représentée par la figure~\ref{ComplexityMetrics1} permet de mieux visualiser ces dépendances entre classes. 
+La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix1} permet de mieux visualiser ces dépendances entre classes. Dans cette matrice, les cases bleues représentent les dépendances unidirectionnelles tandis que les cases rouges représentent les dépendances bidirectionnelles (cycles). Il est donc conseillé d'éviter au maximum les cycles.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/DependencyMatrix1.JPG}
+	\caption{Matrice de dépendances}
+	\label{DependencyMatrix1}
+\end{figure} 
+
 
 
 \textbf{Logiciel final}
+
+Encore une fois, seule une partie des classes seront affichées par souci de lisibilité dans le rapport. La figure~\ref{DependencyMetricsFinal1} montre les dépendances entre les classes après intégration des trois fonctionnalités. On peut facilement observer que le nombre de dépendances a fortement augmenté.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsDependencyFinal1.png}  
+	\includegraphics[scale=0.6]{Images/MetricsDependencyFinal2.png} 
+	\caption{Métrique de dépendance}
+	\label{DependencyMetricsFinal1}
+\end{figure}
+
+\newpage
+
+
+Si on analyse les dépendances cycliques entre les packages, on constate qu'elles ont elles aussi augmenté considérablement. Les figures~\ref{CyclicDependencyFinal1} à \ref{CyclicDependencyFinal8} représentent les dépendances cycliques entre les différentes classes des packages.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal1.png}  
+		\caption{Dépendances cycliques pour le package \textit{board}}
+	\label{CyclicDependencyFinal1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal2.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal3.png}   
+		\caption{Dépendances cycliques pour le package \textit{game}}
+	\label{CyclicDependencyFinal2}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal4.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal5.png}   
+		\caption{Dépendances cycliques pour le package \textit{level}}
+	\label{CyclicDependencyFinal3}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal7.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal8.png}   
+		\caption{Dépendances cycliques pour le package \textit{npc}}
+	\label{CyclicDependencyFinal4}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal9.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal10.png}   
+		\caption{Dépendances cycliques pour le package \textit{npc.ghost}}
+	\label{CyclicDependencyFinal5}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal11.png}    
+		\caption{Dépendances cycliques pour le package \textit{sprite}}
+	\label{CyclicDependencyFinal6}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal12.png}    
+		\caption{Dépendances cycliques pour le package \textit{strategy}}
+	\label{CyclicDependencyFinal7}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal13.png}    
+		\caption{Dépendances cycliques pour le package \textit{ui}}
+	\label{CyclicDependencyFinal8}
+\end{figure}
+
+
+
+
+\newpage
+La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix2} permet de mieux visualiser ces dépendances entre classes. On observe assez facilement que le nombre de dépendances cycliques a augmenté par rapport à la version initiale.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/DependencyMatrix2.JPG}
+	\caption{Matrice de dépendances}
+	\label{DependencyMatrix2}
+\end{figure} 
 %todo: couplage/cohésion => matrice de dépendance?
 %todo: JDepend?
 
@@ -499,10 +636,8 @@ La matrice de dépendance qui est représentée par la figure~\ref{ComplexityMet
 
 %todo: autres choses ? taille/complexité en fonction des classes ? blueprint ? (=> codecrawler?)
 
-\subsection*{Métrique de cohésion}
 
-Les métriques de cohésion décrivent le taux de connectivité au sein d’un composant du
-logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible ; les deux métriques sont donc corrélées
+
 
 
 \subsubsection{Code dupliqué}
