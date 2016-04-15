@@ -26,8 +26,6 @@
   \begin{sffamily}
   \begin{center}
 
-    % Upper part of the page. The '~' is needed because \\
-    % only works if a paragraph has started.
     \includegraphics[scale=0.2]{Images/UMONS+txt.png}   ~\\[1.5cm]
     
 
@@ -40,7 +38,6 @@
     
     
 
-    % Author and supervisor
     \begin{minipage}{0.4\textwidth}
       \begin{flushleft} \large
         \emph{Réalisateurs :\\} Damien \textsc{Legay}\\ Adrien \textsc{Coppens}\\ Nicolas \textsc{Leemans}\\
@@ -57,7 +54,6 @@
 
     \vfill
 
-    % Bottom of the page
     {\large Année académique 2015 - 2016}
 	
   \end{center}
@@ -82,7 +78,18 @@ Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé pa
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
  Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
- 
+
+
+
+\section{Outils utilisés}
+
+Cette section développe l'ensemble des outils utilisés au fil des étapes du projet.
+
+\subsection{Intellij IDEA (15.0.4)}
+
+Intellij IDEA est un IDE regroupant un grand nombre d'outils pré-intégrés permettant de calculer des métriques, des matrices de dépendances, de détecter des similarités dans le code, d'analyser le code pour mettre en évidence les différents problèmes potentiels avec bien souvent des solutions très simples à mettre en place grâce à l'IDE ou encore d'effectuer des statistiques sur divers composants d'un projet.
+
+
 \section{Extension du projet et ajout de tests unitaires pour cette extension }
 
 \subsection{Extension du logiciel}
@@ -269,14 +276,14 @@ Dans ce chapitre, nous allons comparer la qualité du code source qui intègre t
 
 \subsubsection{Métriques}
 
-Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration, grâce à des métriques, afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1). 
-\subsection*{Métriques de taille}
+Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration, grâce à des métriques, afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1).\\
+
+\textbf{\large{Métrique de taille}}
 
 Les métriques de taille sont les métriques statiques les plus simples à définir, comprendre et calculer. Elles donnent une idée de la taille du logiciel, en calculant par exemple le nombre de lignes de code source dans les classes, le nombre de classes dans les paquets,... Généralement les
-métriques de taille sont utilisées pour comparer la taille de différents logiciels, pour prévoir les efforts de développement et de maintenance.
+métriques de taille sont utilisées pour comparer la taille de différents logiciels, pour prévoir les efforts de développement et de maintenance.\\
 
-
-\subsubsection*{Nombre de classes}
+\textbf{Nombre de classes}
 
 Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. 
 
@@ -316,11 +323,11 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 	\label{classMetrics4}
 \end{figure}
 \newpage
-Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).
+Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).\\
 
 
+\textbf{Lignes de codes}
 
-\subsubsection*{Lignes de codes}
 
 Cette métrique permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
@@ -384,11 +391,12 @@ Quant aux statistiques (Figure~\ref{locfinal3}), on constate que les deux classe
 	\caption{Statistiques sur les lignes de codes}
 	\label{locfinal3}
 \end{figure}
+\textbf{\large{Métriques de complexité}}
 
-\subsection*{Métriques de complexité}
-Ces métriques sont utilisées pour mesurer la complexité d’une partie du logiciel. Elles sont souvent corrélées avec les métriques de taille parce qu’un très grand système a de grandes chances d’être également complexe.
+Ces métriques sont utilisées pour mesurer la complexité d’une partie du logiciel. Elles sont souvent corrélées avec les métriques de taille parce qu’un très grand système a de grandes chances d’être également complexe.\\
 
-\subsubsection*{Complexité}
+\textbf{Complexité}
+
 
 Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemins d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci. La complexité cyclomatique d'une méthode vaut au minimum 1, puisqu'il y a toujours au moins un chemin. Au niveau de l'interprétation, la complexité cyclomatique d'une méthode augmente proportionnellement au nombre de points de décision, ce qui signifie qu'une méthode avec une haute complexité est plus difficile à comprendre et à maintenir. En général, une complexité cyclomatique trop élevée (typiquement supérieure à 30) indique qu'il faut refactoriser la méthode. Par contre, si une méthode a une complexité inférieure à 30, elle peut être acceptable si elle est suffisamment testée. Cette métrique est liée à la métrique de couverture du code par les tests. En effet, une méthode devrait avoir un nombre de tests unitaires égal à sa complexité cyclomatique pour avoir un "code coverage" de $100\%$, ainsi chaque chemin de la méthode est testé.
 
@@ -431,22 +439,20 @@ Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évi
 	\label{ComplexityMetrics4}
 \end{figure}
 
-%todo: overview pyramid?
-
-%todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
 \newpage
 
+\textbf{\large{Métrique de couplage et de cohésion}}
 
 
-\subsection*{Métrique de couplage et de cohésion}
 
 Les métriques de couplage décrivent les dépendances entre les composants du système. Plus le couplage entre deux composants est fort, plus le système est compliqué à comprendre, modifier ou corriger.
 
 
 Les métriques de cohésion décrivent le taux de connectivité au sein d’un composant du
-logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible, ce qui signifie que les deux métriques sont donc corrélées entre elles.
+logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible, ce qui signifie que les deux métriques sont donc corrélées entre elles.\\
 
-\subsubsection*{Couplage et cohésion}
+\textbf{Couplage et cohésion}
+
 
 L'analyse de couplage peut se faire via la métrique CBO (coupling between object classes) qui permet de mesurer le nombre d'autres classes couplées à une classe donnée. En effet, CBO représente le couplage en comptant le nombre de classes différentes rattachées à une classe précise autant en entrée qu'en sortie.
 
@@ -483,7 +489,8 @@ Mise à part la métrique DIT, on constate que les métriques de cohésion et de
 \end{figure}
 
 \newpage
-\subsubsection*{Dépendance}
+\textbf{Dépendance}
+
 
 Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
 
@@ -629,14 +636,6 @@ La matrice de dépendance qui est représentée par la figure~\ref{DependencyMat
 	\caption{Matrice de dépendances}
 	\label{DependencyMatrix2}
 \end{figure} 
-%todo: couplage/cohésion => matrice de dépendance?
-%todo: JDepend?
-
-%todo: X-ray ? (see p21 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
-
-%todo: autres choses ? taille/complexité en fonction des classes ? blueprint ? (=> codecrawler?)
-
-
 
 
 
@@ -667,8 +666,9 @@ final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSq
 final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
 final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 \end{lstlisting}
-%todo: nicolas: action entreprise (extract method?)
 
+
+Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux méthodes appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.
 \begin{figure}[h]
 	\centering
 	\includegraphics{Images/duplicate_analysis.JPG}
@@ -896,7 +896,11 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le \og convertisseur de carte \fg \,  mentionné au paragraphe ad hoc de la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
 \end{itemize}
 
-\section{Conclusion de l'analyse}
+\section{Conclusion}
+
+Ce projet nous a permis de mettre en pratique les différents concepts vu au cours de Software Evolution, notamment en matière de qualité d'un logiciel, maintenabilité du code, mise en place d'évolution du logiciel ainsi que la surveillance de l'évolution du code. Le projet nous a également permis de nous familiariser avec différents outils de gestion d'un code source, d'analyse et de refactoring. Ces outils nous ont permis d'identifier des problèmes fréquents et potentiels dans le code source, qui peuvent altérer la qualité et rendre l'évolution d'un système plus complexe.
+
+JPacman était un projet relativement bien conçu à la base mais il y avait notamment des petits problèmes de qualité. Nous nous sommes rendus compte également qu'il fallait rester vigilant concernant les résultats fournis par des outils logiciels car ceux-ci peuvent parfois provoquer des problèmes, par exemple du code dupliqué qui ne l'est pas vraiment ou des avertissements que l'on peut considérer comme sans gravité. De plus, les tests unitaires ont permis de gérer les évolutions et les erreurs commises en gardant un contrôle tout au long du processus de développement en effectuant des tests de régression et de validation.
 
 
 
