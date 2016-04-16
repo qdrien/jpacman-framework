@@ -759,7 +759,8 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \end{itemize}
 
 \subsubsection*{FindBugs}
-%Me souviens plus de combien de cas (6?), mais de mon côté 1) les lectures et écritures fichier spécifient maintenant le charSet utilisé et 2) concaténation avec strings dans boucle -> usage de StringBuilder.append(). 4 instances, je crois.
+Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg() utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
+les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg() et les concaténations de chaînes de caractères ont été remplaçées par des \og StringBuilder.append() \fg().
 \subsection{Analyse dynamique}
 
 \subsection{Couverture du code}
@@ -817,8 +818,6 @@ Dans le cas des préexistantes classes non mentionnées ci-haut, la couverture s
 
 
 \paragraph{Mesures prises pour améliorer la couverture de code}
-%Je n'inclus évidemment pas les petites manips artificiels qui nous ont bien fait gagner quelques pourcents...
-
 L'analyse de couverture du code a révélé deux problèmes.
 
 %Note: Latex indiqué que "réinstauré" est fautif: il n'en est rien.  Pour court-circuité, pê trouver un remplaçement.
