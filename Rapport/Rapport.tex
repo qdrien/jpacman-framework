@@ -713,6 +713,10 @@ Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiqu
 \paragraph{\og Warnings \fg \ sur des \og problèmes de modernité \fg}
 Ces signalements, surtout liés au code dans sa version de base (avant nos changements individuels), se présentaient par exemple aux endroits où un \og for indexé \fg \, pouvait être remplacé par un \og foreach \fg \, ou bien lorsqu'une classe anonyme \og classique \fg \, pouvait disparaitre au profit d'une expression lambda. Les \og modernisations \fg \, ont donc été effectuées (pour la plupart grâce à des \og refactorings \fg \, automatiques d'\textit{IntelliJ IDEA}).
 
+\paragraph{Classe obsolète}
+La classe \mbox{\textit{DefaultPlayerInteraction}} était non usitée et, comme nous avons modifié les interactions lors de collisions, n' avait pas été mise à jour.
+Elle a donc été supprimée.
+
 \subsubsection*{PMD}
 \paragraph{\og Feature envy \fg \, potentiel lié à la récupération des cases \og safe \fg}
 Lorsque le joueur doit être téléporté vers une case à l'écart des fantômes, il est nécessaire de regarder le contenu du \textit{Board}. Il est donc logique que ce soit celui-ci qui se charge de récupérer la liste des cases \og safe \fg . De fait, pour éviter un problème potentiel de \og feature envy \fg , cette récupération a été déplacée de \textit{Level} vers \textit{Board}.
