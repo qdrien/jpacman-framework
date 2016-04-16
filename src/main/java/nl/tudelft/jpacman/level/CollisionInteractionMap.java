@@ -63,7 +63,7 @@ public class CollisionInteractionMap implements CollisionMap {
             CollisionHandler<C1, C2> handler) {
         addHandler(collider, collidee, handler);
         if (symetric) {
-            addHandler(collidee, collider, new InverseCollisionHandler<C2, C1>(
+            addHandler(collidee, collider, new InverseCollisionHandler<>(
                     handler));
         }
     }
@@ -78,9 +78,7 @@ public class CollisionInteractionMap implements CollisionMap {
     private void addHandler(Class<? extends Unit> collider,
                             Class<? extends Unit> collidee, CollisionHandler<?, ?> handler) {
         if (!handlers.containsKey(collider)) {
-            handlers.put(
-                    collider,
-                    new HashMap<Class<? extends Unit>, CollisionHandler<?, ?>>());
+            handlers.put(collider, new HashMap<>());
         }
 
         Map<Class<? extends Unit>, CollisionHandler<?, ?>> map = handlers
@@ -153,7 +151,7 @@ public class CollisionInteractionMap implements CollisionMap {
     @SuppressWarnings("unchecked")
     private List<Class<? extends Unit>> getInheritance(
             Class<? extends Unit> clazz) {
-        List<Class<? extends Unit>> found = new ArrayList<Class<? extends Unit>>();
+        List<Class<? extends Unit>> found = new ArrayList<>();
         found.add(clazz);
 
         int index = 0;

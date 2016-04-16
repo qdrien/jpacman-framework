@@ -77,15 +77,12 @@ public abstract class Square {
      * nothing changed.
      *
      * @param occupant The unit to occupy this square.
-     * @return <code>true</code> iff the unit successfully occupied this square.
      */
-    boolean put(Unit occupant) {
+    void put(Unit occupant) {
         assert occupant != null;
         if (!occupants.contains(occupant)) {
             occupants.add(occupant);
-            return true;
         }
-        return false;
     }
 
     /**
@@ -99,28 +96,11 @@ public abstract class Square {
     }
 
     /**
-     * Tests whether all occupants on this square have indeed listed this square
-     * as the square they are currently occupying.
-     *
-     * @return <code>true</code> iff all occupants of this square have this
-     * square listed as the square they are currently occupying.
-     */
-    protected boolean invariant() {
-        for (Unit occupant : occupants) {
-            if (occupant.getSquare() != this) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Determines whether the unit is allowed to occupy this square.
      *
-     * @param unit The unit to grant or deny access.
      * @return <code>true</code> iff the unit is allowed to occupy this square.
      */
-    public abstract boolean isAccessibleTo(Unit unit);
+    public abstract boolean isAccessibleTo();
 
     /**
      * Returns the sprite of this square.

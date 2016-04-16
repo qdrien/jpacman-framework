@@ -127,7 +127,7 @@ public class AStarPathTest {
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neighbourList = aStarPath.getValidNeighbors(square, player);
+        List<Square> neighbourList = AStarPath.getValidNeighbors(square);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neighbourList);
@@ -145,7 +145,7 @@ public class AStarPathTest {
 
         assertFalse(square.equals(square2));
 
-        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2, player);
+        List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -177,7 +177,7 @@ public class AStarPathTest {
         assertNotNull(player);
         assertNotNull(square);
 
-        List<Square> neigborList = aStarPath.getValidNeighbors(square, player);
+        List<Square> neigborList = AStarPath.getValidNeighbors(square);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull(neigborList);
@@ -196,7 +196,7 @@ public class AStarPathTest {
         assertFalse(square.equals(square2));
 
 
-        List<Square> neigborList2 = aStarPath.getValidNeighbors(square2, player);
+        List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -220,7 +220,7 @@ public class AStarPathTest {
         assertFalse(square.equals(square3));
         assertFalse(square2.equals(square3));
 
-        List<Square> neigborList3 = aStarPath.getValidNeighbors(square3, player);
+        List<Square> neigborList3 = AStarPath.getValidNeighbors(square3);
 
         assertNotNull(neigborList3);
         //All move is possible except to left (West)

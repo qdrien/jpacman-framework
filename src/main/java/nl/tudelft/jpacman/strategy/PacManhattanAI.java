@@ -174,7 +174,7 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                final List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
+                final List<Square> neighborsList = AStarPath.getValidNeighbors(square);
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
                         .forEach(neighborSquare -> {
                             if (!visitedSquare[neighborSquare.getY()][neighborSquare.getX()]) {
@@ -247,7 +247,7 @@ public class PacManhattanAI extends AIStrategy {
                 return square;
             }
             else {
-                final List<Square> neighborsList = AStarPath.getValidNeighbors(square, getPlayer());
+                final List<Square> neighborsList = AStarPath.getValidNeighbors(square);
                 squaresQueue.addAll(neighborsList.stream()
                         .filter(neighbor -> !visitedSquare[neighbor.getY()][neighbor.getX()])
                         .collect(Collectors.toList()));
@@ -280,7 +280,7 @@ public class PacManhattanAI extends AIStrategy {
      */
     public Direction hurryMove() {
         if (getPlayer().getSquare().getSquareAt(getPlayer().getDirection())
-                .isAccessibleTo(getPlayer())) {
+                .isAccessibleTo()) {
             return getPlayer().getDirection();
         } else {
             if (getPlayer().getDirection() == Direction.WEST

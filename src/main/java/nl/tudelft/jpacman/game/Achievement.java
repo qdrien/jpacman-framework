@@ -1,9 +1,7 @@
 package nl.tudelft.jpacman.game;
 
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
-import nl.tudelft.jpacman.level.Player;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;

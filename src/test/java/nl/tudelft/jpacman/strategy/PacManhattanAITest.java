@@ -78,7 +78,7 @@ public class PacManhattanAITest {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
-        List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare(), player);
+        List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
         assertTrue(neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
@@ -94,7 +94,7 @@ public class PacManhattanAITest {
         game.move(player, Direction.EAST);
         game.move(player, Direction.EAST);
 
-        List<Square> neighborsList2 = AStarPath.getValidNeighbors(player.getSquare(), player);
+        List<Square> neighborsList2 = AStarPath.getValidNeighbors(player.getSquare());
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
         assertTrue(neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -292,7 +292,7 @@ public class PacManhattanAITest {
         assertEquals(ai.hurryMove(), Direction.EAST);
 
         assertEquals(ai.getGhostDstThreshold(), 14);
-        ai.setGhostDstThreshold(7);
+        PacManhattanAI.setGhostDstThreshold(7);
         assertEquals(ai.getGhostDstThreshold(), 7);
     }
 }

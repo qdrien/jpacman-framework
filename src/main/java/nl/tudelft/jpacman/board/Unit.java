@@ -57,7 +57,7 @@ public abstract class Unit {
 
     /**
      * Occupies the target square iff this unit is allowed to as decided by
-     * {@link Square#isAccessibleTo(Unit)}.
+     * {@link Square#isAccessibleTo()}.
      *
      * @param target The square to occupy.
      */

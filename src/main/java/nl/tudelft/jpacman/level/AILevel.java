@@ -190,7 +190,7 @@ public class AILevel extends Level {
             if (nextMove == null || isIntersection(player, nextMove)) {
                 nextMove = strategy.nextMove();
             }
-            if (player.getSquare().getSquareAt(nextMove).isAccessibleTo(player)) {
+            if (player.getSquare().getSquareAt(nextMove).isAccessibleTo()) {
                 move(player, nextMove);
             }
             service.schedule(this, player.getInterval(), TimeUnit.MILLISECONDS);
@@ -205,11 +205,11 @@ public class AILevel extends Level {
          */
         public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
             if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
-                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo(player)
-                        || player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo(player);
+                return player.getSquare().getSquareAt(Direction.EAST).isAccessibleTo()
+                        || player.getSquare().getSquareAt(Direction.WEST).isAccessibleTo();
             } else {
-                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo(player)
-                        || player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo(player);
+                return player.getSquare().getSquareAt(Direction.NORTH).isAccessibleTo()
+                        || player.getSquare().getSquareAt(Direction.SOUTH).isAccessibleTo();
             }
         }
     }

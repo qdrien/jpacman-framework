@@ -62,7 +62,7 @@ public final class Navigation {
             final Square target = s.getSquareAt(d);
             if (!visited.contains(target)
                     && (traveller == null || target
-                    .isAccessibleTo(traveller))) {
+                    .isAccessibleTo())) {
                 targets.add(new Node(d, target, n));
             }
         }
@@ -110,7 +110,7 @@ public final class Navigation {
      * @return A unit of type T, iff such a unit occupies this square, or
      * <code>null</code> of none does.
      */
-    public static Unit findUnit(Class<? extends Unit> type, Square square) {
+    private static Unit findUnit(Class<? extends Unit> type, Square square) {
         for (Unit u : square.getOccupants()) {
             if (type.isInstance(u)) {
                 return u;

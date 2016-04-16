@@ -52,7 +52,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the player.
      */
-    protected IdentifiedPlayer getPlayer() {
+    IdentifiedPlayer getPlayer() {
         return this.player;
     }
 
@@ -61,7 +61,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the board.
      */
-    protected final Board getBoard() {
+    final Board getBoard() {
         return this.board;
     }
 
@@ -70,7 +70,7 @@ public abstract class AIStrategy extends PacmanStrategy {
      *
      * @return the ghost's list.
      */
-    protected List<Ghost> getGhostsList() {
+    List<Ghost> getGhostsList() {
         return this.ghosts;
     }
 }
