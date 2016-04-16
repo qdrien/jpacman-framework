@@ -734,9 +734,8 @@ Les classes qui contiennent beaucoup de méthodes sont donc naturellement sujett
 
 Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous avons choisi de réagir pour éviter qu'une classe n'aie trop de méthodes. Les changements effectués ont effectivement permis de supprimer les avertissements en question tout en permettant probablement à notre code d'être plus \og maintenable \fg \, puisque les classes sont globalement moins volumineuses.
 
-%Player:
-% Regroupait l'implémentation de deux fonctionnalités séparées (score & labyrinthe) en plus des services de base. -> Comportement lié à la fonctionnalité "score" déplaçé dans la classe descendante "IdentifiedPlayer" et de méthodes de vérification de contenu de fichiers verfs "FileChecker.
-%A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
+La classe \mbox{\textit{Player}} regroupait l'implémentation de deux fonctionnalités séparées (score et labyrinthe) en plus des services de base, dès lors, il a été préféré de la diviser en plusieurs: le comportement lié à la fonctionnalité \og score \fg a été déplaçé dans la classe descendante \mbox{\textit{IdentifiedPlayer}} et les méthodes de vérification de contenu de fichiers ont été déplaçées vers \mbox{\textit{FileChecker}}.
+A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
 
 
 \paragraph{Taille de code}
