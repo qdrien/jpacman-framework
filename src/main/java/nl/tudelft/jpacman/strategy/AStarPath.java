@@ -81,7 +81,6 @@ public class AStarPath extends AStar<Square> {
     /**
      * Get the list of valid neighbors (accessible to a player).
      *
-     * @param player the player.
      * @param square the player square.
      * @return the neighbor's list.
      */

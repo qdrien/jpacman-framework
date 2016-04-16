@@ -189,7 +189,7 @@ public class PacManhattanAI extends AIStrategy {
 
             if (square.getOccupants().size() > 0
                     && square.getOccupants().get(0) instanceof Pellet
-                    && !square.equals(getPlayer().getSquare())) {
+                    && !square.isSameSquare(getPlayer().getSquare())) {
                 return square;
             } else {
                 final List<Square> neighborsList = AStarPath.getValidNeighbors(square);
@@ -259,7 +259,7 @@ public class PacManhattanAI extends AIStrategy {
         while (!squaresQueue.isEmpty()) {
             final Square square = squaresQueue.remove();
             visitedSquare[square.getY()][square.getX()] = true;
-            if (isSafetySquare(square) && !square.equals(getPlayer().getSquare())) {
+            if (isSafetySquare(square) && !square.isSameSquare(getPlayer().getSquare())) {
                 return square;
             } else {
                 final List<Square> neighborsList = AStarPath.getValidNeighbors(square);

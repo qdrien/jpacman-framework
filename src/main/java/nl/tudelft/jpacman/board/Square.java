@@ -173,8 +173,7 @@ public abstract class Square {
      * @param square The test whose equality with this one is being tested.
      * @return true if squares are equals, false otherwise.
      */
-//TODO nicolas:Covariant equals() method defined, Object.equals() inherited: class should probably define a boolean equals(Object) method
-    public boolean equals(Square square) { //todo: nicolas: Definition of 'equals()' without corresponding definition of 'hashCode()'.
+     public boolean isSameSquare(Square square) {
         return this.getX() == square.getX() && this.getY() == square.getY();
     }
 }
