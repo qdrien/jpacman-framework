@@ -111,12 +111,9 @@ public abstract class AStar<T> {
                  * If a better path passing for this point already exists then
 				 * don't expand it.
 				 */
-        if (min == null || min > path.f)
-        {
+        if (min == null || min > path.f) {
             mindists.put(path.getPoint(), path.f);
-        }
-        else
-        {
+        } else {
             return;
         }
 

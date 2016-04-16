@@ -107,13 +107,6 @@ public abstract class Game implements LevelObserver {
     public abstract AILevel getLevel();
 
     /**
-     * Forces subclasses to provide a method to switch to the given Level.
-     *
-     * @param level The Level we want to switch to
-     */
-    protected abstract void setLevel(AILevel level);
-
-    /**
      * Sets the level to the one that has the given id (calls #Game.setLevel).
      *
      * @param levelIndex The id of the level we want to switch to
@@ -123,13 +116,19 @@ public abstract class Game implements LevelObserver {
         assert level != null;
         setLevel(level);
         currentLevel = levelIndex;
-        if(strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
+        if (strategy != null && strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
             getLevel().setStrategy(new PacManhattanAI(this));
-        }
-        else {
+        } else {
             getLevel().setStrategy(new HumanControllerStrategy(this, MyJDialogStrategy.getBuilder()));
         }
     }
+
+    /**
+     * Forces subclasses to provide a method to switch to the given Level.
+     *
+     * @param level The Level we want to switch to
+     */
+    protected abstract void setLevel(AILevel level);
 
     /**
      * Moves the specified player until the next cross in the given direction.
@@ -235,6 +234,7 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Test whether the given level is available.
+     *
      * @param id The id of the level.
      * @return true if available, false otherwise.
      */
@@ -288,6 +288,7 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Set the strategy.
+     *
      * @param strategy chosen by the player.
      */
     public void setStrategy(PacmanStrategy strategy) {

@@ -106,20 +106,15 @@ public class AILevel extends Level {
      * Starts or resumes the level.
      * Start NPC and AI.
      */
-    public void start()
-    {
+    public void start() {
         synchronized (startStopLock) {
             if (isInProgress()) {
                 return;
             }
-            if (strategy != null)
-            {
-                if (strategy.getTypeStrategy() == PacmanStrategy.Type.AI)
-                {
+            if (strategy != null) {
+                if (strategy.getTypeStrategy() == PacmanStrategy.Type.AI) {
                     startAIStrategy();
-                }
-                else
-                {
+                } else {
                     strategy.executeStrategy();
                 }
             }
@@ -145,8 +140,10 @@ public class AILevel extends Level {
             setInProgress(false);
         }
     }
+
     /**
      * Set the strategy.
+     *
      * @param strategy chosen by the player.
      */
     public void setStrategy(PacmanStrategy strategy) {

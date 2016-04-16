@@ -54,21 +54,29 @@ public class IdentifiedPlayer extends Player {
         super(spriteMap, deathAnimation);
     }
 
-
-    /**
-     * Returns the path of the player's profile file.
-     * @return The path of the player's profile file.
-     */
-    public String getProfilePath()
-    {
-        return profilePath;
-    }
-
     /**
      * Sets whether the application is running or being tested.
      */
     public static void setIsNotATest() {
         isNotATest = false;
+    }
+
+    /**
+     * Returns the path of the player's profile file.
+     *
+     * @return The path of the player's profile file.
+     */
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    /**
+     * Sets the path to the file storing the player's stats.
+     *
+     * @param s The path to set.
+     */
+    public void setProfilePath(final String s) {
+        profilePath = s;
     }
 
     /**
@@ -102,10 +110,11 @@ public class IdentifiedPlayer extends Player {
 
     /**
      * Helper method to avoid code duplication.
-     * @param options The buttons that can be clicked.
-     * @param panel The JPanel displaying the choice.
+     *
+     * @param options      The buttons that can be clicked.
+     * @param panel        The JPanel displaying the choice.
      * @param loginEntered The name entered by the player.
-     * @param title The title of the dialog box.
+     * @param title        The title of the dialog box.
      * @return The identifier of the button clicked.
      */
     private int buttonChoice(String[] options, JPanel panel, JTextField loginEntered, String title) {
@@ -125,15 +134,6 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * Sets the path to the file storing the player's stats.
-     *
-     * @param s The path to set.
-     */
-    public void setProfilePath(final String s) {
-        profilePath = s;
-    }
-
-    /**
      * Displays the player's achievements, if any were obtained.
      *
      * @throws IOException If the file was not found or is not readable.
@@ -150,8 +150,7 @@ public class IdentifiedPlayer extends Player {
         toDisplay += "</html>";
         if ("<html><br>Achievements: <br></html>".equals(toDisplay)) {
             JOptionPane.showMessageDialog(null, "No achievements earned yet.", "Awww", JOptionPane.PLAIN_MESSAGE);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, toDisplay, "Achievements", JOptionPane.PLAIN_MESSAGE);
         }
     }
@@ -289,8 +288,7 @@ public class IdentifiedPlayer extends Player {
         for (int i = 0; i < split.length; i++) {
             if (i == killer.getIndex()) {
                 toWrite.append(Integer.parseInt(split[i]) + 1).append(" ");
-            }
-            else {
+            } else {
                 toWrite.append(split[i]).append(" ");
             }
         }
@@ -324,8 +322,7 @@ public class IdentifiedPlayer extends Player {
         for (int i = 0; i < split.length; i++) {
             if (i == 1) {
                 toUpdate.append(highScore).append(" ");
-            }
-            else {
+            } else {
                 toUpdate.append(split[i]).append(" ");
             }
         }
@@ -334,6 +331,7 @@ public class IdentifiedPlayer extends Player {
 
     /**
      * Displays the player's stats.
+     *
      * @return Whether the player is logged in or not.
      */
     @SuppressWarnings("checkstyle:magicnumber")
@@ -390,6 +388,7 @@ public class IdentifiedPlayer extends Player {
 
     /**
      * Returns the path of the login file.
+     *
      * @return The path of the login file.
      */
     public String getLoginPath() {

@@ -68,6 +68,45 @@ public enum Achievement {
     }
 
     /**
+     * Offers the player achievements (at most MAX_RECOMMENDATIONS) to accomplish given that he has accomplished some other achievements.
+     *
+     * @param player The player currently logged in.
+     */
+    @SuppressWarnings("checkstyle:linelength")
+    public static String offerAchievements(IdentifiedPlayer player) {
+        List<Achievement> recommendations = new ArrayList<>();
+        try {
+            List<Achievement> obtained = new ArrayList<>();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(player.getProfilePath()), Charset.defaultCharset()));
+            //ignoring the first line, it's not directly related to recommendations.
+            String toDisplay = "", line = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                Achievement currentAchievement = parseAchievement(line);
+                if (!obtained.contains(currentAchievement)) {
+                    obtained.add(currentAchievement);
+                }
+            }
+
+            for (int i = 0; i < obtained.size() && recommendations.size() <= MAX_RECOMMENDATIONS; i++) {
+                Achievement recommended = obtained.get(i).recommended;
+                if (!recommendations.contains(recommended) && !obtained.contains(recommended)) {
+                    recommendations.add(recommended);
+                    toDisplay += recommended + ": " + recommended.getDescription() + System.getProperty("line.separator");
+                }
+            }
+            //VICTOR is the default recommended achievement.
+            if ("".equals(toDisplay) && !obtained.contains(VICTOR)) {
+                toDisplay = VICTOR + ": " + VICTOR.getDescription();
+            }
+            reader.close();
+            return toDisplay;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error!";
+        }
+    }
+
+    /**
      * Returns the textual description corresponding with the Achievement.
      *
      * @return The textual description corresponding with the Achievement.
@@ -83,49 +122,5 @@ public enum Achievement {
      */
     public int getBonusScore() {
         return bonusScore;
-    }
-
-    /**
-     * Offers the player achievements (at most MAX_RECOMMENDATIONS) to accomplish given that he has accomplished some other achievements.
-     * @param player The player currently logged in.
-     */
-    @SuppressWarnings("checkstyle:linelength")
-    public static String offerAchievements(IdentifiedPlayer player)
-    {
-        List<Achievement> recommendations = new ArrayList<>();
-        try
-        {
-            List<Achievement> obtained = new ArrayList<>();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(player.getProfilePath()), Charset.defaultCharset()));
-            //ignoring the first line, it's not directly related to recommendations.
-            String toDisplay = "", line = reader.readLine();
-            while ((line = reader.readLine()) != null)
-            {
-                Achievement currentAchievement = parseAchievement(line);
-                if (!obtained.contains(currentAchievement)) {
-                    obtained.add(currentAchievement);
-                }
-            }
-
-            for (int i = 0; i < obtained.size() && recommendations.size() <= MAX_RECOMMENDATIONS; i++)
-            {
-                Achievement recommended = obtained.get(i).recommended;
-                if (!recommendations.contains(recommended) && !obtained.contains(recommended)) {
-                    recommendations.add(recommended);
-                    toDisplay +=  recommended + ": " + recommended.getDescription() + System.getProperty("line.separator");
-                }
-            }
-            //VICTOR is the default recommended achievement.
-            if ("".equals(toDisplay) && !obtained.contains(VICTOR)) {
-                toDisplay = VICTOR + ": " + VICTOR.getDescription();
-            }
-            reader.close();
-            return toDisplay;
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return "Error!";
-        }
     }
 }

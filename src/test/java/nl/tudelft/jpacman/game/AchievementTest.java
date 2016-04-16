@@ -18,8 +18,7 @@ import static org.mockito.Mockito.when;
  * Test class for Achievements.
  */
 @SuppressWarnings("checkstyle:linelength")
-public class AchievementTest
-{
+public class AchievementTest {
     /**
      * The path of the file that will be used to test the player's profile.
      */
@@ -27,11 +26,11 @@ public class AchievementTest
 
     /**
      * Creates the profile file for the test player.
+     *
      * @throws IOException If the file cannot be opened or written to.
      */
     @Before
-    public void init() throws IOException
-    {
+    public void init() throws IOException {
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PROFILE_PATH));
         writer.write("0 0 0 0 0 0 0 0" + System.getProperty("line.separator"));
         writer.close();
@@ -41,14 +40,15 @@ public class AchievementTest
      * Deletes the test player's profile file.
      */
     @After
-    public void cleanup() {new File(PROFILE_PATH).delete();}
+    public void cleanup() {
+        new File(PROFILE_PATH).delete();
+    }
 
     /**
      * Testing the recommendation given when the player has no achievements recorded.
      */
     @Test
-    public void testDefaultRecommendation()
-    {
+    public void testDefaultRecommendation() {
         final IdentifiedPlayer player = mock(IdentifiedPlayer.class);
         when(player.getProfilePath()).thenReturn(PROFILE_PATH);
         final String recommendation = Achievement.offerAchievements(player);
@@ -57,11 +57,11 @@ public class AchievementTest
 
     /**
      * Testing the recommendation given when the player has recorded an achievement.
+     *
      * @throws IOException If the profile file cannot be opened or written to.
      */
     @Test
-    public void testNonDefaultRecommendation() throws IOException
-    {
+    public void testNonDefaultRecommendation() throws IOException {
         final BufferedWriter writer = new BufferedWriter(new FileWriter(PROFILE_PATH, true));
         writer.write("SPEEDY_DEATH");
         writer.close();

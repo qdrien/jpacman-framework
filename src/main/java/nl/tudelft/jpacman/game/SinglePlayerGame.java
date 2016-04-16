@@ -3,6 +3,7 @@ package nl.tudelft.jpacman.game;
 import com.google.common.collect.ImmutableList;
 import nl.tudelft.jpacman.level.AILevel;
 import nl.tudelft.jpacman.level.IdentifiedPlayer;
+
 import java.io.IOException;
 import java.util.List;
 

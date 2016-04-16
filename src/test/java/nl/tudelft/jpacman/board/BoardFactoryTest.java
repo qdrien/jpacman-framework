@@ -95,6 +95,7 @@ public class BoardFactoryTest {
     /**
      * Verifies that generating Level 1 from the image
      * produces the same content as the original file.
+     *
      * @throws IOException If there is a problem with at least one of the files (e.g. not found)
      */
     @Test

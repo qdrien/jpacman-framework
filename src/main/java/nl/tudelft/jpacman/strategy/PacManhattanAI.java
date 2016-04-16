@@ -71,6 +71,26 @@ public class PacManhattanAI extends AIStrategy {
     }
 
     /**
+     * Define the Pacman Behaviour in the game.
+     *
+     * @param pelletNbr the pellets number remaining in the game.
+     */
+    private static void updatePacmanBehaviour(final int pelletNbr) {
+        if (pelletNbr <= HIGH_PELLET_COUNT) {
+            //Pacman must recover the last pellets to finish
+            if (pelletNbr <= LOW_PELLET_COUNT) {
+                setGhostDstThreshold(LOW_GHOST_DST);
+            }
+            //The pacman play safety and recover pellets if he can
+            else {
+                setGhostDstThreshold(MEDIUM_GHOST_DST);
+            }
+        } else {
+            setGhostDstThreshold(INITIAL_GHOST_DST); //Pacman play safety
+        }
+    }
+
+    /**
      * Initialise the data used to calculate the best movement to apply.
      *
      * @param game The current game.
@@ -107,8 +127,7 @@ public class PacManhattanAI extends AIStrategy {
             //There is no near ghost, thus find the nearest pellet
             computePath(bfsNearestSafetyPelletSquare());
         }
-        if (directionQueue.isEmpty())
-        {
+        if (directionQueue.isEmpty()) {
             if (warning) {
                 //No safe square found, find the nearest pellet
                 computePath(bfsNearestSafetyPelletSquare());
@@ -172,8 +191,7 @@ public class PacManhattanAI extends AIStrategy {
                     && square.getOccupants().get(0) instanceof Pellet
                     && !square.equals(getPlayer().getSquare())) {
                 return square;
-            }
-            else {
+            } else {
                 final List<Square> neighborsList = AStarPath.getValidNeighbors(square);
                 neighborsList.stream().filter(neighborSquare -> neighborSquare != null)
                         .forEach(neighborSquare -> {
@@ -211,16 +229,14 @@ public class PacManhattanAI extends AIStrategy {
                 //Vertical situation
                 if (y == 1 || y < -1) {
                     directions.add(Direction.SOUTH);
-                }
-                else {
+                } else {
                     directions.add(Direction.NORTH);
                 }
             } else {
                 //Horizontal situation
                 if (x == 1 || x < -1) {
                     directions.add(Direction.EAST);
-                }
-                else {
+                } else {
                     directions.add(Direction.WEST);
                 }
             }
@@ -245,8 +261,7 @@ public class PacManhattanAI extends AIStrategy {
             visitedSquare[square.getY()][square.getX()] = true;
             if (isSafetySquare(square) && !square.equals(getPlayer().getSquare())) {
                 return square;
-            }
-            else {
+            } else {
                 final List<Square> neighborsList = AStarPath.getValidNeighbors(square);
                 squaresQueue.addAll(neighborsList.stream()
                         .filter(neighbor -> !visitedSquare[neighbor.getY()][neighbor.getX()])
@@ -289,26 +304,6 @@ public class PacManhattanAI extends AIStrategy {
             } else {
                 return Direction.EAST;
             }
-        }
-    }
-
-    /**
-     * Define the Pacman Behaviour in the game.
-     *
-     * @param pelletNbr the pellets number remaining in the game.
-     */
-    private static void updatePacmanBehaviour(final int pelletNbr) {
-        if (pelletNbr <= HIGH_PELLET_COUNT) {
-            //Pacman must recover the last pellets to finish
-            if (pelletNbr <= LOW_PELLET_COUNT) {
-                setGhostDstThreshold(LOW_GHOST_DST);
-            }
-                //The pacman play safety and recover pellets if he can
-            else {
-                setGhostDstThreshold(MEDIUM_GHOST_DST);
-            }
-        } else {
-            setGhostDstThreshold(INITIAL_GHOST_DST); //Pacman play safety
         }
     }
 

@@ -92,8 +92,7 @@ public class IdentifiedPlayerTest {
         while ((line = reader.readLine()) != null) {
             if (line.equals(Achievement.SPEEDY_DEATH.toString())) {
                 speedyFound = true;
-            }
-            else if (line.equals(Achievement.VICTOR.toString())) {
+            } else if (line.equals(Achievement.VICTOR.toString())) {
                 victorFound = true;
             }
         }
@@ -105,6 +104,7 @@ public class IdentifiedPlayerTest {
 
     /**
      * Tests player creation.
+     *
      * @throws IOException if a problem happens while reading the file
      */
     @Test
@@ -130,8 +130,7 @@ public class IdentifiedPlayerTest {
             while ((line = reader.readLine()) != null) {
                 if (line.split(" ")[0].equals("Testy")) {
                     found = true;
-                }
-                else {
+                } else {
                     toWrite += line + System.getProperty("line.separator");
                 }
             }

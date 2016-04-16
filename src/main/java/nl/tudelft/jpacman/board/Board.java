@@ -1,6 +1,5 @@
 package nl.tudelft.jpacman.board;
 
-import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 import java.util.ArrayList;

@@ -205,7 +205,7 @@ public abstract class Level implements PlayerListener {
         }
         if (remainingPellets() == 0
                 || QUICK_WIN
-                    && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
+                && initialPelletCount - remainingPellets() == QUICK_WIN_NEEDED_PELLETS) {
             observers.forEach(LevelObserver::levelWon);
             observers.clear(); //make sure the observers do not get called multiple times
         }
@@ -290,7 +290,7 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-    * Adds the given ghost to the list of ghosts.
+     * Adds the given ghost to the list of ghosts.
      *
      * @param g The ghost to add.
      */

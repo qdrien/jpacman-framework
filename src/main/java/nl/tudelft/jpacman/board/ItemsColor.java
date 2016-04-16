@@ -18,7 +18,7 @@ public enum ItemsColor {
     /**
      * Constructor for the ItemsColor enum.
      *
-     * @param color The colour of the game object in the "image" map format.
+     * @param color     The colour of the game object in the "image" map format.
      * @param character The character corresponding to the game object in the map parser format.
      */
     ItemsColor(final Color color, char character) {
@@ -31,7 +31,7 @@ public enum ItemsColor {
      *
      * @param rgbValue The int representing a RGB value.
      * @return A letter representing the game object that matches the given RGB value
-     *          or null if none matches.
+     * or null if none matches.
      */
     public static Character getLetterByRGBValue(final int rgbValue) {
         for (final ItemsColor c : ItemsColor.values()) {

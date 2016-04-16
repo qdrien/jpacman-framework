@@ -64,9 +64,9 @@ public class AStarPath extends AStar<Square> {
     }
 
     /**
-     *
      * Compute the manhattan distance
      * between a point (x,y) and a point (a,b).
+     *
      * @param x the x coordinate from first point.
      * @param y the y coordinate from first point.
      * @param a the x coordinate from second point.
@@ -77,27 +77,6 @@ public class AStarPath extends AStar<Square> {
     public static double manhattanDistance(final double x, final double y, final double a, final double b) {
         return Math.abs(a - x) + Math.abs(b - y);
     }
-
-    /**
-     * Test to know if the square is the goal or not.
-     *
-     * @param square The node to check.
-     * @return true if it's the goal square0
-     */
-    @Override
-    public final boolean isGoal(final Square square) {
-        return square.getX() == goalSquare.getX() && square.getY() == goalSquare.getY();
-    }
-
-    /**
-     * Determines the goal square.
-     *
-     * @param goal the goal square0
-     */
-    public void setGoal(final Square goal) {
-        this.goalSquare = goal;
-    }
-
 
     /**
      * Get the list of valid neighbors (accessible to a player).
@@ -131,6 +110,26 @@ public class AStarPath extends AStar<Square> {
             }
         }
         return validNeighbors;
+    }
+
+    /**
+     * Test to know if the square is the goal or not.
+     *
+     * @param square The node to check.
+     * @return true if it's the goal square0
+     */
+    @Override
+    public final boolean isGoal(final Square square) {
+        return square.getX() == goalSquare.getX() && square.getY() == goalSquare.getY();
+    }
+
+    /**
+     * Determines the goal square.
+     *
+     * @param goal the goal square0
+     */
+    public void setGoal(final Square goal) {
+        this.goalSquare = goal;
     }
 
     /**

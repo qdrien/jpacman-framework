@@ -23,8 +23,8 @@ import java.io.IOException;
  * @author Jeroen Roosen
  */
 public class Launcher {
-    private static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
+    private static final int DIALOG_WIDTH = 400;
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
     private static PacManUI pacManUI;
     private Game game;
@@ -70,6 +70,15 @@ public class Launcher {
     }
 
     /**
+     * Returns the UI.
+     *
+     * @return The UI.
+     */
+    public static PacManUI getPacManUI() {
+        return pacManUI;
+    }
+
+    /**
      * @return The game object this launcher will start when launch
      * is called.
      */
@@ -102,6 +111,7 @@ public class Launcher {
 
     /**
      * Creates and starts a JPac-Man game.
+     *
      * @param test a boolean set to true if called by unit test, false otherwise
      */
     @SuppressWarnings("checkstyle:linelength")
@@ -141,14 +151,6 @@ public class Launcher {
             //prevents the user from closing the dialog via the upper-right corner "X"
             dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
-    }
-
-    /**
-     * Returns the UI.
-     * @return The UI.
-     */
-    public static PacManUI getPacManUI() {
-        return pacManUI;
     }
 
     /**

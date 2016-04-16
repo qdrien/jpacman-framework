@@ -15,6 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class MyJDialogStrategy extends JDialog {
     /**
+     * The builder.
+     */
+    private static PacManUiBuilder builder = null;
+    /**
      * Button of the window.
      */
     private final JButton humanController, aiController;
@@ -22,10 +26,6 @@ public class MyJDialogStrategy extends JDialog {
      * The game.
      */
     private final Game game;
-    /**
-     * The builder.
-     */
-    private static PacManUiBuilder builder=null;
     private final PacManUI pacManUI;
     /**
      * The strategy chosen by the player.
@@ -69,6 +69,15 @@ public class MyJDialogStrategy extends JDialog {
     }
 
     /**
+     * Get the builder of the game
+     *
+     * @return the builder
+     */
+    public static PacManUiBuilder getBuilder() {
+        return builder;
+    }
+
+    /**
      * override the createRootPane inherited by the JDialog, to create the rootPane.
      * create functionality to close the window when "Escape" button is pressed
      *
@@ -99,8 +108,7 @@ public class MyJDialogStrategy extends JDialog {
             final Object source = e.getSource();
             if (source == humanController) {
                 strategy = new HumanControllerStrategy(game, builder);
-            }
-            else if (source == aiController) {
+            } else if (source == aiController) {
                 strategy = new PacManhattanAI(game);
             }
             game.setStrategy(strategy);
@@ -108,13 +116,5 @@ public class MyJDialogStrategy extends JDialog {
             dispose();
             pacManUI.start();
         }
-    }
-
-    /**
-     * Get the builder of the game
-     * @return the builder
-     */
-    public static PacManUiBuilder getBuilder() {
-        return builder;
     }
 }

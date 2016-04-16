@@ -101,7 +101,7 @@ public final class FileChecker {
      * Reads the player's achievements from file.
      *
      * @param achievements the list of achievements.
-     * @param profilePath The path to the profile file
+     * @param profilePath  The path to the profile file
      * @return The updated list of achievements.
      * @throws IOException If the file was not found or is not readable.
      */
