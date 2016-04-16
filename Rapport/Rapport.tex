@@ -796,11 +796,8 @@ Si le nombre de lignes couvertes n'a pas augmenté en concordance, c'est essenti
 \paragraph{Classes où la couverture de code a diminué significativement}
 
 \begin{itemize}
-	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de %todo
-	\% au niveau des méthodes et %todo
-	\% au niveau des lignes étant donné que certaines méthodes liées à la conversion d'images en fichiers de niveaux ne sont pas testées (la conversion en elle-même est testée mais les méthodes l'appelant non, car trop dépendantes des fichiers présents, qui peuvent varier).
-	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 4\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
-	\item La classe \mbox{\textit{PacmManUI}} a perdu 12,1\% de couverture de lignes du fait que la création de boutons radios n'est pas testée.
+	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 6,7\% au niveau des méthodes et 27,2\% au niveau des lignes étant donné que certaines méthodes liées à la conversion d'images en fichiers de niveaux ne sont pas testées (la conversion en elle-même est testée mais les méthodes l'appelant non, car trop dépendantes des fichiers présents, qui peuvent varier).
+	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 6,7\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
 \end{itemize}
 
 Dans le cas des classes préexistantes non mentionnées ci-haut, la couverture s'est soit maintenue, soit a été accrue, parfois fortement.
@@ -808,30 +805,32 @@ Dans le cas des classes préexistantes non mentionnées ci-haut, la couverture s
 \paragraph{Classes et packages ajoutés}
 
 \begin{itemize}
-	\item La classe \mbox{\textit{MyJDialog}} a une couverture de 100\% au niveau des classes, 75\% au niveau des méthodes et 70.5\% au niveau des lignes. Les méthodes et lignes non testées dépendent d' une action du joueur.
-	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 81.8\% au niveau des méthodes et 64.8\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
-	\item La classe \mbox{\textit{IdentifiedPlayer}} jouit d' une couverture de 66.7\% au niveau des classes, 61.5\% au niveau des méthodes et 64.4\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
-	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91.7\% au niveau des méthodes et 72.7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
-	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92.9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
+	\item La classe \mbox{\textit{MyJDialogStrategy}} a une couverture de 100\% au niveau des classes, 71,4\% au niveau des méthodes et 69;8\% au niveau des lignes. Les méthodes et lignes non testées dépendent d' une action du joueur.
+	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 85,7\% au niveau des méthodes et 65,6\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
+	\item La classe \mbox{\textit{AILevel}} jouit d' une couverture de 66,7\% au niveau des classes, 61,5\% au niveau des méthodes et 64,4\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91,7\% au niveau des méthodes et 72,7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
+	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92,9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
 	\item L' énumération \mbox{\textit{ItemsColor}} est entièrement couverte.
-	item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66.7\% au niveau des méthodes et 44.2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
-	\item Le package \mbox{\textit{AIStrategy}} est couvert pour 100\% au niveau des classes, 95.9\% au niveau des méthodes et 87.8\% au niveau des lignes. Les classes ci-dessous appartiennent à ce package.
+	item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66,7\% au niveau des méthodes et 51,2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
+	\item Le package \mbox{\textit{Strategy}} est couvert pour 100\% au niveau des classes, 95,9\% au niveau des méthodes et 88,8\% au niveau des lignes. Les classes ci-dessous appartiennent à ce package.
 	\item Les classes \mbox{\textit{AIStrategy}} et \mbox{\textit{HumanControllerStrategy}} sont entièrement couvertes.
 	%Note: ici, je suis tombé à court de façons différentes de dire "à une couverture de".
-	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96.4\% au niveau des lignes.
-	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.6\% au niveau des lignes.
-	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.9\% au niveau des lignes.
-	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92.9\% au niveau des méthodes et 79.5\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96,4\% au niveau des lignes.
+	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,6\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,9\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92,9\% au niveau des méthodes et 81,7\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
 \end{itemize}
 
 
 \paragraph{Mesures prises pour améliorer la couverture de code}
-L'analyse de couverture du code a révélé deux problèmes.
+L'analyse de couverture du code a révélé trois problèmes.
 
 %Note: Latex indiqué que "réinstauré" est fautif: il n'en est rien.  Pour court-circuité, pê trouver un remplaçement.
 En premier lieu, nous avions \og court-circuité \fg() les tests de l' interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
 
 En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n' était pas testée, le testé a donc été rajouté.
+
+Enfin, des tests furent rajoutés pour la classe \mbox{\textit{PacManhattanAI}}.
 
 \subsubsection{Profilage}
 Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
