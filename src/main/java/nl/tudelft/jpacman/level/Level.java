@@ -25,7 +25,7 @@ public abstract class Level implements PlayerListener {
     /**
      * If true, picking up 13 pellets is enough to win a level.
      */
-    private static final boolean QUICK_WIN = false; //todo
+    private static final boolean QUICK_WIN = false;
     /**
      * The players on this level.
      */
