@@ -75,7 +75,8 @@ public class SinglePlayerGameTest {
         level.setFinished();
         level.updateObservers();
         level.updateObservers(); //without the fix, this would get the user to level 3 directly
-        assertEquals("", startingLevel + 1, game.getCurrentLevel());
+        assertEquals("The player should have advanced to the next level, not further",
+                startingLevel + 1, game.getCurrentLevel());
     }
 
 }

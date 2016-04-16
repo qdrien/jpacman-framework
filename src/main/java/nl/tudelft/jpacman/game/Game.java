@@ -183,7 +183,9 @@ public abstract class Game implements LevelObserver {
             //Make sure to avoid adding a button for a non-existing level
             maxLevelReached--;
         }
-        Launcher.pacManUI.refreshLevelChoices(maxLevelReached);
+        if (Launcher.getPacManUI() != null) { //to allow easier testing
+            Launcher.getPacManUI().refreshLevelChoices(maxLevelReached);
+        }
     }
 
     @Override

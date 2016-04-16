@@ -158,7 +158,7 @@ public class BoardFactory {
      * @param img The image used for generating the level.
      * @return a List of Strings containing lines in pacman's format.
      */
-    private List<String> convertImageToTxt(final BufferedImage img) {
+    protected List<String> convertImageToTxt(final BufferedImage img) {
         final List<String> lines = new ArrayList<>();
         //For each line of pixels
         for (int y = 0; y < img.getHeight(); y++) {

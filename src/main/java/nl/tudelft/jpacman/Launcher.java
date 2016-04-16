@@ -28,7 +28,7 @@ public class Launcher {
     public static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
-    public static PacManUI pacManUI;
+    private static PacManUI pacManUI;
     private Game game;
 
     /**
@@ -149,7 +149,9 @@ public class Launcher {
      * Returns the UI.
      * @return The UI.
      */
-    public PacManUI getPacManUI() {return pacManUI;}
+    public static PacManUI getPacManUI() {
+        return pacManUI;
+    }
 
     /**
      * Disposes of the UI. For more information see {@link javax.swing.JFrame#dispose()}.
