@@ -260,8 +260,6 @@ La fonctionnalité $(5)$ concerne le fait de pouvoir ajouter facilement des stra
 Cette section reprend des refactorings ayant été effectués avant que des outils d'analyse n'aient été utilisés. Certaines ont d'ailleurs été
 planifiées avant la fusion des versions individuelles mais n'ont pas été réalisées dans l'immédiat pour limiter le nombre de conflits avec les autres versions lors de l'intégration des \og pull requests \fg .
 
-\paragraph{Fusion des tests sur \textit{Player}}
-Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \mbox{\textit{Ghost\#getIdentity()}}.
 \paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game}}
 Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
 \paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game}}
