@@ -46,7 +46,7 @@ public class SinglePlayerGame extends Game {
     /**
      * Simple getter for current Level.
      *
-     * @return The current Level
+     * @return The current Level.
      */
     @Override
     public AILevel getLevel() {
@@ -56,7 +56,7 @@ public class SinglePlayerGame extends Game {
     /**
      * Sets the current level to the given one.
      *
-     * @param level The Level that is to be played
+     * @param level The Level that is to be played.
      */
     @Override
     public void setLevel(final AILevel level) {
@@ -80,7 +80,7 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * Resets the score (to 0) and the number of player lives (to 3)
+     * Resets the score (to 0) and the number of player lives (to 3).
      * (should be called when a new level is set "manually" i.e. using "level choice" radio buttons)
      */
     @Override

@@ -18,8 +18,8 @@ import java.util.Map;
 public class Player extends Unit {
 
     /**
-     * The amount of points the player needs to get an additional life
-     * (he gets one each time he reaches a multiple of this value).
+     * The amount of points the player needs to get an additional life.
+     * (he gets one each time he reaches a multiple of this value)
      */
     private static final int NEW_LIFE_THRESHOLD = 10000;
     /**
@@ -59,8 +59,8 @@ public class Player extends Unit {
     /**
      * Constructor for a player.
      *
-     * @param spriteMap      The Map between sprites and their corresponding directions
-     * @param deathAnimation The animated sprites for deaths events
+     * @param spriteMap      The Map between sprites and their corresponding directions.
+     * @param deathAnimation The animated sprites for deaths events.
      */
     public Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.alive = true;
@@ -107,7 +107,7 @@ public class Player extends Unit {
     /**
      * Simple setter for the score field.
      *
-     * @param score The score to set
+     * @param score The score to set.
      */
     protected void setScore(int score) {
         this.score = score;
@@ -150,7 +150,7 @@ public class Player extends Unit {
     /**
      * Get the interval to move the player periodically.
      *
-     * @return the player interval
+     * @return the player interval.
      */
     public long getInterval() {
         return MOVE_INTERVAL;
@@ -179,7 +179,7 @@ public class Player extends Unit {
     /**
      * Simple getter for the lives field.
      *
-     * @return The amount of lives left
+     * @return The amount of lives left.
      */
     public int getLives() {
         return lives;
@@ -188,7 +188,7 @@ public class Player extends Unit {
     /**
      * Simple setter for the lives field.
      *
-     * @param lives The amount of lives the player will have after the method call
+     * @param lives The amount of lives the player will have after the method call.
      */
     public void setLives(int lives) {
         this.lives = lives;
@@ -197,7 +197,7 @@ public class Player extends Unit {
     /**
      * Registers the given Level to the player so that he can communicate with it when needed.
      *
-     * @param level The given Level that the player is playing on
+     * @param level The given Level that the player is playing on.
      */
     public void register(Level level) {
         listeners.add(level);

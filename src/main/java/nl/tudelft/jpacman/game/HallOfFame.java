@@ -59,7 +59,7 @@ public class HallOfFame {
     /**
      * Get relative path of the running Hall of Fame.
      *
-     * @return The String corresponding to the path where the HoF file is stored
+     * @return The String corresponding to the path where the HoF file is stored.
      */
     public String getHoFPath() {
         return HOF_PATH;
@@ -68,7 +68,7 @@ public class HallOfFame {
     /**
      * Get relative path of the default Hall of Fame.
      *
-     * @return The String corresponding to the path where the default HoF file is stored
+     * @return The String corresponding to the path where the default HoF file is stored.
      */
     public String getDefaultHoFPath() {
         return DEFAULT_HOF_PATH;

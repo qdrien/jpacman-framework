@@ -216,7 +216,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Triggered whenever the player completes a game.
      *
-     * @param level The id of the level that has been completed
+     * @param level The id of the level that has been completed.
      * @throws IOException If the file was not found or is not readable.
      */
     @SuppressWarnings("checkstyle:magicnumber")
@@ -301,7 +301,7 @@ public class IdentifiedPlayer extends Player {
     }
 
     /**
-     * Saves the player's highest scores and checks
+     * Saves the player's highest scores and checks.
      * whether it's high enough to earn him an achievement.
      *
      * @throws IOException If the file was not found or is not readable.
@@ -372,7 +372,7 @@ public class IdentifiedPlayer extends Player {
     /**
      * Sets the player's name.
      *
-     * @param s The name we want the player to have
+     * @param s The name we want the player to have.
      */
     public void setPlayerName(String s) {
         playerName = s;

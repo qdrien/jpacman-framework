@@ -28,7 +28,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Default constructor.
      *
-     * @param game the current game
+     * @param game the current game.
      */
     public AIStrategy(final Game game) {
         super(game);
@@ -40,7 +40,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Get the type of the strategy.
      *
-     * @return a AI type strategy
+     * @return a AI type strategy.
      */
     @Override
     public final PacmanStrategy.Type getTypeStrategy() {
@@ -50,7 +50,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Get the player of the game.
      *
-     * @return the player
+     * @return the player.
      */
     protected IdentifiedPlayer getPlayer() {
         return this.player;
@@ -59,7 +59,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Get the board of the game.
      *
-     * @return the board
+     * @return the board.
      */
     protected final Board getBoard() {
         return this.board;
@@ -68,7 +68,7 @@ public abstract class AIStrategy extends PacmanStrategy {
     /**
      * Get the ghost's list of the game.
      *
-     * @return the ghost's list
+     * @return the ghost's list.
      */
     protected List<Ghost> getGhostsList() {
         return this.ghosts;

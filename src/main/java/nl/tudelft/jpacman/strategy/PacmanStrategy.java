@@ -17,7 +17,7 @@ public abstract class PacmanStrategy {
     /**
      * Default constructor.
      *
-     * @param game the current game
+     * @param game the current game.
      */
     PacmanStrategy(final Game game) {
         this.game = game;
@@ -26,7 +26,7 @@ public abstract class PacmanStrategy {
     /**
      * Return the type of the strategy.
      *
-     * @return UNKNOWN
+     * @return UNKNOWN.
      */
     public PacmanStrategy.Type getTypeStrategy() {
         return Type.UNKNOWN;
@@ -35,7 +35,7 @@ public abstract class PacmanStrategy {
     /**
      * Move the player to the next direction.
      *
-     * @return the direction takes by the player
+     * @return the direction takes by the player.
      */
     public abstract Direction nextMove();
 
@@ -47,7 +47,7 @@ public abstract class PacmanStrategy {
     /**
      * Getter for the game field.
      *
-     * @return The Game
+     * @return The Game.
      */
     Game getGame() {
         return game;
@@ -56,7 +56,7 @@ public abstract class PacmanStrategy {
     /**
      * Setter for the game field.
      *
-     * @param game The Game
+     * @param game The Game.
      */
     void setGame(final Game game) {
         this.game = game;

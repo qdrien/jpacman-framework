@@ -147,7 +147,7 @@ public class AILevel extends Level {
     }
     /**
      * Set the strategy.
-     * @param strategy chosen by the player
+     * @param strategy chosen by the player.
      */
     public void setStrategy(PacmanStrategy strategy) {
         this.strategy = strategy;
@@ -173,8 +173,8 @@ public class AILevel extends Level {
          * Creates a new task.
          *
          * @param s        The service that executes the task.
-         * @param strategy The chosen strategy by the player
-         * @param p        The player of the game
+         * @param strategy The chosen strategy by the player.
+         * @param p        The player of the game.
          */
         PlayerMoveTask(ScheduledExecutorService s, AIStrategy strategy, IdentifiedPlayer p) {
             this.service = s;
@@ -199,9 +199,9 @@ public class AILevel extends Level {
         /**
          * Test if the player is at an intersection in the game.
          *
-         * @param player    the player of the game
-         * @param direction the current direction
-         * @return true if the player is in a intersection, false otherwise
+         * @param player    the player of the game.
+         * @param direction the current direction.
+         * @return true if the player is in a intersection, false otherwise.
          */
         public boolean isIntersection(IdentifiedPlayer player, Direction direction) {
             if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {

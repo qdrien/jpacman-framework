@@ -132,7 +132,7 @@ public abstract class Square {
     /**
      * Get the x-coordinate of a square.
      *
-     * @return the x-coordinate
+     * @return the x-coordinate.
      */
     public int getX() {
         return this.x;
@@ -141,7 +141,7 @@ public abstract class Square {
     /**
      * Set the x-coordinate.
      *
-     * @param x the x-coordinate to set
+     * @param x the x-coordinate to set.
      */
     public void setX(int x) {
         this.x = x;
@@ -150,7 +150,7 @@ public abstract class Square {
     /**
      * Get the y-coordinate of a square.
      *
-     * @return the y-coordinate
+     * @return the y-coordinate.
      */
     public int getY() {
         return this.y;
@@ -159,7 +159,7 @@ public abstract class Square {
     /**
      * Set the y-coordinate.
      *
-     * @param y the x-coordinate to set
+     * @param y the x-coordinate to set.
      */
     public void setY(int y) {
         this.y = y;
@@ -168,7 +168,7 @@ public abstract class Square {
     /**
      * Get the neighbors list of a square.
      *
-     * @return the neighbors list
+     * @return the neighbors list.
      */
     public List<Square> getNeighbours() {
         List<Square> neighboursList = new ArrayList<>();
@@ -190,8 +190,8 @@ public abstract class Square {
     /**
      * Equality test between two squares.
      *
-     * @param square todo: nicolas
-     * @return true if squares are equals, false otherwise
+     * @param square The test whose equality with this one is being tested.
+     * @return true if squares are equals, false otherwise.
      */
 //TODO nicolas:Covariant equals() method defined, Object.equals() inherited: class should probably define a boolean equals(Object) method
     public boolean equals(Square square) { //todo: nicolas: Definition of 'equals()' without corresponding definition of 'hashCode()'.
