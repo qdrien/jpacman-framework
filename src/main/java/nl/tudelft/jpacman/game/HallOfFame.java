@@ -40,9 +40,9 @@ public class HallOfFame {
     private int score;
 
     /**
-     * Sets whether the application is running or being test.
+     * Sets whether the application is running or being tested.
      *
-     * @param noTest Whether the application is running or being test.
+     * @param noTest Whether the application is running or being tested.
      */
     public static void setIsNotATest(final boolean noTest) {
         isNotATest = noTest;
