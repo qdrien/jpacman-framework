@@ -107,25 +107,20 @@ public class PacManhattanAI extends AIStrategy {
             //There is no near ghost, thus find the nearest pellet
             computePath(bfsNearestSafetyPelletSquare());
         }
-        if (directionQueue.isEmpty()) {
+        if (directionQueue.isEmpty())
+        {
             if (warning) {
                 //No safe square found, find the nearest pellet
                 computePath(bfsNearestSafetyPelletSquare());
-                if (directionQueue.isEmpty()) {
-                    //No path found, find a other direction
-                    return hurryMove();
-                } else {
-                    return directionQueue.removeFirst();
-                }
             } else {
                 //No path found to a nearest pellet, find a safe square
                 computePath(bfsNearestSafetySquare());
-                if (directionQueue.isEmpty()) {
-                    //No path found, find a other direction
-                    return hurryMove();
-                } else {
-                    return directionQueue.removeFirst();
-                }
+            }
+            if (directionQueue.isEmpty()) {
+                //No path found, find a other direction
+                return hurryMove();
+            } else {
+                return directionQueue.removeFirst();
             }
         } else {
             //Apply the best move
