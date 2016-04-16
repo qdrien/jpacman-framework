@@ -163,7 +163,7 @@ public abstract class Level implements PlayerListener {
             final Square location = unit.getSquare();
             final Square destination = location.getSquareAt(direction);
 
-            if (destination.isAccessibleTo(unit)) {
+            if (destination.isAccessibleTo()) {
                 List<Unit> occupants = destination.getOccupants();
                 unit.occupy(destination);
                 for (Unit occupant : occupants) {
@@ -299,7 +299,7 @@ public abstract class Level implements PlayerListener {
     }
 
     /**
-     * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)}
+     * Calls {@link Board#getPossibleSquares()}
      * to get the list of squares the player can move onto.
      * (such squares are accessible & have no ghost that are too close to them).
      *
@@ -307,7 +307,7 @@ public abstract class Level implements PlayerListener {
      */
     private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
-        return board.getPossibleSquares(players.get(0));
+        return board.getPossibleSquares();
     }
 
     /**

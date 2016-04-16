@@ -113,15 +113,13 @@ public class PacManUiBuilder {
      *
      * @param caption The caption of the button.
      * @param action  The action to execute when the button is clicked.
-     * @return The builder.
      */
-    public PacManUiBuilder addButton(String caption, Action action) {
+    public void addButton(String caption, Action action) {
         assert caption != null;
         assert !caption.isEmpty();
         assert action != null;
 
         buttons.put(caption, action);
-        return this;
     }
 
     /**

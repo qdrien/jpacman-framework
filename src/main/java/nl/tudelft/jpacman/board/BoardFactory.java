@@ -217,7 +217,7 @@ public class BoardFactory {
         }
 
         @Override
-        public boolean isAccessibleTo(Unit unit) {
+        public boolean isAccessibleTo() {
             return false;
         }
 
@@ -249,7 +249,7 @@ public class BoardFactory {
         }
 
         @Override
-        public boolean isAccessibleTo(Unit unit) {
+        public boolean isAccessibleTo() {
             return true;
         }
 

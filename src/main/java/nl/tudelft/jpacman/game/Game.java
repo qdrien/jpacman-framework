@@ -141,7 +141,7 @@ public abstract class Game implements LevelObserver {
         if (isInProgress()) {
             final Square location = player.getSquare();
             final Square destination = location.getSquareAt(direction);
-            if (destination.isAccessibleTo(player)) {
+            if (destination.isAccessibleTo()) {
                 if (service == null) {
                     this.service = Executors.newSingleThreadScheduledExecutor();
                 } else {

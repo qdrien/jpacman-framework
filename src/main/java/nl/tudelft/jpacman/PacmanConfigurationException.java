@@ -22,6 +22,7 @@ public class PacmanConfigurationException extends RuntimeException {
      *
      * @param cause The root cause.
      */
+    @SuppressWarnings("UnusedDeclaration")
     public PacmanConfigurationException(Throwable cause) {
         super(cause);
     }

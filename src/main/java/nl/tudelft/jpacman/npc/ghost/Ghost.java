@@ -58,7 +58,7 @@ public abstract class Ghost extends NPC {
         final Square square = getSquare();
         List<Direction> directions = new ArrayList<>();
         for (Direction d : Direction.values()) {
-            if (square.getSquareAt(d).isAccessibleTo(this)) {
+            if (square.getSquareAt(d).isAccessibleTo()) {
                 directions.add(d);
             }
         }

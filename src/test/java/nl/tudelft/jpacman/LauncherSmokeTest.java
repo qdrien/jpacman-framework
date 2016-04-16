@@ -37,7 +37,7 @@ public class LauncherSmokeTest {
      * @param dir      The direction to be taken
      * @param numSteps The number of steps to take
      */
-    public static void move(Game game, Direction dir, int numSteps) {
+    private static void move(Game game, Direction dir, int numSteps) {
         for (int i = 0; i < numSteps; i++) {
             game.move(game.getPlayers().get(0), dir);
         }

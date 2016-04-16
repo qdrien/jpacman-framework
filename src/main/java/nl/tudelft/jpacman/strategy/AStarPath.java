@@ -3,7 +3,6 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
@@ -103,12 +102,12 @@ public class AStarPath extends AStar<Square> {
     /**
      * Get the list of valid neighbors (accessible to a player).
      *
-     * @param square the player square.
      * @param player the player.
+     * @param square the player square.
      * @return the neighbor's list.
      */
     @SuppressWarnings("checkstyle:linelength")
-    public static List<Square> getValidNeighbors(final Square square, final IdentifiedPlayer player) {
+    public static List<Square> getValidNeighbors(final Square square) {
         final List<Square> neighborsList = square.getNeighbours();
         final List<Square> validNeighbors = new ArrayList<>(neighborsList);
         final Iterator<Square> iterator = validNeighbors.iterator();
@@ -116,7 +115,7 @@ public class AStarPath extends AStar<Square> {
         while (iterator.hasNext()) {
             final Square neighborSquare = iterator.next();
             boolean invalidNeighbor = false;
-            if (neighborSquare.isAccessibleTo(player)) {
+            if (neighborSquare.isAccessibleTo()) {
                 if (neighborSquare.getOccupants().size() == 2) {
                     invalidNeighbor = neighborSquare.getOccupants().get(1) instanceof Ghost;
                 }
@@ -215,7 +214,7 @@ public class AStarPath extends AStar<Square> {
      */
     @Override
     protected final List<Square> generateSuccessors(final Square square) {
-        return getValidNeighbors(square, null);
+        return getValidNeighbors(square);
     }
 
 }

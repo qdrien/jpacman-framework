@@ -1,8 +1,6 @@
 package nl.tudelft.jpacman.ui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Map;
 
 /**
@@ -11,12 +9,6 @@ import java.util.Map;
  * @author Jeroen Roosen
  */
 class ButtonPanel extends JPanel {
-
-
-    /**
-     * Default serialisation ID.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * Create a new button panel with a button for every action.

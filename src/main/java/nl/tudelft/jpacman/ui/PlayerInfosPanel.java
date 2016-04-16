@@ -20,7 +20,7 @@ public class PlayerInfosPanel extends JPanel {
     /**
      * The default way in which the score is shown.
      */
-    public static final ScoreFormatter DEFAULT_SCORE_FORMATTER =
+    private static final ScoreFormatter DEFAULT_SCORE_FORMATTER =
             // this lambda breaks cobertura 2.7 ...
             // player) -> String.format("Score: %3d", player.getScore());
             new ScoreFormatter() {
@@ -28,10 +28,6 @@ public class PlayerInfosPanel extends JPanel {
                     return String.format("Score: %3d", p.getScore());
                 }
             };
-    /**
-     * Default serialisation ID.
-     */
-    private static final long serialVersionUID = 1L;
     /**
      * The map of players and the labels their scores are on.
      */

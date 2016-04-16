@@ -1,7 +1,6 @@
 package nl.tudelft.jpacman.level;
 
 import nl.tudelft.jpacman.board.Unit;
-import nl.tudelft.jpacman.level.CollisionInteractionMap.CollisionHandler;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
 /**

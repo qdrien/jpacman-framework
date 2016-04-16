@@ -109,15 +109,14 @@ public class Board {
     /**
      * Retrieves possible target squares for the given player by looking at ghosts positions.
      *
-     * @param player The player we want to retrieve possible squares for.
      * @return An ArrayList of Squares the player can move on.
      */
-    public List<Square> getPossibleSquares(IdentifiedPlayer player) {
+    public List<Square> getPossibleSquares() {
         final List<Square> possibleSquares = new ArrayList<>();
         for (int x = 0; x < getWidth(); x++) {
             for (int y = 0; y < getHeight(); y++) {
                 final Square square = squareAt(x, y);
-                if (square.isAccessibleTo(player) && isSafe(x, y)) {
+                if (square.isAccessibleTo() && isSafe(x, y)) {
                     possibleSquares.add(square);
                 }
             }
