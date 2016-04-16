@@ -168,7 +168,22 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
-        Launcher.pacManUI.refreshLevelChoices(currentLevel);
+        final IdentifiedPlayer player = getPlayers().get(0);
+        int maxLevelReached = currentLevel;
+        //If identified
+        if (player.getProfilePath() != null) {
+            try {
+                //Check if next level is better than the previous "maxLevelReached"
+                maxLevelReached = Math.max(maxLevelReached, player.getMaxLevelReached());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!isAvailable(maxLevelReached + 1)) {
+            //Make sure to avoid adding a button for a non-existing level
+            maxLevelReached--;
+        }
+        Launcher.pacManUI.refreshLevelChoices(maxLevelReached);
     }
 
     @Override
@@ -215,6 +230,22 @@ public abstract class Game implements LevelObserver {
             throw new PacmanConfigurationException("Unable to create level.", e);
         }
     }
+
+    /**
+     * Test whether the given level is available.
+     * @param id The id of the level
+     * @return true if available, false otherwise
+     */
+    private boolean isAvailable(final int id) {
+        final String file = "/board" + id + ".txt";
+        try (InputStream boardStream = Launcher.class
+                .getResourceAsStream(file)) {
+            return boardStream != null;
+        } catch (IOException e) {
+            throw new PacmanConfigurationException("Unable to create level.", e);
+        }
+    }
+
 
     /**
      * @return A new map parser object using the factories from

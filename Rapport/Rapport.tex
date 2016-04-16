@@ -26,8 +26,6 @@
   \begin{sffamily}
   \begin{center}
 
-    % Upper part of the page. The '~' is needed because \\
-    % only works if a paragraph has started.
     \includegraphics[scale=0.2]{Images/UMONS+txt.png}   ~\\[1.5cm]
     
 
@@ -40,7 +38,6 @@
     
     
 
-    % Author and supervisor
     \begin{minipage}{0.4\textwidth}
       \begin{flushleft} \large
         \emph{Réalisateurs :\\} Damien \textsc{Legay}\\ Adrien \textsc{Coppens}\\ Nicolas \textsc{Leemans}\\
@@ -57,7 +54,6 @@
 
     \vfill
 
-    % Bottom of the page
     {\large Année académique 2015 - 2016}
 	
   \end{center}
@@ -82,7 +78,18 @@ Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé pa
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
  Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
- 
+
+
+
+\section{Outils utilisés}
+
+Cette section développe l'ensemble des outils utilisés au fil des étapes du projet.
+
+\subsection{Intellij IDEA (15.0.4)}
+
+Intellij IDEA est un IDE regroupant un grand nombre d'outils pré-intégrés permettant de calculer des métriques, des matrices de dépendances, de détecter des similarités dans le code, d'analyser le code pour mettre en évidence les différents problèmes potentiels avec bien souvent des solutions très simples à mettre en place grâce à l'IDE ou encore d'effectuer des statistiques sur divers composants d'un projet.
+
+
 \section{Extension du projet et ajout de tests unitaires pour cette extension }
 
 \subsection{Extension du logiciel}
@@ -253,8 +260,6 @@ La fonctionnalité $(5)$ concerne le fait de pouvoir ajouter facilement des stra
 Cette section reprend des refactorings ayant été effectués avant que des outils d'analyse n'aient été utilisés. Certaines ont d'ailleurs été
 planifiées avant la fusion des versions individuelles mais n'ont pas été réalisées dans l'immédiat pour limiter le nombre de conflits avec les autres versions lors de l'intégration des \og pull requests \fg .
 
-\paragraph{Fusion des tests sur \textit{Player}}
-Des tests avaient été effectués par 2 d’entre nous et lors de la fusion, nous avions simplement fusionné ceux-ci en ignorant la redondance de variables d’instances. L’un des 2 tests n’utilisant pas les \og mocks \fg, une légère adaptation a été nécessaire pour que le mock de fantôme retourne une valeur lors de l’appel à \mbox{\textit{Ghost\#getIdentity()}}.
 \paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game}}
 Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
 \paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game}}
@@ -263,15 +268,20 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code. 
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.
 
 \subsection{Analyse statique}
 
 \subsubsection{Métriques}
 
-Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1). 
+Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration, grâce à des métriques, afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1).\\
 
-\subsubsection*{Nombre de classes}
+\textbf{\large{Métrique de taille}}
+
+Les métriques de taille sont les métriques statiques les plus simples à définir, comprendre et calculer. Elles donnent une idée de la taille du logiciel, en calculant par exemple le nombre de lignes de code source dans les classes, le nombre de classes dans les paquets,... Généralement les
+métriques de taille sont utilisées pour comparer la taille de différents logiciels, pour prévoir les efforts de développement et de maintenance.\\
+
+\textbf{Nombre de classes}
 
 Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. 
 
@@ -292,7 +302,7 @@ Les résultats obtenus sont reportés dans les figures suivantes (Figures~\ref{c
 	\caption{Répartition graphique des classes au sein des packages}
 	\label{classMetrics2}
 \end{figure}
-
+\newpage
 \textbf{Logiciel final}
 
 Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui contient la version après intégration des fonctionnalités.
@@ -310,14 +320,14 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 	\caption{Répartition graphique des classes au sein des packages}
 	\label{classMetrics4}
 \end{figure}
-
-Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).
-
 \newpage
+Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).\\
 
-\subsubsection*{Lignes de codes}
 
-Cette métrique appartient à la catégorie des métriques de taille qui permettent de déterminer la taille de certains composants du logiciels. En particulier, celle-ci permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
+\textbf{Lignes de codes}
+
+
+Cette métrique permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
 \textbf{Logiciel initial}
 
@@ -379,16 +389,18 @@ Quant aux statistiques (Figure~\ref{locfinal3}), on constate que les deux classe
 	\caption{Statistiques sur les lignes de codes}
 	\label{locfinal3}
 \end{figure}
+\textbf{\large{Métriques de complexité}}
 
-\newpage
+Ces métriques sont utilisées pour mesurer la complexité d’une partie du logiciel. Elles sont souvent corrélées avec les métriques de taille parce qu’un très grand système a de grandes chances d’être également complexe.\\
 
-\subsubsection*{Complexité}
+\textbf{Complexité}
 
-Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemin d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci.
+
+Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemins d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci. La complexité cyclomatique d'une méthode vaut au minimum 1, puisqu'il y a toujours au moins un chemin. Au niveau de l'interprétation, la complexité cyclomatique d'une méthode augmente proportionnellement au nombre de points de décision, ce qui signifie qu'une méthode avec une haute complexité est plus difficile à comprendre et à maintenir. En général, une complexité cyclomatique trop élevée (typiquement supérieure à 30) indique qu'il faut refactoriser la méthode. Par contre, si une méthode a une complexité inférieure à 30, elle peut être acceptable si elle est suffisamment testée. Cette métrique est liée à la métrique de couverture du code par les tests. En effet, une méthode devrait avoir un nombre de tests unitaires égal à sa complexité cyclomatique pour avoir un "code coverage" de $100\%$, ainsi chaque chemin de la méthode est testé.
 
 \textbf{Logiciel initial}
 
-Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles seront donc surveillées tout au long de cette analyse afin de voir les évolutions apportées.
+Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles doivent donc être surveillées de près dans les analyses du logiciel final.
 
 
 \begin{figure}[!h]
@@ -405,10 +417,10 @@ Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évi
 	\caption{Métrique de complexité pour les classes}
 	\label{ComplexityMetrics2}
 \end{figure}
-
+\newpage
 \textbf{Logiciel final}
 
-Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel.
+Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel. En observant ces valeurs, on peut en déduire que la complexité de ces méthodes reste acceptable car chaque méthode ajoutée lors des extensions a fait l'objet de tests unitaires.
 
 \begin{figure}[!h]
 	\centering
@@ -425,23 +437,69 @@ Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évi
 	\label{ComplexityMetrics4}
 \end{figure}
 
-%todo: overview pyramid?
-
-%todo: ajouter une section sur la métrique "wtf" (voir slide 88 de https://moodle.umons.ac.be/mod/resource/view.php?id=3919)
 \newpage
 
-\subsubsection*{Dépendances}
+\textbf{\large{Métrique de couplage et de cohésion}}
+
+
+
+Les métriques de couplage décrivent les dépendances entre les composants du système. Plus le couplage entre deux composants est fort, plus le système est compliqué à comprendre, modifier ou corriger.
+
+
+Les métriques de cohésion décrivent le taux de connectivité au sein d’un composant du
+logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible, ce qui signifie que les deux métriques sont donc corrélées entre elles.\\
+
+\textbf{Couplage et cohésion}
+
+
+L'analyse de couplage peut se faire via la métrique CBO (coupling between object classes) qui permet de mesurer le nombre d'autres classes couplées à une classe donnée. En effet, CBO représente le couplage en comptant le nombre de classes différentes rattachées à une classe précise autant en entrée qu'en sortie.
+
+En ce qui concerne l'analyse de la cohésion des classes, la métrique LCOM (\textit{Lack of Cohesion in Methods}) peut être utilisée pour mesurer la cohésion entre les méthodes d'une classe. Cette métrique représente le manque de cohésion au sein d'une classe (une grande valeur pour cette métrique représente un manque de cohésion dans cette classe).
+
+\textbf{Logiciel initial}
+
+Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie des classes du projet pour visualiser leurs couplages et leurs cohésions. La figure~\ref{MetricsCohesion1} affiche une moyenne de $8.78$ pour la métrique CBO et $1.58$ pour la métrique LCOM du projet. 
+
+
+On constate également une valeur moyenne de $2.02$ pour la métrique DIT (\textit{Depth Inheritence Tree}) qui sert de mesure structurelle sur la hiérarchie des classes du systèmes. Pour une classe donnée, DIT représente la longueur du chemin pour se rendre de la racine à cette classe en passant par les liens d'héritage.
+
+Et pour finir, on observe une valeur moyenne de $7.73$ pour la métrique WMC (\textit{Weighted Methods per Class}) qui sert de mesure de taille et de complexité puisqu'elle additionne le nombre de méthodes d'une classe pondéré par un facteur de complexité quelconque.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsCohesion1.png} 
+	\caption{Métriques de cohesion et couplage}
+	\label{MetricsCohesion1}
+\end{figure}
+
+\newpage
+\textbf{Logiciel final}
+
+Effectuons cette même analyse sur la version finale où les résultats sont reportés dans la figure~\ref{MetricsCohesion2}. On observe que la moyenne de la métrique CBO du projet est désormais de $10.63$ contre $8.78$ dans la version initiale. La valeur moyenne de la métrique LCOM du projet est maintenant de $1.83$ contre $1.58$ précédemment. La métrique DIT atteint la valeur moyenne de $1.98$ contre $2.02$. Pour terminer, la moyenne de la métrique WMC du projet est désormais de $10.14$ contre $7.73$ dans la version initiale.
+
+Mise à part la métrique DIT, on constate que les métriques de cohésion et de couplage ont légèrement augmenté par rapport à la version initiale.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsCohesion2.png} 
+	\caption{Métriques de cohesion et couplage}
+	\label{MetricsCohesion2}
+\end{figure}
+
+\newpage
+\textbf{Dépendance}
+
 
 Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
 
 \textbf{Logiciel initial}
 
-La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
+Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie des classes du projet pour visualiser leurs dépendances. La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement correcte.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyMetrics1.png}
-	\includegraphics[scale=0.6]{Images/DependencyMetricsBis1.png}  
+	\includegraphics[scale=0.5]{Images/DependencyMetrics1.png}
+	\includegraphics[scale=0.5]{Images/DependencyMetricsBis1.png}  
 	\caption{Métrique de dépendance}
 	\label{DependencyMetrics1}
 \end{figure}
@@ -453,22 +511,22 @@ La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle1.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle2.png}  
+	\includegraphics[scale=0.5]{Images/DependencyCycle1.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle2.png}  
 	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle3.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle4.png}  
+	\includegraphics[scale=0.5]{Images/DependencyCycle3.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle4.png}  
 	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.6]{Images/DependencyCycle5.png}
-	\includegraphics[scale=0.6]{Images/DependencyCycle6.png} 
+	\includegraphics[scale=0.4]{Images/DependencyCycle5.png}
+	\includegraphics[scale=0.5]{Images/DependencyCycle6.png} 
 		\caption{Dépendance cyclique}
  
 	\label{DependencyCycle1}
@@ -476,17 +534,106 @@ La figure~\ref{DependencyMetrics1} montre que les dépendances sont relativement
 
 \newpage
 
-La matrice de dépendance qui est représentée par la figure~\ref{ComplexityMetrics1} permet de mieux visualiser ces dépendances entre classes. 
+La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix1} permet de mieux visualiser ces dépendances entre classes. Dans cette matrice, les cases bleues représentent les dépendances unidirectionnelles tandis que les cases rouges représentent les dépendances bidirectionnelles (cycles). Il est donc conseillé d'éviter au maximum les cycles.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/DependencyMatrix1.JPG}
+	\caption{Matrice de dépendances}
+	\label{DependencyMatrix1}
+\end{figure} 
+
 
 
 \textbf{Logiciel final}
-%todo: couplage/cohésion => matrice de dépendance?
-%todo: JDepend?
 
-%todo: X-ray ? (see p21 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
+Encore une fois, seule une partie des classes seront affichées par souci de lisibilité dans le rapport. La figure~\ref{DependencyMetricsFinal1} montre les dépendances entre les classes après intégration des trois fonctionnalités. On peut facilement observer que le nombre de dépendances a fortement augmenté.
 
-%todo: autres choses ? taille/complexité en fonction des classes ? blueprint ? (=> codecrawler?)
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/MetricsDependencyFinal1.png}  
+	\includegraphics[scale=0.6]{Images/MetricsDependencyFinal2.png} 
+	\caption{Métrique de dépendance}
+	\label{DependencyMetricsFinal1}
+\end{figure}
 
+\newpage
+
+
+Si on analyse les dépendances cycliques entre les packages, on constate qu'elles ont elles aussi augmenté considérablement. Les figures~\ref{CyclicDependencyFinal1} à \ref{CyclicDependencyFinal8} représentent les dépendances cycliques entre les différentes classes des packages.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal1.png}  
+		\caption{Dépendances cycliques pour le package \textit{board}}
+	\label{CyclicDependencyFinal1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal2.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal3.png}   
+		\caption{Dépendances cycliques pour le package \textit{game}}
+	\label{CyclicDependencyFinal2}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal4.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal5.png}   
+		\caption{Dépendances cycliques pour le package \textit{level}}
+	\label{CyclicDependencyFinal3}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal7.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal8.png}   
+		\caption{Dépendances cycliques pour le package \textit{npc}}
+	\label{CyclicDependencyFinal4}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal9.png} 
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal10.png}   
+		\caption{Dépendances cycliques pour le package \textit{npc.ghost}}
+	\label{CyclicDependencyFinal5}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal11.png}    
+		\caption{Dépendances cycliques pour le package \textit{sprite}}
+	\label{CyclicDependencyFinal6}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal12.png}    
+		\caption{Dépendances cycliques pour le package \textit{strategy}}
+	\label{CyclicDependencyFinal7}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{Images/CyclicDependencyFinal13.png}    
+		\caption{Dépendances cycliques pour le package \textit{ui}}
+	\label{CyclicDependencyFinal8}
+\end{figure}
+
+
+
+
+\newpage
+La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix2} permet de mieux visualiser ces dépendances entre classes. On observe assez facilement que le nombre de dépendances cycliques a augmenté par rapport à la version initiale.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/DependencyMatrix2.JPG}
+	\caption{Matrice de dépendances}
+	\label{DependencyMatrix2}
+\end{figure} 
 
 
 
@@ -517,8 +664,9 @@ final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSq
 final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
 final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 \end{lstlisting}
-%todo: nicolas: action entreprise (extract method?)
 
+
+Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux méthodes appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.
 \begin{figure}[h]
 	\centering
 	\includegraphics{Images/duplicate_analysis.JPG}
@@ -611,14 +759,72 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \end{itemize}
 
 \subsubsection*{FindBugs}
-%Me souviens plus de combien de cas (6?), mais de mon côté 1) les lectures et écritures fichier spécifient maintenant le charSet utilisé et 2) concaténation avec strings dans boucle -> usage de StringBuilder.append(). 4 instances, je crois.
+Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg() utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
+les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg() et les concaténations de chaînes de caractères ont été remplaçées par des \og StringBuilder.append() \fg().
 \subsection{Analyse dynamique}
 
+\subsection{Couverture du code}
+\paragraph{Couverture globale}
 
-\subsubsection{Couverture du code}
-%todo: Inclus dans maven:site? (cobertura?)
-\subsubsection{Couverture des tests}
-%todo: Inclus dans maven:site (cobertura?)
+Avant l'ajout de nos fonctionnalités, le pourcentage de code couvert par des tests était comme suit: 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/InitialCoverage}
+	\caption{\label{InitialCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA sur le code initial}}
+\end{figure}
+
+
+Actuellement, ces pourcentages ont évolué de la manière suivante:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/MergedCoverage}
+	\caption{\label{MergedCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA sur notre code}}
+\end{figure}
+
+Comme on peut le voir (en zoomant quelque peu), la couverture globale a non seulement été maintenue dans l'ensemble, mais a significativement augmenté au niveau du nombre de méthodes couvertes.
+Si le nombre de lignes couvertes n'a pas augmenté en concordance, c'est essentiellement parce que les fonctionnalités que nous avons ajoutées impliquent un nombre non négligeable d' éléments d' interface graphique style boutons ou \og dialogs \fg(), qui sont délicats et peu intéressants à tester.
+
+
+\paragraph{Classes où la couverture de code a diminué significativement}
+
+\begin{itemize}
+	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 13,3\% au niveau des méthodes et 38,3\% au niveau des lignes au vu du fait que la génération de niveaux à partir d'une image n' est pas testée. %todo Adrien: justify maybe?
+	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 4\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
+	\item La classe \mbox{\textit{PacmManUI}} a perdu 12,1\% de couverture de lignes du fait que la création de boutons radios n'est pas testée.
+\end{itemize}
+
+Dans le cas des préexistantes classes non mentionnées ci-haut, la couverture s'est soit maintenue, soit a été accrue, parfois fortement.
+
+\paragraph{Classes et packages ajoutés}
+
+\begin{itemize}
+	\item La classe \mbox{\textit{MyJDialog}} a une couverture de 100\% au niveau des classes, 75\% au niveau des méthodes et 70.5\% au niveau des lignes. Les méthodes et lignes non testées dépendent d' une action du joueur.
+	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 81.8\% au niveau des méthodes et 64.8\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
+	\item La classe \mbox{\textit{IdentifiedPlayer}} jouit d' une couverture de 66.7\% au niveau des classes, 61.5\% au niveau des méthodes et 64.4\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91.7\% au niveau des méthodes et 72.7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
+	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92.9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
+	\item L' énumération \mbox{\textit{ItemsColor}} est entièrement couverte.
+	item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66.7\% au niveau des méthodes et 44.2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
+	\item Le package \mbox{\textit{AIStrategy}} est couvert pour 100\% au niveau des classes, 95.9\% au niveau des méthodes et 87.8\% au niveau des lignes. Les classes ci-dessous appartiennent à ce package.
+	\item Les classes \mbox{\textit{AIStrategy}} et \mbox{\textit{HumanControllerStrategy}} sont entièrement couvertes.
+	%Note: ici, je suis tombé à court de façons différentes de dire "à une couverture de".
+	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96.4\% au niveau des lignes.
+	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.6\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90.9\% au niveau des lignes.
+	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92.9\% au niveau des méthodes et 79.5\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+\end{itemize}
+
+
+\paragraph{Mesures prises pour améliorer la couverture de code}
+L'analyse de couverture du code a révélé deux problèmes.
+
+%Note: Latex indiqué que "réinstauré" est fautif: il n'en est rien.  Pour court-circuité, pê trouver un remplaçement.
+En premier lieu, nous avions \og court-circuité \fg() les tests de l' interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
+
+En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n' était pas testée, le testé a donc été rajouté.
+
 \subsubsection{Profilage}
 Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
 On réalisera 2 scénarios :
@@ -746,7 +952,11 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 	\item Au lancement du jeu, si le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" est manquant mais qu'il existe un fichier "$n$\nolinkurl{.png}", le \og convertisseur de carte \fg \,  mentionné au paragraphe ad hoc de la section \ref{map_generator_txt} en page \pageref{map_generator_txt} crée le fichier "\nolinkurl{board}$n$\nolinkurl{.txt}" correspondant.
 \end{itemize}
 
-\section{Conclusion de l'analyse}
+\section{Conclusion}
+
+Ce projet nous a permis de mettre en pratique les différents concepts vu au cours de Software Evolution, notamment en matière de qualité d'un logiciel, maintenabilité du code, mise en place d'évolution du logiciel ainsi que la surveillance de l'évolution du code. Le projet nous a également permis de nous familiariser avec différents outils de gestion d'un code source, d'analyse et de refactoring. Ces outils nous ont permis d'identifier des problèmes fréquents et potentiels dans le code source, qui peuvent altérer la qualité et rendre l'évolution d'un système plus complexe.
+
+JPacman était un projet relativement bien conçu à la base mais il y avait notamment des petits problèmes de qualité. Nous nous sommes rendus compte également qu'il fallait rester vigilant concernant les résultats fournis par des outils logiciels car ceux-ci peuvent parfois provoquer des problèmes, par exemple du code dupliqué qui ne l'est pas vraiment ou des avertissements que l'on peut considérer comme sans gravité. De plus, les tests unitaires ont permis de gérer les évolutions et les erreurs commises en gardant un contrôle tout au long du processus de développement en effectuant des tests de régression et de validation.
 
 
 
