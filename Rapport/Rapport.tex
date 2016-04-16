@@ -645,8 +645,9 @@ assertEquals(square.getSquareAt(Direction.WEST).getY(), 15);
 assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
 \end{lstlisting}
 Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
-%todo: actions en réaction aux duplicats évitables et significatifs (outil intellij avec coût > 25? résultats de CPD?)
-Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concerne la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contiennent en effet toutes deux ce bloc de code :
+Les parties de code identifiées comme \og duplicats \fg \, et qui nous ont semblé nécessiter un refactoring en ont fait l'objet.
+
+Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concernait la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contenaient en effet toutes deux ce bloc de code :
 \begin{lstlisting}[language=java]
 final AStarPath aStarPath = new AStarPath(game);
 
@@ -687,6 +688,7 @@ Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cep
 	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ modifiés.
 	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
+Comme mentionné ci-dessus, les problèmes de style ont été réglés et on a retrouve donc bien la situation du code d'origine : aucun avertissement pour de tels problèmes.
 
 \subsubsection*{IntelliJ Code inspection}
 \paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg} 
@@ -864,6 +866,8 @@ Pour les deux scénarios considérés, on constate que la mémoire utilisée res
 \end{figure}
 
 On ne constate donc toujours pas de problème pour cette partie ci de l'analyse. On notera, comme le montre l'image, qu'il a été choisi de ne montrer que la mémoire utilisée en terme de \og metaspace \fg \, pour la mémoire \og non-heap \fg. Cela vient du fait que \textit{Yourkit} analyse également le \og Code Cache \fg, qui augmente continuellement (comportement de Java qui garde en cache du code) et donne donc une fausse impression d'augmentation.
+
+Il ne nous a pas semblé intéressant de \og profiler \fg \, la version de JPacman originelle puisque nous n'avons pas repéré de problèmes à ce stade ci alors que la version finale comprend une IA pour Pac-man, nécessitant donc naturellement plus de ressources (pour le moins en termes de CPU).
 
 \section{Evolution du code au cours du temps}
 %todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
