@@ -69,8 +69,8 @@ public class SinglePlayerGameTest {
     @Test
     public void multipleCallsToObservers() {
         game.setLevel(1);
-        int startingLevel = game.getCurrentLevel();
-        AILevel level = game.getLevel();
+        final int startingLevel = game.getCurrentLevel();
+        final AILevel level = game.getLevel();
         level.addObserver(game);
         level.setFinished();
         level.updateObservers();

@@ -126,7 +126,7 @@ public class IdentifiedPlayerTest {
         Boolean found = false;
         String loginPath = player.getLoginPath(), line, toWrite = "";
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(loginPath));
+            final BufferedReader reader = new BufferedReader(new FileReader(loginPath));
             while ((line = reader.readLine()) != null) {
                 if (line.split(" ")[0].equals("Testy")) {
                     found = true;
@@ -136,7 +136,7 @@ public class IdentifiedPlayerTest {
             }
             reader.close();
             //Putting the login file back in order.
-            BufferedWriter writer = new BufferedWriter(new FileWriter(loginPath));
+            final BufferedWriter writer = new BufferedWriter(new FileWriter(loginPath));
             writer.write(toWrite);
             writer.close();
         } catch (IOException e) {

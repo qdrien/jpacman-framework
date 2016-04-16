@@ -117,7 +117,7 @@ public class IdentifiedPlayer extends Player {
      * @param title        The title of the dialog box.
      * @return The identifier of the button clicked.
      */
-    private int buttonChoice(String[] options, JPanel panel, JTextField loginEntered, String title) {
+    private int buttonChoice(final String[] options, JPanel panel, final JTextField loginEntered, final String title) {
         int choice = 0;
         if (isNotATest) {
             choice = JOptionPane.showOptionDialog(null, panel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -227,9 +227,9 @@ public class IdentifiedPlayer extends Player {
         final int levelsCompleted = Integer.parseInt(split[0]);
         addAchievement(Achievement.VICTOR);
         if (level > levelsCompleted) {
-            StringBuilder result = new StringBuilder();
+            final StringBuilder result = new StringBuilder();
             for (int i = 1; i < split.length; i++) {
-                result.append(split[i]).append(" ");
+                result.append(split[i]).append(' ');
             }
             setInfoLine(level + " " + result.toString());
             if (levelsCompleted >= 3) {
@@ -258,8 +258,8 @@ public class IdentifiedPlayer extends Player {
      * @throws IOException If the file cannot be written to.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    private void setInfoLine(String toWrite) throws IOException {
-        StringBuilder builder = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
+    private void setInfoLine(final String toWrite) throws IOException {
+        final StringBuilder builder = new StringBuilder().append(toWrite).append(System.getProperty("line.separator"));
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         String line = reader.readLine(); //ignore first line, it's already included.
         while ((line = reader.readLine()) != null) {
@@ -283,13 +283,13 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        StringBuilder toWrite = new StringBuilder();
+        final StringBuilder toWrite = new StringBuilder();
         final Achievement toGrant = killer.getAchievementGranted();
         for (int i = 0; i < split.length; i++) {
             if (i == killer.getIndex()) {
-                toWrite.append(Integer.parseInt(split[i]) + 1).append(" ");
+                toWrite.append(Integer.parseInt(split[i]) + 1).append(' ');
             } else {
-                toWrite.append(split[i]).append(" ");
+                toWrite.append(split[i]).append(' ');
             }
         }
         setInfoLine(toWrite.toString());
@@ -311,7 +311,7 @@ public class IdentifiedPlayer extends Player {
             return;
         }
         final String[] split = getInfoLine();
-        StringBuilder toUpdate = new StringBuilder();
+        final StringBuilder toUpdate = new StringBuilder();
         int highScore = Integer.parseInt(split[1]);
         if (getScore() > 9000) {
             addAchievement(Achievement.OVER_9000);
@@ -321,9 +321,9 @@ public class IdentifiedPlayer extends Player {
         }
         for (int i = 0; i < split.length; i++) {
             if (i == 1) {
-                toUpdate.append(highScore).append(" ");
+                toUpdate.append(highScore).append(' ');
             } else {
-                toUpdate.append(split[i]).append(" ");
+                toUpdate.append(split[i]).append(' ');
             }
         }
         setInfoLine(toUpdate.toString());
@@ -372,7 +372,7 @@ public class IdentifiedPlayer extends Player {
      *
      * @param s The name we want the player to have.
      */
-    public void setPlayerName(String s) {
+    public void setPlayerName(final String s) {
         playerName = s;
     }
 

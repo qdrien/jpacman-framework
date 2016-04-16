@@ -106,11 +106,11 @@ public final class FileChecker {
      * @throws IOException If the file was not found or is not readable.
      */
     @SuppressWarnings("PMD.DataFlowAnomalyAnalysis") //the initialisations are required.
-    public static String parseAchievements(final String profilePath, String achievements) throws IOException {
+    public static String parseAchievements(final String profilePath, final String achievements) throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(profilePath), Charset.defaultCharset()));
         //first line ignored, it contains other other information
         String achievementName = reader.readLine();
-        StringBuilder builder = new StringBuilder(50);
+        final StringBuilder builder = new StringBuilder(50);
         builder.append(achievements).append("<br>Achievements: <br>");
         while ((achievementName = reader.readLine()) != null) {
             builder.append(achievementName).append(": ").append(Achievement.parseAchievement(achievementName).getDescription()).append("<br>");

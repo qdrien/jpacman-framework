@@ -17,7 +17,7 @@ public class MyJDialogStrategy extends JDialog {
     /**
      * The builder.
      */
-    private static PacManUiBuilder builder = null;
+    private static PacManUiBuilder builder;
     /**
      * Button of the window.
      */

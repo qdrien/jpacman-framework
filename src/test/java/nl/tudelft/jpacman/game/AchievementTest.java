@@ -68,7 +68,7 @@ public class AchievementTest {
 
         final IdentifiedPlayer player = mock(IdentifiedPlayer.class);
         when(player.getProfilePath()).thenReturn(PROFILE_PATH);
-        String recommendation = Achievement.offerAchievements(player);
+        final String recommendation = Achievement.offerAchievements(player);
         assertEquals("AMBUSHED: Killed by Pinky." + System.getProperty("line.separator"), recommendation);
     }
 }

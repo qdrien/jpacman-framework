@@ -34,7 +34,7 @@ public class HallOfFameTest {
     public void init() throws IOException {
         HallOfFame.setIsNotATest(false);
         hallOfFame = new HallOfFame();
-        String path = hallOfFame.getHoFPath();
+        final String path = hallOfFame.getHoFPath();
         reader = new BufferedReader(new FileReader(path));
     }
 
