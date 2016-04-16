@@ -77,15 +77,12 @@ public abstract class Square {
      * nothing changed.
      *
      * @param occupant The unit to occupy this square.
-     * @return <code>true</code> iff the unit successfully occupied this square.
      */
-    boolean put(Unit occupant) {
+    void put(Unit occupant) {
         assert occupant != null;
         if (!occupants.contains(occupant)) {
             occupants.add(occupant);
-            return true;
         }
-        return false;
     }
 
     /**
@@ -99,28 +96,11 @@ public abstract class Square {
     }
 
     /**
-     * Tests whether all occupants on this square have indeed listed this square
-     * as the square they are currently occupying.
-     *
-     * @return <code>true</code> iff all occupants of this square have this
-     * square listed as the square they are currently occupying.
-     */
-    protected boolean invariant() {
-        for (Unit occupant : occupants) {
-            if (occupant.getSquare() != this) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Determines whether the unit is allowed to occupy this square.
      *
-     * @param unit The unit to grant or deny access.
      * @return <code>true</code> iff the unit is allowed to occupy this square.
      */
-    public abstract boolean isAccessibleTo(Unit unit);
+    public abstract boolean isAccessibleTo();
 
     /**
      * Returns the sprite of this square.
@@ -132,7 +112,7 @@ public abstract class Square {
     /**
      * Get the x-coordinate of a square.
      *
-     * @return the x-coordinate
+     * @return the x-coordinate.
      */
     public int getX() {
         return this.x;
@@ -141,7 +121,7 @@ public abstract class Square {
     /**
      * Set the x-coordinate.
      *
-     * @param x the x-coordinate to set
+     * @param x the x-coordinate to set.
      */
     public void setX(int x) {
         this.x = x;
@@ -150,7 +130,7 @@ public abstract class Square {
     /**
      * Get the y-coordinate of a square.
      *
-     * @return the y-coordinate
+     * @return the y-coordinate.
      */
     public int getY() {
         return this.y;
@@ -159,7 +139,7 @@ public abstract class Square {
     /**
      * Set the y-coordinate.
      *
-     * @param y the x-coordinate to set
+     * @param y the x-coordinate to set.
      */
     public void setY(int y) {
         this.y = y;
@@ -168,7 +148,7 @@ public abstract class Square {
     /**
      * Get the neighbors list of a square.
      *
-     * @return the neighbors list
+     * @return the neighbors list.
      */
     public List<Square> getNeighbours() {
         List<Square> neighboursList = new ArrayList<>();
@@ -190,8 +170,8 @@ public abstract class Square {
     /**
      * Equality test between two squares.
      *
-     * @param square todo: nicolas
-     * @return true if squares are equals, false otherwise
+     * @param square The test whose equality with this one is being tested.
+     * @return true if squares are equals, false otherwise.
      */
 //TODO nicolas:Covariant equals() method defined, Object.equals() inherited: class should probably define a boolean equals(Object) method
     public boolean equals(Square square) { //todo: nicolas: Definition of 'equals()' without corresponding definition of 'hashCode()'.

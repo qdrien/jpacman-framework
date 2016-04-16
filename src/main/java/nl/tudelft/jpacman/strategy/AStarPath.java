@@ -3,7 +3,6 @@ package nl.tudelft.jpacman.strategy;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.level.IdentifiedPlayer;
 import nl.tudelft.jpacman.level.Pellet;
 import nl.tudelft.jpacman.npc.ghost.Ghost;
 
@@ -57,7 +56,7 @@ public class AStarPath extends AStar<Square> {
     /**
      * Default Constructor.
      *
-     * @param game The game
+     * @param game The game.
      */
     public AStarPath(final Game game) {
         this.board = game.getLevel().getBoard();
@@ -66,13 +65,13 @@ public class AStarPath extends AStar<Square> {
 
     /**
      *
-     * Compute the manhattan distance (called taxi-distance)
+     * Compute the manhattan distance
      * between a point (x,y) and a point (a,b).
-     * @param x the x coordinate from first point
-     * @param y the y coordinate from first point
-     * @param a the x coordinate from second point
-     * @param b the y coordinate from second point
-     * @return the value of the distance
+     * @param x the x coordinate from first point.
+     * @param y the y coordinate from first point.
+     * @param a the x coordinate from second point.
+     * @param b the y coordinate from second point.
+     * @return the value of the distance.
      */
     @SuppressWarnings("checkstyle:linelength")
     public static double manhattanDistance(final double x, final double y, final double a, final double b) {
@@ -83,7 +82,7 @@ public class AStarPath extends AStar<Square> {
      * Test to know if the square is the goal or not.
      *
      * @param square The node to check.
-     * @return true if it's the goal square
+     * @return true if it's the goal square0
      */
     @Override
     public final boolean isGoal(final Square square) {
@@ -93,7 +92,7 @@ public class AStarPath extends AStar<Square> {
     /**
      * Determines the goal square.
      *
-     * @param goal the goal square
+     * @param goal the goal square0
      */
     public void setGoal(final Square goal) {
         this.goalSquare = goal;
@@ -103,12 +102,12 @@ public class AStarPath extends AStar<Square> {
     /**
      * Get the list of valid neighbors (accessible to a player).
      *
-     * @param square the player square
-     * @param player the player
-     * @return the neighbor's list
+     * @param player the player.
+     * @param square the player square.
+     * @return the neighbor's list.
      */
     @SuppressWarnings("checkstyle:linelength")
-    public static List<Square> getValidNeighbors(final Square square, final IdentifiedPlayer player) {
+    public static List<Square> getValidNeighbors(final Square square) {
         final List<Square> neighborsList = square.getNeighbours();
         final List<Square> validNeighbors = new ArrayList<>(neighborsList);
         final Iterator<Square> iterator = validNeighbors.iterator();
@@ -116,7 +115,7 @@ public class AStarPath extends AStar<Square> {
         while (iterator.hasNext()) {
             final Square neighborSquare = iterator.next();
             boolean invalidNeighbor = false;
-            if (neighborSquare.isAccessibleTo(player)) {
+            if (neighborSquare.isAccessibleTo()) {
                 if (neighborSquare.getOccupants().size() == 2) {
                     invalidNeighbor = neighborSquare.getOccupants().get(1) instanceof Ghost;
                 }
@@ -139,7 +138,7 @@ public class AStarPath extends AStar<Square> {
      *
      * @param originSquare      The square to leave.
      * @param destinationSquare The square to reach.
-     * @return the cost of the square
+     * @return the cost of the square.
      */
     @SuppressWarnings("checkstyle:methodlength")
     @Override
@@ -180,7 +179,7 @@ public class AStarPath extends AStar<Square> {
      *
      * @param originSquare      The square to leave.
      * @param destinationSquare The square to reach.
-     * @return the manhattan distance between two squares
+     * @return the manhattan distance between two squares.
      */
     @Override
     public final Double h(final Square originSquare, final Square destinationSquare) {
@@ -191,8 +190,8 @@ public class AStarPath extends AStar<Square> {
     /**
      * Check if the square is nearest to a square with a ghost.
      *
-     * @param destinationSquare the square to check
-     * @return true if the square is nearest to a square with a ghost
+     * @param destinationSquare the square to check.
+     * @return true if the square is nearest to a square with a ghost.
      */
     public final boolean nearestGhosts(final Square destinationSquare) {
 
@@ -211,11 +210,11 @@ public class AStarPath extends AStar<Square> {
      * Determines the square neighbors.
      *
      * @param square The current square.
-     * @return the neighbor's list of the square
+     * @return the neighbor's list of the square.
      */
     @Override
     protected final List<Square> generateSuccessors(final Square square) {
-        return getValidNeighbors(square, null);
+        return getValidNeighbors(square);
     }
 
 }

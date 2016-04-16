@@ -216,7 +216,7 @@ public abstract class AStar<T> {
          * @param o The object to compare to.
          * @return a number < 0 if this object is smaller
          * a number = 0 if objects are the same
-         * a number > 0 if this object is bigger
+         * a number > 0 if this object is bigger.
          */
         @Override
         public int compareTo(final Object o) {

@@ -27,12 +27,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class PacManUI extends JFrame {
 
-
-    /**
-     * Default serialisation UID.
-     */
-    private static final long serialVersionUID = 1L;
-
     /**
      * The desired frame rate interval for the graphics in milliseconds, 40
      * being 25 fps.

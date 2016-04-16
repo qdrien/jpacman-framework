@@ -20,8 +20,8 @@ public class HumanControllerStrategy extends PacmanStrategy {
     /**
      * Default constructor.
      *
-     * @param game    the current game
-     * @param builder The UI builder that will be used
+     * @param game    the current game.
+     * @param builder The UI builder that will be used.
      */
     public HumanControllerStrategy(final Game game, final PacManUiBuilder builder) {
         super(game);
@@ -32,7 +32,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
     /**
      * Return the type of the strategy.
      *
-     * @return PLAYER strategy
+     * @return PLAYER strategy.
      */
     @Override
     public Type getTypeStrategy() {
@@ -57,7 +57,7 @@ public class HumanControllerStrategy extends PacmanStrategy {
     /**
      * Return the next move to apply.
      *
-     * @return null
+     * @return null.
      */
     @Override
     public Direction nextMove() {

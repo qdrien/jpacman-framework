@@ -15,12 +15,6 @@ import java.awt.*;
  */
 class BoardPanel extends JPanel {
 
-
-    /**
-     * Default serialisation ID.
-     */
-    private static final long serialVersionUID = 1L;
-
     /**
      * The background colour of the board.
      */

@@ -25,7 +25,7 @@ public class MyJDialogStrategy extends JDialog {
     /**
      * The builder.
      */
-    public static  PacManUiBuilder builder=null;
+    private static PacManUiBuilder builder=null;
     private final PacManUI pacManUI;
     /**
      * The strategy chosen by the player.
@@ -42,7 +42,7 @@ public class MyJDialogStrategy extends JDialog {
      */
     public MyJDialogStrategy(JFrame parent, PacManUiBuilder builder, Game game, PacManUI pacManUI) {
         super(parent, "Strategy selection");
-        this.builder = builder;
+        MyJDialogStrategy.builder = builder;
         this.game = game;
         this.pacManUI = pacManUI;
         final Point p = new Point(100, 100);

@@ -141,7 +141,7 @@ public class MapParser {
     /**
      * Check the correctness of the map lines in the text.
      *
-     * @param text Map to be checked
+     * @param text Map to be checked.
      * @throws PacmanConfigurationException if map is not OK.
      */
     private void checkMapFormat(List<String> text) {

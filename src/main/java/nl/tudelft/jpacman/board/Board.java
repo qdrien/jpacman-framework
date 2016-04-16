@@ -37,11 +37,11 @@ public class Board {
     /**
      * Returns the Manhattan distance between two points p0 and p1 given by their coordinates.
      *
-     * @param x0 The horizontal coordinate of p0
-     * @param y0 The vertical coordinate of p0
-     * @param x1 The horizontal coordinate of p1
-     * @param y1 The vertical coordinate of p1
-     * @return The int value of the Manhattan distance between the given points
+     * @param x0 The horizontal coordinate of p0.
+     * @param y0 The vertical coordinate of p0.
+     * @param x1 The horizontal coordinate of p1.
+     * @param y1 The vertical coordinate of p1.
+     * @return The int value of the Manhattan distance between the given points.
      */
     public static int manhattanDistance(final int x0, final int y0, final int x1, final int y1) {
         return Math.abs(x0 - x1) + Math.abs(y0 - y1);
@@ -109,15 +109,14 @@ public class Board {
     /**
      * Retrieves possible target squares for the given player by looking at ghosts positions.
      *
-     * @param player The player we want to retrieve possible squares for
-     * @return An ArrayList of Squares the player can move on
+     * @return An ArrayList of Squares the player can move on.
      */
-    public List<Square> getPossibleSquares(IdentifiedPlayer player) {
+    public List<Square> getPossibleSquares() {
         final List<Square> possibleSquares = new ArrayList<>();
         for (int x = 0; x < getWidth(); x++) {
             for (int y = 0; y < getHeight(); y++) {
                 final Square square = squareAt(x, y);
-                if (square.isAccessibleTo(player) && isSafe(x, y)) {
+                if (square.isAccessibleTo() && isSafe(x, y)) {
                     possibleSquares.add(square);
                 }
             }
@@ -126,12 +125,12 @@ public class Board {
     }
 
     /**
-     * Determine whether a Square (given by its coordinates) is safe for the player
+     * Determine whether a Square (given by its coordinates) is safe for the player.
      * (i.e. no ghosts are too close).
      *
-     * @param x The given horizontal coordinate of the Square we want to check
-     * @param y The given vertical coordinate of the Square we want to check
-     * @return true if it is safe, false otherwise
+     * @param x The given horizontal coordinate of the Square we want to check.
+     * @param y The given vertical coordinate of the Square we want to check.
+     * @return true if it is safe, false otherwise.
      */
     boolean isSafe(final int x, final int y) {
         int minX, minY, maxX, maxY;

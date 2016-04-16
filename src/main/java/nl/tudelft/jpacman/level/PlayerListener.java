@@ -8,7 +8,7 @@ interface PlayerListener {
     /**
      * Called whenever a player loses a life.
      *
-     * @param p The Player that just lost one life
+     * @param p The Player that just lost one life.
      */
     void onPlayerLoseLife(IdentifiedPlayer p);
 }

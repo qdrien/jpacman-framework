@@ -30,7 +30,7 @@ public class BoardFactory {
     private final PacManSprites sprites;
 
     /**
-     * Creates a new BoardFactory that will create a board with the provided
+     * Creates a new BoardFactory that will create a board with the provided.
      * background sprites.
      *
      * @param spriteStore The sprite store providing the sprites for the background.
@@ -89,7 +89,7 @@ public class BoardFactory {
     }
 
     /**
-     * Checks level files and generate text files from images if needed
+     * Checks level files and generate text files from images if needed.
      * (will stop when no file is found for the next level i.e. no text/image file)
      */
     private void generateLevels() {
@@ -118,9 +118,9 @@ public class BoardFactory {
     /**
      * Creates a text file for a level from a given image file.
      *
-     * @param file  The image file to generate the level from
-     * @param level The level id of this level
-     * @throws IOException If there is a problem with reading or writing the corresponding files
+     * @param file  The image file to generate the level from.
+     * @param level The level id of this level.
+     * @throws IOException If there is a problem with reading or writing the corresponding files.
      */
     private void createBoardFileFromImage(final File file, final int level) throws IOException {
         final BufferedImage img = ImageIO.read(file);
@@ -155,8 +155,8 @@ public class BoardFactory {
     /**
      * Converts a given image to a list of "pacman level" lines (Strings).
      *
-     * @param img The image used for generating the level
-     * @return a List of Strings containing lines in pacman's format
+     * @param img The image used for generating the level.
+     * @return a List of Strings containing lines in pacman's format.
      */
     private List<String> convertImageToTxt(final BufferedImage img) {
         final List<String> lines = new ArrayList<>();
@@ -179,9 +179,9 @@ public class BoardFactory {
     /**
      * Returns the file matching the given level in the given list of files.
      *
-     * @param level The level we are searching for
-     * @param files The list of files to search in
-     * @return If available, a text file (preferably) or an image file; null otherwise
+     * @param level The level we are searching for.
+     * @param files The list of files to search in.
+     * @return If available, a text file (preferably) or an image file; null otherwise.
      */
     private File levelFileFor(final int level, final File... files) {
         File output = null;
@@ -217,7 +217,7 @@ public class BoardFactory {
         }
 
         @Override
-        public boolean isAccessibleTo(Unit unit) {
+        public boolean isAccessibleTo() {
             return false;
         }
 
@@ -249,7 +249,7 @@ public class BoardFactory {
         }
 
         @Override
-        public boolean isAccessibleTo(Unit unit) {
+        public boolean isAccessibleTo() {
             return true;
         }
 

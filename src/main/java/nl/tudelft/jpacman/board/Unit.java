@@ -57,7 +57,7 @@ public abstract class Unit {
 
     /**
      * Occupies the target square iff this unit is allowed to as decided by
-     * {@link Square#isAccessibleTo(Unit)}.
+     * {@link Square#isAccessibleTo()}.
      *
      * @param target The square to occupy.
      */
@@ -87,7 +87,7 @@ public abstract class Unit {
      * one of its occupiers.
      *
      * @return <code>true</code> if the square this unit is occupying has this
-     * unit listed as one of its occupiers, or if this unit is currently
+     * unit listed as one of its occupiers, or if this unit is currently.
      * not occupying any square.
      */
     protected boolean invariant() {

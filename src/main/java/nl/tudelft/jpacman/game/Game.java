@@ -141,7 +141,7 @@ public abstract class Game implements LevelObserver {
         if (isInProgress()) {
             final Square location = player.getSquare();
             final Square destination = location.getSquareAt(direction);
-            if (destination.isAccessibleTo(player)) {
+            if (destination.isAccessibleTo()) {
                 if (service == null) {
                     this.service = Executors.newSingleThreadScheduledExecutor();
                 } else {
@@ -204,8 +204,8 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Forces subclasses to provide a method allowing to
-     * reset the score and the number of lives the player has
-     * (should be called when a new level is set "manually").
+     * reset the score and the number of lives the player has.
+     * (should be called when a new level is set "manually")
      */
     public abstract void reset();
 
@@ -213,7 +213,7 @@ public abstract class Game implements LevelObserver {
      * Creates a new level. Uses the map parser to
      * parse the desired board file.
      *
-     * @param id The id of the level we want to load
+     * @param id The id of the level we want to load.
      * @return A new level.
      */
     protected AILevel makeLevel(final int id) {
@@ -233,8 +233,8 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Test whether the given level is available.
-     * @param id The id of the level
-     * @return true if available, false otherwise
+     * @param id The id of the level.
+     * @return true if available, false otherwise.
      */
     private boolean isAvailable(final int id) {
         final String file = "/board" + id + ".txt";
@@ -248,7 +248,7 @@ public abstract class Game implements LevelObserver {
 
 
     /**
-     * @return A new map parser object using the factories from
+     * @return A new map parser object using the factories from.
      * {@link Launcher#getLevelFactory()} and {@link Launcher#getBoardFactory()}.
      */
     private MapParser getMapParser() {
@@ -259,7 +259,7 @@ public abstract class Game implements LevelObserver {
      * Returns the next level and increments the currentLevel field.
      * If this was already the last level, simply restart it.
      *
-     * @return The new(and next) level
+     * @return The new(and next) level.
      */
     public AILevel nextLevel() {
         AILevel level = makeLevel(++currentLevel);
@@ -278,7 +278,7 @@ public abstract class Game implements LevelObserver {
     /**
      * Simple getter for currentLevel.
      *
-     * @return The id of the current level
+     * @return The id of the current level.
      */
     protected int getCurrentLevel() {
         return currentLevel;
@@ -286,7 +286,7 @@ public abstract class Game implements LevelObserver {
 
     /**
      * Set the strategy.
-     * @param strategy chosen by the player
+     * @param strategy chosen by the player.
      */
     public void setStrategy(PacmanStrategy strategy) {
         getLevel().setStrategy(strategy);
@@ -354,7 +354,7 @@ public abstract class Game implements LevelObserver {
         /**
          * Get the boolean to know if the task is finish or not.
          *
-         * @return true if the task is finished, false otherwise
+         * @return true if the task is finished, false otherwise.
          */
         public boolean isFinished() {
             return finished;

@@ -2,7 +2,6 @@ package nl.tudelft.jpacman;
 
 
 import nl.tudelft.jpacman.board.BoardFactory;
-import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.game.Achievement;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.game.GameFactory;
@@ -16,7 +15,6 @@ import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 /**
@@ -25,7 +23,7 @@ import java.io.IOException;
  * @author Jeroen Roosen
  */
 public class Launcher {
-    public static final int DIALOG_WIDTH = 400;
+    private static final int DIALOG_WIDTH = 400;
     public static final int DIALOG_HEIGHT = 200;
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
     public static PacManUI pacManUI;

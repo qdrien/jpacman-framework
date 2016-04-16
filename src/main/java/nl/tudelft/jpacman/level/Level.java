@@ -163,7 +163,7 @@ public abstract class Level implements PlayerListener {
             final Square location = unit.getSquare();
             final Square destination = location.getSquareAt(direction);
 
-            if (destination.isAccessibleTo(unit)) {
+            if (destination.isAccessibleTo()) {
                 List<Unit> occupants = destination.getOccupants();
                 unit.occupy(destination);
                 for (Unit occupant : occupants) {
@@ -254,7 +254,7 @@ public abstract class Level implements PlayerListener {
      * If he has some more lives, he is moved on the board (away from ghosts)
      * so that he can keep on playing from a safer place.
      *
-     * @param p The Player that just lost one life
+     * @param p The Player that just lost one life.
      */
     @Override
     public void onPlayerLoseLife(final IdentifiedPlayer p) {
@@ -273,7 +273,7 @@ public abstract class Level implements PlayerListener {
     /**
      * Get the player of the game.
      *
-     * @return the player
+     * @return the player.
      */
     public IdentifiedPlayer getPlayer() {
         return players.get(0);
@@ -283,7 +283,7 @@ public abstract class Level implements PlayerListener {
     /**
      * Get the ghost's list.
      *
-     * @return the ghost's list
+     * @return the ghost's list.
      */
     public List<Ghost> getGhostList() {
         return ghostList;
@@ -292,26 +292,26 @@ public abstract class Level implements PlayerListener {
     /**
     * Adds the given ghost to the list of ghosts.
      *
-     * @param g The ghost to add
+     * @param g The ghost to add.
      */
     public void addToGhostList(Ghost g) {
         ghostList.add(g);
     }
 
     /**
-     * Calls {@link Board#getPossibleSquares(IdentifiedPlayer)}
-     * to get the list of squares the player can move onto
+     * Calls {@link Board#getPossibleSquares()}
+     * to get the list of squares the player can move onto.
      * (such squares are accessible & have no ghost that are too close to them).
      *
-     * @return An ArrayList of Squares the player can move onto
+     * @return An ArrayList of Squares the player can move onto.
      */
     private List<Square> getPossibleSquares() {
         assert players.get(0) != null;
-        return board.getPossibleSquares(players.get(0));
+        return board.getPossibleSquares();
     }
 
     /**
-     * Simple setter for the 'finished' field that allows a level
+     * Simple setter for the 'finished' field that allows a level.
      * to be considered finished for testing purposes.
      * (remainingPellets should therefore return 0 in all circumstances)
      */
