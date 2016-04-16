@@ -795,7 +795,9 @@ Si le nombre de lignes couvertes n'a pas augmenté en concordance, c'est essenti
 \paragraph{Classes où la couverture de code a diminué significativement}
 
 \begin{itemize}
-	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 13,3\% au niveau des méthodes et 38,3\% au niveau des lignes au vu du fait que la génération de niveaux à partir d'une image n' est pas testée. %todo Adrien: justify maybe?
+	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de %todo
+	\% au niveau des méthodes et %todo
+	\% au niveau des lignes étant donné que certaines méthodes liées à la conversion d'images en fichiers de niveaux ne sont pas testées (la conversion en elle-même est testée mais les méthodes l'appelant non, car trop dépendantes des fichiers présents, qui peuvent varier).
 	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 4\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
 	\item La classe \mbox{\textit{PacmManUI}} a perdu 12,1\% de couverture de lignes du fait que la création de boutons radios n'est pas testée.
 \end{itemize}
