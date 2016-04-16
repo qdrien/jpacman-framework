@@ -698,18 +698,19 @@ Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiqu
 	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
 	\item 4 booléens n'avaient aucun intérêt et furent donc ôtés,
 	\item 6 paramètres avaient toujours la même valeur et furent donc remplaçés par celle-ci,
+	\item 2 paramètres n'étaient jamais utilisés et furent ôtés,
 	\item 14 accès furent rendus plus restrictifs,
 	\item La valeur de retour de la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}} n'était pas utilisée et cette méthode a donc été convertie en \og void \fg{},
 	\item 8 variables ont été déclarées \og final \fg{},
 	\item 11 éléments étaient reportés inutilisés, ceux qui n'avaient pas d'usage ont été enlevés (les autres sont suite à la gestion du score de fonctionnalités non implémentées),
-	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest\#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe, 
+	\item Les 5 constantes dans \mbox{\textit{SinglePlayerTest\#constantTest()}} étaient accédées par référence d' instance, elles sont maintenant accédées par référence de classe. De même dans \mbox{\textit{AStarPathTest}},
 	\item 7 types anonymes ont été remplaçés par des expressions lambda,
 	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
 	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
 	\item Intellij a soulévé 3 erreurs dans la Javadoc, qui furent corrigées,
 	\item 6 \og asserts \fg{} étaient toujours vrais, ils ne le sont plus.
 \end{itemize}
-\paragraph{\og Warnings \fg \, sur des \og problèmes de modernité \fg}
+\paragraph{\og Warnings \fg \ sur des \og problèmes de modernité \fg}
 Ces signalements, surtout liés au code dans sa version de base (avant nos changements individuels), se présentaient par exemple aux endroits où un \og for indexé \fg \, pouvait être remplacé par un \og foreach \fg \, ou bien lorsqu'une classe anonyme \og classique \fg \, pouvait disparaitre au profit d'une expression lambda. Les \og modernisations \fg \, ont donc été effectuées (pour la plupart grâce à des \og refactorings \fg \, automatiques d'\textit{IntelliJ IDEA}).
 
 \subsubsection*{PMD}
