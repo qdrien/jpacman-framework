@@ -14,6 +14,9 @@ import static junit.framework.TestCase.assertEquals;
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class SquareCoordinateTest {
+    /**
+     * Launcher for the test.
+     */
     private Launcher launcher;
 
     /**
