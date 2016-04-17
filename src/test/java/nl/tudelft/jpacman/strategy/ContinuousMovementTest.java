@@ -49,15 +49,15 @@ public class ContinuousMovementTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, player.getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
         Thread.sleep(2000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
     }
 
     /**
@@ -72,15 +72,15 @@ public class ContinuousMovementTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, player.getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
 
         //Test continuous movement
         game.continousMovement(player, Direction.WEST);
         Thread.sleep(2000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
     }
 
     /**
@@ -95,20 +95,20 @@ public class ContinuousMovementTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, player.getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
 
         //Test continuous movement
         game.continousMovement(player, Direction.WEST);
         Thread.sleep(2000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
 
         game.continousMovement(player, Direction.SOUTH);
         //wait 600 ms
         Thread.sleep(800);
-        assertEquals(80, player.getScore());
+        assertEquals("The score is not correct", 80, player.getScore());
 
     }
 
@@ -124,21 +124,21 @@ public class ContinuousMovementTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, player.getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
         //wait 2000 ms
         Thread.sleep(2000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
 
         game.continousMovement(player, Direction.SOUTH);
         //wait 1000 ms
         Thread.sleep(800);
-        assertEquals(80, player.getScore());
+        assertEquals("The score is not correct", 80, player.getScore());
     }
 
     /**
@@ -153,25 +153,25 @@ public class ContinuousMovementTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         // start cleanly.
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, player.getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
 
         //Test continuous movement
         game.continousMovement(player, Direction.EAST);
         //wait 2000 ms
         Thread.sleep(2000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
 
         //No pellet remaining, the score stay the same
         Thread.sleep(200);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
 
         //Go back and no pellet remaining
         game.continousMovement(player, Direction.WEST);
         //wait 1000 ms
         Thread.sleep(1000);
-        assertEquals(60, player.getScore());
+        assertEquals("The score is not correct", 60, player.getScore());
     }
 }
