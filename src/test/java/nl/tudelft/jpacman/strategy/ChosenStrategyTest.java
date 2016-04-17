@@ -104,6 +104,7 @@ public class ChosenStrategyTest {
          * Creation of a new AI strategy
          */
         final AIStrategy strategy3 = new AIStrategy(game) {
+
             /**
              * Definition of nextMove method.
              * @return
