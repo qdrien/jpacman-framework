@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A level of Pac-Man. A level consists of the board with the players and the
- * AIs on it. Enables management of AI during a level (Pacman and ghosts)
+ * AIs on it. Enables management of AI during a level (Pacman and ghosts).
  */
 public class AILevel extends Level {
     /**

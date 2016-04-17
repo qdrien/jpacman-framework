@@ -363,6 +363,7 @@ public class AStarPathTest {
         final Square destination = player.getSquare().
                 getSquareAt(Direction.SOUTH);
 
-        assertEquals("The h method is not correct", aStarPath.h(origin, destination), Double.valueOf(1.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(origin, destination), Double.valueOf(1.0));
     }
 }

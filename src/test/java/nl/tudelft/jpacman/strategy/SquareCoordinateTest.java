@@ -14,9 +14,6 @@ import static junit.framework.TestCase.assertEquals;
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class SquareCoordinateTest {
-    /**
-     * Launcher in the test.
-     */
     private Launcher launcher;
 
     /**
@@ -67,7 +64,7 @@ public class SquareCoordinateTest {
         square.setX(20);
         square.setY(25);
 
-        assertEquals("Incorrect square dimension", square.getX(), 20);
-        assertEquals("Incorrect square dimension", square.getY(), 25);
+        assertEquals("Incorrect square",square.getX(), 20);
+        assertEquals(square.getY(), 25);
     }
 }
