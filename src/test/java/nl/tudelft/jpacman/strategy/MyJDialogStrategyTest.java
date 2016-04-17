@@ -23,9 +23,9 @@ public class MyJDialogStrategyTest {
                 new MyJDialogStrategy(new JFrame(), null, null, null);
         dialog.setSize(400, 200);
 
-        assertNotNull(dialog);
-        assertEquals(dialog.getY(), 100);
-        assertEquals(dialog.getX(), 100);
+        assertNotNull("The window hasn't been instantiated", dialog);
+        assertEquals("Dimension incorrect", dialog.getY(), 100);
+        assertEquals("Dimension incorrect", dialog.getX(), 100);
     }
 
 }

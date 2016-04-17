@@ -46,21 +46,21 @@ public class HumanControllerStrategyTest {
     public void strategyTest() throws AWTException, InterruptedException {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
-        assertFalse(game.isInProgress());
-        assertNotNull(game);
+        assertFalse("Game is in progress", game.isInProgress());
+        assertNotNull("Game hasn't been instantiated", game);
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         final PacmanStrategy strategy = new HumanControllerStrategy(game, builder);
 
-        assertEquals(strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
-        assertNotNull(strategy);
+        assertEquals("The strategy should be player", strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
+        assertNotNull("The strategy hasn't been instantiated", strategy);
 
         strategy.executeStrategy();
 
-        assertFalse(game.isInProgress());
+        assertFalse("Game is in progress", game.isInProgress());
         game.start();
-        assertTrue(game.isInProgress());
+        assertTrue("Game should be in progress", game.isInProgress());
 
         //Score initial
-        assertEquals(0, player.getScore());
+        assertEquals("The score should be at the minimum", 0, player.getScore());
     }
 }
