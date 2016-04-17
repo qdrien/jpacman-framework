@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class ContinuousMovementTest {
+    /**
+     * Launcher in the test.
+     */
     private Launcher launcher;
 
     /**

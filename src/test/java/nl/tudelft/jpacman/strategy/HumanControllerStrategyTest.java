@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
  * Human strategy test in the game.
  */
 public class HumanControllerStrategyTest {
+    /**
+     * Launcher in the test.
+     */
     private Launcher launcher;
 
     /**

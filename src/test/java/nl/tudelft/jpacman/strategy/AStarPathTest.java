@@ -19,7 +19,13 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class AStarPathTest {
+    /**
+     * Epsilon value to test.
+     */
     private static final double EPSILON = .1;
+    /**
+     * Launcher in the test.
+     */
     private Launcher launcher;
 
     /**
@@ -127,7 +133,7 @@ public class AStarPathTest {
         assertNotNull("The player hasn't been instantiated", player);
         assertNotNull("The player's square hasn't been instantiated", square);
 
-        List<Square> neighbourList = AStarPath.getValidNeighbors(square);
+        final List<Square> neighbourList = AStarPath.getValidNeighbors(square);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull("The neighbors list hasn't been computed", neighbourList);
@@ -141,11 +147,11 @@ public class AStarPathTest {
         game.start();
         assertTrue("Game is not in progress", game.isInProgress());
         game.move(player, Direction.EAST);
-        Square square2 = player.getSquare();
+        final Square square2 = player.getSquare();
 
         assertFalse("The player doesn't move", square.isSameSquare(square2));
 
-        List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
+        final List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -168,7 +174,7 @@ public class AStarPathTest {
         assertFalse("Game is in progress", game.isInProgress());
         assertNotNull("Game hasn't been instantiated", game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull("The aStar Path hasn't been instantiated", aStarPath);
         final IdentifiedPlayer player = game.getPlayers().get(0);
@@ -177,7 +183,7 @@ public class AStarPathTest {
         assertNotNull("The player hasn't been instantiated", player);
         assertNotNull("The player's square hasn't been instantiated", square);
 
-        List<Square> neigborList = AStarPath.getValidNeighbors(square);
+        final List<Square> neigborList = AStarPath.getValidNeighbors(square);
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull("The neighbors list hasn't been computed", neigborList);
@@ -189,14 +195,14 @@ public class AStarPathTest {
 
         //Player move to have others neighbors
         game.start();
-        assertTrue(game.isInProgress());
+        assertTrue("The game should be in progress", game.isInProgress());
         game.move(player, Direction.WEST);
         final Square square2 = player.getSquare();
 
         assertFalse("The player doesn't move", square.isSameSquare(square2));
 
 
-        List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
+        final List<Square> neigborList2 = AStarPath.getValidNeighbors(square2);
 
         //The accessible square is to East and West and North (south is a wall)
 
@@ -220,7 +226,7 @@ public class AStarPathTest {
         assertFalse("The player doesn't move", square.isSameSquare(square3));
         assertFalse("The player doesn't move", square2.isSameSquare(square3));
 
-        List<Square> neigborList3 = AStarPath.getValidNeighbors(square3);
+        final List<Square> neigborList3 = AStarPath.getValidNeighbors(square3);
 
         assertNotNull("The neighbors list hasn't been computed", neigborList3);
         //All move is possible except to left (West)
@@ -240,7 +246,7 @@ public class AStarPathTest {
         assertFalse("Game is in progress", game.isInProgress());
         assertNotNull("Game hasn't been instantiated", game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull("The aStar Path hasn't been instantiated", aStarPath);
         final IdentifiedPlayer player = game.getPlayers().get(0);
@@ -292,7 +298,7 @@ public class AStarPathTest {
         assertFalse("Game is in progress", game.isInProgress());
         assertNotNull("Game hasn't been instantiated", game);
 
-        AStarPath aStarPath = new AStarPath(game);
+        final AStarPath aStarPath = new AStarPath(game);
 
         assertNotNull("The aStar Path hasn't been instantiated", aStarPath);
         final IdentifiedPlayer player = game.getPlayers().get(0);
@@ -318,10 +324,10 @@ public class AStarPathTest {
         assertEquals("The g method is not correct", aStarPath.g(destination, destination4), Double.valueOf(1.0));
         assertEquals("The g method is not correct", aStarPath.g(destination3, destination4), Double.valueOf(1.0));
 
-        Square destinationNearestGhost = player.getSquare().getSquareAt(Direction.NORTH)
+        final Square finalDestination = player.getSquare().getSquareAt(Direction.NORTH)
                 .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
                 .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
-        assertEquals("The h method is not correct", aStarPath.g(origin, destinationNearestGhost), Double.valueOf(500.0));
+        assertEquals("The h method is not correct", aStarPath.g(origin, finalDestination), Double.valueOf(500.0));
 
         assertEquals("The h method is not correct", aStarPath.h(origin, destination), Double.valueOf(1.0));
         assertEquals("The h method is not correct", aStarPath.h(origin, destination2), Double.valueOf(2.0));

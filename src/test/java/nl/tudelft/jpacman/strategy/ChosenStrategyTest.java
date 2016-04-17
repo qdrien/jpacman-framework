@@ -15,6 +15,9 @@ import static org.junit.Assert.*;
  * Class to test the choice of the strategy for the game mode.
  */
 public class ChosenStrategyTest {
+    /**
+     * Launcher in the test.
+     */
     private Launcher launcher;
 
     /**
@@ -93,13 +96,23 @@ public class ChosenStrategyTest {
         assertFalse("Game is in progress", game.isInProgress());
         assertNotNull("Game hasn't been instantiated", game);
 
-        //Creation of a new AI strategy
+
+        /**
+         * Creation of a new AI strategy
+         */
         final AIStrategy strategy3 = new AIStrategy(game) {
+            /**
+             * Definition of nextMove method.
+             * @return
+             */
             @Override
             public Direction nextMove() {
                 return Direction.NORTH;
             }
 
+            /**
+             * Definition of executeStrategy method.
+             */
             @Override
             public void executeStrategy() {
                 game.move(game.getPlayers().get(0), nextMove());

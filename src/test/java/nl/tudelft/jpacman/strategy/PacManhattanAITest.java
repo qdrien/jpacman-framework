@@ -23,6 +23,9 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public class PacManhattanAITest {
+    /**
+     * Launcher in the test.
+     */
     private Launcher launcher;
 
     /**
@@ -51,21 +54,21 @@ public class PacManhattanAITest {
     public void safetySquareTest() {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
-        final PacManhattanAI ai = new PacManhattanAI(game);
+        final PacManhattanAI aiStrategy = new PacManhattanAI(game);
         assertFalse("The square should be dangerous",
-                ai.isSafetySquare(player.getSquare()));
+                aiStrategy.isSafetySquare(player.getSquare()));
         assertFalse("The square should be dangerous",
-                ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
+                aiStrategy.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)));
         assertFalse("The square should be dangerous",
-                ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                aiStrategy.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH)));
         assertFalse("The square should be dangerous",
-                ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                aiStrategy.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)));
 
         //Safety Square more than 14 squares about the nearest ghost
         assertTrue("The square should be safe",
-                ai.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
+                aiStrategy.isSafetySquare(player.getSquare().getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.SOUTH)
                 .getSquareAt(Direction.SOUTH).getSquareAt(Direction.EAST)
                 .getSquareAt(Direction.EAST).getSquareAt(Direction.EAST)
@@ -83,7 +86,7 @@ public class PacManhattanAITest {
         final Game game = launcher.getGame();
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
-        List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare());
+        final List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare());
         assertTrue("The neighbors list should contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
         assertTrue("The neighbors list should contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
@@ -99,7 +102,7 @@ public class PacManhattanAITest {
         game.move(player, Direction.EAST);
         game.move(player, Direction.EAST);
 
-        List<Square> neighborsList2 = AStarPath.getValidNeighbors(player.getSquare());
+        final List<Square> neighborsList2 = AStarPath.getValidNeighbors(player.getSquare());
         assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
         assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
         assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
@@ -120,9 +123,9 @@ public class PacManhattanAITest {
         assertNotNull("The player has not been instantiated", player.getSquare());
         assertEquals("Player square incorrect", player.getSquare().getX(), 11);
         assertEquals("Player square incorrect", player.getSquare().getY(), 15);
-        final PacManhattanAI ai = new PacManhattanAI(game);
+        final PacManhattanAI aiStrategy = new PacManhattanAI(game);
 
-        final Square square = ai.bfsNearestSafetySquare();
+        final Square square = aiStrategy.bfsNearestSafetySquare();
 
         assertNotNull("Square has not been instantiated", square);
         assertSame("Dimension incorrect", square.getX(), 19);
@@ -140,9 +143,9 @@ public class PacManhattanAITest {
         assertNotNull("The player has not been instantiated", player.getSquare());
         assertEquals("Player square incorrect", player.getSquare().getX(), 11);
         assertEquals("Player square incorrect", player.getSquare().getY(), 15);
-        final PacManhattanAI ai = new PacManhattanAI(game);
+        final PacManhattanAI aiStrategy = new PacManhattanAI(game);
 
-        Direction nextMove = ai.nextMove();
+        final Direction nextMove = aiStrategy.nextMove();
         assertEquals("Direction of the player incorrect", nextMove, Direction.EAST);
 
         game.start();
@@ -154,7 +157,7 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 12);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        assertEquals("Direction of the player incorrect", ai.nextMove(), Direction.EAST);
+        assertEquals("Direction of the player incorrect", aiStrategy.nextMove(), Direction.EAST);
 
         game.move(player, nextMove);
 
@@ -177,18 +180,18 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 11);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        final PacManhattanAI ai = new PacManhattanAI(game);
+        final PacManhattanAI aiStrategy = new PacManhattanAI(game);
 
-        Square safetyPelletSquare = ai.bfsNearestSafetyPelletSquare();
-        assertTrue("It should have a pellet", safetyPelletSquare.getOccupants().get(0) instanceof Pellet);
+        final Square targetSquare = aiStrategy.bfsNearestSafetyPelletSquare();
+        assertTrue("It should have a pellet", targetSquare.getOccupants().get(0) instanceof Pellet);
 
-        assertEquals("The square is incorrect", player.getSquare().getSquareAt(Direction.EAST), safetyPelletSquare);
+        assertEquals("The square is incorrect", player.getSquare().getSquareAt(Direction.EAST), targetSquare);
 
         game.start();
 
         game.move(player, Direction.EAST);
 
-        assertEquals("The square is incorrect", player.getSquare(), safetyPelletSquare);
+        assertEquals("The square is incorrect", player.getSquare(), targetSquare);
 
         //New position
         assertNotNull("The player's square is incorrect", player.getSquare());
@@ -208,13 +211,13 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 11);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        Square square1 = player.getSquare();
-        Square square2 = square1.getSquareAt(Direction.WEST);
-        Square square3 = square2.getSquareAt(Direction.WEST);
-        Square square4 = square3.getSquareAt(Direction.WEST);
-        Square square5 = square4.getSquareAt(Direction.WEST);
+        final Square square1 = player.getSquare();
+        final Square square2 = square1.getSquareAt(Direction.WEST);
+        final Square square3 = square2.getSquareAt(Direction.WEST);
+        final Square square4 = square3.getSquareAt(Direction.WEST);
+        final Square square5 = square4.getSquareAt(Direction.WEST);
 
-        ArrayList<Square> squaresList = new ArrayList<>();
+        final ArrayList<Square> squaresList = new ArrayList<>();
 
         squaresList.add(square1);
         squaresList.add(square2);
@@ -229,7 +232,7 @@ public class PacManhattanAITest {
         assertTrue("The computed list should contain this square", squaresList.contains(square4));
         assertTrue("The computed list should contain this square", squaresList.contains(square5));
 
-        Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
+        final Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
 
         assertEquals("Direction incorrect", dir.getFirst(), Direction.WEST);
         assertEquals("Direction incorrect", dir.getLast(), Direction.WEST);
@@ -248,15 +251,15 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 11);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        Square square1 = player.getSquare();
-        Square square2 = square1.getSquareAt(Direction.EAST);
-        Square square3 = square2.getSquareAt(Direction.WEST);
-        Square square4 = square3.getSquareAt(Direction.EAST);
-        Square square5 = square4.getSquareAt(Direction.WEST);
-        Square square6 = square4.getSquareAt(Direction.WEST);
+        final Square square1 = player.getSquare();
+        final Square square2 = square1.getSquareAt(Direction.EAST);
+        final Square square3 = square2.getSquareAt(Direction.WEST);
+        final Square square4 = square3.getSquareAt(Direction.EAST);
+        final Square square5 = square4.getSquareAt(Direction.WEST);
+        final Square square6 = square4.getSquareAt(Direction.WEST);
 
 
-        ArrayList<Square> squaresList = new ArrayList<>();
+        final ArrayList<Square> squaresList = new ArrayList<>();
 
         squaresList.add(square1);
         squaresList.add(square2);
@@ -274,7 +277,7 @@ public class PacManhattanAITest {
         assertTrue("The computed list should contain this square", squaresList.contains(square6));
 
 
-        Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
+        final Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
 
         assertEquals("Direction incorrect", dir.getFirst(), Direction.EAST);
         assertEquals("Direction incorrect", dir.getLast(), Direction.NORTH);
@@ -292,12 +295,12 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 11);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        final PacManhattanAI ai = new PacManhattanAI(game);
+        final PacManhattanAI aiStrategy = new PacManhattanAI(game);
 
-        assertEquals("Direction incorrect", ai.hurryMove(), Direction.EAST);
+        assertEquals("Direction incorrect", aiStrategy.hurryMove(), Direction.EAST);
 
-        assertEquals("Distance incorrect", ai.getGhostDstThreshold(), 14);
+        assertEquals("Distance incorrect", aiStrategy.getGhostDstThreshold(), 14);
         PacManhattanAI.setGhostDstThreshold(7);
-        assertEquals("Distance incorrect", ai.getGhostDstThreshold(), 7);
+        assertEquals("Distance incorrect", aiStrategy.getGhostDstThreshold(), 7);
     }
 }
