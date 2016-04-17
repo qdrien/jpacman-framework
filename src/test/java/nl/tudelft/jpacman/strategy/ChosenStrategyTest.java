@@ -44,17 +44,17 @@ public class ChosenStrategyTest {
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
 
-        assertFalse(game.isInProgress());
-        assertNotNull(game);
-        assertNotNull(builder);
+        assertFalse("Game is in progress", game.isInProgress());
+        assertNotNull("Game hasn't been instantiated", game);
+        assertNotNull("Builder hasn't been instantiated", builder);
 
 
         final PacmanStrategy strategy1 = new HumanControllerStrategy(game, builder);
-        assertNotNull(strategy1.getTypeStrategy());
-        assertEquals(strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
+        assertNotNull("The strategy hasn't been instantiated", strategy1.getTypeStrategy());
+        assertEquals("The strategy should be player", strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
 
         //The mode depends on a click by the player => no move in nextMove()
-        assertNull(strategy1.nextMove());
+        assertNull("The move should be null in the player strategy", strategy1.nextMove());
 
     }
 
@@ -67,15 +67,15 @@ public class ChosenStrategyTest {
         final Game game = launcher.getGame();
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         // start cleanly.
-        assertFalse(game.isInProgress());
-        assertNotNull(game);
-        assertNotNull(builder);
+        assertFalse("Game is in progress", game.isInProgress());
+        assertNotNull("Game hasn't been instantiated", game);
+        assertNotNull("Builder hasn't been instantiated", builder);
 
         final PacmanStrategy strategy2 = new PacManhattanAI(game);
-        assertNotNull(strategy2.getTypeStrategy());
-        assertEquals(strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
+        assertNotNull("The strategy hasn't been instantiated", strategy2.getTypeStrategy());
+        assertEquals("The strategy should be AI", strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
 
-        assertNotNull(strategy2.nextMove());
+        assertNotNull("It should have a move in a AI strategy", strategy2.nextMove());
 
 
     }
@@ -90,8 +90,8 @@ public class ChosenStrategyTest {
     public void otherStrategyAITest1() throws InterruptedException {
         final Game game = launcher.getGame();
         // start cleanly.
-        assertFalse(game.isInProgress());
-        assertNotNull(game);
+        assertFalse("Game is in progress", game.isInProgress());
+        assertNotNull("Game hasn't been instantiated", game);
 
         //Creation of a new AI strategy
         final AIStrategy strategy3 = new AIStrategy(game) {
@@ -106,17 +106,19 @@ public class ChosenStrategyTest {
 
             }
         };
-        assertNotNull(strategy3.getTypeStrategy());
-        assertEquals(strategy3.getTypeStrategy(), PacmanStrategy.Type.AI);
+        assertNotNull("The strategy hasn't been instantiated",
+                strategy3.getTypeStrategy());
+        assertEquals("The strategy should be AI", strategy3.getTypeStrategy(),
+                PacmanStrategy.Type.AI);
 
 
         //Launch AI
-        assertFalse(game.isInProgress());
-        assertNotNull(game.getPlayers().get(0));
+        assertFalse("Game is in progress", game.isInProgress());
+        assertNotNull("The player hasn't been instantiated", game.getPlayers().get(0));
 
         game.start();
-        assertTrue(game.isInProgress());
-        assertEquals(0, game.getPlayers().get(0).getScore());
+        assertTrue("Game should be in progress", game.isInProgress());
+        assertEquals("The score should be 0 because not defined", 0, game.getPlayers().get(0).getScore());
 
     }
 
