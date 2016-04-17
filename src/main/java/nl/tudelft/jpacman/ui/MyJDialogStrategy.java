@@ -86,7 +86,6 @@ public class MyJDialogStrategy extends JDialog {
     public JRootPane createRootPane() {
         final JRootPane rootPane = new JRootPane();
         final AbstractAction action = new AbstractAction() {
-
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
