@@ -87,12 +87,16 @@ public class PacManhattanAITest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         final List<Square> neighborsList = AStarPath.getValidNeighbors(player.getSquare());
-        assertTrue("The neighbors list should contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
-        assertTrue("The neighbors list should contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighborsList.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighborsList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
         //Invalid because walls
-        assertFalse("The neighbors list shouldn't contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse("The neighbors list shouldn't contain this neighbour", neighborsList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neighborsList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neighborsList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         game.start();
         game.move(player, Direction.EAST);
@@ -103,12 +107,16 @@ public class PacManhattanAITest {
         game.move(player, Direction.EAST);
 
         final List<Square> neighborsList2 = AStarPath.getValidNeighbors(player.getSquare());
-        assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
-        assertTrue("The neighbors list should contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighborsList2.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighborsList2.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighborsList2.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         //Invalid because walls
-        assertFalse("The neighbors list shouldn't contain this neighbour", neighborsList2.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neighborsList2.contains(player.getSquare().getSquareAt(Direction.EAST)));
 
     }
 
@@ -157,7 +165,8 @@ public class PacManhattanAITest {
         assertEquals("The player's square is incorrect", player.getSquare().getX(), 12);
         assertEquals("The player's square is incorrect", player.getSquare().getY(), 15);
 
-        assertEquals("Direction of the player incorrect", aiStrategy.nextMove(), Direction.EAST);
+        assertEquals("Direction of the player incorrect",
+                aiStrategy.nextMove(), Direction.EAST);
 
         game.move(player, nextMove);
 
@@ -183,9 +192,11 @@ public class PacManhattanAITest {
         final PacManhattanAI aiStrategy = new PacManhattanAI(game);
 
         final Square targetSquare = aiStrategy.bfsNearestSafetyPelletSquare();
-        assertTrue("It should have a pellet", targetSquare.getOccupants().get(0) instanceof Pellet);
+        assertTrue("It should have a pellet", targetSquare.getOccupants().get(0)
+                instanceof Pellet);
 
-        assertEquals("The square is incorrect", player.getSquare().getSquareAt(Direction.EAST), targetSquare);
+        assertEquals("The square is incorrect", player.getSquare().getSquareAt(Direction.EAST),
+                targetSquare);
 
         game.start();
 
@@ -226,11 +237,16 @@ public class PacManhattanAITest {
         squaresList.add(square5);
 
         assertNotNull("The list has not been instantiated", squaresList);
-        assertTrue("The computed list should contain this square", squaresList.contains(square1));
-        assertTrue("The computed list should contain this square", squaresList.contains(square2));
-        assertTrue("The computed list should contain this square", squaresList.contains(square3));
-        assertTrue("The computed list should contain this square", squaresList.contains(square4));
-        assertTrue("The computed list should contain this square", squaresList.contains(square5));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square1));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square2));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square3));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square4));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square5));
 
         final Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);
 
@@ -269,12 +285,18 @@ public class PacManhattanAITest {
         squaresList.add(square6);
 
         assertNotNull("The list has not been instantiated", squaresList);
-        assertTrue("The computed list should contain this square", squaresList.contains(square1));
-        assertTrue("The computed list should contain this square", squaresList.contains(square2));
-        assertTrue("The computed list should contain this square", squaresList.contains(square3));
-        assertTrue("The computed list should contain this square", squaresList.contains(square4));
-        assertTrue("The computed list should contain this square", squaresList.contains(square5));
-        assertTrue("The computed list should contain this square", squaresList.contains(square6));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square1));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square2));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square3));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square4));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square5));
+        assertTrue("The computed list should contain this square",
+                squaresList.contains(square6));
 
 
         final Deque<Direction> dir = new PacManhattanAI(game).convertPathToDirection(squaresList);

@@ -54,7 +54,8 @@ public class ChosenStrategyTest {
 
         final PacmanStrategy strategy1 = new HumanControllerStrategy(game, builder);
         assertNotNull("The strategy hasn't been instantiated", strategy1.getTypeStrategy());
-        assertEquals("The strategy should be player", strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
+        assertEquals("The strategy should be player",
+                strategy1.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
 
         //The mode depends on a click by the player => no move in nextMove()
         assertNull("The move should be null in the player strategy", strategy1.nextMove());
@@ -75,8 +76,10 @@ public class ChosenStrategyTest {
         assertNotNull("Builder hasn't been instantiated", builder);
 
         final PacmanStrategy strategy2 = new PacManhattanAI(game);
-        assertNotNull("The strategy hasn't been instantiated", strategy2.getTypeStrategy());
-        assertEquals("The strategy should be AI", strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
+        assertNotNull("The strategy hasn't been instantiated"
+                , strategy2.getTypeStrategy());
+        assertEquals("The strategy should be AI",
+                strategy2.getTypeStrategy(), PacmanStrategy.Type.AI);
 
         assertNotNull("It should have a move in a AI strategy", strategy2.nextMove());
 
@@ -131,7 +134,8 @@ public class ChosenStrategyTest {
 
         game.start();
         assertTrue("Game should be in progress", game.isInProgress());
-        assertEquals("The score should be 0 because not defined", 0, game.getPlayers().get(0).getScore());
+        assertEquals("The score should be 0 because not defined"
+                , 0, game.getPlayers().get(0).getScore());
 
     }
 

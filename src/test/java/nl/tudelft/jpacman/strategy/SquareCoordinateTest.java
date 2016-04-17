@@ -64,7 +64,7 @@ public class SquareCoordinateTest {
         square.setX(20);
         square.setY(25);
 
-        assertEquals("Incorrect square",square.getX(), 20);
+        assertEquals("Incorrect square", square.getX(), 20);
         assertEquals(square.getY(), 25);
     }
 }

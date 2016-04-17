@@ -65,8 +65,8 @@ public class AStarPathTest {
 
         final Square square1 = square.getSquareAt(Direction.EAST);
 
-        assertNotNull("The goal case hasn't been instantiated",aStarPath.isGoal(square1));
-        assertFalse("The case goal shouldn't be correct",aStarPath.isGoal(square1));
+        assertNotNull("The goal case hasn't been instantiated", aStarPath.isGoal(square1));
+        assertFalse("The case goal shouldn't be correct", aStarPath.isGoal(square1));
 
         assertNotNull("The cost hasn't been instantiated", aStarPath.getCost());
 
@@ -79,13 +79,20 @@ public class AStarPathTest {
     @Test
     public void manhattanDistanceTest() {
 
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(0, 0, 0, 0), 0.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(0, 1, 1, 1), 1.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(5, 3, 2, 1), 5.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(1, 4, 2, 0), 5.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(-1, -8, -3, -1), 9.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(-0, -0, -0, -0), 0.0, EPSILON);
-        assertEquals("Manhattan distance is not correct", AStarPath.manhattanDistance(-2, -2, -1, -1), 2.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(0, 0, 0, 0), 0.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(0, 1, 1, 1), 1.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(5, 3, 2, 1), 5.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(1, 4, 2, 0), 5.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(-1, -8, -3, -1), 9.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(-0, -0, -0, -0), 0.0, EPSILON);
+        assertEquals("Manhattan distance is not correct",
+                AStarPath.manhattanDistance(-2, -2, -1, -1), 2.0, EPSILON);
     }
 
     /**
@@ -104,7 +111,7 @@ public class AStarPathTest {
         final IdentifiedPlayer player = game.getPlayers().get(0);
 
         assertNotNull("The player hasn't been instantiated", player);
-        assertNotNull("The player's square hasn't been instantiated",player.getSquare());
+        assertNotNull("The player's square hasn't been instantiated", player.getSquare());
 
         assertEquals("The constant is not correct", AStarPath.PELLET_COST, 1.0, EPSILON);
         assertEquals("The constant is not correct", AStarPath.EMPTY_COST, 5.0, EPSILON);
@@ -137,11 +144,15 @@ public class AStarPathTest {
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull("The neighbors list hasn't been computed", neighbourList);
-        assertTrue("The neighbors list should contain this neighbour", neighbourList.contains(player.getSquare().getSquareAt(Direction.EAST)));
-        assertTrue("The neighbors list should contain this neighbour", neighbourList.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighbourList.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neighbourList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
-        assertFalse("The neighbors list shouldn't contain this neighbour", neighbourList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse("The neighbors list shouldn't contain this neighbour", neighbourList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neighbourList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neighbourList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         //Player move to have others neighbors
         game.start();
@@ -156,11 +167,15 @@ public class AStarPathTest {
         //The accessible square is to East and West and North (south is a wall)
 
         assertNotNull("The neighbors list hasn't been computed", neigborList2);
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.EAST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.WEST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.NORTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.EAST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.NORTH)));
 
-        assertFalse("The neighbors list shouldn't contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.SOUTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.SOUTH)));
 
     }
 
@@ -187,11 +202,15 @@ public class AStarPathTest {
 
         //The accessible square is to East and West. (North and south are walls)
         assertNotNull("The neighbors list hasn't been computed", neigborList);
-        assertTrue("The neighbors list should contain this neighbour", neigborList.contains(player.getSquare().getSquareAt(Direction.EAST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList.contains(player.getSquare().getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList.contains(player.getSquare().getSquareAt(Direction.EAST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList.contains(player.getSquare().getSquareAt(Direction.WEST)));
 
-        assertFalse("The neighbors list shouldn't contain this neighbour", neigborList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
-        assertFalse("The neighbors list shouldn't contain this neighbour", neigborList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neigborList.contains(player.getSquare().getSquareAt(Direction.NORTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neigborList.contains(player.getSquare().getSquareAt(Direction.SOUTH)));
 
         //Player move to have others neighbors
         game.start();
@@ -207,11 +226,15 @@ public class AStarPathTest {
         //The accessible square is to East and West and North (south is a wall)
 
         assertNotNull("The neighbors list hasn't been computed", neigborList2);
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.EAST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.WEST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.NORTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.EAST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.NORTH)));
 
-        assertFalse("The neighbors list shouldn't contain this neighbour", neigborList2.contains(square2.getSquareAt(Direction.SOUTH)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neigborList2.contains(square2.getSquareAt(Direction.SOUTH)));
 
         //Player move to have others neighbors
         game.move(player, Direction.WEST);
@@ -230,10 +253,14 @@ public class AStarPathTest {
 
         assertNotNull("The neighbors list hasn't been computed", neigborList3);
         //All move is possible except to left (West)
-        assertTrue("The neighbors list should contain this neighbour", neigborList3.contains(square3.getSquareAt(Direction.EAST)));
-        assertFalse("The neighbors list shouldn't contain this neighbour", neigborList3.contains(square3.getSquareAt(Direction.WEST)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList3.contains(square3.getSquareAt(Direction.NORTH)));
-        assertTrue("The neighbors list should contain this neighbour", neigborList3.contains(square3.getSquareAt(Direction.SOUTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList3.contains(square3.getSquareAt(Direction.EAST)));
+        assertFalse("The neighbors list shouldn't contain this neighbour",
+                neigborList3.contains(square3.getSquareAt(Direction.WEST)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList3.contains(square3.getSquareAt(Direction.NORTH)));
+        assertTrue("The neighbors list should contain this neighbour",
+                neigborList3.contains(square3.getSquareAt(Direction.SOUTH)));
     }
 
     /**
@@ -317,26 +344,39 @@ public class AStarPathTest {
                 .getSquareAt(Direction.WEST);
 
         //There is only Pellet
-        assertEquals("The g method is not correct", aStarPath.g(origin, destination), Double.valueOf(1.0));
-        assertEquals("The g method is not correct", aStarPath.g(origin, destination2), Double.valueOf(1.0));
-        assertEquals("The g method is not correct", aStarPath.g(origin, destination3), Double.valueOf(1.0));
-        assertEquals("The g method is not correct", aStarPath.g(origin, destination4), Double.valueOf(1.0));
-        assertEquals("The g method is not correct", aStarPath.g(destination, destination4), Double.valueOf(1.0));
-        assertEquals("The g method is not correct", aStarPath.g(destination3, destination4), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(origin, destination), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(origin, destination2), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(origin, destination3), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(origin, destination4), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(destination, destination4), Double.valueOf(1.0));
+        assertEquals("The g method is not correct",
+                aStarPath.g(destination3, destination4), Double.valueOf(1.0));
 
         final Square finalDestination = player.getSquare().getSquareAt(Direction.NORTH)
                 .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH)
                 .getSquareAt(Direction.NORTH).getSquareAt(Direction.NORTH);
-        assertEquals("The h method is not correct", aStarPath.g(origin, finalDestination), Double.valueOf(500.0));
+        assertEquals("The h method is not correct",
+                aStarPath.g(origin, finalDestination), Double.valueOf(500.0));
 
-        assertEquals("The h method is not correct", aStarPath.h(origin, destination), Double.valueOf(1.0));
-        assertEquals("The h method is not correct", aStarPath.h(origin, destination2), Double.valueOf(2.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(origin, destination), Double.valueOf(1.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(origin, destination2), Double.valueOf(2.0));
 
-        assertEquals("The h method is not correct", aStarPath.h(origin, destination3), Double.valueOf(1.0));
-        assertEquals("The h method is not correct", aStarPath.h(origin, destination4), Double.valueOf(2.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(origin, destination3), Double.valueOf(1.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(origin, destination4), Double.valueOf(2.0));
 
-        assertEquals("The h method is not correct", aStarPath.h(destination, destination4), Double.valueOf(3.0));
-        assertEquals("The h method is not correct", aStarPath.h(destination3, destination4), Double.valueOf(1.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(destination, destination4), Double.valueOf(3.0));
+        assertEquals("The h method is not correct",
+                aStarPath.h(destination3, destination4), Double.valueOf(1.0));
 
     }
 

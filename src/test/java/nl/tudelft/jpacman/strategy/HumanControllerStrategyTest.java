@@ -54,7 +54,8 @@ public class HumanControllerStrategyTest {
         final PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         final PacmanStrategy strategy = new HumanControllerStrategy(game, builder);
 
-        assertEquals("The strategy should be player", strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
+        assertEquals("The strategy should be player",
+                strategy.getTypeStrategy(), PacmanStrategy.Type.PLAYER);
         assertNotNull("The strategy hasn't been instantiated", strategy);
 
         strategy.executeStrategy();
