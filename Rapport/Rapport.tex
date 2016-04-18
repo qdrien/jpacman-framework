@@ -9,12 +9,46 @@
 \usepackage{amssymb}
 \usepackage{listings}
 \usepackage{color}
+\usepackage[dvipsnames]{xcolor}
 
 
 \usepackage[colorlinks=true,linkcolor=red]{hyperref}
 \usepackage[nottoc, notlof, notlot]{tocbibind}
 
 \usepackage{cite}
+
+%Defines a new environment for java code (use \begin{java})
+\lstnewenvironment{java}[1][]%
+{
+	\noindent
+	\minipage{\linewidth} 
+	\vspace{0.5\baselineskip}
+	\lstset{language=Java,                  % the language of the code
+		basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+		numbers=left,                   % where to put the line-numbers
+		numberstyle=\tiny\color{Brown},  % the style that is used for the line-numbers
+		stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+		% will be numbered
+		numbersep=5pt,                  % how far the line-numbers are from the code
+		backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+		showspaces=false,               % show spaces adding particular underscores
+		showstringspaces=false,         % underline spaces within strings
+		showtabs=false,                 % show tabs within strings adding particular underscores
+		frame=single,                   % adds a frame around the code
+		rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+		tabsize=4,                      % sets default tabsize to 2 spaces
+		captionpos=b,                   % sets the caption-position to bottom
+		breaklines=true,                % sets automatic line breaking
+		breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+		title=\lstname,                 % show the filename of files included with \lstinputlisting;
+		% also try caption instead of title
+		keywordstyle=\color{blue},          % keyword style
+		commentstyle=\color{dkgreen},       % comment style
+		stringstyle=\color{mauve},         % string literal style
+		escapeinside={\%*}{*)},            % if you want to add a comment within your code
+		morekeywords={*,...}               % if you want to add more keywords to the set
+		}}
+{\endminipage}
 
 \setlength{\parindent}{1cm}
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
@@ -90,9 +124,7 @@ Cette section développe l'ensemble des outils utilisés au fil des étapes du p
 Intellij IDEA est un IDE regroupant un grand nombre d'outils pré-intégrés permettant de calculer des métriques, des matrices de dépendances, de détecter des similarités dans le code, d'analyser le code pour mettre en évidence les différents problèmes potentiels avec bien souvent des solutions très simples à mettre en place grâce à l'IDE ou encore d'effectuer des statistiques sur divers composants d'un projet.
 
 
-\section{Extension du projet et ajout de tests unitaires pour cette extension }
-
-\subsection{Extension du logiciel}
+\section{Extension du logiciel}
 
 La première partie de ce projet consistait à étendre la version initiale de JPacman en ajoutant de nouvelles fonctionnalités et en suivant un processus de développement dirigé par les tests. De nouveaux tests unitaires ont donc été ajoutés pour chaque fonctionnalité afin de vérifier que le comportement initial du logiciel n’a pas été altéré. 
 
@@ -268,7 +300,7 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.%todo: paragraphe à reformuler : "analyse"x42
 
 \subsection{Analyse statique}
 
@@ -505,7 +537,7 @@ Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie 
 \end{figure}
 \newpage
  On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
-
+%todo: le label "DependencyCycle1" est défini plusieurs fois
 
 
 
@@ -640,15 +672,18 @@ La matrice de dépendance qui est représentée par la figure~\ref{DependencyMat
 \subsubsection{Code dupliqué}
 Puisque nous utilisons tous les 3 IntelliJ IDEA, l'outil intégré a été utilisé dans un premier temps. La figure \ref{duplicate} montre les résultats obtenus via cette analyse.
 On peut noter que les détections ayant un \og coût \fg \, inférieur à $\sim$20 ne sont pas réellement préoccupantes. Pour exemple, les lignes suivantes, extraites de \textit{SquareCoordinateTest}, sont considérées comme dupliquées par l'outil avec un score de 10 :
-\begin{lstlisting}[language=java]
+
+\begin{java}
 assertEquals(square.getSquareAt(Direction.WEST).getY(), 15);
 assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
-\end{lstlisting}
+\end{java}
+
 Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
 Les parties de code identifiées comme \og duplicats \fg \, et qui nous ont semblé nécessiter un refactoring en ont fait l'objet.
 
 Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concernait la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contenaient en effet toutes deux ce bloc de code :
-\begin{lstlisting}[language=java]
+
+\begin{java}
 final AStarPath aStarPath = new AStarPath(game);
 
 assertNotNull(aStarPath);
@@ -664,10 +699,10 @@ final Square destination2 = player.getSquare().getSquareAt(Direction.EAST).getSq
 
 final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
 final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
-\end{lstlisting}
+\end{java}
 
 
-Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux méthodes appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.
+Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux méthodes appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.%todo: reformuler
 \begin{figure}[h]
 	\centering
 	\includegraphics{Images/duplicate_analysis.JPG}
@@ -679,13 +714,13 @@ Pour résoudre ce problème de duplication de code, nous avons combiné les deux
 Egalement intégré dans la suite d'analyses à effectuer via \textit{Maven}, \textit{CheckStyle} a été utilisé avec le \og ruleset \fg \, présent dans la version du code d'origine.
 Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cependant présents (plus de 500). Par ordre de nombre de \og violations \fg :
 \begin{itemize}
-	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ réglé. 
+	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ \, réglé. 
 	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile, nous avons donc supprimé les \og warnings \fg \, pour ceux-ci.
 	\item 104 violations de type \textit{LineLength} $\rightarrow$ retours à la ligne là où c'était nécessaire.
 	\item 63 violations de type \textit{NeedBraces} $\rightarrow$ bien que nous ne soyons pas tous d'accord sur la valeur ajoutée d'une telle convention, nous avons ajouté les crochets là où \textit{CheckStyle} le demandait.
 	\item 35 violations de type \textit{AvoidStarImport} $\rightarrow$ encore une fois désactivés car nous utilisons la fonction \og optimize imports \fg \, d'\textit{IntelliJ IDEA} qui regroupe parfois des imports en un unique via cette notation.
 	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ ajoutés.
-	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ modifiés.
+	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ \, modifiés.
 	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
 Comme mentionné ci-dessus, les problèmes de style ont été réglés et on a retrouve donc bien la situation du code d'origine : aucun avertissement pour de tels problèmes.
@@ -766,7 +801,7 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 
 \subsubsection*{FindBugs}
 Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg() utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
-les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg() et les concaténations de chaînes de caractères ont été remplaçées par des \og StringBuilder.append() \fg().
+les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg() et les concaténations de chaînes de caractères ont été remplaçées par des \og StringBuilder.append() \fg().%todo: une raison particulière pour les "()" partout ?
 \subsection{Analyse dynamique}
 
 \subsection{Couverture du code}
