@@ -333,6 +333,7 @@ public class IdentifiedPlayer extends Player {
      * Displays the player's stats.
      *
      * @return Whether the player is logged in or not.
+     * @throws IOException If the profile file cannot be found or read.
      */
     @SuppressWarnings("checkstyle:magicnumber")
     public boolean displayProfileStats() throws IOException {

@@ -69,8 +69,9 @@ public enum Achievement {
 
     /**
      * Offers the player achievements (at most MAX_RECOMMENDATIONS) to accomplish given that he has accomplished some other achievements.
-     *
+     * 
      * @param player The player currently logged in.
+     * @return The recommended achievements.
      */
     @SuppressWarnings("checkstyle:linelength")
     public static String offerAchievements(IdentifiedPlayer player) {
