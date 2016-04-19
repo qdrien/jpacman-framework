@@ -131,7 +131,15 @@ public class HallOfFame {
                 }
                 //In case the player isn't logged in.
                 if (playerName == null && !ham) {
-                    bestPlayers[i] = JOptionPane.showInputDialog("Enter your name: ").substring(0, NAME_LENGTH);
+                    final String[] options = {"Ok"};
+                    final JPanel panel = new JPanel();
+                    final JLabel label = new JLabel("Enter your name: ");
+                    final JTextField userInput = new JTextField(NAME_LENGTH);
+                    panel.add(label);
+                    panel.add(userInput);
+                    JOptionPane.showOptionDialog(null, panel, "New High Score!",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                    bestPlayers[i] = userInput.getText();
                 } else {
                     bestPlayers[i] = playerName;
                 }
