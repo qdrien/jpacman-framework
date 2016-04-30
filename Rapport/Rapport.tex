@@ -114,16 +114,6 @@ Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé pa
  Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
 
 
-
-\section{Outils utilisés}
-
-Cette section développe l'ensemble des outils utilisés au fil des étapes du projet.
-
-\subsection{Intellij IDEA (15.0.4)}
-
-Intellij IDEA est un IDE regroupant un grand nombre d'outils pré-intégrés permettant de calculer des métriques, des matrices de dépendances, de détecter des similarités dans le code, d'analyser le code pour mettre en évidence les différents problèmes potentiels avec bien souvent des solutions très simples à mettre en place grâce à l'IDE ou encore d'effectuer des statistiques sur divers composants d'un projet.
-
-
 \section{Extension du logiciel}
 
 La première partie de ce projet consistait à étendre la version initiale de JPacman en ajoutant de nouvelles fonctionnalités et en suivant un processus de développement dirigé par les tests. De nouveaux tests unitaires ont donc été ajoutés pour chaque fonctionnalité afin de vérifier que le comportement initial du logiciel n’a pas été altéré. 
@@ -300,7 +290,7 @@ Cela a cependant nécessité de passer des méthodes/variables en \og static \fg
 
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différents types d'analyses et de techniques. Pour effectuer cette analyse, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase d'analyse se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.%todo: paragraphe à reformuler : "analyse"x42
+Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différentes techniques. Pour faire cela, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.
 
 \subsection{Analyse statique}
 
@@ -537,7 +527,8 @@ Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie 
 \end{figure}
 \newpage
  On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
-%todo: le label "DependencyCycle1" est défini plusieurs fois
+
+
 
 
 
@@ -545,14 +536,12 @@ Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie 
 	\centering
 	\includegraphics[scale=0.5]{Images/DependencyCycle1.png}
 	\includegraphics[scale=0.5]{Images/DependencyCycle2.png}  
-	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.5]{Images/DependencyCycle3.png}
 	\includegraphics[scale=0.5]{Images/DependencyCycle4.png}  
-	\label{DependencyCycle1}
 \end{figure}
 
 \begin{figure}[!h]
@@ -667,6 +656,91 @@ La matrice de dépendance qui est représentée par la figure~\ref{DependencyMat
 	\label{DependencyMatrix2}
 \end{figure} 
 
+Avant de terminer cette analyse au niveau des métriques, le logiciel \textit{SonarQube} (voir section 5 : analyse de l'évolution du logiciel) a été utilisé pour avoir les résultats d'un autre logiciel d'analyse de qualité du code. Nous pouvons ainsi encore une fois comparer les résultats obtenus (pour certaines métriques) pour la version finale avec le version initiale. Il est important de spécifier que les métriques utilisés par ce logiciel ne sont pas nécessairement les mêmes que celles utilisées précédemment, ce qui implique que les résultats ne sont pas les mêmes que lors des analyses précédentes.
+
+\textbf{Logiciel initial}
+
+Effectuons une analyse de certaines métriques sur la version initiale dont on a reporté les résultats dans les figures~\ref{sonarInitial1} à ~\ref{sonarInitial4}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarInitial1.png} 
+	\caption{Caractéristique de la structure}
+	\label{sonarInitial1}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarInitial2.png} 
+	\caption{Caractéristique de la complexité}
+	\label{sonarInitial2}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarInitial3.png} 
+	\caption{Pourcentages des commentaires et de la documentation}
+	\label{sonarInitial3}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarInitial4.png} 
+	\caption{Répartition des lignes de codes}
+	\label{sonarInitial4}
+\end{figure} 
+
+
+\newpage
+\textbf{Logiciel final}
+
+Effectuons, à présent, la même analyse avec la version finale dont on a reporté les résultats dans les figures~\ref{sonarFinal1} à ~\ref{sonarFinal4}.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarFinal1.png} 
+	\caption{Caractéristique de la structure}
+	\label{sonarFinal1}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarFinale2.png} 
+	\caption{Caractéristique de la complexité}
+	\label{sonarFinal2}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarFinale3.png} 
+	\caption{Pourcentages des commentaires et de la documentation}
+	\label{sonarFinal3}
+\end{figure} 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarFinale4.png} 
+	\caption{Répartition des lignes de codes}
+	\label{sonarFinal4}
+\end{figure} 
+
+
+\newpage
+
+Le logiciel \textit{SonarQube} peut également effectuer une comparaison globale des deux versions dont on a reporté les résultats dans la figure~\ref{sonarComparaison}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{Images/sonarcompar.png} 
+	\caption{Comparaison globale entre la version initiale et la version finale}
+	\label{sonarComparaison}
+\end{figure} 
+
+\newpage
+
+
+
 
 
 \subsubsection{Code dupliqué}
@@ -702,7 +776,7 @@ final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSq
 \end{java}
 
 
-Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux méthodes appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.%todo: reformuler
+Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux fonctions appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.%todo: reformuler
 \begin{figure}[h]
 	\centering
 	\includegraphics{Images/duplicate_analysis.JPG}
@@ -900,10 +974,17 @@ On ne constate donc toujours pas de problème pour cette partie ci de l'analyse.
 
 Il ne nous a pas semblé intéressant de \og profiler \fg \, la version de JPacman originelle puisque nous n'avons pas repéré de problèmes à ce stade ci alors que la version finale comprend une IA pour Pac-man, nécessitant donc naturellement plus de ressources (pour le moins en termes de CPU).
 
-\section{Evolution du code au cours du temps}
+\section{Analyse de l'évolution du logiciel}
 %todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
 %todo: régression @ R ??? sur quoi ? LOC ou quoi pour vérifier les lois vues au cours ?
 %todo: check SonarQube or Codacy? (all in one + integrated regression apparently)
+
+Cette section fournit une analyse de l'évolution de la qualité du logiciel. Pour effectuer cette analyse, le logiciel \textit{SonarQube} a été utilisé. \textit{SonarQube} est un outil tout-en-un, indépendant des IDEs, qui permet de calculer et monitorer la qualité logicielle, de voir l'évolution entre les versions du logiciel et aussi de comparer ces versions entre elles très facilement. C'est un outil open source qui a pour objectif de fournir une analyse compète de la qualité d'une application en fournissant de nombreuses statistiques (ou métriques) sur un projet. Ces données permettent ainsi d'évaluer la qualité du code, et d'en connaître l'évolution au cours du développement.
+
+
+Dans cette section, cet outil est utilisé principalement pour effectuer l'analyse de l'évolution du logiciel après l'ajout de trois fonctionnalités supplémentaires par rapport à la version d'origine.
+
+
 
 
 
