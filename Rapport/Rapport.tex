@@ -111,7 +111,7 @@
 Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par le Professeur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielle vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du Professeur Arie van Deursen, à Delft University of Technology (Pays-Bas).
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
-Ce rapport s'organise en plusieurs parties. La première section présente les différentes extensions qui ont été réalisées à partir de la version originale de JPacman. La seconde section met en avant les principaux problèmes de conflits rencontrés lors de l'intégration des extensions individuelles et leurs résolutions. Ensuite, la troisième section traite des \textit{refactorings} qui ont été réalisés avant l'analyse de la qualité. La prochaine section présente une comparaison entre la qualité du code source finale avec la qualité du code source original. Pour finir, un complément d'information concernant l'utilisation du logiciel est fourni dans la sixième partie de ce rapport. 
+Ce rapport s'organise en plusieurs parties. La première section présente les différentes extensions qui ont été réalisées à partir de la version originale de JPacman. La seconde section met en avant les principaux problèmes de conflits rencontrés lors de l'intégration des extensions individuelles et leurs résolutions. Ensuite, la troisième section traite des \textit{refactorings} qui ont été réalisés avant l'analyse de la qualité. La prochaine section présente une comparaison entre la qualité du code source finale avec la qualité du code source original. Ensuite, la section suivante définit une analyse de l'évolution du logiciel en terme de nombres de lignes de code. Pour finir, un complément d'information concernant l'utilisation du logiciel est fourni dans la dernière partie de ce rapport. 
 
 
 \section{Extension du logiciel}\label{extensions}
@@ -1059,6 +1059,29 @@ Il ne nous a pas semblé intéressant de \og profiler \fg \, la version de JPacm
 Après avoir effectué cette analyse de qualité et la comparaison de celle-ci entre la version initiale et la version finale de JPacman, on peut en conclure que la qualité du code source après intégration (version finale) est tout à fait convenable par rapport aux modifications qui ont été effectuées sur le version initiale. En effet, que ce soit au niveau des métriques, du code dupliqué, de la couverture de code,... ou encore du profilage, on peut constater que les résultats obtenus lors des analyses sont tout à fait acceptables et sont parfois très semblables aux résultats de la version initiale grâce à d'importantes améliorations de la qualité qui ont été effectuées pour obtenir la version finale.
 
 
+\section{Analyse de l'évolution du logiciel}
+
+Dans cette section, une analyse de l'évolution du logiciel en terme de nombre de lignes de code est effectuée. Pour cela, l'outil \textit{SLOCCount}\footnote{http://www.dwheeler.com/sloccount/} a été utilisé. Cet outil permet une première analyse très sommaire du code source d'un projet. En effet, il permet de compter les lignes de code que contiennent les fichiers de code source. Il permet donc d'analyser l'évolution du nombre de lignes de code en fonction du temps pour vérifier que celle-ci ne prenne pas de l'ampleur trop rapidement.
+
+Nous allons appliquer cet outil sur trois versions et discuter des résultats qu'il fournit. Les trois versions qui seront analysées sont les suivantes : 
+
+\begin{enumerate}
+\item La version initiale
+\item la version juste après intégration des trois fonctionnalités
+\item la version finale (après refactorings)
+\end{enumerate}
+
+Les résultats retournés sont reportés en graphique dans la figure~\ref{evolution}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{Images/evolution.png} 
+	\caption{\label{evolution} Nombre de lignes de code calculés pour chaque version avec \textit{SLOCCount}}
+\end{figure}
+
+Au vu de ces résultats, nous pouvons constater qu'au fil des versions, le projet prend de l'ampleur. Ce qui est évidemment logique vu qu'au fil du temps, des fonctionnalités ont été ajoutées au logiciel initial. Ensuite, nous constatons qu'il y a une diminution du nombre de lignes de codes. Ce comportement de la courbe, peut être facilement expliqué par la phase de \textit{refactoring} qui a succédé à l'intégration des fonctionnalités individuelles. On constate que cette phase a eut un impact positif sur le nombre de lignes de code car elle a permis de diminuer ce chiffre.
+
+\newpage
 \section{Notes diverses et guide d'utilisation}
 \subsection{Maven}
 Le projet utilisant Maven\footnote{\url{https://maven.apache.org/}}, il est très facile de compiler le code, de l'analyser avec les outils prévus ou d'exécuter la suite de tests.
