@@ -95,26 +95,26 @@
 \end{titlepage}
 
 
-
+	\setcounter{secnumdepth}{3}
+	\setcounter{tocdepth}{3}
 
 \newpage
 
 	\renewcommand{\thesection}{\arabic{section}}
 	\tableofcontents
 	\newpage
-	\setcounter{secnumdepth}{3}
-	\setcounter{tocdepth}{4}
+
 	
 
 \section{Introduction}
 %todo: uniformiser : \textit{Class#Method} ? (==javadoc) + préciser convention au début du rapport
-Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par le Professeur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielle vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du Professeur Arie van Deursen, Delft University of Technology (Pays-Bas).
+Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par le Professeur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielle vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du Professeur Arie van Deursen, à Delft University of Technology (Pays-Bas).
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
- Ce rapport s'organise en plusieurs chapitres : dans un premier chapitre, ...
+Ce rapport s'organise en plusieurs parties. La première section présente les différentes extensions qui ont été réalisées à partir de la version originale de JPacman. La seconde section met en avant les principaux problèmes de conflits rencontrés lors de l'intégration des extensions individuelles et leurs résolutions. Ensuite, la troisième section traite des \textit{refactorings} qui ont été réalisés avant l'analyse de la qualité. La prochaine section présente une comparaison entre la qualité du code source finale avec la qualité du code source original. Pour finir, un complément d'information concernant l'utilisation du logiciel est fourni dans la sixième partie de ce rapport. 
 
 
-\section{Extension du logiciel}
+\section{Extension du logiciel}\label{extensions}
 
 La première partie de ce projet consistait à étendre la version initiale de JPacman en ajoutant de nouvelles fonctionnalités et en suivant un processus de développement dirigé par les tests. De nouveaux tests unitaires ont donc été ajoutés pour chaque fonctionnalité afin de vérifier que le comportement initial du logiciel n’a pas été altéré. 
 
@@ -126,23 +126,23 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \end{itemize}
 
 
-\subsubsection{Fonctionnalité "Score"}\label{score}
-Cette fontionalité requièrt l'implémentation de de deux sous-fonctionalités:
+\subsection{Fonctionnalité "Score"}\label{score}
+Cette fonctionnalité requiert l'implémentation de deux sous-fonctionnalités:
 
-La première fonctionalité (Hall of Fame) consiste à maintenir une liste de hauts scores. Si un joueur dépasse l'un des dix meilleurs scores, son nom doit être inséré dans le Hall of Fame.
+La première fonctionnalité (Hall of Fame) consiste à maintenir une liste de hauts scores. Si un joueur dépasse l'un des dix meilleurs scores, son nom doit être inséré dans le Hall of Fame.
 Ceci peut être réalisé de deux manières différentes: si le joueur est identifié, son nom de joueur sera automatiquement entré, si ce n'est pas le cas, il lui sera demandé de fournir un nom à la fin de la partie.
-Le score du joueur est affecté par le nombre de gommes, phantômes et fruits consommés par Pacman, ainsi que par les hauts faits réalisés (voir ci-bas).
+Le score du joueur est affecté par le nombre de gommes, fantômes et fruits consommés par Pacman, ainsi que par les hauts faits réalisés (voir ci-bas).
 
 Lorsque la partie est terminée, le Hall of Fame est affiché et le joueur a l'option de le réinitialiser à ses valeurs par défaut. Pour éviter que celle-ci ne se fasse par mégarde, une confirmation est demandée.
 
-La deuxième fonctionalité (Achievements) implique d'implémenter un système de gestion de hauts faits. 
+La deuxième fonctionnalité (Achievements) implique d'implémenter un système de gestion de hauts faits. 
 Pour ce faire, un système de profils doit être mis en place, permettant au joueur la possibilité de s'identifier et ainsi réaliser des hauts faits qui sont mémorisés.
-Ces hauts faits peuvent être accomplis sur plusieurs parties indépendentes.
-Le joueur doit avoir la possibilité de visualiser les hauts faits qu'il a accompli avant de commençer à jouer, à la suite de quoi le jeu proposera de nouveaux haut faits à réaliser, au maximum de trois.
+Ces hauts faits peuvent être accomplis sur plusieurs parties indépendantes.
+Le joueur doit avoir la possibilité de visualiser les hauts faits qu'il a accompli avant de commencer à jouer, à la suite de quoi le jeu proposera de nouveaux haut faits à réaliser, au maximum de trois.
 Lorsque le joueur obtient un haut fait, il reçoit un bonus de score.
 
-Pour réaliser ces fonctionnalités, il a d'abord convenu d'associer à chaque élément pouvant être consommé par Pacman une valeur numérique à ajouter au score, même pour les éléments que Pacman ne peut pas manger à ce stade puisque dépendants de fonctionnalités non implémentées (fruits, supergomme pour manger les phantômes).
-Ces valeurs sont localisées dans les classes \mbox{\textit{LevelFactory}} (gommes et fruits) et \mbox{\textit{Ghost}} (phantômes).
+Pour réaliser ces fonctionnalités, il a d'abord convenu d'associer à chaque élément pouvant être consommé par Pacman une valeur numérique à ajouter au score, même pour les éléments que Pacman ne peut pas manger à ce stade puisque dépendants de fonctionnalités non implémentées (fruits, supergomme pour manger les fantômes).
+Ces valeurs sont localisées dans les classes \mbox{\textit{LevelFactory}} (gommes et fruits) et \mbox{\textit{Ghost}} (fantômes).
 
 Ensuite, un système de Hall of Fame a été mis en place à l'aide de la classe \mbox{\textit{HallOfFame}} qui offre les services suivants:
 
@@ -158,30 +158,30 @@ Ensuite, un système de Hall of Fame a été mis en place à l'aide de la classe
 \end{figure}
 
 
-Enfin, un système de gestion des hauts faits a été réalisé. Pour cela, il a été nécessaire de mettre un oeuvre un système d'authentification du joueur.
-Ce système se repose sur les éléments qui voici:
+Enfin, un système de gestion des hauts faits a été réalisé. Pour cela, il a été nécessaire de mettre en œuvre un système d'authentification du joueur.
+Ce système repose sur les éléments que voici:
 
 \begin{enumerate}
 \item Le fichier \mbox{\textit{resources\\login.txt}}, dans lequel sont stockés les identifiants et mots de passes (non en clair) des joueurs ;
 \item Le répertoire \mbox{\textit{resources\\profiles\\}}, qui contient les profils des joueurs ayant créé un compte.
 Le format des fichiers .prf contenus dans ce répertoire est tel que suit: 
 \begin{itemize}
-\item La première ligne contient des informations diverses : score maximal atteint par le joueur, nombre fois qu'il a été tué par tel phantôme, niveau maximum que le joueur a complété,...
+\item La première ligne contient des informations diverses : score maximal atteint par le joueur, nombre fois qu'il a été tué par tel fantôme, niveau maximum que le joueur a complété,...
 \item Les lignes suivantes contiennent le nom d'un haut fait accompli par le joueur.
 \end{itemize}
 \item La méthode \mbox{\textit{IdentifiedPlayer\#createNewPlayer()}}, qui permet à un joueur de créér un nouveau profil joueur, et, si besoin est, le répertoire ci-dessus ;
 \item La méthode \mbox{\textit{IdentifiedPlayer\#authenticate()}}, qui vérifie que l'identifiant et le mot de passe entrés par le joueur correspondent bien à des données situées dans \mbox{\textit{resources\\login.txt}} et, si le joueur le désire, affiche les hauts faits qu'il a déjà obtenus ;
 \item La méthode \mbox{\textit{IdentifiedPlayer\#addAchievement()}}, servant à ajouter un haut fait que le joueur a obtenu dans son fichier profil, si celui-ci ne s' y trouve déjà ;
 \item La méthode \mbox{\textit{IdentifiedPlayer\#saveScore()}}, qui met à jour le score maximal du joueur et lui accorde les hauts faits liés à celui-ci ;
-\item La méthode \mbox{\textit{IdentifiedPlayer\#killedBy()}}, mettant à jour les informations liées au fait de s'être fait tuer par un phantôme et affectant les hauts faits correspondants ;
+\item La méthode \mbox{\textit{IdentifiedPlayer\#killedBy()}}, mettant à jour les informations liées au fait de s'être fait tuer par un fantôme et affectant les hauts faits correspondants ;
 \item La méthode \mbox{\textit{IdentifiedPlayer\#levelCompleted()}} en fait de même pour le niveau maximal atteint ;
 \item La méthode \mbox{\textit{IdentifiedPlayer\#displayProfileStats()}}, qui affiche les informations concernant le joueur, s'il est identifié, et lui propose d'en accomplir d'autres, s'il n'a pas accompli tous les hauts faits disponibles ;
 \item La classe utilitaire \mbox{\textit{FileChecker}} qui effectue certaines opérations de vérification sur les fichiers susnommés ;
-\item L'énumération \mbox{\textit{Achievement}} dans laquelle sont stockés les hauts faits, le score qu'ils accordent lorsqu'accomplis, une description définissant comment les obtenir et le haut fait à recommender après leur obtention.
+\item L'énumération \mbox{\textit{Achievement}} dans laquelle sont stockés les hauts faits, le score qu'ils accordent lorsqu'ils sont accomplis, une description définissant comment les obtenir et le haut fait à recommencer après leur obtention.
 \end{enumerate}
 
 
-\subsubsection{Fonctionnalité "Série de labyrinthes"}
+\subsection{Fonctionnalité "Série de labyrinthes"}\label{labyrinthe}
 Les ajouts à effectuer pour cette extension sont :
 \begin{enumerate}
 	\item Système de vies pour Pac-man, au nombre de 3 initialement,
@@ -201,7 +201,8 @@ Il a été choisi ici d'implémenter un design pattern \mbox{\textit{Observer}},
 
 Via l'implémentation de \mbox{\textit{PlayerListener}}, \mbox{\textit{Level}} est capable de réagir à la mort du joueur et, puisqu'il possède une référence vers le \mbox{\textit{Board}}, de le téléporter. L'énoncé demande une téléportation \textit{aléatoire} à une distance de 4 cases de tout fantôme, il sera fait utilisation de la distance Manhattan\footnote{\url{https://en.wiktionary.org/wiki/Manhattan_distance}}.
 
-Lorsque Pac-man meurt, une liste des cases \og possibles \fg \, est récupérée via la méthode \mbox{\textit{Level\#getPossibleSquares()}} et le joueur est effectivement transporté aléatoirement sur l'une de celles-ci. Afin de déterminer si une case est \og possible \fg , on s'assure qu'elle soit accessible (qu'elle ne corresponde pas à un mur par exemple) et \og safe \fg , c'est-à-dire qu'aucun fantôme ne soit à portée.
+Lorsque Pac-man meurt, une liste des cases \og possibles \fg \, est récupérée via la méthode\\
+ \mbox{\textit{Level\#getPossibleSquares()}} et le joueur est effectivement transporté aléatoirement sur l'une de celles-ci. Afin de déterminer si une case est \og possible \fg , on s'assure qu'elle soit accessible (qu'elle ne corresponde pas à un mur par exemple) et \og safe \fg , c'est-à-dire qu'aucun fantôme ne soit à portée.
 
 Pour ce faire, pour toute case accessible, on vérifie les occupants des cases \og voisines \fg \, en s'assurant qu'elles ne contiennent pas de fantôme. En réalité, puisque les cases situées à une distance Manhattan d'une case donnée forment une sorte de losange, on itère sur le rectangle des cases situées à une distance horizontale et verticale inférieure à 4, en filtrant ensuite les cases trop éloignées en distance Manhattan. 
 
@@ -214,7 +215,7 @@ Cette situation est représentée à la figure \ref{manhattan}, dans laquelle on
 
 $(4)$ était également problématique puisque \mbox{\textit{Level}} et \mbox{\textit{Game}} étaient les seuls à être au courant de la réussite d'un niveau, alors que les méthodes permettant le chargement d'un niveau (via \mbox{\textit{MapParser}}) se trouvaient dans \mbox{\textit{Launcher}}. 
 
-La solution logique semblait être de déplacer les méthodes appelant \mbox{\textit{MapParser}} de \mbox{\textit{Launcher}} vers \mbox{\textit{Game}} mais il a été décidé d'attendre la fusion des différentes extensions individuelles pour réaliser ce changement. Nous voulions en réalité éviter les conflits potentiels lors de la fusion puisque ce \og transfert \fg de méthodes demande un nombre important de modifications dans le code d'origine. En attendant la fusion, on a donc simplement fait en sorte que \mbox{\textit{Game}} aie la référence vers une instance de \mbox{\textit{Launcher}}.
+La solution logique semblait être de déplacer les méthodes appelant \mbox{\textit{MapParser}} de \mbox{\textit{Launcher}} vers \mbox{\textit{Game}} mais il a été décidé d'attendre la fusion des différentes extensions individuelles pour réaliser ce changement. Nous voulions en réalité éviter les conflits potentiels lors de la fusion puisque ce "transfert" de méthodes demande un nombre important de modifications dans le code d'origine. En attendant la fusion, on a donc simplement fait en sorte que \mbox{\textit{Game}} aie la référence vers une instance de \mbox{\textit{Launcher}}.
 
 $(5)$ posait lui aussi quelques difficultés, non pas sur sa réalisation en soi mais bien sur la redondance potentielle et la future intégration avec le système de profil de l'extension \og Score \fg \, (section \ref{score}) . 
 
@@ -223,7 +224,7 @@ Pour cette fonctionnalité, il a été choisi de simuler l'authentification en r
 \paragraph{Convertisseur de cartes} \label{map_generator_txt}
 Pour les ajouts $(4)$ et $(5)$, il a été nécessaire d'ajouter des fichiers de niveaux supplémentaires. Puisque la démarche était fastidieuse, une fonctionnalité \og bonus \fg \, a été implémentée : la génération de fichiers de niveaux au format Pac-man à partir d'une image.
 
-En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le \og remplissage \fg d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). 
+En effet, en attribuant une couleur à chaque type d'élément du jeu,  une image peut être convertie en un fichier texte équivalent et \og lisible \fg \, par \mbox{\textit{MapParser}}. Cela permet de créer des niveaux rapidement avec n'importe quel logiciel d'édition d'image puisqu'ils permettent d'utiliser des fonctionnalités comme le "remplissage" d'une zone, qui évite donc d'entrer le même caractère un grand nombre de fois (on obtient également un rendu visuel plus clair que le fichier texte équivalent). 
 
 La figure \ref{map_generator_img} montre un exemple de résultat de conversion d'une image en son niveau équivalent dans JPacman.
 \begin{figure}[h]
@@ -232,7 +233,7 @@ La figure \ref{map_generator_img} montre un exemple de résultat de conversion d
 	\caption{\label{map_generator_img} Génération d'un niveau à partir d'une image}
 \end{figure}
 
-\subsubsection{Fonctionnalité "IA pour Pacman"}
+\subsection{Fonctionnalité "IA pour Pacman"}\label{IA}
 
 L'objectif de cette fonctionnalité est d'intégrer au code existant une intelligence artificielle pour Pacman afin qu'il puisse jouer de façon autonome tout en optimisant son score. En début de partie, le joueur doit pouvoir choisir entre contrôler Pacman manuellement ou être un spectateur passif de la partie en choisissant l'intelligence artificielle qui contrôlera Pacman à la place du joueur. Pour mettre en place cela, il a été recommandé d'utiliser un design pattern nommé "Strategy". Le design pattern "Strategy" consiste à définir un comportement (appelée "strategie") qui va permettre de différencier l'utilisation entre l'IA ou le contrôle manuel. Ce design pattern offre également une flexibilité pour modifier la stratégie suivie très facilement.
 
@@ -248,7 +249,7 @@ Les ajouts à effectuer pour cette extension sont les suivantes :
 
 L'ajout de la fonctionnalité $(1)$ a été réalisé en ajoutant une méthode \mbox{\textit{Game\#continousMovement()}}, appelée à chaque fois que le joueur appuie sur une touche directionnelle, qui va manipuler un unique \textit{thread} qui va appeler, de façon périodique, la méthode \mbox{\textit{Game\#move()}}. A chaque fois que le joueur appuiera sur une touche directionnelle, la méthode \mbox{\textit{Game\#continousMovement()}} va tester si la case voulant être accédée par le joueur est accessible à Pacman. Si c'est le cas, la tâche courante du \textit{thread} est mis à jour et Pacman avance alors dans une nouvelle direction. Par contre, si ce n'est pas le cas, l'instruction est simplement ignorée et Pacman conserve alors son ancienne direction. 
 
-Remarque : Pour cette fonctionnalité, il est supposé qu'il suffit d'appuyer une fois sur la touche pour conduire le Pacman dans la direction désirée ce qui veut dire que l'appui abusif d'une même touche directionnelle provoquera un ralentissement voir un arrêt du Pacman.
+\textbf{Remarque :} Pour cette fonctionnalité, il est supposé qu'il suffit d'appuyer une fois sur la touche pour conduire le Pacman dans la direction désirée ce qui veut dire que l'appui abusif d'une même touche directionnelle provoquera un ralentissement voir un arrêt du Pacman.
 
 L'ajout de la fonctionnalité $(2)$ concerne l'implémentation d'une intelligence artificielle manipulant Pacman et qui optimise son score. Le comportement de l'IA est défini dans la classe\\
  \mbox{\textit{PacManhatanAI\#nextMove()}}. Ce comportement est calculé grâce à une recherche en largeur qui permet de déterminer la gomme la plus proche (\mbox{\textit{PacManhatanAI\#bfsNearestSafetyPelletSquare()}}). Une fois la case déterminée, il a été choisi d'utiliser un algorithme de type $A^*$ (classe \mbox{\textit{AStarPath}}
@@ -258,9 +259,9 @@ L'ajout de la fonctionnalité $(2)$ concerne l'implémentation d'une intelligenc
 ). Avant de choisir le prochain mouvement, l'IA détermine si Pacman est dans une zone sûre ou non (\mbox{\textit{PacManhatanAI\#bfsNearestSafetySquare()}}
 ). S'il est trop proche d'un fantôme, alors l'IA choisit de prendre une nouvelle destination qui est la case sûre la plus proche. Le seuil initial pour déterminer si Pacman est proche d'un fantôme est de 14 cases, dans l'implémentation, ce qui permet de jouer un début de partie de façon très sûre. Ce seuil diminuera au cours de la partie en fonction des gommes restantes pour se focaliser sur les gommes en fin de partie (\mbox{\textit{PacManhatanAI\#updatePacmanbehaviour()}}
 ). Le fait d'avoir un seuil dynamique offre de bons résultats en pratique. Une fois que Pacman est dans une zone sûre, il recommence à chasser les gommes. Pour finir, pour avoir la certitude que l'IA renvoie une direction à suivre peu importe où le Pacman se trouve sur le plateau de jeu, une méthode \mbox{\textit{PacManhatanAI\#hurryMove()}}
-a été implémentée pour déterminer une direction imposée qui mène à une case accessible dans le cas où aucune autre direction n'a pu être choisie. Bien que ce cas de figure n'apparaît jamais en pratique, il a été pensé en vue de l'intégration d'autres fonctionnalités comme la téléportation (voir 2.1.2 Fonctionnalité "Série de labyrinthes").
+a été implémentée pour déterminer une direction imposée qui mène à une case accessible dans le cas où aucune autre direction n'a pu être choisie. Bien que ce cas de figure n'apparaît jamais en pratique, il a été pensé en vue de l'intégration d'autres fonctionnalités comme la téléportation (voir section \ref{labyrinthe}).
 
-Remarque : On peut facilement constater que l'IA se base sur la carte existante et ne passe pas par la construction d'un graphe, ce qui évite de devoir reconstruire le graphe à chaque action, ce qui pourrait être plus gourmand en performances. De plus, ce choix de comportement a été effectué en prenant en considération qu'un autre membre du projet travaillait sur un système de niveaux différents et donc les stratégies définies sur certains sites pour le jeu Pacman ne pouvaient pas être appliquées sur d'autres types de cartes. Ne pouvant pas implémenter une stratégie gagnante, il a été préféré d'appliquer une stratégie qui joue de façon la plus sûre possible tout en essayant de finir le niveau. 
+\textbf{Remarque :} On peut facilement constater que l'IA se base sur la carte existante et ne passe pas par la construction d'un graphe, ce qui évite de devoir reconstruire le graphe à chaque action, ce qui pourrait être plus gourmand en performances. De plus, ce choix de comportement a été effectué en prenant en considération qu'un autre membre du projet travaillait sur un système de niveaux différents et donc les stratégies définies sur certains sites pour le jeu Pacman ne pouvaient pas être appliquées sur d'autres types de cartes. Ne pouvant pas implémenter une stratégie gagnante, il a été préféré d'appliquer une stratégie qui joue de façon la plus sûre possible tout en essayant de finir le niveau. 
 
 
 
@@ -272,38 +273,76 @@ Au niveau des stratégies implémentées, la classe \mbox{\textit{HumanControlle
 
 La fonctionnalité $(4)$ a été mise en place pour que le joueur puisse choisir quelle stratégie appliquer, c'est-à-dire quel comportement attribué au Pacman pour une partie complète. Afin de laisser le joueur choisir, une fenêtre de sélection est affichée au lancement du jeu et permet de déterminer la stratégie qui sera appliquée pour toute une partie (la stratégie ne pourra pas changer lors d'un jeu en cours). Une fois que le joueur aura choisi une stratégie, il lui suffit de lancer la partie pour que celle-ci définisse un comportement spécifique à Pacman.
 
-La classe \mbox{\textit{Level}} est utilisée pour implémenter les méthodes liées à la gestion des stratégies durant une partie. En effet, cette classe semblait la plus adéquate car elle correspond au niveau courant qui contient toutes les informations dont les stratégies ont besoin. Il est important de signaler qu'après l'intégration de toutes les fonctionnalités, les méthodes liées à la gestion des intelligences artificielles (joueur et fantômes) ont été déplacé dans une nouvelle classe \mbox{\textit{AILevel}} (voir Refactorings...). Les méthodes \mbox{\textit{Level\#start()}} et \mbox{\textit{Level\#stop()}} permettent d'exécuter ou d'arrêter l'action spécifique définie selon le type de stratégie choisie. Dans le cas d'une stratégie où le joueur est un humain, l'attribution des touches sera appliquée au joueur. Tandis que dans le cas d'une stratégie d'intelligence artificielle, la méthode \mbox{\textit{Level\#startAIStrategy()}} est appelée pour lancer un unique \textit{thread} qui va de façon périodique attribuer une direction à suivre au Pacman et appliquer un mouvement dans cette direction. Une nouvelle direction devant être calculée uniquement lorsque le Pacman se trouve à une intersection, un test a été ajouté pour définir cette situation. Dans le cas où le Pacman ne se trouve pas à une intersection, l'action effectuée correspondra à l'action courante (ancien mouvement). Le comportement du \textit{thread} pour la gestion des intelligences artificielles est défini dans la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}}
+La classe \mbox{\textit{Level}} est utilisée pour implémenter les méthodes liées à la gestion des stratégies durant une partie. En effet, cette classe semblait la plus adéquate car elle correspond au niveau courant qui contient toutes les informations dont les stratégies ont besoin. Il est important de signaler qu'après l'intégration de toutes les fonctionnalités, les méthodes liées à la gestion des intelligences artificielles (joueur et fantômes) ont été déplacées dans une nouvelle classe \mbox{\textit{AILevel}} (voir section \ref{refactorings}). Les méthodes \mbox{\textit{Level\#start()}} et \mbox{\textit{Level\#stop()}} permettent d'exécuter ou d'arrêter l'action spécifique définie selon le type de stratégie choisie. Dans le cas d'une stratégie où le joueur est un humain, l'attribution des touches sera appliquée au joueur. Tandis que dans le cas d'une stratégie d'intelligence artificielle, la méthode \mbox{\textit{Level\#startAIStrategy()}} est appelée pour lancer un unique \textit{thread} qui va de façon périodique attribuer une direction à suivre au Pacman et appliquer un mouvement dans cette direction. Une nouvelle direction devant être calculée uniquement lorsque le Pacman se trouve à une intersection, un test a été ajouté pour définir cette situation. Dans le cas où le Pacman ne se trouve pas à une intersection, l'action effectuée correspondra à l'action courante (ancien mouvement). Le comportement du \textit{thread} pour la gestion des intelligences artificielles est défini dans la méthode \mbox{\textit{Level/PlayerMoveTask\#run()}}.
 
 
 La fonctionnalité $(5)$ concerne le fait de pouvoir ajouter facilement des stratégies définissant de nouveaux comportements pour Pacman sans pour autant autoriser des stratégies qui trichent. Tout d'abord, l'implémentation des stratégies a été réfléchie pour que l'ajout de nouvelles stratégies soient faciles. En effet, comme expliqué en $(3)$, les classes abstraites \mbox{\textit{PacmanStrategy}} et \mbox{\textit{AIStrategy}} permettent de manipuler plus facilement les différents types de stratégies possibles en définissant les informations et les méthodes nécessaires aux différentes stratégies. L'implémentation d'une nouvelle stratégie se fera donc par la création d'une nouvelle classe, implémentant le comportement de la stratégie, et qui étendra l'une de ces deux classes en fonction de son type. Pour les stratégies d'intelligence artificielle, la nouvelle classe devra implémenter une méthode \mbox{\textit{nextMove()}} qui retournera la prochaine direction à suivre par Pacman. Ensuite, pour interdire tout type de triche, les attributs, se trouvant dans les classes mères \mbox{\textit{PacmanStrategy}} et \mbox{\textit{AIStrategy}}, qui représentent les caractéristiques du niveau en cours lors d'une partie, ont été implémenté avec le mot clé "final" et uniquement des méthodes d'accesseurs. Ainsi, comme les stratégies étendent ces classes, ils auront accès à ces attributs grâce aux méthodes accesseurs mais ne pourront en aucun cas modifier ces valeurs. En ne permettant pas de modifier les données du jeu, les stratégies ne pourront pas tricher dans la manipulation des données lors du calcul de la prochaine direction à suivre.
 
+\section{Conflits et solutions lors de l'intégration}
 
-\section{Refactorings avant analyse}
-Cette section reprend des refactorings ayant été effectués avant que des outils d'analyse n'aient été utilisés. Certaines ont d'ailleurs été
+Cette section met en avant les problèmes de conflits rencontrés lors de l'intégration des extensions individuelles (voir section \ref{extensions}) ainsi que les solutions qui ont été apportées à ces problèmes.
+
+La liste non exhaustive suivante présente les principaux conflits qui ont été rencontrés :\\
+\begin{itemize}
+\item Incohérence au niveau de la documentation de certaines méthodes causée par l'assemblage de plusieurs documentations différentes lors de l'intégration.
+
+\item Problèmes de conflits liés à l'ajout ou la suppression d'accolades et d'importations dans le code.
+
+\item Conflits entre deux extensions ayant des comportements différents dans une même situation. Par exemple, une extension présentait un jeu où le joueur avait une seule vie tandis que l'autre présentait un jeu où le joueur avec trois vies, ce qui a conduit à des problèmes dans le cas où le joueur mourait.
+
+\item Problèmes de dysfonctionnement au niveau de certaines fonctionnalités causés par un conflit avec une autre extension. Par exemple, des problèmes ont été rencontrées entre l'intelligence artificielle et le systèmes de plusieurs niveaux.
+
+\item Incohérence au niveau des paramètres et du corps de certaines méthodes causée par l'assemblage de plusieurs méthodes différentes ayant le même nom dans le code.
+
+\item Dysfonctionnement de certains tests unitaires qui devaient être adaptés aux comportements des autres extensions.
+\item Problèmes de gestion de fichiers (création et écriture) lié au fait que certaines extensions ont été développé sur des systèmes d'exploitation différents.
+\item ...
+\end{itemize}
+
+Avant de présenter les solutions apportées aux différents problèmes de conflits rencontrés, il faut savoir que la plupart des conflits ont été résolus par \textit{Kdiff3}\footnote{http://kdiff3.sourceforge.net/} qui est un analyseur graphique de différence des textes. Ce logiciel permet d'identifier les différences au sein des textes, ou parmi les fichiers et  nous informe lorsqu'il y a eu des modifications.
+
+La liste non exhaustive suivante présente les principales solutions qui ont été apportées :\\
+\begin{itemize}
+\item Adaptation de certains paramètres de méthodes pour pouvoir intégrer les fonctionnalités ensemble.
+\item Adaptation du processus de victoire et de défaite lié aux niveaux et aux vies.
+\item Adaptation du système de gestion de fichier pour qu'il puisse fonctionner sur tout système d'exploitation.
+\item Adaptation de certains tests unitaires.
+\item Adaptation du comportement de l'IA pour un jeu contenant plusieurs niveaux.
+\item ...
+\end{itemize}
+
+Il est également important de signaler que l'étape d'intégration a été réalisée assez facilement grâce à d'importantes discussions, au préalable, concernant les choix d'implémentations qui ont permises de faciliter l'intégration en minimisant les conflits.
+
+
+\section{Refactorings avant analyse}\label{refactorings}
+Cette section présente les \textit{refactorings} qui ont été effectués avant que des outils d'analyse n'aient été utilisés. Certaines ont d'ailleurs été
 planifiées avant la fusion des versions individuelles mais n'ont pas été réalisées dans l'immédiat pour limiter le nombre de conflits avec les autres versions lors de l'intégration des \og pull requests \fg .
 
-\paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game}}
+\paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game} : }
 Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
-\paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game}}
+\paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game} : }
 Cette nouvelle organisation semble plus logique et évite que \mbox{\textit{Game}} ne doive avoir une référence vers le \mbox{\textit{Launcher}} qui l’a créé (pour pouvoir charger le niveau suivant en cas de victoire).
 Cela a cependant nécessité de passer des méthodes/variables en \og static \fg \, : une partie des \og accesseurs \fg \, aux \og Factories \fg \, de \mbox{\textit{Launcher}}, puisque \mbox{\textit{MapParser}} en a besoin. Cette modification reste malgré tout logique puisque ces méthodes/variables sont en effet uniques au runtime.
 
+\paragraph{Déplacement de la gestion des IA de la classe \textit{Level} vers \textit{AILevel} : } Ce déplacement permet de regrouper toutes les méthodes liées aux IA (joueurs et fantômes) au sein d'une unique classe. Cette classe héritant de la classe \textit{Level} permet d'avoir toujours accès aux informations du niveau courant dont les IA ont besoin pour fonctionner. Ce \textit{refactoring} a été appliqué dans le but de réduire la classe \textit{Level} qui devenait trop complexe et de localiser la gestion des IA au sein d'une classe pour faciliter l'évolution du logicielle et sa maintenance.
+
 \section{Analyse de la qualité du code source}
 
-Dans ce chapitre, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différentes techniques. Pour faire cela, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase se déroulera en deux étapes : une analyse statique et une analyse dynamique du code.
+Dans cette section, nous allons comparer la qualité du code source qui intègre toutes les extensions individuelles avec la qualité du code source de la version de départ de JPacman. Pour pouvoir effectuer cette comparaison, il va, tout d'abord, falloir effectuer des analyses sur la qualité du code source des deux versions en utilisant différentes techniques. Pour faire cela, nous ferons appel à plusieurs outils d'analyse de qualité que nous détaillerons par la suite. Cette phase se déroulera en deux étapes : une analyse statique et une analyse dynamique du code. Cette analyse doit permettre de comprendre la structure du logiciel et de situer les parties du code pouvant causer problème.
 
 \subsection{Analyse statique}
 
 \subsubsection{Métriques}
 
-Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration, grâce à des métriques, afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1).\\
+Dans cette section, nous allons analyser la qualité du logiciel initial ainsi que la qualité du logiciel après intégration des extensions, grâce à des métriques, afin de comparer les deux versions. Un ensemble de métriques logiciels peut être calculé pour mesurer la qualité interne du logiciel. Ces métriques peuvent ainsi être utilisées pour identifier les problèmes liés à la qualité des systèmes logiciels existant. Il existe un grand nombre de catégories de métriques telles que les métriques de taille, de cohésion et de couplage, de dépendance, de complexité ou encore de similarité. Pour ce projet, l'ensemble des métriques est calculé par le biais d'un plugin de l'IDE Intellij Idea qui s'appelle \textit{Metrics Reloaded} (version 1.6.1). Ce plugin permet d'obtenir des informations concernant un grand nombre de métriques sur un projet. \\
 
-\textbf{\large{Métrique de taille}}
+\subsubsection*{\textbf{\large{1) Métrique de taille}}}
+
 
 Les métriques de taille sont les métriques statiques les plus simples à définir, comprendre et calculer. Elles donnent une idée de la taille du logiciel, en calculant par exemple le nombre de lignes de code source dans les classes, le nombre de classes dans les paquets,... Généralement les
 métriques de taille sont utilisées pour comparer la taille de différents logiciels, pour prévoir les efforts de développement et de maintenance.\\
 
-\textbf{Nombre de classes}
+\textbf{a) Nombre de classes}
 
 Cette métrique fournit des informations concernant la distribution des classes au sein du projet en donnant le nombre total de classes (en prenant en compte les interfaces) par package. 
 
@@ -346,14 +385,14 @@ Effectuons cette analyse sur le logiciel final, c'est-à-dire le logiciel qui co
 Après l'ajout d'un nouveau package (strategy) et de nouvelles classes, on constate que la distribution des classes au sein des packages n'a pas beaucoup changé avec une moyenne de 2 classes (ou interfaces) en plus par package (Figure~\ref{classMetrics3} et \ref{classMetrics4}).\\
 
 
-\textbf{Lignes de codes}
+\textbf{b) Lignes de codes}
 
 
 Cette métrique permet de détecter les classes volumineuses qui peuvent être à l'origine d'une grande complexité. Elle permet également de détecter d'éventuelles "god class".
 
 \textbf{Logiciel initial}
 
-Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}) en ne considérant pas les classes de tests. On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes"). On peut aussi observer qu'il y a, au total, 3860 lignes de codes et 1905 lignes de commentaires (Figure~\ref{locinit2}).
+Dans un premier temps, on peut analyser le nombre de lignes de code à l'intérieur de chaque package (Figure~\ref{locinit}) en ne considérant pas les classes de tests. On constate ainsi une moyenne de 482 lignes de codes par package. Le package le plus volumineux semble être le package "Level" qui contient 1183 lignes de codes. Ce n'est pas très étonnant car ce package a été analysé comme étant celui qui contient le plus de classes (voir métrique "Nombre de classes"). On peut aussi observer qu'il y a, au total, 3860 lignes de codes si on inclus les lignes de commentaires et 1905 lignes de code java sans les commentaires (Figure~\ref{locinit2}).
 
 \begin{figure}[!h]
 	\centering
@@ -369,7 +408,7 @@ Dans un premier temps, on peut analyser le nombre de lignes de code à l'intéri
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.6]{Images/SizeMetricsLOC2.png} 
-	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\caption{Nombre de lignes de code avec et sans les commentaires}
 	\label{locinit2}
 \end{figure}
 
@@ -387,7 +426,7 @@ Ensuite, grâce au plugin "Statistic" de l'IDE Intellij Idea, on peut afficher p
 
 \textbf{Logiciel final}
 
-Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans les figure~\ref{locfinal} et \ref{locfinal2}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487 et de 1905 à 3503 pour les commentaires.
+Concernant la version finale, les résultats de la distribution des lignes de codes dans les packages sont reportés dans les figures~\ref{locfinal} et \ref{locfinal2}. Ces résultats montrent que le package "Level" reste le plus volumineux de tous et le nombre moyen de lignes de code par package a augmenté de 482 à 720. Quant au nombre de lignes de code total, il est passé de 3860 à 6487 et de 1905 à 3503 si on ne compte pas les commentaires.
 
 \begin{figure}[!h]
 	\centering
@@ -398,7 +437,7 @@ Concernant la version finale, les résultats de la distribution des lignes de co
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.6]{Images/SizeMetricsLOCFinal2.png} 
-	\caption{Nombre de lignes de code et de commentaires dans chaque package}
+	\caption{Nombre de lignes de code avec et sans les commentaires}
 	\label{locfinal2}
 \end{figure}
 \newpage
@@ -411,18 +450,18 @@ Quant aux statistiques (Figure~\ref{locfinal3}), on constate que les deux classe
 	\caption{Statistiques sur les lignes de codes}
 	\label{locfinal3}
 \end{figure}
-\textbf{\large{Métriques de complexité}}
+\subsubsection*{\textbf{\large{2) Métrique de complexité}}}
 
 Ces métriques sont utilisées pour mesurer la complexité d’une partie du logiciel. Elles sont souvent corrélées avec les métriques de taille parce qu’un très grand système a de grandes chances d’être également complexe.\\
 
-\textbf{Complexité}
+\textbf{a) Complexité}
 
 
-Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemins d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci. La complexité cyclomatique d'une méthode vaut au minimum 1, puisqu'il y a toujours au moins un chemin. Au niveau de l'interprétation, la complexité cyclomatique d'une méthode augmente proportionnellement au nombre de points de décision, ce qui signifie qu'une méthode avec une haute complexité est plus difficile à comprendre et à maintenir. En général, une complexité cyclomatique trop élevée (typiquement supérieure à 30) indique qu'il faut refactoriser la méthode. Par contre, si une méthode a une complexité inférieure à 30, elle peut être acceptable si elle est suffisamment testée. Cette métrique est liée à la métrique de couverture du code par les tests. En effet, une méthode devrait avoir un nombre de tests unitaires égal à sa complexité cyclomatique pour avoir un "code coverage" de $100\%$, ainsi chaque chemin de la méthode est testé.
+Cette métrique permet de calculer la complexité cyclomatique des différentes classes du projet. La complexité cyclomatique d'une fonction peut être définie comme le nombre de chemins d'exécutions possible dans cette fonction, ce qui est fortement influencé par la présence de boucles ou de conditions dans celle-ci. La complexité cyclomatique d'une méthode vaut au minimum 1, puisqu'il y a toujours au moins un chemin. Au niveau de l'interprétation, la complexité cyclomatique d'une méthode augmente proportionnellement au nombre de points de décision, ce qui signifie qu'une méthode avec une haute complexité est plus difficile à comprendre et à maintenir. En général, une complexité cyclomatique trop élevée indique qu'il faut refactoriser la méthode. Par contre, si une méthode a une complexité convenable (en dessous d'un certain seuil), elle peut être acceptable si elle est suffisamment testée. Cette métrique est liée à la métrique de couverture du code par les tests. En effet, une méthode devrait avoir un nombre de tests unitaires égal à sa complexité cyclomatique pour avoir un "code coverage" de $100\%$, ainsi chaque chemin de la méthode est testé.
 
 \textbf{Logiciel initial}
 
-Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles doivent donc être surveillées de près dans les analyses du logiciel final.
+Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évidence les classes et les méthodes possédant une complexité au-dessus d'un certain seuil (les classes ou méthodes en dessous du seuil ne sont pas représentées par souci de lisibilité). Cette analyse nous permet de mettre en évidence que certaines classes ou méthodes sont potentiellement complexes par rapport aux autres au sein du projet. Elles doivent donc être surveillées de près dans les analyses du logiciel final.
 
 
 \begin{figure}[!h]
@@ -442,7 +481,7 @@ Les figure~\ref{ComplexityMetrics1} et \ref{ComplexityMetrics2}  mettent en évi
 \newpage
 \textbf{Logiciel final}
 
-Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel. En observant ces valeurs, on peut en déduire que la complexité de ces méthodes reste acceptable car chaque méthode ajoutée lors des extensions a fait l'objet de tests unitaires.
+Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évidence ces métriques pour la version finale du logiciel. En observant ces valeurs, on peut en déduire que la complexité de ces méthodes reste acceptable car chaque méthode ajoutée lors des extensions a fait l'objet de tests unitaires. En observant ces résultats, on constate que très peu de méthodes, par rapport au nombre de méthodes qui ont été rajoutés avec les trois extensions, ont une complexité trop élevée. De plus, la plupart de ces méthodes interviennent dans la gestion de l'intelligence artificielle manipulant Pacman. Vu que ces méthodes utilisent beaucoup d'information et un grand nombre de possibilités différentes, il n'est pas étonnant que leur complexité soit plus élevée. Malgré tout, ces méthodes ont fait l'objet de tests unitaires permettant de valider leurs comportements.
 
 \begin{figure}[!h]
 	\centering
@@ -459,9 +498,10 @@ Les figure~\ref{ComplexityMetrics3} et \ref{ComplexityMetrics4}  mettent en évi
 	\label{ComplexityMetrics4}
 \end{figure}
 
+
 \newpage
 
-\textbf{\large{Métrique de couplage et de cohésion}}
+\subsubsection*{\textbf{\large{3) Métrique de couplage et de cohésion}}}
 
 
 
@@ -471,10 +511,10 @@ Les métriques de couplage décrivent les dépendances entre les composants du s
 Les métriques de cohésion décrivent le taux de connectivité au sein d’un composant du
 logiciel. Celle-ci mesure donc le taux d’utilisation des attributs d’une classe par les méthodes de cette même classe et mesure donc l’application des principes d’encapsulation des données. C’est un facteur important pour la portabilité, la fiabilité et donc pour la qualité globale du système. Une forte cohésion engendre un couplage faible, ce qui signifie que les deux métriques sont donc corrélées entre elles.\\
 
-\textbf{Couplage et cohésion}
+\textbf{a) Couplage et cohésion}
 
 
-L'analyse de couplage peut se faire via la métrique CBO (coupling between object classes) qui permet de mesurer le nombre d'autres classes couplées à une classe donnée. En effet, CBO représente le couplage en comptant le nombre de classes différentes rattachées à une classe précise autant en entrée qu'en sortie.
+L'analyse de couplage peut se faire via la métrique CBO (\textit{coupling between object classes}) qui permet de mesurer le nombre d'autres classes couplées à une classe donnée. En effet, CBO représente le couplage en comptant le nombre de classes différentes rattachées à une classe précise autant en entrée qu'en sortie.
 
 En ce qui concerne l'analyse de la cohésion des classes, la métrique LCOM (\textit{Lack of Cohesion in Methods}) peut être utilisée pour mesurer la cohésion entre les méthodes d'une classe. Cette métrique représente le manque de cohésion au sein d'une classe (une grande valeur pour cette métrique représente un manque de cohésion dans cette classe).
 
@@ -499,7 +539,7 @@ Et pour finir, on observe une valeur moyenne de $7.73$ pour la métrique WMC (\t
 
 Effectuons cette même analyse sur la version finale où les résultats sont reportés dans la figure~\ref{MetricsCohesion2}. On observe que la moyenne de la métrique CBO du projet est désormais de $10.63$ contre $8.78$ dans la version initiale. La valeur moyenne de la métrique LCOM du projet est maintenant de $1.83$ contre $1.58$ précédemment. La métrique DIT atteint la valeur moyenne de $1.98$ contre $2.02$. Pour terminer, la moyenne de la métrique WMC du projet est désormais de $10.14$ contre $7.73$ dans la version initiale.
 
-Mise à part la métrique DIT, on constate que les métriques de cohésion et de couplage ont légèrement augmenté par rapport à la version initiale.
+Mise à part la métrique DIT, on constate que les métriques de cohésion et de couplage ont légèrement augmenté par rapport à la version initiale. Ces résultats ne sont pas étonnant car avec l'ajout de trois extensions qui ont modifié considérablement le jeu initial, il est normal que les couplages et cohésions entre classes augmentent ne serait-ce que légèrement.
 
 \begin{figure}[!h]
 	\centering
@@ -509,7 +549,7 @@ Mise à part la métrique DIT, on constate que les métriques de cohésion et de
 \end{figure}
 
 \newpage
-\textbf{Dépendance}
+\textbf{b) Dépendance}
 
 
 Cette métrique permet de connaître les différentes dépendances entre classes. Ces dépendances doivent toujours être plus ou moins faibles afin de garder une bonne modularité du logiciel.
@@ -526,7 +566,7 @@ Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie 
 	\label{DependencyMetrics1}
 \end{figure}
 \newpage
- On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendant l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt normale. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
+ On peut également s’intéresser à la dépendance cyclique, une métrique qui met en évidence les classe dépendantes l'une de l'autre. Les différentes classes possédant une dépendance cyclique sont représentées dans la figure~\ref{DependencyCycle1}. En analysant le fonctionnement de ces différentes classes, on remarque que leur interdépendance est plutôt logique. Par exemple, il est normale que les classes du package "ghost" soient liées aux classes du package "sprite" car les fantômes sont représentés visuellement dans le jeu.
 
 
 
@@ -548,7 +588,7 @@ Par souci de lisibilité dans ce rapport, nous afficherons seulement une partie 
 	\centering
 	\includegraphics[scale=0.4]{Images/DependencyCycle5.png}
 	\includegraphics[scale=0.5]{Images/DependencyCycle6.png} 
-		\caption{Dépendance cyclique}
+		\caption{Dépendances cycliques}
  
 	\label{DependencyCycle1}
 \end{figure}
@@ -647,7 +687,8 @@ Si on analyse les dépendances cycliques entre les packages, on constate qu'elle
 
 
 \newpage
-La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix2} permet de mieux visualiser ces dépendances entre classes. On observe assez facilement que le nombre de dépendances cycliques a augmenté par rapport à la version initiale.
+
+La matrice de dépendance qui est représentée par la figure~\ref{DependencyMatrix2} permet de mieux visualiser ces dépendances entre classes. On observe assez facilement que le nombre de dépendances cycliques a augmenté par rapport à la version initiale. Encore une fois, ce résultat peut être expliqué par l'ajout de nombreuses modifications par rapport à cette version. En effet, la version initiale implémente un jeu très basique avec une seule fonctionnalité (un mode de jeu sur un niveau) tandis que la version finale implémente un jeu plus "élaboré" contenant plusieurs fonctionnalités (plusieurs modes de jeu et niveaux,...). Il est donc évident que cette amélioration a un impact direct sur les dépendances entre classes car les fonctionnalités ajoutées interagissent ensemble. On peut donc en conclure que ces résultats sont tout à fait convenables et cohérents si on prend en considération l'ampleur des modifications qui ont été effectuées.
 
 \begin{figure}[!h]
 	\centering
@@ -656,8 +697,13 @@ La matrice de dépendance qui est représentée par la figure~\ref{DependencyMat
 	\label{DependencyMatrix2}
 \end{figure} 
 
-Avant de terminer cette analyse au niveau des métriques, le logiciel \textit{SonarQube} (voir section 5 : analyse de l'évolution du logiciel) a été utilisé pour avoir les résultats d'un autre logiciel d'analyse de qualité du code. Nous pouvons ainsi encore une fois comparer les résultats obtenus (pour certaines métriques) pour la version finale avec le version initiale. Il est important de spécifier que les métriques utilisés par ce logiciel ne sont pas nécessairement les mêmes que celles utilisées précédemment, ce qui implique que les résultats ne sont pas les mêmes que lors des analyses précédentes.
+\subsubsection*{\textbf{\large{Analyse de SonarQube}}}
 
+Avant de terminer cette analyse au niveau des métriques, le logiciel \textit{SonarQube} a été utilisé pour avoir les résultats d'un autre logiciel d'analyse de qualité du code. \textit{SonarQube} est un outil tout-en-un, indépendant des IDEs, qui permet de calculer et monitorer la qualité logicielle, de voir l'évolution entre les versions du logiciel et aussi de comparer ces versions entre elles très facilement. C'est un outil open source qui a pour objectif de fournir une analyse complète de la qualité d'une application en fournissant de nombreuses statistiques (ou métriques) sur un projet. Ces données permettent d'évaluer la qualité du code, et d'en connaître l'évolution au cours du développement.
+
+
+Nous pouvons ainsi encore une fois comparer les résultats obtenus (pour certaines métriques) pour la version finale avec le version initiale. Il est important de spécifier que les métriques utilisés par ce logiciel ne sont pas nécessairement les mêmes que celles utilisées précédemment, ce qui implique que les résultats ne sont pas exactement les mêmes que lors des analyses précédentes.
+\newpage
 \textbf{Logiciel initial}
 
 Effectuons une analyse de certaines métriques sur la version initiale dont on a reporté les résultats dans les figures~\ref{sonarInitial1} à ~\ref{sonarInitial4}.
@@ -728,7 +774,7 @@ Effectuons, à présent, la même analyse avec la version finale dont on a repor
 
 \newpage
 
-Le logiciel \textit{SonarQube} peut également effectuer une comparaison globale des deux versions dont on a reporté les résultats dans la figure~\ref{sonarComparaison}.
+Le logiciel \textit{SonarQube} peut également effectuer une comparaison globale des deux versions dont on a reporté les résultats dans la figure~\ref{sonarComparaison}. Cette comparaison est très utile car elle permet de mettre en évidence la relation directe des résultats obtenus pour les métriques des deux versions.
 
 \begin{figure}[!h]
 	\centering
@@ -737,6 +783,8 @@ Le logiciel \textit{SonarQube} peut également effectuer une comparaison globale
 	\label{sonarComparaison}
 \end{figure} 
 
+On constate, assez facilement, que les résultats obtenus lors de cette analyse sont similaires aux résultats précédents.
+
 \newpage
 
 
@@ -744,7 +792,7 @@ Le logiciel \textit{SonarQube} peut également effectuer une comparaison globale
 
 
 \subsubsection{Code dupliqué}
-Puisque nous utilisons tous les 3 IntelliJ IDEA, l'outil intégré a été utilisé dans un premier temps. La figure \ref{duplicate} montre les résultats obtenus via cette analyse.
+Puisque nous utilisons tous les trois IntelliJ IDEA, l'outil intégré a été utilisé dans un premier temps. La figure \ref{duplicate} montre les résultats obtenus via cette analyse.
 On peut noter que les détections ayant un \og coût \fg \, inférieur à $\sim$20 ne sont pas réellement préoccupantes. Pour exemple, les lignes suivantes, extraites de \textit{SquareCoordinateTest}, sont considérées comme dupliquées par l'outil avec un score de 10 :
 
 \begin{java}
@@ -755,7 +803,7 @@ assertEquals(square.getSquareAt(Direction.EAST).getY(), 15);
 Il s'agit en effet de 2 lignes très similaires mais il ne nous a pas semblé intéressant de supprimer ce type de duplicat. 
 Les parties de code identifiées comme \og duplicats \fg \, et qui nous ont semblé nécessiter un refactoring en ont fait l'objet.
 
-Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concernait la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contenaient en effet toutes deux ce bloc de code :
+Dans un second temps, nous avons analysé le code via \textit{CPD} inclus dans \textit{PMD} et qui était utilisé dans la suite de rapports à générer par \textit{Maven}. Le seul dupliqué signalé par cet outil concernait la classe \textit{AStarPathTest} pour laquelle les méthodes \textit{hTest} et \textit{gTest} contenaient, en effet, toutes deux ce bloc de code :
 
 \begin{java}
 final AStarPath aStarPath = new AStarPath(game);
@@ -775,8 +823,9 @@ final Square destination3 = player.getSquare().getSquareAt(Direction.WEST);
 final Square destination4 = player.getSquare().getSquareAt(Direction.WEST).getSquareAt(Direction.WEST);
 \end{java}
 
+Ce problème de duplication de code a été résolu en regroupant le contenu des méthodes \textit{hTest} et \textit{gTest} au sein d'une unique méthode de test. En effet, ces deux méthodes ayant un comportement très proche l'un de l'autre, il est évident qu'on puisse les regrouper ensemble.
 
-Pour résoudre ce problème de duplication de code, nous avons combiné les deux méthodes de tests unitaires en une seule méthode. En effet, l'idée de ces deux méthodes de test étaient de tester deux fonctions appartenant à la classe \mbox{\textit{AStarPath}} (h() et g()) sur les mêmes objets. C'est pour cette raison, que pour lever cette erreur de duplication de code, il suffisait de créer une seule méthode de test contenant les appels aux deux méthodes à tester.%todo: reformuler
+
 \begin{figure}[h]
 	\centering
 	\includegraphics{Images/duplicate_analysis.JPG}
@@ -784,23 +833,32 @@ Pour résoudre ce problème de duplication de code, nous avons combiné les deux
 \end{figure}
 
 \subsubsection{Audit de code}
-\subsubsection*{CheckStyle}
+\subsubsection*{1) CheckStyle}
+
+\textit{CheckStyle} est un outil de contrôle de code permettant de vérifier le style d'un code source écrit en langage Java.
+
 Egalement intégré dans la suite d'analyses à effectuer via \textit{Maven}, \textit{CheckStyle} a été utilisé avec le \og ruleset \fg \, présent dans la version du code d'origine.
-Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cependant présents (plus de 500). Par ordre de nombre de \og violations \fg :
+Aucune erreur n'a été détectée mais de nombreux \og warnings \fg \, sont cependant présents (plus de 500). 
+
+
+La liste suivante présente ces warnings par ordre de nombre de \og violations \fg :\\
 \begin{itemize}
-	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ \, réglé. 
+	\item 148 violations de type \textit{JavadocStyle} : en réalité toutes des \og First sentence should end with a period. \fg $\rightarrow$ \, la totalité de ces warnings ont été réglés. 
 	\item 110 violations de type \textit{MagicNumber} $\rightarrow$ constantes extraites là où cela avait du sens, sauf pour les tests où un tel refactoring nous semblait inutile, nous avons donc supprimé les \og warnings \fg \, pour ceux-ci.
 	\item 104 violations de type \textit{LineLength} $\rightarrow$ retours à la ligne là où c'était nécessaire.
 	\item 63 violations de type \textit{NeedBraces} $\rightarrow$ bien que nous ne soyons pas tous d'accord sur la valeur ajoutée d'une telle convention, nous avons ajouté les crochets là où \textit{CheckStyle} le demandait.
 	\item 35 violations de type \textit{AvoidStarImport} $\rightarrow$ encore une fois désactivés car nous utilisons la fonction \og optimize imports \fg \, d'\textit{IntelliJ IDEA} qui regroupe parfois des imports en un unique via cette notation.
-	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ ajoutés.
-	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ \, modifiés.
+	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ Ces éléments ont été ajoutés.
+	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ \, Des modifications ont été effectuées.
 	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
 Comme mentionné ci-dessus, les problèmes de style ont été réglés et on a retrouve donc bien la situation du code d'origine : aucun avertissement pour de tels problèmes.
 
-\subsubsection*{IntelliJ Code inspection}
-\paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg} 
+\subsubsection*{2) IntelliJ Code inspection}
+
+C'est un outil d'analyse de code qui applique des inspections sur celui-ci. Il permet de détecter les erreurs de compilations mais aussi les différentes inefficacité présents dans le code.
+
+\paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg : } 
 Puisque la variable \textbf{QUICK\_WIN} est mise à \og true \fg \, ou \og false \fg \, dans le code et pas par un paramètre pouvant varier au runtime, la version compilée contient effectivement une (partie de ) condition qui n'a pas vraiment de sens (toujours vraie ou fausse).
 Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiquement \fg \, (par un paramètre optionnel au lancement du programme par exemple), nous n'avons pas jugé utile d'implémenter une telle fonctionnalité. En effet, il s'agit surtout d'une option de développement permettant de tester une suite de niveau, pas d'une \og feature \fg \, destinée aux utilisateurs (sa présence dans le code au stade de la release ayant pour but de faciliter le travail des \og évaluateurs \fg).
 \paragraph{Altérations mineures diverses}
@@ -821,17 +879,20 @@ Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiqu
 	\item Intellij a soulévé 3 erreurs dans la Javadoc, qui furent corrigées,
 	\item 6 \og asserts \fg{} étaient toujours vrais, ils ne le sont plus.
 \end{itemize}
-\paragraph{\og Warnings \fg \ sur des \og problèmes de modernité \fg}
+\paragraph{\og Warnings \fg \ sur des \og problèmes de modernité \fg : }
 Ces signalements, surtout liés au code dans sa version de base (avant nos changements individuels), se présentaient par exemple aux endroits où un \og for indexé \fg \, pouvait être remplacé par un \og foreach \fg \, ou bien lorsqu'une classe anonyme \og classique \fg \, pouvait disparaitre au profit d'une expression lambda. Les \og modernisations \fg \, ont donc été effectuées (pour la plupart grâce à des \og refactorings \fg \, automatiques d'\textit{IntelliJ IDEA}).
 
-\paragraph{Classe obsolète}
-La classe \mbox{\textit{DefaultPlayerInteraction}} était non usitée et, comme nous avons modifié les interactions lors de collisions, n' avait pas été mise à jour.
+\paragraph{Classe obsolète : }
+La classe \mbox{\textit{DefaultPlayerInteraction}} était non utilisée et, comme nous avons modifié les interactions lors de collisions, elle n'avait pas été mise à jour.
 Elle a donc été supprimée.
 
-\subsubsection*{PMD}
-\paragraph{\og Feature envy \fg \, potentiel lié à la récupération des cases \og safe \fg}
+\subsubsection*{3) PMD}
+
+\textit{PMD} est un framework qui permet d'analyser le code source Java. Il contient un certain nombre de règles qui assurent la qualité du code : le code inutile, les imbrications trop complexes,... Il permet d'obtenir les résultats par le biais d'un rapport.
+
+\paragraph{\og Feature envy \fg \, potentiel lié à la récupération des cases \og safe \fg : }
 Lorsque le joueur doit être téléporté vers une case à l'écart des fantômes, il est nécessaire de regarder le contenu du \textit{Board}. Il est donc logique que ce soit celui-ci qui se charge de récupérer la liste des cases \og safe \fg . De fait, pour éviter un problème potentiel de \og feature envy \fg , cette récupération a été déplacée de \textit{Level} vers \textit{Board}.
-\paragraph{Détection de \og God classes \fg}
+\paragraph{Détection de \og God classes \fg : }
 Signifie en principe que :
 \begin{enumerate}
 	\item la classe a une \og cohésion interne \fg faible
@@ -844,18 +905,18 @@ Les classes qui contiennent beaucoup de méthodes sont donc naturellement sujett
 Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous avons choisi de réagir pour éviter qu'une classe n'aie trop de méthodes. Les changements effectués ont effectivement permis de supprimer les avertissements en question tout en permettant probablement à notre code d'être plus \og maintenable \fg \, puisque les classes sont globalement moins volumineuses.
 
 La classe \mbox{\textit{Player}} regroupait l'implémentation de deux fonctionnalités séparées (score et labyrinthe) en plus des services de base, dès lors, il a été préféré de la diviser en plusieurs: le comportement lié à la fonctionnalité \og score \fg a été déplaçé dans la classe descendante \mbox{\textit{IdentifiedPlayer}} et les méthodes de vérification de contenu de fichiers ont été déplaçées vers \mbox{\textit{FileChecker}}.
-A ce jour, il ne reste plus de \og god class \fg() dans l'implémentation.
+A ce jour, il ne reste plus de \og god class \fg dans l'implémentation.
 
 
-\paragraph{Taille de code}
+\paragraph{Taille de code : }
 
-Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque possible.
+Deux classes (\mbox{\textit{Player}} et \mbox{\textit{Launcher}}) avaient trop de méthodes, donc certaines furent déplaçées ou intégrées à une méthode appelante lorsque c'était possible.
 
-La classe (\mbox{\textit{PacManhattanAI}} et \mbox{\textit{PacManhattanAI}}) et la méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg() afin de réduire celle-ci.
+La méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient une complexité cyclomatique trop élevée, elles ont donc été l'object de \og refactorings \fg afin de réduire celle-ci.
 
-\paragraph{Loi de Demeter}
+\paragraph{Loi de Demeter : }
 
-PMD détecte nombreuses violations de celle loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
+PMD détecte de nombreuses violations par rapport à cette loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
 Pour ce qui est des autres violations, le code existant force largement à les commettre.
 
 \paragraph{Avertissements mineurs}
@@ -873,17 +934,25 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 	\item L'initialisation superflue de \mbox{\textit{PlayerMoveTask\#finished}} a été ôtée.
 \end{itemize}
 
-\subsubsection*{FindBugs}
-Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg() utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
-les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg() et les concaténations de chaînes de caractères ont été remplaçées par des \og StringBuilder.append() \fg().%todo: une raison particulière pour les "()" partout ?
+\subsubsection*{4) FindBugs}
+
+\textit{FindBugs} est un logiciel libre d'analyse statique de bytecode Java. Il a pour objectif de trouver des bugs dans les programmes Java en identifiant des patterns reconnus comme étant des bugs.
+
+Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
+les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg et les concaténations de chaînes de caractères ont été remplacées par des \og StringBuilder.append() \fg.
 \subsection{Analyse dynamique}
 
-\subsection{Couverture du code}
+Nous allons maintenant exécuter le code et observer le comportement du logiciel dans ce cas. Nous allons également évaluer la portée des tests unitaires afin de vérifier que tout le code (ou une bonne partie) est couverte et donc testées.
+
+\subsubsection{Couverture du code}
+
+La couverture du code est importante pour connaître les portions de code inutiles, non testées, ou jamais appelées à l'exécution du logiciel.
+
 \paragraph{Couverture globale}
 
 Avant l'ajout de nos fonctionnalités, le pourcentage de code couvert par des tests était comme suit: 
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{Images/InitialCoverage}
 	\caption{\label{InitialCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA} sur le code initial}
@@ -892,61 +961,72 @@ Avant l'ajout de nos fonctionnalités, le pourcentage de code couvert par des te
 
 Actuellement, ces pourcentages ont évolué de la manière suivante:
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{Images/MergedCoverage}
 	\caption{\label{MergedCoverage} Rapport de couverture de code généré par \textit{IntelliJ IDEA} sur notre code}
 \end{figure}
 
-Comme on peut le voir (en zoomant quelque peu), la couverture globale a non seulement été maintenue dans l'ensemble, mais a augmenté légèrement à tous les niveaux.
+\newpage
+Comme on peut le voir, la couverture globale a non seulement été maintenue dans l'ensemble, mais a augmenté légèrement à tous les niveaux.
 
-\paragraph{Classes où la couverture de code a diminué significativement}
+\paragraph{Classes où la couverture de code a diminué significativement : }
 
 \begin{itemize}
 	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 6,7\% au niveau des méthodes et 27,2\% au niveau des lignes étant donné que certaines méthodes liées à la conversion d'images en fichiers de niveaux ne sont pas testées (la conversion en elle-même est testée mais les méthodes l'appelant non, car trop dépendantes des fichiers présents, qui peuvent varier).
-	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 6,7\% du fait qu' une clause \og catch \fg() ne soit évidemment pas testée.
+	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 6,7\% du fait qu' une clause \og catch \fg ne soit évidemment pas testée.
 \end{itemize}
 
 Dans le cas des classes préexistantes non mentionnées ci-haut, la couverture s'est soit maintenue, soit a été accrue, parfois fortement.
 
-\paragraph{Classes et packages ajoutés}
+\paragraph{Classes et packages ajoutés : }
 
 \begin{itemize}
-	\item La classe \mbox{\textit{MyJDialogStrategy}} a une couverture de 100\% au niveau des classes, 71,4\% au niveau des méthodes et 69;8\% au niveau des lignes. Les méthodes et lignes non testées dépendent d' une action du joueur.
+	\item La classe \mbox{\textit{MyJDialogStrategy}} a une couverture de 100\% au niveau des classes, 71,4\% au niveau des méthodes et 69;8\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'une action du joueur.
 	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 85,7\% au niveau des méthodes et 65,6\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
-	\item La classe \mbox{\textit{AILevel}} jouit d' une couverture de 66,7\% au niveau des classes, 61,5\% au niveau des méthodes et 64,4\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{AILevel}} jouit d' une couverture de 66,7\% au niveau des classes, 61,5\% au niveau des méthodes et 64,4\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'un jeu en exécution.
 	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91,7\% au niveau des méthodes et 72,7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
 	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92,9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
 	\item L' énumération \mbox{\textit{ItemsColor}} est entièrement couverte.
-	item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66,7\% au niveau des méthodes et 51,2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
-	\item Le package \mbox{\textit{Strategy}} est couvert pour 100\% au niveau des classes, 95,9\% au niveau des méthodes et 88,8\% au niveau des lignes. Les classes ci-dessous appartiennent à ce package.
+	\item La classe utilitaire \mbox{\textit{FileChecker}} dispose d'une couverture de code de 100\% au niveau des classes, 66,7\% au niveau des méthodes et 51,2\% au niveau des lignes. Le contenu non couvert correspond essentiellement à une méthode de lecture de fichier, en corrélation avec la nature de la classe.
+	\item Le package \mbox{\textit{Strategy}} est couvert pour 100\% au niveau des classes, 95,9\% au niveau des méthodes et 88,8\% au niveau des lignes.\\ 
+	
+Les classes ci-dessous appartiennent à ce package :\\ 
 	\item Les classes \mbox{\textit{AIStrategy}} et \mbox{\textit{HumanControllerStrategy}} sont entièrement couvertes.
-	%Note: ici, je suis tombé à court de façons différentes de dire "à une couverture de".
 	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96,4\% au niveau des lignes.
 	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,6\% au niveau des lignes.
 	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,9\% au niveau des lignes.
-	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92,9\% au niveau des méthodes et 81,7\% au niveau des lignes. %J'ignore comment justifier ou même caractériser le contenu non couvert.
+	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92,9\% au niveau des méthodes et 81,7\% au niveau des lignes. Les méthodes et lignes non testées dépendant de la classe \textit{AStar} qui n'a pas semblé utile de tester car c'est une classe template (voir section \ref{IA}).
 \end{itemize}
 
 
-\paragraph{Mesures prises pour améliorer la couverture de code}
+\paragraph{Mesures prises pour améliorer la couverture de code : }
 L'analyse de couverture du code a révélé trois problèmes.
 
-%Note: Latex indiqué que "réinstauré" est fautif: il n'en est rien.  Pour court-circuité, pê trouver un remplaçement.
-En premier lieu, nous avions \og court-circuité \fg() les tests de l' interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
+\begin{enumerate}
+\item En premier lieu, nous avions \og court-circuité \fg les tests de l'interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
 
-En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n' était pas testée, le testé a donc été rajouté.
+\item En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n'était pas testée, le test a donc été rajouté.
 
-Enfin, des tests furent rajoutés pour la classe \mbox{\textit{PacManhattanAI}}.
+\item Enfin, des tests furent rajoutés pour la classe \mbox{\textit{PacManhattanAI}}.
+\end{enumerate}
+
+
 
 \subsubsection{Profilage}
-Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.
+
+Le profilage permet de connaître les parties de codes qui peuvent être problématiques en terme de performances. Les méthodes mises en évidence peuvent être mal optimisée et donc ralentir le logiciel de manière importante.
+
+
+Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit} (version d'évaluation complète). \textit{Yourkit} est un profiler pour les applications écrites en Java créé par la société Yourkit LLC en 2003.  On tente ici de déterminer si des endroits du code monopolisent les ressources CPU/RAM et, le cas échéant, lesquels.\\
+
+
 On réalisera 2 scénarios :
 \begin{itemize}
 	\item Jeu en mode "IA" qu'on laisse tourner jusqu'à la mort définitive de Pac-man
 	\item Jeu en mode "Joueur" pour lequel on crée un compte, on s'y connecte et, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
 \end{itemize}
-\paragraph{Processeur et threads}
+\paragraph{Processeur et threads : }
 Pour les deux scénarios susmentionnés, l'analyse montre que la méthode \mbox{\textit{Navigation\#shortestPath(Square, Square, Unit)}} et en particulier l'appel à \mbox{\textit{HashSet.add(Object)}} prend l'écrasante majorité du temps CPU. La figure \ref{hotspot} montre le résultat de l'analyse \og Hot spots \fg \, de \textit{Yourkit} sur le scénario "Joueur" (les résultats sur l'autre scénario étant similaires).
 \begin{figure}[h]
 	\centering
@@ -962,7 +1042,7 @@ De manière générale, on peut voir l'évolution au cours du temps de l'utilisa
 	\includegraphics{Images/cpu-threads.JPG}
 	\caption{\label{cpu-threads} Evolution de l'utilisation CPU et du nombre de threads avec \textit{Yourkit}}
 \end{figure}
-\paragraph{Mémoire}
+\paragraph{Mémoire : }
 Pour les deux scénarios considérés, on constate que la mémoire utilisée reste assez constante, tout comme le nombre de passages du \og Garbage Collector \fg. La figure \ref{memory} rend compte des principaux résultats obtenus pour le scénario "IA".
 \begin{figure}[h]
 	\centering
@@ -974,18 +1054,9 @@ On ne constate donc toujours pas de problème pour cette partie ci de l'analyse.
 
 Il ne nous a pas semblé intéressant de \og profiler \fg \, la version de JPacman originelle puisque nous n'avons pas repéré de problèmes à ce stade ci alors que la version finale comprend une IA pour Pac-man, nécessitant donc naturellement plus de ressources (pour le moins en termes de CPU).
 
-\section{Analyse de l'évolution du logiciel}
-%todo: chronia? (see page 19 of https://moodle.umons.ac.be/mod/resource/view.php?id=3920)
-%todo: régression @ R ??? sur quoi ? LOC ou quoi pour vérifier les lois vues au cours ?
-%todo: check SonarQube or Codacy? (all in one + integrated regression apparently)
+\subsection{Interprétation de la qualité}
 
-Cette section fournit une analyse de l'évolution de la qualité du logiciel. Pour effectuer cette analyse, le logiciel \textit{SonarQube} a été utilisé. \textit{SonarQube} est un outil tout-en-un, indépendant des IDEs, qui permet de calculer et monitorer la qualité logicielle, de voir l'évolution entre les versions du logiciel et aussi de comparer ces versions entre elles très facilement. C'est un outil open source qui a pour objectif de fournir une analyse compète de la qualité d'une application en fournissant de nombreuses statistiques (ou métriques) sur un projet. Ces données permettent ainsi d'évaluer la qualité du code, et d'en connaître l'évolution au cours du développement.
-
-
-Dans cette section, cet outil est utilisé principalement pour effectuer l'analyse de l'évolution du logiciel après l'ajout de trois fonctionnalités supplémentaires par rapport à la version d'origine.
-
-
-
+Après avoir effectué cette analyse de qualité et la comparaison de celle-ci entre la version initiale et la version finale de JPacman, on peut en conclure que la qualité du code source après intégration (version finale) est tout à fait convenable par rapport aux modifications qui ont été effectuées sur le version initiale. En effet, que ce soit au niveau des métriques, du code dupliqué, de la couverture de code,... ou encore du profilage, on peut constater que les résultats obtenus lors des analyses sont tout à fait acceptables et sont parfois très semblables aux résultats de la version initiale grâce à d'importantes améliorations de la qualité qui ont été effectuées pour obtenir la version finale.
 
 
 \section{Notes diverses et guide d'utilisation}
@@ -1028,6 +1099,8 @@ En considérant que Maven est correctement installé sur votre machine et en pla
 Puisque le projet JPacman dans son état \og initial \fg \, (avant modifications de notre part) intégrait déjà le fichier de configuration Travis\footnote{\url{https://travis-ci.org/}}, nous l'avons utilisé sur nos différents \og forks \fg .
 
 Les historiques des \og builds \fg \, (avec leurs logs) de la version d'intégration et de la version individuelle d'Adrien Coppens sont disponibles à l'adresse : \url{https://travis-ci.org/qdrien/jpacman-framework/builds}.
+
+L' historique des \og builds \fg \, (avec leurs logs) de la version individuelle de Nicolas Leemans est disponible à l'adresse : \url{https://travis-ci.org/NicolasLeemans7/jpacman-framework/builds}.
 
 \subsection{Organisation des dépots Git(Hub)}
 Les versions correspondant à la phase individuelle sont disponibles aux adresses suivantes :
@@ -1081,10 +1154,7 @@ Ce projet nous a permis de mettre en pratique les différents concepts vu au cou
 
 JPacman était un projet relativement bien conçu à la base mais il y avait notamment des petits problèmes de qualité. Nous nous sommes rendus compte également qu'il fallait rester vigilant concernant les résultats fournis par des outils logiciels car ceux-ci peuvent parfois provoquer des problèmes, par exemple du code dupliqué qui ne l'est pas vraiment ou des avertissements que l'on peut considérer comme sans gravité. De plus, les tests unitaires ont permis de gérer les évolutions et les erreurs commises en gardant un contrôle tout au long du processus de développement en effectuant des tests de régression et de validation.
 
+En ce qui concerne la version finale du logiciel, celle-ci a une qualité globalement satisfaisante selon les critères analysées. En effet, par rapport aux modifications qui ont été effectuées lors des extensions, nous sommes parvenus à conserver une complexité plutôt correcte par rapport à la difficulté des fonctions ajoutées telle que l'IA. Ce projet nous a montré que l'ajout de fonctionnalité supplémentaires rend particulièrement difficile la conservation d'une complexité raisonnable si l'on ne tient pas compte des critères d'évaluations de qualité.
 
 
-
-
-%\bibliographystyle{plain}
-%\bibliography{bibliographie}
 \end{document}
