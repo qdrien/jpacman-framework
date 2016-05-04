@@ -120,7 +120,7 @@ La première partie de ce projet consistait à étendre la version initiale de J
 
 Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \begin{itemize}
-\item L'implémentation d'un score (réalisée par Damien Legay)
+\item L'implémentation de fonctionnalités liées au score (réalisée par Damien Legay)
 \item L'implémentation d'une série de labyrinthes (réalisée par Adrien Coppens)
 \item L'implémentation d'une intelligence artificielle pour pacman (réalisée par Nicolas Leemans)
 \end{itemize}
@@ -129,13 +129,13 @@ Chaque membre du groupe a donc implémenté une des fonctionnalités suivantes :
 \subsection{Fonctionnalité "Score"}\label{score}
 Cette fonctionnalité requiert l'implémentation de deux sous-fonctionnalités:
 
-La première fonctionnalité (Hall of Fame) consiste à maintenir une liste de hauts scores. Si un joueur dépasse l'un des dix meilleurs scores, son nom doit être inséré dans le Hall of Fame.
+La première sous-fonctionnalité (Hall of Fame) consiste à maintenir une liste de hauts scores. Si un joueur dépasse l'un des dix meilleurs scores, son nom doit être inséré dans le Hall of Fame.
 Ceci peut être réalisé de deux manières différentes: si le joueur est identifié, son nom de joueur sera automatiquement entré, si ce n'est pas le cas, il lui sera demandé de fournir un nom à la fin de la partie.
 Le score du joueur est affecté par le nombre de gommes, fantômes et fruits consommés par Pacman, ainsi que par les hauts faits réalisés (voir ci-bas).
 
 Lorsque la partie est terminée, le Hall of Fame est affiché et le joueur a l'option de le réinitialiser à ses valeurs par défaut. Pour éviter que celle-ci ne se fasse par mégarde, une confirmation est demandée.
 
-La deuxième fonctionnalité (Achievements) implique d'implémenter un système de gestion de hauts faits. 
+La deuxième spifonctionnalité (Achievements) implique d'implémenter un système de gestion de hauts faits. 
 Pour ce faire, un système de profils doit être mis en place, permettant au joueur la possibilité de s'identifier et ainsi réaliser des hauts faits qui sont mémorisés.
 Ces hauts faits peuvent être accomplis sur plusieurs parties indépendantes.
 Le joueur doit avoir la possibilité de visualiser les hauts faits qu'il a accompli avant de commencer à jouer, à la suite de quoi le jeu proposera de nouveaux haut faits à réaliser, au maximum de trois.
@@ -147,8 +147,8 @@ Ces valeurs sont localisées dans les classes \mbox{\textit{LevelFactory}} (gomm
 Ensuite, un système de Hall of Fame a été mis en place à l'aide de la classe \mbox{\textit{HallOfFame}} qui offre les services suivants:
 
 \begin{enumerate}
-\item La méthode \mbox{\textit{HallOfFame\#handleHoF()}} se charge de mettre à jour le Hall of Fame si nécessaire, c'est à dire si le score du joueur excède l'un des scores sauvegardés dans le fichier \mbox{\textit{resources\\HoF.txt}}, et de l'afficher qu'il ait été mis à jour ou non.
-\item La méthode \mbox{\textit{HallOfFame\#resetHoF()}}, quant à elle, a pour rôle de réinitialiser le Hall of Fame aux valeurs par défaut telles que définies dans le fichier \mbox{\textit{resources\\DefaultHoF.txt}}.
+\item La méthode \mbox{\textit{HallOfFame\#handleHoF()}} se charge de mettre à jour le Hall of Fame si nécessaire, c'est à dire si le score du joueur excède l'un des scores sauvegardés dans le fichier \mbox{\textit{resources\textbackslash HoF.txt}}, et de l'afficher qu'il ait été mis à jour ou non.
+\item La méthode \mbox{\textit{HallOfFame\#resetHoF()}}, quant à elle, a pour rôle de réinitialiser le Hall of Fame aux valeurs par défaut telles que définies dans le fichier \mbox{\textit{resources\textbackslash DefaultHoF.txt}}.
 \end{enumerate}
 
 \begin{figure}[h]
@@ -299,7 +299,7 @@ La liste non exhaustive suivante présente les principaux conflits qui ont été
 \item ...
 \end{itemize}
 
-Avant de présenter les solutions apportées aux différents problèmes de conflits rencontrés, il faut savoir que la plupart des conflits ont été résolus par \textit{Kdiff3}\footnote{http://kdiff3.sourceforge.net/} qui est un analyseur graphique de différence des textes. Ce logiciel permet d'identifier les différences au sein des textes, ou parmi les fichiers et  nous informe lorsqu'il y a eu des modifications.
+Avant de présenter les solutions apportées aux différents problèmes de conflits rencontrés, il faut savoir que la plupart des conflits ont été résolus par l'outil de merge \textit{Kdiff3}\footnote{http://kdiff3.sourceforge.net/}. Ce logiciel permet de fusionner automatiquement de nombreuses différences entre diverses versions d'un code source qui posent conflits lorsque merge avec git, ainsi que de manuellement résoudre les conflits non gérés automatiquement.
 
 La liste non exhaustive suivante présente les principales solutions qui ont été apportées :\\
 \begin{itemize}
@@ -849,7 +849,7 @@ La liste suivante présente ces warnings par ordre de nombre de \og violations \
 	\item 63 violations de type \textit{NeedBraces} $\rightarrow$ bien que nous ne soyons pas tous d'accord sur la valeur ajoutée d'une telle convention, nous avons ajouté les crochets là où \textit{CheckStyle} le demandait.
 	\item 35 violations de type \textit{AvoidStarImport} $\rightarrow$ encore une fois désactivés car nous utilisons la fonction \og optimize imports \fg \, d'\textit{IntelliJ IDEA} qui regroupe parfois des imports en un unique via cette notation.
 	\item Des violations relatives à des éléments de javadoc manquants $\rightarrow$ Ces éléments ont été ajoutés.
-	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu' à la \og mode Java \fg $\rightarrow$ \, Des modifications ont été effectuées.
+	\item Des violations relatives à des tableaux déclarés à la \og mode C \fg \, plutôt qu'à la \og mode Java \fg $\rightarrow$ \, Des modifications ont été effectuées.
 	\item D'autres violations plus \og isolées \fg \, non reprises ici.
 \end{itemize}
 Comme mentionné ci-dessus, les problèmes de style ont été réglés et on a retrouve donc bien la situation du code d'origine : aucun avertissement pour de tels problèmes.
@@ -861,7 +861,7 @@ C'est un outil d'analyse de code qui applique des inspections sur celui-ci. Il p
 \paragraph{Détection d'une partie de condition impliquant QUICK\_WIN comme \og pointless \fg : } 
 Puisque la variable \textbf{QUICK\_WIN} est mise à \og true \fg \, ou \og false \fg \, dans le code et pas par un paramètre pouvant varier au runtime, la version compilée contient effectivement une (partie de ) condition qui n'a pas vraiment de sens (toujours vraie ou fausse).
 Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiquement \fg \, (par un paramètre optionnel au lancement du programme par exemple), nous n'avons pas jugé utile d'implémenter une telle fonctionnalité. En effet, il s'agit surtout d'une option de développement permettant de tester une suite de niveau, pas d'une \og feature \fg \, destinée aux utilisateurs (sa présence dans le code au stade de la release ayant pour but de faciliter le travail des \og évaluateurs \fg).
-\paragraph{Altérations mineures diverses}
+\paragraph{Altérations mineures diverses : }
 
 \begin{itemize}
 	\item La variable de classe \og Level \fg{} dans \mbox{\textit{SinglePlayerTest}} fut convertie en variable locale,
@@ -877,7 +877,7 @@ Néanmoins, bien qu'il eut été possible de faire varier sa valeur \og dynamiqu
 	\item 3 déclarations de type explicites furent remplaçés par \og <> \fg{} dans le contexte de listes,
 	\item 2 boucles de type \og for each \fg{} furent remplaçées par des flux,
 	\item Intellij a soulévé 3 erreurs dans la Javadoc, qui furent corrigées,
-	\item 6 \og asserts \fg{} étaient toujours vrais, ils ne le sont plus.
+	\item 6 \og asserts \fg{} étaient toujours vrais, ils testent maintenant correctement les fonctionnalités qui leur sont assignées.
 \end{itemize}
 \paragraph{\og Warnings \fg \ sur des \og problèmes de modernité \fg : }
 Ces signalements, surtout liés au code dans sa version de base (avant nos changements individuels), se présentaient par exemple aux endroits où un \og for indexé \fg \, pouvait être remplacé par un \og foreach \fg \, ou bien lorsqu'une classe anonyme \og classique \fg \, pouvait disparaitre au profit d'une expression lambda. Les \og modernisations \fg \, ont donc été effectuées (pour la plupart grâce à des \og refactorings \fg \, automatiques d'\textit{IntelliJ IDEA}).
@@ -895,7 +895,7 @@ Lorsque le joueur doit être téléporté vers une case à l'écart des fantôme
 \paragraph{Détection de \og God classes \fg : }
 Signifie en principe que :
 \begin{enumerate}
-	\item la classe a une \og cohésion interne \fg faible
+	\item la classe a une \og cohésion interne \fg \space faible
 	\item la classe accède à des attributs appartenant à trop de classes étrangères
 	\item la classe est trop complexe par rapport à sa taille
 \end{enumerate}
@@ -904,8 +904,8 @@ Les classes qui contiennent beaucoup de méthodes sont donc naturellement sujett
 
 Bien que, comme expliqué ci-dessus, la détection ne soit pas parfaite, nous avons choisi de réagir pour éviter qu'une classe n'aie trop de méthodes. Les changements effectués ont effectivement permis de supprimer les avertissements en question tout en permettant probablement à notre code d'être plus \og maintenable \fg \, puisque les classes sont globalement moins volumineuses.
 
-La classe \mbox{\textit{Player}} regroupait l'implémentation de deux fonctionnalités séparées (score et labyrinthe) en plus des services de base, dès lors, il a été préféré de la diviser en plusieurs: le comportement lié à la fonctionnalité \og score \fg a été déplaçé dans la classe descendante \mbox{\textit{IdentifiedPlayer}} et les méthodes de vérification de contenu de fichiers ont été déplaçées vers \mbox{\textit{FileChecker}}.
-A ce jour, il ne reste plus de \og god class \fg dans l'implémentation.
+La classe \mbox{\textit{Player}} regroupait l'implémentation de deux fonctionnalités séparées (score et labyrinthe) en plus des services de base, dès lors, il a été préféré de la diviser en plusieurs: le comportement lié à la fonctionnalité \og score \fg \space a été déplaçé dans la classe descendante \mbox{\textit{IdentifiedPlayer}} et les méthodes de vérification de contenu de fichiers ont été déplaçées vers \mbox{\textit{FileChecker}}.
+A ce jour, il ne reste plus de \og god class \fg \space dans l'implémentation.
 
 
 \paragraph{Taille de code : }
@@ -919,7 +919,7 @@ La méthode \mbox{\textit{PacManhattanAI\#BFSNearestPelletSquare()}}) avaient un
 PMD détecte de nombreuses violations par rapport à cette loi, mais beaucoup d'entre elles viennent du code originel et la vaste majorité relèvent d'appels à des librairies standard Java, il nous a donc paru que la détection de PMD était inadéquate à ce niveau.
 Pour ce qui est des autres violations, le code existant force largement à les commettre.
 
-\paragraph{Avertissements mineurs}
+\paragraph{Avertissements mineurs : }
 
 \begin{itemize}
 	\item Deux \og if \fg{} imbriqués dans \mbox{\textit{PlayerMoveTask\#run()}} furent intégrés en un seul,
@@ -939,7 +939,7 @@ Pour ce qui est des autres violations, le code existant force largement à les c
 \textit{FindBugs} est un logiciel libre d'analyse statique de bytecode Java. Il a pour objectif de trouver des bugs dans les programmes Java en identifiant des patterns reconnus comme étant des bugs.
 
 Cet outil a détecté que plusieurs opérations d' écriture et lecture de fichiers ne spécifiaient pas le \og charset \fg utilisé et que certaines opérations de concaténation de chaînes de caractères étaient effectuées dans des boucles.
-les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg et les concaténations de chaînes de caractères ont été remplacées par des \og StringBuilder.append() \fg.
+les opérations de lecture et d' écriture de fichier spécifient maintenant le \og charset \fg \space et les concaténations de chaînes de caractères ont été remplacées par des \og StringBuilder.append() \fg.
 \subsection{Analyse dynamique}
 
 Nous allons maintenant exécuter le code et observer le comportement du logiciel dans ce cas. Nous allons également évaluer la portée des tests unitaires afin de vérifier que tout le code (ou une bonne partie) est couverte et donc testées.
@@ -974,7 +974,7 @@ Comme on peut le voir, la couverture globale a non seulement été maintenue dan
 
 \begin{itemize}
 	\item La classe \mbox{\textit{BoardFactory}} a vu sa couverture diminuer de 6,7\% au niveau des méthodes et 27,2\% au niveau des lignes étant donné que certaines méthodes liées à la conversion d'images en fichiers de niveaux ne sont pas testées (la conversion en elle-même est testée mais les méthodes l'appelant non, car trop dépendantes des fichiers présents, qui peuvent varier).
-	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 6,7\% du fait qu' une clause \og catch \fg ne soit évidemment pas testée.
+	\item La classe \mbox{\textit{PlayerCollisions}} a subi une légère baisse de sa couverture de lignes de 6,7\% du fait qu'une clause \og catch \fg \space ne soit évidemment pas testée.
 \end{itemize}
 
 Dans le cas des classes préexistantes non mentionnées ci-haut, la couverture s'est soit maintenue, soit a été accrue, parfois fortement.
@@ -982,9 +982,9 @@ Dans le cas des classes préexistantes non mentionnées ci-haut, la couverture s
 \paragraph{Classes et packages ajoutés : }
 
 \begin{itemize}
-	\item La classe \mbox{\textit{MyJDialogStrategy}} a une couverture de 100\% au niveau des classes, 71,4\% au niveau des méthodes et 69;8\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'une action du joueur.
+	\item La classe \mbox{\textit{MyJDialogStrategy}} a une couverture de 100\% au niveau des classes, 71,4\% au niveau des méthodes et 69,8\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'une action du joueur.
 	\item La classe \mbox{\textit{IdentifiedPlayer}} est couverte à hauteur de 100\% au niveau des classes, 85,7\% au niveau des méthodes et 65,6\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques.
-	\item La classe \mbox{\textit{AILevel}} jouit d' une couverture de 66,7\% au niveau des classes, 61,5\% au niveau des méthodes et 64,4\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'un jeu en exécution.
+	\item La classe \mbox{\textit{AILevel}} jouit d'une couverture de 66,7\% au niveau des classes, 61,5\% au niveau des méthodes et 64,4\% au niveau des lignes. Les méthodes et lignes non testées dépendent d'un jeu en exécution.
 	\item La classe \mbox{\textit{HallOfFame}} bénéficie d'une couverture de 100\% au niveau des classes, 91,7\% au niveau des méthodes et 72,7\% au niveau des lignes. Les méthodes et lignes non testées sont liées à des affichages graphiques et gestions d' exceptions.
 	\item L' énumération \mbox{\textit{Achievement}} se voit testée pour 100\% au niveau des classes, 100\% au niveau des méthodes et 92,9\% au niveau des lignes. Les lignes non testées correspondent à une gestion d' exceptions.
 	\item L' énumération \mbox{\textit{ItemsColor}} est entièrement couverte.
@@ -996,7 +996,7 @@ Les classes ci-dessous appartiennent à ce package :\\
 	\item La classe \mbox{\textit{AStar}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 96,4\% au niveau des lignes.
 	\item La classe \mbox{\textit{AStarPath}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,6\% au niveau des lignes.
 	\item La classe \mbox{\textit{PacmanStrategy}} a une couverture de 100\% au niveau des classes, 100\% au niveau des méthodes et 90,9\% au niveau des lignes.
-	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92,9\% au niveau des méthodes et 81,7\% au niveau des lignes. Les méthodes et lignes non testées dépendant de la classe \textit{AStar} qui n'a pas semblé utile de tester car c'est une classe template (voir section \ref{IA}).
+	\item La classe \mbox{\textit{PacManhattanAI}} a une couverture de 100\% au niveau des classes, 92,9\% au niveau des méthodes et 81,7\% au niveau des lignes. Les méthodes et lignes non testées dépendent de la classe \textit{AStar} qui n'a pas semblé utile de tester car c'est une classe template (voir section \ref{IA}).
 \end{itemize}
 
 
@@ -1004,7 +1004,7 @@ Les classes ci-dessous appartiennent à ce package :\\
 L'analyse de couverture du code a révélé trois problèmes.
 
 \begin{enumerate}
-\item En premier lieu, nous avions \og court-circuité \fg les tests de l'interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
+\item En premier lieu, nous avions \og court-circuité \fg \space les tests de l'interface graphique du jeu en lui-même, ceux-ci ont donc été réinstaurés.
 
 \item En deuxième lieu, une méthode (\mbox{\textit{Achievement\#offerAchievements()}}) ajoutée tardivement n'était pas testée, le test a donc été rajouté.
 
@@ -1024,14 +1024,14 @@ Pour cette partie de l'analyse dynamique, il sera fait usage de \textit{Yourkit}
 On réalisera 2 scénarios :
 \begin{itemize}
 	\item Jeu en mode "IA" qu'on laisse tourner jusqu'à la mort définitive de Pac-man
-	\item Jeu en mode "Joueur" pour lequel on crée un compte, on s'y connecte et, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
+	\item Jeu en mode "Joueur" pour lequel on crée un compte, auquel on est connecté automatiquement, lorsque Pac-man perd sa dernière vie, on recommence une fois la partie en chargeant le niveau 1
 \end{itemize}
 \paragraph{Processeur et threads : }
 Pour les deux scénarios susmentionnés, l'analyse montre que la méthode \mbox{\textit{Navigation\#shortestPath(Square, Square, Unit)}} et en particulier l'appel à \mbox{\textit{HashSet.add(Object)}} prend l'écrasante majorité du temps CPU. La figure \ref{hotspot} montre le résultat de l'analyse \og Hot spots \fg \, de \textit{Yourkit} sur le scénario "Joueur" (les résultats sur l'autre scénario étant similaires).
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=16cm]{Images/hotspot.JPG}
-	\caption{\label{hotspot} Recherche d' \og Hot spots \fg \, CPU avec \textit{Yourkit}}
+	\caption{\label{hotspot} Recherche d'\og Hot spots \fg \, CPU avec \textit{Yourkit}}
 \end{figure}
 
 On constate donc que l'intelligence artificielle des fantômes (qui était présente dans la version originale du jeu) est gourmande en ressources par rapport au reste du programme, il serait donc intéressant de s'assurer que son comportement est optimisé. Cependant, il nous semble l'être et il n'est pas étonnant que le comportement d'intelligences artificielles prenne du temps CPU. On note également que des méthodes liées à l'affichage et à la gestion des entrées/sorties sont détectées comme \og Hot spots \fg \, bien que leur impact soit négligeable en comparaison.
