@@ -107,7 +107,6 @@
 	
 
 \section{Introduction}
-%todo: uniformiser : \textit{Class#Method} ? (==javadoc) + préciser convention au début du rapport
 Ce projet, effectué dans le cadre du cours de "Software Evolution" dispensé par le Professeur Tom Mens durant l'année académique 2015-2016, a pour but de mettre en pratique les concepts d'évolution logicielle vus au cours théorique. Il consiste à analyser et à étendre un projet en effectuant un contrôle de la qualité au travers de différentes métriques, le \textit{"refactoring"} du code source, ainsi que l'implémentation de nouvelles fonctionnalités. Le projet concerné s'appelle JPacman\footnote{https://github.com/SERG-Delft/jpacman-framework}. Il s'agit d'une implémentation très basique du jeu Pacman en Java, créé par l'équipe  du Professeur Arie van Deursen, à Delft University of Technology (Pays-Bas).
  JPacman contient plusieurs simplifications par rapport au jeu Pac-Man original. Le jeu consiste à déplacer Pac-Man, un personnage qui, vu de profil, ressemble à un diagramme circulaire à l’intérieur d’un labyrinthe, afin de lui faire manger toutes les pac-gommes qui s’y trouvent en évitant d’être touché par des fantômes.
  
@@ -319,7 +318,7 @@ Cette section présente les \textit{refactorings} qui ont été effectués avant
 planifiées avant la fusion des versions individuelles mais n'ont pas été réalisées dans l'immédiat pour limiter le nombre de conflits avec les autres versions lors de l'intégration des \og pull requests \fg .
 
 \paragraph{Déplacement de la variable retenant le niveau courant de \textit{Level} vers \textit{Game} : }
-Ce placement semble plus logique et évite un problème de \og feature envy \fg de méthodes de \mbox{\textit{Game}} y accédant.
+Ce placement semble plus logique et évite un problème de \og feature envy \fg \, de méthodes de \mbox{\textit{Game}} y accédant.
 \paragraph{Déplacement des méthodes concernant le \og map parser \fg \, de \textit{Launcher} vers \textit{Game} : }
 Cette nouvelle organisation semble plus logique et évite que \mbox{\textit{Game}} ne doive avoir une référence vers le \mbox{\textit{Launcher}} qui l’a créé (pour pouvoir charger le niveau suivant en cas de victoire).
 Cela a cependant nécessité de passer des méthodes/variables en \og static \fg \, : une partie des \og accesseurs \fg \, aux \og Factories \fg \, de \mbox{\textit{Launcher}}, puisque \mbox{\textit{MapParser}} en a besoin. Cette modification reste malgré tout logique puisque ces méthodes/variables sont en effet uniques au runtime.
@@ -1148,11 +1147,7 @@ Les versions correspondant à la phase individuelle sont disponibles aux adresse
 	(sur la branche \nolinkurl{Master})
 \end{itemize}
 
-Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la release finale étant taggée \nolinkurl{}. %todo
-
-%todo: build la javadoc et l'ajouter au repo!!!
-%todo: optimize imports/reformat code!!!
-%todo: + tagger la release finale
+Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la release finale étant taggée \nolinkurl{merged-final-v7.1.0}.
 
 
 \subsection{Spécificités des ajouts individuels}
@@ -1160,7 +1155,7 @@ Le dépot commun pour la phase d'intégration est celui d'Adrien Coppens, la rel
 \begin{itemize}
 	\item Afin de pouvoir tester différents niveaux plus aisément, un booléen \mbox{\textbf{QUICK\_WIN}} est configurable dans la classe \mbox{\textit{Level}}.
 	Si on lui affecte la valeur \textit{true}, récupérer treize gommes est suffisant pour réussir un niveau (et passer au suivant).
-	\item Les fichiers correspondants aux niveaux disponibles en jeu se trouvent dans le répertoire \nolinkurl{target/classes} à condition d'avoir au moins \og compilé \fg la solution via la commande :
+	\item Les fichiers correspondants aux niveaux disponibles en jeu se trouvent dans le répertoire \nolinkurl{target/classes} à condition d'avoir au moins \og compilé \fg \, la solution via la commande :
 	\begin{lstlisting}[language=bash]
 	$ mvn compile
 	\end{lstlisting}
